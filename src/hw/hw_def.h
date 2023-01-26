@@ -17,6 +17,7 @@
 
 #define _USE_HW_USB
 #define _USE_HW_I2C
+#define _USE_HW_SPI
 #define _USE_HW_TIMER
 
 

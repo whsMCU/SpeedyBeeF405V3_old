@@ -150,541 +150,1357 @@ SpeedyBeeF405V3.elf/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/build
 .PHONY : SpeedyBeeF405V3.elf/fast
 
-src/Core/Src/gpio.obj: src/Core/Src/gpio.c.obj
-.PHONY : src/Core/Src/gpio.obj
+src/ap/ap.obj: src/ap/ap.c.obj
+.PHONY : src/ap/ap.obj
 
 # target to build an object file
-src/Core/Src/gpio.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Core/Src/gpio.c.obj
-.PHONY : src/Core/Src/gpio.c.obj
+src/ap/ap.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/ap/ap.c.obj
+.PHONY : src/ap/ap.c.obj
 
-src/Core/Src/gpio.i: src/Core/Src/gpio.c.i
-.PHONY : src/Core/Src/gpio.i
+src/ap/ap.i: src/ap/ap.c.i
+.PHONY : src/ap/ap.i
 
 # target to preprocess a source file
-src/Core/Src/gpio.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Core/Src/gpio.c.i
-.PHONY : src/Core/Src/gpio.c.i
+src/ap/ap.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/ap/ap.c.i
+.PHONY : src/ap/ap.c.i
 
-src/Core/Src/gpio.s: src/Core/Src/gpio.c.s
-.PHONY : src/Core/Src/gpio.s
+src/ap/ap.s: src/ap/ap.c.s
+.PHONY : src/ap/ap.s
 
 # target to generate assembly for a file
-src/Core/Src/gpio.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Core/Src/gpio.c.s
-.PHONY : src/Core/Src/gpio.c.s
+src/ap/ap.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/ap/ap.c.s
+.PHONY : src/ap/ap.c.s
 
-src/Core/Src/main.obj: src/Core/Src/main.c.obj
-.PHONY : src/Core/Src/main.obj
+src/bsp/bsp.obj: src/bsp/bsp.c.obj
+.PHONY : src/bsp/bsp.obj
 
 # target to build an object file
-src/Core/Src/main.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Core/Src/main.c.obj
-.PHONY : src/Core/Src/main.c.obj
+src/bsp/bsp.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/bsp/bsp.c.obj
+.PHONY : src/bsp/bsp.c.obj
 
-src/Core/Src/main.i: src/Core/Src/main.c.i
-.PHONY : src/Core/Src/main.i
+src/bsp/bsp.i: src/bsp/bsp.c.i
+.PHONY : src/bsp/bsp.i
 
 # target to preprocess a source file
-src/Core/Src/main.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Core/Src/main.c.i
-.PHONY : src/Core/Src/main.c.i
+src/bsp/bsp.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/bsp/bsp.c.i
+.PHONY : src/bsp/bsp.c.i
 
-src/Core/Src/main.s: src/Core/Src/main.c.s
-.PHONY : src/Core/Src/main.s
+src/bsp/bsp.s: src/bsp/bsp.c.s
+.PHONY : src/bsp/bsp.s
 
 # target to generate assembly for a file
-src/Core/Src/main.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Core/Src/main.c.s
-.PHONY : src/Core/Src/main.c.s
+src/bsp/bsp.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/bsp/bsp.c.s
+.PHONY : src/bsp/bsp.c.s
 
-src/Core/Src/stm32f4xx_hal_msp.obj: src/Core/Src/stm32f4xx_hal_msp.c.obj
-.PHONY : src/Core/Src/stm32f4xx_hal_msp.obj
+src/bsp/startup/startup_stm32f405rgtx.obj: src/bsp/startup/startup_stm32f405rgtx.s.obj
+.PHONY : src/bsp/startup/startup_stm32f405rgtx.obj
 
 # target to build an object file
-src/Core/Src/stm32f4xx_hal_msp.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Core/Src/stm32f4xx_hal_msp.c.obj
-.PHONY : src/Core/Src/stm32f4xx_hal_msp.c.obj
+src/bsp/startup/startup_stm32f405rgtx.s.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/bsp/startup/startup_stm32f405rgtx.s.obj
+.PHONY : src/bsp/startup/startup_stm32f405rgtx.s.obj
 
-src/Core/Src/stm32f4xx_hal_msp.i: src/Core/Src/stm32f4xx_hal_msp.c.i
-.PHONY : src/Core/Src/stm32f4xx_hal_msp.i
+src/bsp/stm32f4xx_hal_msp.obj: src/bsp/stm32f4xx_hal_msp.c.obj
+.PHONY : src/bsp/stm32f4xx_hal_msp.obj
+
+# target to build an object file
+src/bsp/stm32f4xx_hal_msp.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/bsp/stm32f4xx_hal_msp.c.obj
+.PHONY : src/bsp/stm32f4xx_hal_msp.c.obj
+
+src/bsp/stm32f4xx_hal_msp.i: src/bsp/stm32f4xx_hal_msp.c.i
+.PHONY : src/bsp/stm32f4xx_hal_msp.i
 
 # target to preprocess a source file
-src/Core/Src/stm32f4xx_hal_msp.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Core/Src/stm32f4xx_hal_msp.c.i
-.PHONY : src/Core/Src/stm32f4xx_hal_msp.c.i
+src/bsp/stm32f4xx_hal_msp.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/bsp/stm32f4xx_hal_msp.c.i
+.PHONY : src/bsp/stm32f4xx_hal_msp.c.i
 
-src/Core/Src/stm32f4xx_hal_msp.s: src/Core/Src/stm32f4xx_hal_msp.c.s
-.PHONY : src/Core/Src/stm32f4xx_hal_msp.s
+src/bsp/stm32f4xx_hal_msp.s: src/bsp/stm32f4xx_hal_msp.c.s
+.PHONY : src/bsp/stm32f4xx_hal_msp.s
 
 # target to generate assembly for a file
-src/Core/Src/stm32f4xx_hal_msp.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Core/Src/stm32f4xx_hal_msp.c.s
-.PHONY : src/Core/Src/stm32f4xx_hal_msp.c.s
+src/bsp/stm32f4xx_hal_msp.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/bsp/stm32f4xx_hal_msp.c.s
+.PHONY : src/bsp/stm32f4xx_hal_msp.c.s
 
-src/Core/Src/stm32f4xx_it.obj: src/Core/Src/stm32f4xx_it.c.obj
-.PHONY : src/Core/Src/stm32f4xx_it.obj
+src/bsp/stm32f4xx_it.obj: src/bsp/stm32f4xx_it.c.obj
+.PHONY : src/bsp/stm32f4xx_it.obj
 
 # target to build an object file
-src/Core/Src/stm32f4xx_it.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Core/Src/stm32f4xx_it.c.obj
-.PHONY : src/Core/Src/stm32f4xx_it.c.obj
+src/bsp/stm32f4xx_it.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/bsp/stm32f4xx_it.c.obj
+.PHONY : src/bsp/stm32f4xx_it.c.obj
 
-src/Core/Src/stm32f4xx_it.i: src/Core/Src/stm32f4xx_it.c.i
-.PHONY : src/Core/Src/stm32f4xx_it.i
+src/bsp/stm32f4xx_it.i: src/bsp/stm32f4xx_it.c.i
+.PHONY : src/bsp/stm32f4xx_it.i
 
 # target to preprocess a source file
-src/Core/Src/stm32f4xx_it.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Core/Src/stm32f4xx_it.c.i
-.PHONY : src/Core/Src/stm32f4xx_it.c.i
+src/bsp/stm32f4xx_it.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/bsp/stm32f4xx_it.c.i
+.PHONY : src/bsp/stm32f4xx_it.c.i
 
-src/Core/Src/stm32f4xx_it.s: src/Core/Src/stm32f4xx_it.c.s
-.PHONY : src/Core/Src/stm32f4xx_it.s
+src/bsp/stm32f4xx_it.s: src/bsp/stm32f4xx_it.c.s
+.PHONY : src/bsp/stm32f4xx_it.s
 
 # target to generate assembly for a file
-src/Core/Src/stm32f4xx_it.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Core/Src/stm32f4xx_it.c.s
-.PHONY : src/Core/Src/stm32f4xx_it.c.s
+src/bsp/stm32f4xx_it.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/bsp/stm32f4xx_it.c.s
+.PHONY : src/bsp/stm32f4xx_it.c.s
 
-src/Core/Src/syscalls.obj: src/Core/Src/syscalls.c.obj
-.PHONY : src/Core/Src/syscalls.obj
+src/bsp/syscalls.obj: src/bsp/syscalls.c.obj
+.PHONY : src/bsp/syscalls.obj
 
 # target to build an object file
-src/Core/Src/syscalls.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Core/Src/syscalls.c.obj
-.PHONY : src/Core/Src/syscalls.c.obj
+src/bsp/syscalls.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/bsp/syscalls.c.obj
+.PHONY : src/bsp/syscalls.c.obj
 
-src/Core/Src/syscalls.i: src/Core/Src/syscalls.c.i
-.PHONY : src/Core/Src/syscalls.i
+src/bsp/syscalls.i: src/bsp/syscalls.c.i
+.PHONY : src/bsp/syscalls.i
 
 # target to preprocess a source file
-src/Core/Src/syscalls.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Core/Src/syscalls.c.i
-.PHONY : src/Core/Src/syscalls.c.i
+src/bsp/syscalls.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/bsp/syscalls.c.i
+.PHONY : src/bsp/syscalls.c.i
 
-src/Core/Src/syscalls.s: src/Core/Src/syscalls.c.s
-.PHONY : src/Core/Src/syscalls.s
+src/bsp/syscalls.s: src/bsp/syscalls.c.s
+.PHONY : src/bsp/syscalls.s
 
 # target to generate assembly for a file
-src/Core/Src/syscalls.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Core/Src/syscalls.c.s
-.PHONY : src/Core/Src/syscalls.c.s
+src/bsp/syscalls.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/bsp/syscalls.c.s
+.PHONY : src/bsp/syscalls.c.s
 
-src/Core/Src/sysmem.obj: src/Core/Src/sysmem.c.obj
-.PHONY : src/Core/Src/sysmem.obj
+src/bsp/sysmem.obj: src/bsp/sysmem.c.obj
+.PHONY : src/bsp/sysmem.obj
 
 # target to build an object file
-src/Core/Src/sysmem.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Core/Src/sysmem.c.obj
-.PHONY : src/Core/Src/sysmem.c.obj
+src/bsp/sysmem.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/bsp/sysmem.c.obj
+.PHONY : src/bsp/sysmem.c.obj
 
-src/Core/Src/sysmem.i: src/Core/Src/sysmem.c.i
-.PHONY : src/Core/Src/sysmem.i
+src/bsp/sysmem.i: src/bsp/sysmem.c.i
+.PHONY : src/bsp/sysmem.i
 
 # target to preprocess a source file
-src/Core/Src/sysmem.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Core/Src/sysmem.c.i
-.PHONY : src/Core/Src/sysmem.c.i
+src/bsp/sysmem.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/bsp/sysmem.c.i
+.PHONY : src/bsp/sysmem.c.i
 
-src/Core/Src/sysmem.s: src/Core/Src/sysmem.c.s
-.PHONY : src/Core/Src/sysmem.s
+src/bsp/sysmem.s: src/bsp/sysmem.c.s
+.PHONY : src/bsp/sysmem.s
 
 # target to generate assembly for a file
-src/Core/Src/sysmem.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Core/Src/sysmem.c.s
-.PHONY : src/Core/Src/sysmem.c.s
+src/bsp/sysmem.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/bsp/sysmem.c.s
+.PHONY : src/bsp/sysmem.c.s
 
-src/Core/Src/system_stm32f4xx.obj: src/Core/Src/system_stm32f4xx.c.obj
-.PHONY : src/Core/Src/system_stm32f4xx.obj
+src/bsp/system_stm32f4xx.obj: src/bsp/system_stm32f4xx.c.obj
+.PHONY : src/bsp/system_stm32f4xx.obj
 
 # target to build an object file
-src/Core/Src/system_stm32f4xx.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Core/Src/system_stm32f4xx.c.obj
-.PHONY : src/Core/Src/system_stm32f4xx.c.obj
+src/bsp/system_stm32f4xx.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/bsp/system_stm32f4xx.c.obj
+.PHONY : src/bsp/system_stm32f4xx.c.obj
 
-src/Core/Src/system_stm32f4xx.i: src/Core/Src/system_stm32f4xx.c.i
-.PHONY : src/Core/Src/system_stm32f4xx.i
+src/bsp/system_stm32f4xx.i: src/bsp/system_stm32f4xx.c.i
+.PHONY : src/bsp/system_stm32f4xx.i
 
 # target to preprocess a source file
-src/Core/Src/system_stm32f4xx.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Core/Src/system_stm32f4xx.c.i
-.PHONY : src/Core/Src/system_stm32f4xx.c.i
+src/bsp/system_stm32f4xx.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/bsp/system_stm32f4xx.c.i
+.PHONY : src/bsp/system_stm32f4xx.c.i
 
-src/Core/Src/system_stm32f4xx.s: src/Core/Src/system_stm32f4xx.c.s
-.PHONY : src/Core/Src/system_stm32f4xx.s
+src/bsp/system_stm32f4xx.s: src/bsp/system_stm32f4xx.c.s
+.PHONY : src/bsp/system_stm32f4xx.s
 
 # target to generate assembly for a file
-src/Core/Src/system_stm32f4xx.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Core/Src/system_stm32f4xx.c.s
-.PHONY : src/Core/Src/system_stm32f4xx.c.s
+src/bsp/system_stm32f4xx.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/bsp/system_stm32f4xx.c.s
+.PHONY : src/bsp/system_stm32f4xx.c.s
 
-src/Core/Startup/startup_stm32f405rgtx.obj: src/Core/Startup/startup_stm32f405rgtx.s.obj
-.PHONY : src/Core/Startup/startup_stm32f405rgtx.obj
-
-# target to build an object file
-src/Core/Startup/startup_stm32f405rgtx.s.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Core/Startup/startup_stm32f405rgtx.s.obj
-.PHONY : src/Core/Startup/startup_stm32f405rgtx.s.obj
-
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.obj: src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c.obj
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.obj
+src/common/core/eeprom.obj: src/common/core/eeprom.c.obj
+.PHONY : src/common/core/eeprom.obj
 
 # target to build an object file
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c.obj
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c.obj
+src/common/core/eeprom.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/eeprom.c.obj
+.PHONY : src/common/core/eeprom.c.obj
 
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.i: src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c.i
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.i
+src/common/core/eeprom.i: src/common/core/eeprom.c.i
+.PHONY : src/common/core/eeprom.i
 
 # target to preprocess a source file
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c.i
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c.i
+src/common/core/eeprom.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/eeprom.c.i
+.PHONY : src/common/core/eeprom.c.i
 
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.s: src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c.s
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.s
+src/common/core/eeprom.s: src/common/core/eeprom.c.s
+.PHONY : src/common/core/eeprom.s
 
 # target to generate assembly for a file
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c.s
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c.s
+src/common/core/eeprom.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/eeprom.c.s
+.PHONY : src/common/core/eeprom.c.s
 
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.obj: src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c.obj
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.obj
+src/common/core/filter.obj: src/common/core/filter.c.obj
+.PHONY : src/common/core/filter.obj
 
 # target to build an object file
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c.obj
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c.obj
+src/common/core/filter.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/filter.c.obj
+.PHONY : src/common/core/filter.c.obj
 
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.i: src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c.i
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.i
+src/common/core/filter.i: src/common/core/filter.c.i
+.PHONY : src/common/core/filter.i
 
 # target to preprocess a source file
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c.i
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c.i
+src/common/core/filter.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/filter.c.i
+.PHONY : src/common/core/filter.c.i
 
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.s: src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c.s
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.s
+src/common/core/filter.s: src/common/core/filter.c.s
+.PHONY : src/common/core/filter.s
 
 # target to generate assembly for a file
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c.s
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c.s
+src/common/core/filter.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/filter.c.s
+.PHONY : src/common/core/filter.c.s
 
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.obj: src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c.obj
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.obj
+src/common/core/gps.obj: src/common/core/gps.c.obj
+.PHONY : src/common/core/gps.obj
 
 # target to build an object file
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c.obj
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c.obj
+src/common/core/gps.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/gps.c.obj
+.PHONY : src/common/core/gps.c.obj
 
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.i: src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c.i
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.i
+src/common/core/gps.i: src/common/core/gps.c.i
+.PHONY : src/common/core/gps.i
 
 # target to preprocess a source file
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c.i
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c.i
+src/common/core/gps.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/gps.c.i
+.PHONY : src/common/core/gps.c.i
 
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.s: src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c.s
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.s
+src/common/core/gps.s: src/common/core/gps.c.s
+.PHONY : src/common/core/gps.s
 
 # target to generate assembly for a file
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c.s
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c.s
+src/common/core/gps.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/gps.c.s
+.PHONY : src/common/core/gps.c.s
 
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.obj: src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c.obj
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.obj
+src/common/core/imu.obj: src/common/core/imu.c.obj
+.PHONY : src/common/core/imu.obj
 
 # target to build an object file
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c.obj
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c.obj
+src/common/core/imu.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/imu.c.obj
+.PHONY : src/common/core/imu.c.obj
 
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.i: src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c.i
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.i
+src/common/core/imu.i: src/common/core/imu.c.i
+.PHONY : src/common/core/imu.i
 
 # target to preprocess a source file
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c.i
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c.i
+src/common/core/imu.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/imu.c.i
+.PHONY : src/common/core/imu.c.i
 
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.s: src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c.s
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.s
+src/common/core/imu.s: src/common/core/imu.c.s
+.PHONY : src/common/core/imu.s
 
 # target to generate assembly for a file
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c.s
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c.s
+src/common/core/imu.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/imu.c.s
+.PHONY : src/common/core/imu.c.s
 
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.obj: src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c.obj
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.obj
+src/common/core/led_control.obj: src/common/core/led_control.c.obj
+.PHONY : src/common/core/led_control.obj
 
 # target to build an object file
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c.obj
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c.obj
+src/common/core/led_control.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/led_control.c.obj
+.PHONY : src/common/core/led_control.c.obj
 
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.i: src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c.i
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.i
+src/common/core/led_control.i: src/common/core/led_control.c.i
+.PHONY : src/common/core/led_control.i
 
 # target to preprocess a source file
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c.i
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c.i
+src/common/core/led_control.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/led_control.c.i
+.PHONY : src/common/core/led_control.c.i
 
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.s: src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c.s
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.s
+src/common/core/led_control.s: src/common/core/led_control.c.s
+.PHONY : src/common/core/led_control.s
 
 # target to generate assembly for a file
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c.s
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c.s
+src/common/core/led_control.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/led_control.c.s
+.PHONY : src/common/core/led_control.c.s
 
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.obj: src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c.obj
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.obj
+src/common/core/mixer.obj: src/common/core/mixer.c.obj
+.PHONY : src/common/core/mixer.obj
 
 # target to build an object file
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c.obj
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c.obj
+src/common/core/mixer.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/mixer.c.obj
+.PHONY : src/common/core/mixer.c.obj
 
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.i: src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c.i
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.i
+src/common/core/mixer.i: src/common/core/mixer.c.i
+.PHONY : src/common/core/mixer.i
 
 # target to preprocess a source file
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c.i
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c.i
+src/common/core/mixer.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/mixer.c.i
+.PHONY : src/common/core/mixer.c.i
 
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.s: src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c.s
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.s
+src/common/core/mixer.s: src/common/core/mixer.c.s
+.PHONY : src/common/core/mixer.s
 
 # target to generate assembly for a file
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c.s
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c.s
+src/common/core/mixer.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/mixer.c.s
+.PHONY : src/common/core/mixer.c.s
 
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.obj: src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c.obj
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.obj
+src/common/core/pid.obj: src/common/core/pid.c.obj
+.PHONY : src/common/core/pid.obj
 
 # target to build an object file
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c.obj
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c.obj
+src/common/core/pid.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/pid.c.obj
+.PHONY : src/common/core/pid.c.obj
 
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.i: src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c.i
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.i
+src/common/core/pid.i: src/common/core/pid.c.i
+.PHONY : src/common/core/pid.i
 
 # target to preprocess a source file
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c.i
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c.i
+src/common/core/pid.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/pid.c.i
+.PHONY : src/common/core/pid.c.i
 
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.s: src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c.s
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.s
+src/common/core/pid.s: src/common/core/pid.c.s
+.PHONY : src/common/core/pid.s
 
 # target to generate assembly for a file
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c.s
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c.s
+src/common/core/pid.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/pid.c.s
+.PHONY : src/common/core/pid.c.s
 
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.obj: src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c.obj
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.obj
+src/common/core/radio.obj: src/common/core/radio.c.obj
+.PHONY : src/common/core/radio.obj
 
 # target to build an object file
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c.obj
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c.obj
+src/common/core/radio.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/radio.c.obj
+.PHONY : src/common/core/radio.c.obj
 
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.i: src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c.i
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.i
+src/common/core/radio.i: src/common/core/radio.c.i
+.PHONY : src/common/core/radio.i
 
 # target to preprocess a source file
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c.i
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c.i
+src/common/core/radio.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/radio.c.i
+.PHONY : src/common/core/radio.c.i
 
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.s: src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c.s
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.s
+src/common/core/radio.s: src/common/core/radio.c.s
+.PHONY : src/common/core/radio.s
 
 # target to generate assembly for a file
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c.s
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c.s
+src/common/core/radio.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/radio.c.s
+.PHONY : src/common/core/radio.c.s
 
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.obj: src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c.obj
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.obj
+src/common/core/ring_buffer.obj: src/common/core/ring_buffer.c.obj
+.PHONY : src/common/core/ring_buffer.obj
 
 # target to build an object file
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c.obj
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c.obj
+src/common/core/ring_buffer.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/ring_buffer.c.obj
+.PHONY : src/common/core/ring_buffer.c.obj
 
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.i: src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c.i
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.i
+src/common/core/ring_buffer.i: src/common/core/ring_buffer.c.i
+.PHONY : src/common/core/ring_buffer.i
 
 # target to preprocess a source file
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c.i
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c.i
+src/common/core/ring_buffer.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/ring_buffer.c.i
+.PHONY : src/common/core/ring_buffer.c.i
 
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.s: src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c.s
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.s
+src/common/core/ring_buffer.s: src/common/core/ring_buffer.c.s
+.PHONY : src/common/core/ring_buffer.s
 
 # target to generate assembly for a file
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c.s
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c.s
+src/common/core/ring_buffer.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/ring_buffer.c.s
+.PHONY : src/common/core/ring_buffer.c.s
 
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.obj: src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c.obj
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.obj
+src/common/core/sensor.obj: src/common/core/sensor.c.obj
+.PHONY : src/common/core/sensor.obj
 
 # target to build an object file
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c.obj
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c.obj
+src/common/core/sensor.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/sensor.c.obj
+.PHONY : src/common/core/sensor.c.obj
 
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.i: src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c.i
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.i
+src/common/core/sensor.i: src/common/core/sensor.c.i
+.PHONY : src/common/core/sensor.i
 
 # target to preprocess a source file
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c.i
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c.i
+src/common/core/sensor.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/sensor.c.i
+.PHONY : src/common/core/sensor.c.i
 
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.s: src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c.s
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.s
+src/common/core/sensor.s: src/common/core/sensor.c.s
+.PHONY : src/common/core/sensor.s
 
 # target to generate assembly for a file
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c.s
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c.s
+src/common/core/sensor.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/sensor.c.s
+.PHONY : src/common/core/sensor.c.s
 
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.obj: src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c.obj
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.obj
+src/common/core/telemetry.obj: src/common/core/telemetry.c.obj
+.PHONY : src/common/core/telemetry.obj
 
 # target to build an object file
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c.obj
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c.obj
+src/common/core/telemetry.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/telemetry.c.obj
+.PHONY : src/common/core/telemetry.c.obj
 
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.i: src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c.i
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.i
+src/common/core/telemetry.i: src/common/core/telemetry.c.i
+.PHONY : src/common/core/telemetry.i
 
 # target to preprocess a source file
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c.i
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c.i
+src/common/core/telemetry.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/telemetry.c.i
+.PHONY : src/common/core/telemetry.c.i
 
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.s: src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c.s
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.s
+src/common/core/telemetry.s: src/common/core/telemetry.c.s
+.PHONY : src/common/core/telemetry.s
 
 # target to generate assembly for a file
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c.s
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c.s
+src/common/core/telemetry.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/telemetry.c.s
+.PHONY : src/common/core/telemetry.c.s
 
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.obj: src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c.obj
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.obj
+src/hw/driver/cli.obj: src/hw/driver/cli.c.obj
+.PHONY : src/hw/driver/cli.obj
 
 # target to build an object file
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c.obj
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c.obj
+src/hw/driver/cli.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/cli.c.obj
+.PHONY : src/hw/driver/cli.c.obj
 
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.i: src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c.i
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.i
+src/hw/driver/cli.i: src/hw/driver/cli.c.i
+.PHONY : src/hw/driver/cli.i
 
 # target to preprocess a source file
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c.i
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c.i
+src/hw/driver/cli.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/cli.c.i
+.PHONY : src/hw/driver/cli.c.i
 
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.s: src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c.s
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.s
+src/hw/driver/cli.s: src/hw/driver/cli.c.s
+.PHONY : src/hw/driver/cli.s
 
 # target to generate assembly for a file
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c.s
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c.s
+src/hw/driver/cli.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/cli.c.s
+.PHONY : src/hw/driver/cli.c.s
 
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.obj: src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c.obj
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.obj
+src/hw/driver/i2c.obj: src/hw/driver/i2c.c.obj
+.PHONY : src/hw/driver/i2c.obj
 
 # target to build an object file
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c.obj
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c.obj
+src/hw/driver/i2c.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/i2c.c.obj
+.PHONY : src/hw/driver/i2c.c.obj
 
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.i: src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c.i
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.i
+src/hw/driver/i2c.i: src/hw/driver/i2c.c.i
+.PHONY : src/hw/driver/i2c.i
 
 # target to preprocess a source file
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c.i
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c.i
+src/hw/driver/i2c.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/i2c.c.i
+.PHONY : src/hw/driver/i2c.c.i
 
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.s: src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c.s
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.s
+src/hw/driver/i2c.s: src/hw/driver/i2c.c.s
+.PHONY : src/hw/driver/i2c.s
 
 # target to generate assembly for a file
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c.s
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c.s
+src/hw/driver/i2c.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/i2c.c.s
+.PHONY : src/hw/driver/i2c.c.s
 
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.obj: src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c.obj
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.obj
+src/hw/driver/led.obj: src/hw/driver/led.c.obj
+.PHONY : src/hw/driver/led.obj
 
 # target to build an object file
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c.obj
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c.obj
+src/hw/driver/led.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/led.c.obj
+.PHONY : src/hw/driver/led.c.obj
 
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.i: src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c.i
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.i
+src/hw/driver/led.i: src/hw/driver/led.c.i
+.PHONY : src/hw/driver/led.i
 
 # target to preprocess a source file
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c.i
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c.i
+src/hw/driver/led.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/led.c.i
+.PHONY : src/hw/driver/led.c.i
 
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.s: src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c.s
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.s
+src/hw/driver/led.s: src/hw/driver/led.c.s
+.PHONY : src/hw/driver/led.s
 
 # target to generate assembly for a file
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c.s
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c.s
+src/hw/driver/led.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/led.c.s
+.PHONY : src/hw/driver/led.c.s
 
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.obj: src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c.obj
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.obj
+src/hw/driver/spi.obj: src/hw/driver/spi.c.obj
+.PHONY : src/hw/driver/spi.obj
 
 # target to build an object file
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c.obj
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c.obj
+src/hw/driver/spi.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/spi.c.obj
+.PHONY : src/hw/driver/spi.c.obj
 
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.i: src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c.i
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.i
+src/hw/driver/spi.i: src/hw/driver/spi.c.i
+.PHONY : src/hw/driver/spi.i
 
 # target to preprocess a source file
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c.i
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c.i
+src/hw/driver/spi.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/spi.c.i
+.PHONY : src/hw/driver/spi.c.i
 
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.s: src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c.s
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.s
+src/hw/driver/spi.s: src/hw/driver/spi.c.s
+.PHONY : src/hw/driver/spi.s
 
 # target to generate assembly for a file
-src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c.s
-.PHONY : src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c.s
+src/hw/driver/spi.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/spi.c.s
+.PHONY : src/hw/driver/spi.c.s
+
+src/hw/driver/timer.obj: src/hw/driver/timer.c.obj
+.PHONY : src/hw/driver/timer.obj
+
+# target to build an object file
+src/hw/driver/timer.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/timer.c.obj
+.PHONY : src/hw/driver/timer.c.obj
+
+src/hw/driver/timer.i: src/hw/driver/timer.c.i
+.PHONY : src/hw/driver/timer.i
+
+# target to preprocess a source file
+src/hw/driver/timer.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/timer.c.i
+.PHONY : src/hw/driver/timer.c.i
+
+src/hw/driver/timer.s: src/hw/driver/timer.c.s
+.PHONY : src/hw/driver/timer.s
+
+# target to generate assembly for a file
+src/hw/driver/timer.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/timer.c.s
+.PHONY : src/hw/driver/timer.c.s
+
+src/hw/driver/uart.obj: src/hw/driver/uart.c.obj
+.PHONY : src/hw/driver/uart.obj
+
+# target to build an object file
+src/hw/driver/uart.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/uart.c.obj
+.PHONY : src/hw/driver/uart.c.obj
+
+src/hw/driver/uart.i: src/hw/driver/uart.c.i
+.PHONY : src/hw/driver/uart.i
+
+# target to preprocess a source file
+src/hw/driver/uart.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/uart.c.i
+.PHONY : src/hw/driver/uart.c.i
+
+src/hw/driver/uart.s: src/hw/driver/uart.c.s
+.PHONY : src/hw/driver/uart.s
+
+# target to generate assembly for a file
+src/hw/driver/uart.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/uart.c.s
+.PHONY : src/hw/driver/uart.c.s
+
+src/hw/hw.obj: src/hw/hw.c.obj
+.PHONY : src/hw/hw.obj
+
+# target to build an object file
+src/hw/hw.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/hw.c.obj
+.PHONY : src/hw/hw.c.obj
+
+src/hw/hw.i: src/hw/hw.c.i
+.PHONY : src/hw/hw.i
+
+# target to preprocess a source file
+src/hw/hw.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/hw.c.i
+.PHONY : src/hw/hw.c.i
+
+src/hw/hw.s: src/hw/hw.c.s
+.PHONY : src/hw/hw.s
+
+# target to generate assembly for a file
+src/hw/hw.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/hw.c.s
+.PHONY : src/hw/hw.c.s
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.obj: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c.obj
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.obj
+
+# target to build an object file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c.obj
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c.obj
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.i: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c.i
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.i
+
+# target to preprocess a source file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c.i
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c.i
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.s: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c.s
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.s
+
+# target to generate assembly for a file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c.s
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c.s
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.obj: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c.obj
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.obj
+
+# target to build an object file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c.obj
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c.obj
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.i: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c.i
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.i
+
+# target to preprocess a source file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c.i
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c.i
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.s: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c.s
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.s
+
+# target to generate assembly for a file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c.s
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c.s
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.obj: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c.obj
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.obj
+
+# target to build an object file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c.obj
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c.obj
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.i: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c.i
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.i
+
+# target to preprocess a source file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c.i
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c.i
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.s: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c.s
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.s
+
+# target to generate assembly for a file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c.s
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c.s
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.obj: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c.obj
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.obj
+
+# target to build an object file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c.obj
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c.obj
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.i: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c.i
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.i
+
+# target to preprocess a source file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c.i
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c.i
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.s: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c.s
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.s
+
+# target to generate assembly for a file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c.s
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c.s
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.obj: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c.obj
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.obj
+
+# target to build an object file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c.obj
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c.obj
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.i: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c.i
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.i
+
+# target to preprocess a source file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c.i
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c.i
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.s: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c.s
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.s
+
+# target to generate assembly for a file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c.s
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c.s
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.obj: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c.obj
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.obj
+
+# target to build an object file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c.obj
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c.obj
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.i: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c.i
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.i
+
+# target to preprocess a source file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c.i
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c.i
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.s: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c.s
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.s
+
+# target to generate assembly for a file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c.s
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c.s
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.obj: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c.obj
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.obj
+
+# target to build an object file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c.obj
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c.obj
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.i: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c.i
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.i
+
+# target to preprocess a source file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c.i
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c.i
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.s: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c.s
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.s
+
+# target to generate assembly for a file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c.s
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c.s
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.obj: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c.obj
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.obj
+
+# target to build an object file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c.obj
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c.obj
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.i: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c.i
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.i
+
+# target to preprocess a source file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c.i
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c.i
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.s: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c.s
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.s
+
+# target to generate assembly for a file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c.s
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c.s
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.obj: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c.obj
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.obj
+
+# target to build an object file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c.obj
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c.obj
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.i: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c.i
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.i
+
+# target to preprocess a source file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c.i
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c.i
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.s: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c.s
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.s
+
+# target to generate assembly for a file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c.s
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c.s
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.obj: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.c.obj
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.obj
+
+# target to build an object file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.c.obj
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.c.obj
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.i: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.c.i
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.i
+
+# target to preprocess a source file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.c.i
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.c.i
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.s: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.c.s
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.s
+
+# target to generate assembly for a file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.c.s
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.c.s
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.obj: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.c.obj
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.obj
+
+# target to build an object file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.c.obj
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.c.obj
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.i: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.c.i
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.i
+
+# target to preprocess a source file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.c.i
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.c.i
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.s: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.c.s
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.s
+
+# target to generate assembly for a file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.c.s
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.c.s
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd.obj: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd.c.obj
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd.obj
+
+# target to build an object file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd.c.obj
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd.c.obj
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd.i: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd.c.i
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd.i
+
+# target to preprocess a source file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd.c.i
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd.c.i
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd.s: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd.c.s
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd.s
+
+# target to generate assembly for a file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd.c.s
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd.c.s
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd_ex.obj: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd_ex.c.obj
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd_ex.obj
+
+# target to build an object file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd_ex.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd_ex.c.obj
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd_ex.c.obj
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd_ex.i: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd_ex.c.i
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd_ex.i
+
+# target to preprocess a source file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd_ex.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd_ex.c.i
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd_ex.c.i
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd_ex.s: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd_ex.c.s
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd_ex.s
+
+# target to generate assembly for a file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd_ex.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd_ex.c.s
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd_ex.c.s
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.obj: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c.obj
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.obj
+
+# target to build an object file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c.obj
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c.obj
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.i: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c.i
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.i
+
+# target to preprocess a source file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c.i
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c.i
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.s: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c.s
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.s
+
+# target to generate assembly for a file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c.s
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c.s
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.obj: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c.obj
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.obj
+
+# target to build an object file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c.obj
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c.obj
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.i: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c.i
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.i
+
+# target to preprocess a source file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c.i
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c.i
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.s: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c.s
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.s
+
+# target to generate assembly for a file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c.s
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c.s
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.obj: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c.obj
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.obj
+
+# target to build an object file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c.obj
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c.obj
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.i: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c.i
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.i
+
+# target to preprocess a source file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c.i
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c.i
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.s: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c.s
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.s
+
+# target to generate assembly for a file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c.s
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c.s
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.obj: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c.obj
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.obj
+
+# target to build an object file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c.obj
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c.obj
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.i: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c.i
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.i
+
+# target to preprocess a source file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c.i
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c.i
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.s: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c.s
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.s
+
+# target to generate assembly for a file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c.s
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c.s
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.obj: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c.obj
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.obj
+
+# target to build an object file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c.obj
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c.obj
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.i: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c.i
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.i
+
+# target to preprocess a source file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c.i
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c.i
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.s: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c.s
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.s
+
+# target to generate assembly for a file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c.s
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c.s
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.obj: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c.obj
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.obj
+
+# target to build an object file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c.obj
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c.obj
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.i: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c.i
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.i
+
+# target to preprocess a source file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c.i
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c.i
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.s: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c.s
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.s
+
+# target to generate assembly for a file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c.s
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c.s
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.obj: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c.obj
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.obj
+
+# target to build an object file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c.obj
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c.obj
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.i: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c.i
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.i
+
+# target to preprocess a source file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c.i
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c.i
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.s: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c.s
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.s
+
+# target to generate assembly for a file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c.s
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c.s
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.obj: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c.obj
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.obj
+
+# target to build an object file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c.obj
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c.obj
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.i: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c.i
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.i
+
+# target to preprocess a source file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c.i
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c.i
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.s: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c.s
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.s
+
+# target to generate assembly for a file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c.s
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c.s
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.obj: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.c.obj
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.obj
+
+# target to build an object file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.c.obj
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.c.obj
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.i: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.c.i
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.i
+
+# target to preprocess a source file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.c.i
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.c.i
+
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.s: src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.c.s
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.s
+
+# target to generate assembly for a file
+src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.c.s
+.PHONY : src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.c.s
+
+src/lib/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.obj: src/lib/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c.obj
+.PHONY : src/lib/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.obj
+
+# target to build an object file
+src/lib/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c.obj
+.PHONY : src/lib/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c.obj
+
+src/lib/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.i: src/lib/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c.i
+.PHONY : src/lib/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.i
+
+# target to preprocess a source file
+src/lib/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c.i
+.PHONY : src/lib/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c.i
+
+src/lib/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.s: src/lib/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c.s
+.PHONY : src/lib/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.s
+
+# target to generate assembly for a file
+src/lib/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c.s
+.PHONY : src/lib/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c.s
+
+src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.obj: src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.c.obj
+.PHONY : src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.obj
+
+# target to build an object file
+src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.c.obj
+.PHONY : src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.c.obj
+
+src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.i: src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.c.i
+.PHONY : src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.i
+
+# target to preprocess a source file
+src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.c.i
+.PHONY : src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.c.i
+
+src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.s: src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.c.s
+.PHONY : src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.s
+
+# target to generate assembly for a file
+src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.c.s
+.PHONY : src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.c.s
+
+src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.obj: src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c.obj
+.PHONY : src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.obj
+
+# target to build an object file
+src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c.obj
+.PHONY : src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c.obj
+
+src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.i: src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c.i
+.PHONY : src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.i
+
+# target to preprocess a source file
+src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c.i
+.PHONY : src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c.i
+
+src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.s: src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c.s
+.PHONY : src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.s
+
+# target to generate assembly for a file
+src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c.s
+.PHONY : src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c.s
+
+src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.obj: src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c.obj
+.PHONY : src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.obj
+
+# target to build an object file
+src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c.obj
+.PHONY : src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c.obj
+
+src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.i: src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c.i
+.PHONY : src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.i
+
+# target to preprocess a source file
+src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c.i
+.PHONY : src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c.i
+
+src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.s: src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c.s
+.PHONY : src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.s
+
+# target to generate assembly for a file
+src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c.s
+.PHONY : src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c.s
+
+src/lib/USB_DEVICE/App/usb_device.obj: src/lib/USB_DEVICE/App/usb_device.c.obj
+.PHONY : src/lib/USB_DEVICE/App/usb_device.obj
+
+# target to build an object file
+src/lib/USB_DEVICE/App/usb_device.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/App/usb_device.c.obj
+.PHONY : src/lib/USB_DEVICE/App/usb_device.c.obj
+
+src/lib/USB_DEVICE/App/usb_device.i: src/lib/USB_DEVICE/App/usb_device.c.i
+.PHONY : src/lib/USB_DEVICE/App/usb_device.i
+
+# target to preprocess a source file
+src/lib/USB_DEVICE/App/usb_device.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/App/usb_device.c.i
+.PHONY : src/lib/USB_DEVICE/App/usb_device.c.i
+
+src/lib/USB_DEVICE/App/usb_device.s: src/lib/USB_DEVICE/App/usb_device.c.s
+.PHONY : src/lib/USB_DEVICE/App/usb_device.s
+
+# target to generate assembly for a file
+src/lib/USB_DEVICE/App/usb_device.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/App/usb_device.c.s
+.PHONY : src/lib/USB_DEVICE/App/usb_device.c.s
+
+src/lib/USB_DEVICE/App/usbd_cdc_if.obj: src/lib/USB_DEVICE/App/usbd_cdc_if.c.obj
+.PHONY : src/lib/USB_DEVICE/App/usbd_cdc_if.obj
+
+# target to build an object file
+src/lib/USB_DEVICE/App/usbd_cdc_if.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/App/usbd_cdc_if.c.obj
+.PHONY : src/lib/USB_DEVICE/App/usbd_cdc_if.c.obj
+
+src/lib/USB_DEVICE/App/usbd_cdc_if.i: src/lib/USB_DEVICE/App/usbd_cdc_if.c.i
+.PHONY : src/lib/USB_DEVICE/App/usbd_cdc_if.i
+
+# target to preprocess a source file
+src/lib/USB_DEVICE/App/usbd_cdc_if.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/App/usbd_cdc_if.c.i
+.PHONY : src/lib/USB_DEVICE/App/usbd_cdc_if.c.i
+
+src/lib/USB_DEVICE/App/usbd_cdc_if.s: src/lib/USB_DEVICE/App/usbd_cdc_if.c.s
+.PHONY : src/lib/USB_DEVICE/App/usbd_cdc_if.s
+
+# target to generate assembly for a file
+src/lib/USB_DEVICE/App/usbd_cdc_if.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/App/usbd_cdc_if.c.s
+.PHONY : src/lib/USB_DEVICE/App/usbd_cdc_if.c.s
+
+src/lib/USB_DEVICE/App/usbd_desc.obj: src/lib/USB_DEVICE/App/usbd_desc.c.obj
+.PHONY : src/lib/USB_DEVICE/App/usbd_desc.obj
+
+# target to build an object file
+src/lib/USB_DEVICE/App/usbd_desc.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/App/usbd_desc.c.obj
+.PHONY : src/lib/USB_DEVICE/App/usbd_desc.c.obj
+
+src/lib/USB_DEVICE/App/usbd_desc.i: src/lib/USB_DEVICE/App/usbd_desc.c.i
+.PHONY : src/lib/USB_DEVICE/App/usbd_desc.i
+
+# target to preprocess a source file
+src/lib/USB_DEVICE/App/usbd_desc.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/App/usbd_desc.c.i
+.PHONY : src/lib/USB_DEVICE/App/usbd_desc.c.i
+
+src/lib/USB_DEVICE/App/usbd_desc.s: src/lib/USB_DEVICE/App/usbd_desc.c.s
+.PHONY : src/lib/USB_DEVICE/App/usbd_desc.s
+
+# target to generate assembly for a file
+src/lib/USB_DEVICE/App/usbd_desc.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/App/usbd_desc.c.s
+.PHONY : src/lib/USB_DEVICE/App/usbd_desc.c.s
+
+src/lib/USB_DEVICE/Target/usbd_conf.obj: src/lib/USB_DEVICE/Target/usbd_conf.c.obj
+.PHONY : src/lib/USB_DEVICE/Target/usbd_conf.obj
+
+# target to build an object file
+src/lib/USB_DEVICE/Target/usbd_conf.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/Target/usbd_conf.c.obj
+.PHONY : src/lib/USB_DEVICE/Target/usbd_conf.c.obj
+
+src/lib/USB_DEVICE/Target/usbd_conf.i: src/lib/USB_DEVICE/Target/usbd_conf.c.i
+.PHONY : src/lib/USB_DEVICE/Target/usbd_conf.i
+
+# target to preprocess a source file
+src/lib/USB_DEVICE/Target/usbd_conf.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/Target/usbd_conf.c.i
+.PHONY : src/lib/USB_DEVICE/Target/usbd_conf.c.i
+
+src/lib/USB_DEVICE/Target/usbd_conf.s: src/lib/USB_DEVICE/Target/usbd_conf.c.s
+.PHONY : src/lib/USB_DEVICE/Target/usbd_conf.s
+
+# target to generate assembly for a file
+src/lib/USB_DEVICE/Target/usbd_conf.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/Target/usbd_conf.c.s
+.PHONY : src/lib/USB_DEVICE/Target/usbd_conf.c.s
+
+src/main.obj: src/main.c.obj
+.PHONY : src/main.obj
+
+# target to build an object file
+src/main.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/main.c.obj
+.PHONY : src/main.c.obj
+
+src/main.i: src/main.c.i
+.PHONY : src/main.i
+
+# target to preprocess a source file
+src/main.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/main.c.i
+.PHONY : src/main.c.i
+
+src/main.s: src/main.c.s
+.PHONY : src/main.s
+
+# target to generate assembly for a file
+src/main.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/main.c.s
+.PHONY : src/main.c.s
 
 # Help Target
 help:
@@ -697,73 +1513,175 @@ help:
 	@echo "... package_source"
 	@echo "... rebuild_cache"
 	@echo "... SpeedyBeeF405V3.elf"
-	@echo "... src/Core/Src/gpio.obj"
-	@echo "... src/Core/Src/gpio.i"
-	@echo "... src/Core/Src/gpio.s"
-	@echo "... src/Core/Src/main.obj"
-	@echo "... src/Core/Src/main.i"
-	@echo "... src/Core/Src/main.s"
-	@echo "... src/Core/Src/stm32f4xx_hal_msp.obj"
-	@echo "... src/Core/Src/stm32f4xx_hal_msp.i"
-	@echo "... src/Core/Src/stm32f4xx_hal_msp.s"
-	@echo "... src/Core/Src/stm32f4xx_it.obj"
-	@echo "... src/Core/Src/stm32f4xx_it.i"
-	@echo "... src/Core/Src/stm32f4xx_it.s"
-	@echo "... src/Core/Src/syscalls.obj"
-	@echo "... src/Core/Src/syscalls.i"
-	@echo "... src/Core/Src/syscalls.s"
-	@echo "... src/Core/Src/sysmem.obj"
-	@echo "... src/Core/Src/sysmem.i"
-	@echo "... src/Core/Src/sysmem.s"
-	@echo "... src/Core/Src/system_stm32f4xx.obj"
-	@echo "... src/Core/Src/system_stm32f4xx.i"
-	@echo "... src/Core/Src/system_stm32f4xx.s"
-	@echo "... src/Core/Startup/startup_stm32f405rgtx.obj"
-	@echo "... src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.obj"
-	@echo "... src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.i"
-	@echo "... src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.s"
-	@echo "... src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.obj"
-	@echo "... src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.i"
-	@echo "... src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.s"
-	@echo "... src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.obj"
-	@echo "... src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.i"
-	@echo "... src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.s"
-	@echo "... src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.obj"
-	@echo "... src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.i"
-	@echo "... src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.s"
-	@echo "... src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.obj"
-	@echo "... src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.i"
-	@echo "... src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.s"
-	@echo "... src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.obj"
-	@echo "... src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.i"
-	@echo "... src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.s"
-	@echo "... src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.obj"
-	@echo "... src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.i"
-	@echo "... src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.s"
-	@echo "... src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.obj"
-	@echo "... src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.i"
-	@echo "... src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.s"
-	@echo "... src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.obj"
-	@echo "... src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.i"
-	@echo "... src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.s"
-	@echo "... src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.obj"
-	@echo "... src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.i"
-	@echo "... src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.s"
-	@echo "... src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.obj"
-	@echo "... src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.i"
-	@echo "... src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.s"
-	@echo "... src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.obj"
-	@echo "... src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.i"
-	@echo "... src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.s"
-	@echo "... src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.obj"
-	@echo "... src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.i"
-	@echo "... src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.s"
-	@echo "... src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.obj"
-	@echo "... src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.i"
-	@echo "... src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.s"
-	@echo "... src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.obj"
-	@echo "... src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.i"
-	@echo "... src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.s"
+	@echo "... src/ap/ap.obj"
+	@echo "... src/ap/ap.i"
+	@echo "... src/ap/ap.s"
+	@echo "... src/bsp/bsp.obj"
+	@echo "... src/bsp/bsp.i"
+	@echo "... src/bsp/bsp.s"
+	@echo "... src/bsp/startup/startup_stm32f405rgtx.obj"
+	@echo "... src/bsp/stm32f4xx_hal_msp.obj"
+	@echo "... src/bsp/stm32f4xx_hal_msp.i"
+	@echo "... src/bsp/stm32f4xx_hal_msp.s"
+	@echo "... src/bsp/stm32f4xx_it.obj"
+	@echo "... src/bsp/stm32f4xx_it.i"
+	@echo "... src/bsp/stm32f4xx_it.s"
+	@echo "... src/bsp/syscalls.obj"
+	@echo "... src/bsp/syscalls.i"
+	@echo "... src/bsp/syscalls.s"
+	@echo "... src/bsp/sysmem.obj"
+	@echo "... src/bsp/sysmem.i"
+	@echo "... src/bsp/sysmem.s"
+	@echo "... src/bsp/system_stm32f4xx.obj"
+	@echo "... src/bsp/system_stm32f4xx.i"
+	@echo "... src/bsp/system_stm32f4xx.s"
+	@echo "... src/common/core/eeprom.obj"
+	@echo "... src/common/core/eeprom.i"
+	@echo "... src/common/core/eeprom.s"
+	@echo "... src/common/core/filter.obj"
+	@echo "... src/common/core/filter.i"
+	@echo "... src/common/core/filter.s"
+	@echo "... src/common/core/gps.obj"
+	@echo "... src/common/core/gps.i"
+	@echo "... src/common/core/gps.s"
+	@echo "... src/common/core/imu.obj"
+	@echo "... src/common/core/imu.i"
+	@echo "... src/common/core/imu.s"
+	@echo "... src/common/core/led_control.obj"
+	@echo "... src/common/core/led_control.i"
+	@echo "... src/common/core/led_control.s"
+	@echo "... src/common/core/mixer.obj"
+	@echo "... src/common/core/mixer.i"
+	@echo "... src/common/core/mixer.s"
+	@echo "... src/common/core/pid.obj"
+	@echo "... src/common/core/pid.i"
+	@echo "... src/common/core/pid.s"
+	@echo "... src/common/core/radio.obj"
+	@echo "... src/common/core/radio.i"
+	@echo "... src/common/core/radio.s"
+	@echo "... src/common/core/ring_buffer.obj"
+	@echo "... src/common/core/ring_buffer.i"
+	@echo "... src/common/core/ring_buffer.s"
+	@echo "... src/common/core/sensor.obj"
+	@echo "... src/common/core/sensor.i"
+	@echo "... src/common/core/sensor.s"
+	@echo "... src/common/core/telemetry.obj"
+	@echo "... src/common/core/telemetry.i"
+	@echo "... src/common/core/telemetry.s"
+	@echo "... src/hw/driver/cli.obj"
+	@echo "... src/hw/driver/cli.i"
+	@echo "... src/hw/driver/cli.s"
+	@echo "... src/hw/driver/i2c.obj"
+	@echo "... src/hw/driver/i2c.i"
+	@echo "... src/hw/driver/i2c.s"
+	@echo "... src/hw/driver/led.obj"
+	@echo "... src/hw/driver/led.i"
+	@echo "... src/hw/driver/led.s"
+	@echo "... src/hw/driver/spi.obj"
+	@echo "... src/hw/driver/spi.i"
+	@echo "... src/hw/driver/spi.s"
+	@echo "... src/hw/driver/timer.obj"
+	@echo "... src/hw/driver/timer.i"
+	@echo "... src/hw/driver/timer.s"
+	@echo "... src/hw/driver/uart.obj"
+	@echo "... src/hw/driver/uart.i"
+	@echo "... src/hw/driver/uart.s"
+	@echo "... src/hw/hw.obj"
+	@echo "... src/hw/hw.i"
+	@echo "... src/hw/hw.s"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.obj"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.i"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.s"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.obj"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.i"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.s"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.obj"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.i"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.s"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.obj"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.i"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.s"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.obj"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.i"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.s"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.obj"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.i"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.s"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.obj"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.i"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.s"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.obj"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.i"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.s"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.obj"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.i"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.s"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.obj"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.i"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.s"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.obj"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.i"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.s"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd.obj"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd.i"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd.s"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd_ex.obj"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd_ex.i"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd_ex.s"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.obj"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.i"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.s"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.obj"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.i"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.s"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.obj"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.i"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.s"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.obj"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.i"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.s"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.obj"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.i"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.s"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.obj"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.i"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.s"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.obj"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.i"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.s"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.obj"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.i"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.s"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.obj"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.i"
+	@echo "... src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.s"
+	@echo "... src/lib/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.obj"
+	@echo "... src/lib/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.i"
+	@echo "... src/lib/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.s"
+	@echo "... src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.obj"
+	@echo "... src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.i"
+	@echo "... src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.s"
+	@echo "... src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.obj"
+	@echo "... src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.i"
+	@echo "... src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.s"
+	@echo "... src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.obj"
+	@echo "... src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.i"
+	@echo "... src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.s"
+	@echo "... src/lib/USB_DEVICE/App/usb_device.obj"
+	@echo "... src/lib/USB_DEVICE/App/usb_device.i"
+	@echo "... src/lib/USB_DEVICE/App/usb_device.s"
+	@echo "... src/lib/USB_DEVICE/App/usbd_cdc_if.obj"
+	@echo "... src/lib/USB_DEVICE/App/usbd_cdc_if.i"
+	@echo "... src/lib/USB_DEVICE/App/usbd_cdc_if.s"
+	@echo "... src/lib/USB_DEVICE/App/usbd_desc.obj"
+	@echo "... src/lib/USB_DEVICE/App/usbd_desc.i"
+	@echo "... src/lib/USB_DEVICE/App/usbd_desc.s"
+	@echo "... src/lib/USB_DEVICE/Target/usbd_conf.obj"
+	@echo "... src/lib/USB_DEVICE/Target/usbd_conf.i"
+	@echo "... src/lib/USB_DEVICE/Target/usbd_conf.s"
+	@echo "... src/main.obj"
+	@echo "... src/main.i"
+	@echo "... src/main.s"
 .PHONY : help
 
 

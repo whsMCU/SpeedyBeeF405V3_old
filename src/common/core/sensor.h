@@ -53,8 +53,6 @@ typedef struct {
 
 } LPS_t;
 
-float aRes, gRes, mRes;
-
 // Set initial input parameters
 enum Ascale
 {

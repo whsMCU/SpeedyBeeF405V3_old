@@ -1,14 +1,15 @@
 cmake_minimum_required(VERSION 3.0.0)
 
+set(PRJ_NAME SpeedyBeeF405V3)
 
-project(SpeedyBeeF405V3 
+project(${PRJ_NAME}
   LANGUAGES ASM C CXX
 )
 
 set(EXECUTABLE ${PROJECT_NAME}.elf)
 #set(EXECUTABLE ${PROJECT_NAME}.hex)
 #set(EXECUTABLE ${PROJECT_NAME}.bin)
-set(LINKER_FILE ${CMAKE_SOURCE_DIR}/src/STM32F405RGTX_FLASH.ld)
+set(LINKER_FILE ${CMAKE_SOURCE_DIR}/src/bsp/ldscript/STM32F405RGTX_FLASH.ld)
 
 # 해당 폴더의 파일만 찾는다.
 file(GLOB SRC_FILES CONFIGURE_DEPENDS
@@ -17,8 +18,7 @@ file(GLOB SRC_FILES CONFIGURE_DEPENDS
 
 # 해당 폴더를 포함해서 하위 폴더까지의 파일도 찾는다.
 file(GLOB_RECURSE SRC_FILES_RECURSE CONFIGURE_DEPENDS
-  src/Core/*.c
-  src/Drivers/*.c
+  src/*.c
 )
 
 # Build the executable based on the source files
@@ -26,7 +26,7 @@ add_executable(${EXECUTABLE}
   ${SRC_FILES}
   ${SRC_FILES_RECURSE}
 
-  src/Core/Startup/startup_stm32f405rgtx.s
+  src/bsp/startup/startup_stm32f405rgtx.s
   )
 
 target_compile_definitions(${EXECUTABLE} PRIVATE
@@ -35,11 +35,21 @@ target_compile_definitions(${EXECUTABLE} PRIVATE
 
 # List of includ directories
 target_include_directories(${EXECUTABLE} PRIVATE
-  src 
-  src/Core/Inc
-  src/Drivers/CMSIS/Device/ST/STM32F4xx/Include
-  src/Drivers/CMSIS/Include
-  src/Drivers/STM32F4xx_HAL_Driver/Inc
+  src
+  src/ap
+  src/bsp
+  src/common
+  src/common/core
+  src/common/hw/include
+  src/hw
+  src/hw/driver
+  src/lib/Drivers/CMSIS/Include
+  src/lib/Drivers/CMSIS/Device/ST/STM32F4xx/Include
+  src/lib/Drivers/STM32F4xx_HAL_Driver/Inc
+  src/lib/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc
+  src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Inc
+  src/lib/USB_DEVICE/App
+  src/lib/USB_DEVICE/Target
   )
 
 # Compiler options

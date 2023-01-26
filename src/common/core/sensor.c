@@ -25,6 +25,7 @@ uint16_t calibratingG = 0;
 uint16_t acc_1G = 512;          // this is the 1G measured acceleration.
 
 uint8_t rawADC[12];
+float aRes, gRes, mRes;
 float magCalibration[3] = {0, 0, 0}, magBias[3] = {0, 0, 0};
 float SelfTest[6] = {0, 0, 0};
 float gyroBias[3] = {0, 0, 0}, accBias[3] = {0, 0, 0};
