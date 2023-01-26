@@ -1,0 +1,117 @@
+[
+{
+  "directory": "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/build",
+  "command": "C:/tools/gcc-arm-none-eabi-10.3-2021.10/bin/arm-none-eabi-gcc.exe -DSTM32F405xx -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Core/Inc\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/CMSIS/Device/ST/STM32F4xx/Include\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/CMSIS/Include\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Inc\" -g -mcpu=cortex-m4 -mthumb -fdata-sections -ffunction-sections -Wall -O0 -g3 -std=gnu11 -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Core/Src/gpio.c.obj -c \"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Core/Src/gpio.c\"",
+  "file": "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Core/Src/gpio.c"
+},
+{
+  "directory": "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/build",
+  "command": "C:/tools/gcc-arm-none-eabi-10.3-2021.10/bin/arm-none-eabi-gcc.exe -DSTM32F405xx -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Core/Inc\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/CMSIS/Device/ST/STM32F4xx/Include\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/CMSIS/Include\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Inc\" -g -mcpu=cortex-m4 -mthumb -fdata-sections -ffunction-sections -Wall -O0 -g3 -std=gnu11 -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Core/Src/main.c.obj -c \"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Core/Src/main.c\"",
+  "file": "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Core/Src/main.c"
+},
+{
+  "directory": "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/build",
+  "command": "C:/tools/gcc-arm-none-eabi-10.3-2021.10/bin/arm-none-eabi-gcc.exe -DSTM32F405xx -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Core/Inc\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/CMSIS/Device/ST/STM32F4xx/Include\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/CMSIS/Include\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Inc\" -g -mcpu=cortex-m4 -mthumb -fdata-sections -ffunction-sections -Wall -O0 -g3 -std=gnu11 -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Core/Src/stm32f4xx_hal_msp.c.obj -c \"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Core/Src/stm32f4xx_hal_msp.c\"",
+  "file": "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Core/Src/stm32f4xx_hal_msp.c"
+},
+{
+  "directory": "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/build",
+  "command": "C:/tools/gcc-arm-none-eabi-10.3-2021.10/bin/arm-none-eabi-gcc.exe -DSTM32F405xx -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Core/Inc\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/CMSIS/Device/ST/STM32F4xx/Include\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/CMSIS/Include\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Inc\" -g -mcpu=cortex-m4 -mthumb -fdata-sections -ffunction-sections -Wall -O0 -g3 -std=gnu11 -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Core/Src/stm32f4xx_it.c.obj -c \"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Core/Src/stm32f4xx_it.c\"",
+  "file": "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Core/Src/stm32f4xx_it.c"
+},
+{
+  "directory": "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/build",
+  "command": "C:/tools/gcc-arm-none-eabi-10.3-2021.10/bin/arm-none-eabi-gcc.exe -DSTM32F405xx -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Core/Inc\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/CMSIS/Device/ST/STM32F4xx/Include\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/CMSIS/Include\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Inc\" -g -mcpu=cortex-m4 -mthumb -fdata-sections -ffunction-sections -Wall -O0 -g3 -std=gnu11 -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Core/Src/syscalls.c.obj -c \"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Core/Src/syscalls.c\"",
+  "file": "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Core/Src/syscalls.c"
+},
+{
+  "directory": "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/build",
+  "command": "C:/tools/gcc-arm-none-eabi-10.3-2021.10/bin/arm-none-eabi-gcc.exe -DSTM32F405xx -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Core/Inc\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/CMSIS/Device/ST/STM32F4xx/Include\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/CMSIS/Include\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Inc\" -g -mcpu=cortex-m4 -mthumb -fdata-sections -ffunction-sections -Wall -O0 -g3 -std=gnu11 -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Core/Src/sysmem.c.obj -c \"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Core/Src/sysmem.c\"",
+  "file": "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Core/Src/sysmem.c"
+},
+{
+  "directory": "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/build",
+  "command": "C:/tools/gcc-arm-none-eabi-10.3-2021.10/bin/arm-none-eabi-gcc.exe -DSTM32F405xx -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Core/Inc\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/CMSIS/Device/ST/STM32F4xx/Include\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/CMSIS/Include\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Inc\" -g -mcpu=cortex-m4 -mthumb -fdata-sections -ffunction-sections -Wall -O0 -g3 -std=gnu11 -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Core/Src/system_stm32f4xx.c.obj -c \"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Core/Src/system_stm32f4xx.c\"",
+  "file": "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Core/Src/system_stm32f4xx.c"
+},
+{
+  "directory": "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/build",
+  "command": "C:/tools/gcc-arm-none-eabi-10.3-2021.10/bin/arm-none-eabi-gcc.exe -DSTM32F405xx -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Core/Inc\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/CMSIS/Device/ST/STM32F4xx/Include\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/CMSIS/Include\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Inc\" -g -mcpu=cortex-m4 -mthumb -fdata-sections -ffunction-sections -Wall -O0 -g3 -std=gnu11 -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c.obj -c \"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c\"",
+  "file": "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c"
+},
+{
+  "directory": "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/build",
+  "command": "C:/tools/gcc-arm-none-eabi-10.3-2021.10/bin/arm-none-eabi-gcc.exe -DSTM32F405xx -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Core/Inc\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/CMSIS/Device/ST/STM32F4xx/Include\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/CMSIS/Include\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Inc\" -g -mcpu=cortex-m4 -mthumb -fdata-sections -ffunction-sections -Wall -O0 -g3 -std=gnu11 -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c.obj -c \"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c\"",
+  "file": "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c"
+},
+{
+  "directory": "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/build",
+  "command": "C:/tools/gcc-arm-none-eabi-10.3-2021.10/bin/arm-none-eabi-gcc.exe -DSTM32F405xx -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Core/Inc\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/CMSIS/Device/ST/STM32F4xx/Include\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/CMSIS/Include\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Inc\" -g -mcpu=cortex-m4 -mthumb -fdata-sections -ffunction-sections -Wall -O0 -g3 -std=gnu11 -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c.obj -c \"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c\"",
+  "file": "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c"
+},
+{
+  "directory": "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/build",
+  "command": "C:/tools/gcc-arm-none-eabi-10.3-2021.10/bin/arm-none-eabi-gcc.exe -DSTM32F405xx -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Core/Inc\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/CMSIS/Device/ST/STM32F4xx/Include\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/CMSIS/Include\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Inc\" -g -mcpu=cortex-m4 -mthumb -fdata-sections -ffunction-sections -Wall -O0 -g3 -std=gnu11 -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c.obj -c \"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c\"",
+  "file": "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c"
+},
+{
+  "directory": "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/build",
+  "command": "C:/tools/gcc-arm-none-eabi-10.3-2021.10/bin/arm-none-eabi-gcc.exe -DSTM32F405xx -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Core/Inc\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/CMSIS/Device/ST/STM32F4xx/Include\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/CMSIS/Include\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Inc\" -g -mcpu=cortex-m4 -mthumb -fdata-sections -ffunction-sections -Wall -O0 -g3 -std=gnu11 -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c.obj -c \"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c\"",
+  "file": "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c"
+},
+{
+  "directory": "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/build",
+  "command": "C:/tools/gcc-arm-none-eabi-10.3-2021.10/bin/arm-none-eabi-gcc.exe -DSTM32F405xx -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Core/Inc\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/CMSIS/Device/ST/STM32F4xx/Include\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/CMSIS/Include\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Inc\" -g -mcpu=cortex-m4 -mthumb -fdata-sections -ffunction-sections -Wall -O0 -g3 -std=gnu11 -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c.obj -c \"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c\"",
+  "file": "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c"
+},
+{
+  "directory": "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/build",
+  "command": "C:/tools/gcc-arm-none-eabi-10.3-2021.10/bin/arm-none-eabi-gcc.exe -DSTM32F405xx -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Core/Inc\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/CMSIS/Device/ST/STM32F4xx/Include\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/CMSIS/Include\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Inc\" -g -mcpu=cortex-m4 -mthumb -fdata-sections -ffunction-sections -Wall -O0 -g3 -std=gnu11 -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c.obj -c \"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c\"",
+  "file": "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c"
+},
+{
+  "directory": "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/build",
+  "command": "C:/tools/gcc-arm-none-eabi-10.3-2021.10/bin/arm-none-eabi-gcc.exe -DSTM32F405xx -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Core/Inc\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/CMSIS/Device/ST/STM32F4xx/Include\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/CMSIS/Include\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Inc\" -g -mcpu=cortex-m4 -mthumb -fdata-sections -ffunction-sections -Wall -O0 -g3 -std=gnu11 -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c.obj -c \"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c\"",
+  "file": "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c"
+},
+{
+  "directory": "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/build",
+  "command": "C:/tools/gcc-arm-none-eabi-10.3-2021.10/bin/arm-none-eabi-gcc.exe -DSTM32F405xx -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Core/Inc\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/CMSIS/Device/ST/STM32F4xx/Include\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/CMSIS/Include\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Inc\" -g -mcpu=cortex-m4 -mthumb -fdata-sections -ffunction-sections -Wall -O0 -g3 -std=gnu11 -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c.obj -c \"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c\"",
+  "file": "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c"
+},
+{
+  "directory": "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/build",
+  "command": "C:/tools/gcc-arm-none-eabi-10.3-2021.10/bin/arm-none-eabi-gcc.exe -DSTM32F405xx -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Core/Inc\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/CMSIS/Device/ST/STM32F4xx/Include\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/CMSIS/Include\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Inc\" -g -mcpu=cortex-m4 -mthumb -fdata-sections -ffunction-sections -Wall -O0 -g3 -std=gnu11 -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c.obj -c \"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c\"",
+  "file": "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c"
+},
+{
+  "directory": "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/build",
+  "command": "C:/tools/gcc-arm-none-eabi-10.3-2021.10/bin/arm-none-eabi-gcc.exe -DSTM32F405xx -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Core/Inc\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/CMSIS/Device/ST/STM32F4xx/Include\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/CMSIS/Include\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Inc\" -g -mcpu=cortex-m4 -mthumb -fdata-sections -ffunction-sections -Wall -O0 -g3 -std=gnu11 -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c.obj -c \"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c\"",
+  "file": "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c"
+},
+{
+  "directory": "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/build",
+  "command": "C:/tools/gcc-arm-none-eabi-10.3-2021.10/bin/arm-none-eabi-gcc.exe -DSTM32F405xx -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Core/Inc\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/CMSIS/Device/ST/STM32F4xx/Include\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/CMSIS/Include\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Inc\" -g -mcpu=cortex-m4 -mthumb -fdata-sections -ffunction-sections -Wall -O0 -g3 -std=gnu11 -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c.obj -c \"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c\"",
+  "file": "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c"
+},
+{
+  "directory": "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/build",
+  "command": "C:/tools/gcc-arm-none-eabi-10.3-2021.10/bin/arm-none-eabi-gcc.exe -DSTM32F405xx -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Core/Inc\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/CMSIS/Device/ST/STM32F4xx/Include\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/CMSIS/Include\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Inc\" -g -mcpu=cortex-m4 -mthumb -fdata-sections -ffunction-sections -Wall -O0 -g3 -std=gnu11 -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c.obj -c \"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c\"",
+  "file": "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c"
+},
+{
+  "directory": "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/build",
+  "command": "C:/tools/gcc-arm-none-eabi-10.3-2021.10/bin/arm-none-eabi-gcc.exe -DSTM32F405xx -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Core/Inc\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/CMSIS/Device/ST/STM32F4xx/Include\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/CMSIS/Include\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Inc\" -g -mcpu=cortex-m4 -mthumb -fdata-sections -ffunction-sections -Wall -O0 -g3 -std=gnu11 -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c.obj -c \"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c\"",
+  "file": "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c"
+},
+{
+  "directory": "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/build",
+  "command": "C:/tools/gcc-arm-none-eabi-10.3-2021.10/bin/arm-none-eabi-gcc.exe -DSTM32F405xx -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Core/Inc\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/CMSIS/Device/ST/STM32F4xx/Include\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/CMSIS/Include\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Inc\" -g -mcpu=cortex-m4 -mthumb -fdata-sections -ffunction-sections -Wall -O0 -g3 -std=gnu11 -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c.obj -c \"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c\"",
+  "file": "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c"
+},
+{
+  "directory": "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/build",
+  "command": "C:/tools/gcc-arm-none-eabi-10.3-2021.10/bin/arm-none-eabi-gcc.exe -DSTM32F405xx -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Core/Inc\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/CMSIS/Device/ST/STM32F4xx/Include\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/CMSIS/Include\" -I\"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Drivers/STM32F4xx_HAL_Driver/Inc\" -g -mcpu=cortex-m4 -mthumb -fdata-sections -ffunction-sections -Wall -O0 -g3 -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/Core/Startup/startup_stm32f405rgtx.s.obj -c \"C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Core/Startup/startup_stm32f405rgtx.s\"",
+  "file": "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/src/Core/Startup/startup_stm32f405rgtx.s"
+}
+]
