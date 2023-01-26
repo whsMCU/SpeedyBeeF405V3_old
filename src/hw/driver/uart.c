@@ -72,32 +72,8 @@ bool uartOpen(uint8_t ch, uint32_t baud)
       break;
 
     case _DEF_UART2:
-      huart1.Instance = USART1;
-      huart1.Init.BaudRate = baud;
-      huart1.Init.WordLength = UART_WORDLENGTH_8B;
-      huart1.Init.StopBits = UART_STOPBITS_1;
-      huart1.Init.Parity = UART_PARITY_NONE;
-      huart1.Init.Mode = UART_MODE_TX_RX;
-      huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-      huart1.Init.OverSampling = UART_OVERSAMPLING_16;
-
-      QueueCreate(&ring_buffer[ch], &u2_rx_buf[0], MAX_SIZE);
-
-      if (HAL_UART_Init(&huart1) != HAL_OK)
-      {
-        ret = false;
-      }
-      else
-      {
-        ret = true;
-        is_open[ch] = true;
-        if(HAL_UART_Receive_DMA(&huart1, (uint8_t *)&u2_rx_buf[0], MAX_SIZE) != HAL_OK)
-        {
-          ret = false;
-        }
-        ring_buffer[ch].head  = ring_buffer[ch].size - hdma_usart1_rx.Instance->NDTR;
-        ring_buffer[ch].tail = ring_buffer[ch].head;
-      }
+      is_open[ch] = true;
+      ret = true;
       break;
   }
 
@@ -116,8 +92,7 @@ uint32_t uartAvailable(uint8_t ch)
       break;
 
     case _DEF_UART2:
-    	ring_buffer[ch].head = (ring_buffer[ch].size - hdma_usart1_rx.Instance->NDTR);
-      ret = QueueAvailable(&ring_buffer[ch]);
+      ret = cdcAvailable();
       break;
   }
 
@@ -135,7 +110,7 @@ uint8_t uartRead(uint8_t ch)
       break;
 
     case _DEF_UART2:
-    	Q_read(&ring_buffer[_DEF_UART2], &ret, 1);
+      ret = cdcRead();
       break;
   }
 
@@ -158,11 +133,7 @@ uint32_t uartWrite(uint8_t ch, uint8_t *p_data, uint32_t length)
       break;
 
     case _DEF_UART2:
-      status = HAL_UART_Transmit(&huart1, p_data, length, 100);
-      if (status == HAL_OK)
-      {
-        ret = length;
-      }
+      ret = cdcWrite(p_data, length);
       break;
   }
 
@@ -244,7 +215,7 @@ uint32_t uartGetBaud(uint8_t ch)
       break;
 
     case _DEF_UART2:
-      ret = huart1.Init.BaudRate;
+      ret = cdcGetBaud();
       break;
   }
 

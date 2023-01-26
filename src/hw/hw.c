@@ -15,11 +15,12 @@
 void hwInit(void)
 {
   bspInit();
+  usbInit();
   // timerInit();
-  // cliInit();
-  // ledInit();
+  cliInit();
+  ledInit();
   // i2cInit();
-  // uartInit();
+  uartInit();
 
 	// ledOn(ST1);
   // ledOff(ST2);

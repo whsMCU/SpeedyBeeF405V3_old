@@ -25,6 +25,7 @@ eeror_t Error;
 
 void apInit(void)
 {
+	cliOpen(_DEF_UART2, 57600);
 //   uartOpen(_DEF_UART2, 57600);  // Telemetry
 
 //   cliOpen(_DEF_UART1, 57600);
@@ -48,8 +49,20 @@ void apInit(void)
 void apMain(void)
 {
 	// previousTime = micros();
+	uint32_t pre_time;
+ 	pre_time = millis();
 	while(1)
 	{
+		if (millis()-pre_time >= 500)
+    	{
+     		pre_time = millis();
+      		ledToggle(_DEF_LED1);
+    	}
+		//cliMain();
+		if(uartAvailable(_DEF_UART2)>0)
+		{
+			uartPrintf(_DEF_UART2, "Rx 0x%X\n", uartRead(_DEF_UART2));
+		}
 // 		computeRC(); //2us~10us
 // 		computeIMU();
 // #ifdef GPS_Recive

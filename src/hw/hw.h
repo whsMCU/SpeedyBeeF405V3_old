@@ -12,6 +12,7 @@
 
 #include "led.h"
 #include "uart.h"
+#include "usb.h"
 #include "cli.h"
 #include "i2c.h"
 #include "timer.h"

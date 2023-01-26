@@ -1,0 +1,15 @@
+{
+    "configurations": [
+    {
+        "cwd": "${workspaceFolder}",
+        "executable": "./build/SpeedyBeeF405V3.elf",
+        "name": "Debug with ST-Link",
+        "request": "launch",
+        "type": "cortex-debug",
+        "runToEntryPoint": "main",
+        "showDevDebugOutput": "none",
+        "servertype": "stlink",
+        "svdFile": "./tools/STM32F405.svd"
+    }
+    ]
+}

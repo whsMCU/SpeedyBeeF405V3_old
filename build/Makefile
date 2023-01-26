@@ -57,33 +57,13 @@ RM = "C:/Program Files/CMake/bin/cmake.exe" -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3"
+CMAKE_SOURCE_DIR = "D:/3. Project/SpeedyBeeF405V3"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/build"
+CMAKE_BINARY_DIR = "D:/3. Project/SpeedyBeeF405V3/build"
 
 #=============================================================================
 # Targets provided globally by CMake.
-
-# Special rule for the target package
-package: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
-	"C:/Program Files/CMake/bin/cpack.exe" --config ./CPackConfig.cmake
-.PHONY : package
-
-# Special rule for the target package
-package/fast: package
-.PHONY : package/fast
-
-# Special rule for the target package_source
-package_source:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
-	"C:/Program Files/CMake/bin/cpack.exe" --config ./CPackSourceConfig.cmake "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/build/CPackSourceConfig.cmake"
-.PHONY : package_source
-
-# Special rule for the target package_source
-package_source/fast: package_source
-.PHONY : package_source/fast
 
 # Special rule for the target edit_cache
 edit_cache:
@@ -107,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/build/CMakeFiles" "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/build//CMakeFiles/progress.marks"
+	$(CMAKE_COMMAND) -E cmake_progress_start "D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" "D:/3. Project/SpeedyBeeF405V3/build//CMakeFiles/progress.marks"
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/build/CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" 0
 .PHONY : all
 
 # The main clean target
@@ -133,7 +113,7 @@ preinstall/fast:
 
 # clear depends
 depend:
-	$(CMAKE_COMMAND) -P "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/build/CMakeFiles/VerifyGlobs.cmake"
+	$(CMAKE_COMMAND) -P "D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles/VerifyGlobs.cmake"
 	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
@@ -590,6 +570,30 @@ src/common/core/telemetry.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/telemetry.c.s
 .PHONY : src/common/core/telemetry.c.s
 
+src/hw/driver/cdc.obj: src/hw/driver/cdc.c.obj
+.PHONY : src/hw/driver/cdc.obj
+
+# target to build an object file
+src/hw/driver/cdc.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/cdc.c.obj
+.PHONY : src/hw/driver/cdc.c.obj
+
+src/hw/driver/cdc.i: src/hw/driver/cdc.c.i
+.PHONY : src/hw/driver/cdc.i
+
+# target to preprocess a source file
+src/hw/driver/cdc.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/cdc.c.i
+.PHONY : src/hw/driver/cdc.c.i
+
+src/hw/driver/cdc.s: src/hw/driver/cdc.c.s
+.PHONY : src/hw/driver/cdc.s
+
+# target to generate assembly for a file
+src/hw/driver/cdc.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/cdc.c.s
+.PHONY : src/hw/driver/cdc.c.s
+
 src/hw/driver/cli.obj: src/hw/driver/cli.c.obj
 .PHONY : src/hw/driver/cli.obj
 
@@ -733,6 +737,30 @@ src/hw/driver/uart.s: src/hw/driver/uart.c.s
 src/hw/driver/uart.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/uart.c.s
 .PHONY : src/hw/driver/uart.c.s
+
+src/hw/driver/usb.obj: src/hw/driver/usb.c.obj
+.PHONY : src/hw/driver/usb.obj
+
+# target to build an object file
+src/hw/driver/usb.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/usb.c.obj
+.PHONY : src/hw/driver/usb.c.obj
+
+src/hw/driver/usb.i: src/hw/driver/usb.c.i
+.PHONY : src/hw/driver/usb.i
+
+# target to preprocess a source file
+src/hw/driver/usb.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/usb.c.i
+.PHONY : src/hw/driver/usb.c.i
+
+src/hw/driver/usb.s: src/hw/driver/usb.c.s
+.PHONY : src/hw/driver/usb.s
+
+# target to generate assembly for a file
+src/hw/driver/usb.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/usb.c.s
+.PHONY : src/hw/driver/usb.c.s
 
 src/hw/hw.obj: src/hw/hw.c.obj
 .PHONY : src/hw/hw.obj
@@ -1509,8 +1537,6 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
-	@echo "... package"
-	@echo "... package_source"
 	@echo "... rebuild_cache"
 	@echo "... SpeedyBeeF405V3.elf"
 	@echo "... src/ap/ap.obj"
@@ -1568,6 +1594,9 @@ help:
 	@echo "... src/common/core/telemetry.obj"
 	@echo "... src/common/core/telemetry.i"
 	@echo "... src/common/core/telemetry.s"
+	@echo "... src/hw/driver/cdc.obj"
+	@echo "... src/hw/driver/cdc.i"
+	@echo "... src/hw/driver/cdc.s"
 	@echo "... src/hw/driver/cli.obj"
 	@echo "... src/hw/driver/cli.i"
 	@echo "... src/hw/driver/cli.s"
@@ -1586,6 +1615,9 @@ help:
 	@echo "... src/hw/driver/uart.obj"
 	@echo "... src/hw/driver/uart.i"
 	@echo "... src/hw/driver/uart.s"
+	@echo "... src/hw/driver/usb.obj"
+	@echo "... src/hw/driver/usb.i"
+	@echo "... src/hw/driver/usb.s"
 	@echo "... src/hw/hw.obj"
 	@echo "... src/hw/hw.i"
 	@echo "... src/hw/hw.s"
@@ -1693,7 +1725,7 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	$(CMAKE_COMMAND) -P "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/build/CMakeFiles/VerifyGlobs.cmake"
+	$(CMAKE_COMMAND) -P "D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles/VerifyGlobs.cmake"
 	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

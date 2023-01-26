@@ -1,9 +1,9 @@
-set(CMAKE_HOST_SYSTEM "Windows-10.0.19044")
+set(CMAKE_HOST_SYSTEM "Windows-10.0.19045")
 set(CMAKE_HOST_SYSTEM_NAME "Windows")
-set(CMAKE_HOST_SYSTEM_VERSION "10.0.19044")
+set(CMAKE_HOST_SYSTEM_VERSION "10.0.19045")
 set(CMAKE_HOST_SYSTEM_PROCESSOR "AMD64")
 
-include("C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/tools/arm-none-eabi-gcc.cmake")
+include("D:/3. Project/SpeedyBeeF405V3/tools/arm-none-eabi-gcc.cmake")
 
 set(CMAKE_SYSTEM "Generic")
 set(CMAKE_SYSTEM_NAME "Generic")
