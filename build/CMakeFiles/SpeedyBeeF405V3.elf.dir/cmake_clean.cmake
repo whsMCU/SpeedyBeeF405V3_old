@@ -14,6 +14,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/SpeedyBeeF405V3.elf.dir/src/bsp/sysmem.c.obj.d"
   "CMakeFiles/SpeedyBeeF405V3.elf.dir/src/bsp/system_stm32f4xx.c.obj"
   "CMakeFiles/SpeedyBeeF405V3.elf.dir/src/bsp/system_stm32f4xx.c.obj.d"
+  "CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/bmi270.c.obj"
+  "CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/bmi270.c.obj.d"
   "CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/eeprom.c.obj"
   "CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/eeprom.c.obj.d"
   "CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/filter.c.obj"

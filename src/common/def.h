@@ -30,6 +30,7 @@
 #include "eeprom.h"
 #include "gps.h"
 #include "led_control.h"
+#include "bmi270.h"
 
 
 

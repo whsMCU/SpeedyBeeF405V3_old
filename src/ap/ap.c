@@ -53,16 +53,12 @@ void apMain(void)
  	pre_time = millis();
 	while(1)
 	{
-		if (millis()-pre_time >= 500)
+		if (millis()-pre_time >= 1000)
     	{
      		pre_time = millis();
       		ledToggle(_DEF_LED1);
     	}
-		//cliMain();
-		if(uartAvailable(_DEF_UART2)>0)
-		{
-			uartPrintf(_DEF_UART2, "Rx 0x%X\n", uartRead(_DEF_UART2));
-		}
+		cliMain();
 // 		computeRC(); //2us~10us
 // 		computeIMU();
 // #ifdef GPS_Recive

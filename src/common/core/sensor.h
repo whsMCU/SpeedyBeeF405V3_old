@@ -11,9 +11,6 @@
 
 #include "def.h"
 
-
-
-
 typedef struct {
   int16_t  gyroData[3];
   int16_t  magADC[3];
