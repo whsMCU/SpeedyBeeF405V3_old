@@ -235,7 +235,8 @@
 				54,
 				55,
 				56,
-				57
+				57,
+				58
 			]
 		},
 		{
@@ -346,7 +347,7 @@
 			"language" : "ASM",
 			"sourceIndexes" : 
 			[
-				58
+				59
 			]
 		}
 	],
@@ -486,14 +487,15 @@
 				54,
 				55,
 				56,
-				57
+				57,
+				58
 			]
 		},
 		{
 			"name" : "",
 			"sourceIndexes" : 
 			[
-				58
+				59
 			]
 		}
 	],
@@ -545,6 +547,12 @@
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
 			"path" : "src/bsp/system_stm32f4xx.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/common/core/bmi270.c",
 			"sourceGroupIndex" : 0
 		},
 		{

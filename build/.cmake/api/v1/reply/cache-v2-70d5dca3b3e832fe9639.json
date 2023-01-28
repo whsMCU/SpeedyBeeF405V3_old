@@ -1247,11 +1247,11 @@
 			[
 				{
 					"name" : "HELPSTRING",
-					"value" : "The CMake toolchain file"
+					"value" : "No help, variable specified on the command line."
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "D:/3. Project/SpeedyBeeF405V3/tools/arm-none-eabi-gcc.cmake"
+			"value" : "d:/3. Project/SpeedyBeeF405V3/tools/arm-none-eabi-gcc.cmake"
 		},
 		{
 			"name" : "CMAKE_VERBOSE_MAKEFILE",

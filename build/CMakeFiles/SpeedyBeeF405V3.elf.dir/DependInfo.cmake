@@ -45,6 +45,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "D:/3. Project/SpeedyBeeF405V3/src/bsp/syscalls.c" "CMakeFiles/SpeedyBeeF405V3.elf.dir/src/bsp/syscalls.c.obj" "gcc" "CMakeFiles/SpeedyBeeF405V3.elf.dir/src/bsp/syscalls.c.obj.d"
   "D:/3. Project/SpeedyBeeF405V3/src/bsp/sysmem.c" "CMakeFiles/SpeedyBeeF405V3.elf.dir/src/bsp/sysmem.c.obj" "gcc" "CMakeFiles/SpeedyBeeF405V3.elf.dir/src/bsp/sysmem.c.obj.d"
   "D:/3. Project/SpeedyBeeF405V3/src/bsp/system_stm32f4xx.c" "CMakeFiles/SpeedyBeeF405V3.elf.dir/src/bsp/system_stm32f4xx.c.obj" "gcc" "CMakeFiles/SpeedyBeeF405V3.elf.dir/src/bsp/system_stm32f4xx.c.obj.d"
+  "D:/3. Project/SpeedyBeeF405V3/src/common/core/bmi270.c" "CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/bmi270.c.obj" "gcc" "CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/bmi270.c.obj.d"
   "D:/3. Project/SpeedyBeeF405V3/src/common/core/eeprom.c" "CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/eeprom.c.obj" "gcc" "CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/eeprom.c.obj.d"
   "D:/3. Project/SpeedyBeeF405V3/src/common/core/filter.c" "CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/filter.c.obj" "gcc" "CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/filter.c.obj.d"
   "D:/3. Project/SpeedyBeeF405V3/src/common/core/gps.c" "CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/gps.c.obj" "gcc" "CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/gps.c.obj.d"

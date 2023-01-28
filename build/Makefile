@@ -306,6 +306,30 @@ src/bsp/system_stm32f4xx.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/bsp/system_stm32f4xx.c.s
 .PHONY : src/bsp/system_stm32f4xx.c.s
 
+src/common/core/bmi270.obj: src/common/core/bmi270.c.obj
+.PHONY : src/common/core/bmi270.obj
+
+# target to build an object file
+src/common/core/bmi270.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/bmi270.c.obj
+.PHONY : src/common/core/bmi270.c.obj
+
+src/common/core/bmi270.i: src/common/core/bmi270.c.i
+.PHONY : src/common/core/bmi270.i
+
+# target to preprocess a source file
+src/common/core/bmi270.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/bmi270.c.i
+.PHONY : src/common/core/bmi270.c.i
+
+src/common/core/bmi270.s: src/common/core/bmi270.c.s
+.PHONY : src/common/core/bmi270.s
+
+# target to generate assembly for a file
+src/common/core/bmi270.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/bmi270.c.s
+.PHONY : src/common/core/bmi270.c.s
+
 src/common/core/eeprom.obj: src/common/core/eeprom.c.obj
 .PHONY : src/common/core/eeprom.obj
 
@@ -1561,6 +1585,9 @@ help:
 	@echo "... src/bsp/system_stm32f4xx.obj"
 	@echo "... src/bsp/system_stm32f4xx.i"
 	@echo "... src/bsp/system_stm32f4xx.s"
+	@echo "... src/common/core/bmi270.obj"
+	@echo "... src/common/core/bmi270.i"
+	@echo "... src/common/core/bmi270.s"
 	@echo "... src/common/core/eeprom.obj"
 	@echo "... src/common/core/eeprom.i"
 	@echo "... src/common/core/eeprom.s"

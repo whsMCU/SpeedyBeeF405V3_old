@@ -22,6 +22,7 @@ set(OLD_GLOB
   "D:/3. Project/SpeedyBeeF405V3/src/bsp/syscalls.c"
   "D:/3. Project/SpeedyBeeF405V3/src/bsp/sysmem.c"
   "D:/3. Project/SpeedyBeeF405V3/src/bsp/system_stm32f4xx.c"
+  "D:/3. Project/SpeedyBeeF405V3/src/common/core/bmi270.c"
   "D:/3. Project/SpeedyBeeF405V3/src/common/core/eeprom.c"
   "D:/3. Project/SpeedyBeeF405V3/src/common/core/filter.c"
   "D:/3. Project/SpeedyBeeF405V3/src/common/core/gps.c"
