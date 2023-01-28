@@ -16,6 +16,7 @@
 #include "cli.h"
 #include "i2c.h"
 #include "timer.h"
+#include "spi.h"
 
 
 void hwInit(void);

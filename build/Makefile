@@ -57,10 +57,10 @@ RM = "C:/Program Files/CMake/bin/cmake.exe" -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3"
+CMAKE_SOURCE_DIR = "D:/3. Project/SpeedyBeeF405V3"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/build"
+CMAKE_BINARY_DIR = "D:/3. Project/SpeedyBeeF405V3/build"
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/build/CMakeFiles" "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/build//CMakeFiles/progress.marks"
+	$(CMAKE_COMMAND) -E cmake_progress_start "D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" "D:/3. Project/SpeedyBeeF405V3/build//CMakeFiles/progress.marks"
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/build/CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" 0
 .PHONY : all
 
 # The main clean target
@@ -113,7 +113,7 @@ preinstall/fast:
 
 # clear depends
 depend:
-	$(CMAKE_COMMAND) -P "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/build/CMakeFiles/VerifyGlobs.cmake"
+	$(CMAKE_COMMAND) -P "D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles/VerifyGlobs.cmake"
 	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
@@ -305,30 +305,6 @@ src/bsp/system_stm32f4xx.s: src/bsp/system_stm32f4xx.c.s
 src/bsp/system_stm32f4xx.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/bsp/system_stm32f4xx.c.s
 .PHONY : src/bsp/system_stm32f4xx.c.s
-
-src/common/core/bmi270.obj: src/common/core/bmi270.c.obj
-.PHONY : src/common/core/bmi270.obj
-
-# target to build an object file
-src/common/core/bmi270.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/bmi270.c.obj
-.PHONY : src/common/core/bmi270.c.obj
-
-src/common/core/bmi270.i: src/common/core/bmi270.c.i
-.PHONY : src/common/core/bmi270.i
-
-# target to preprocess a source file
-src/common/core/bmi270.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/bmi270.c.i
-.PHONY : src/common/core/bmi270.c.i
-
-src/common/core/bmi270.s: src/common/core/bmi270.c.s
-.PHONY : src/common/core/bmi270.s
-
-# target to generate assembly for a file
-src/common/core/bmi270.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/bmi270.c.s
-.PHONY : src/common/core/bmi270.c.s
 
 src/common/core/eeprom.obj: src/common/core/eeprom.c.obj
 .PHONY : src/common/core/eeprom.obj
@@ -1585,9 +1561,6 @@ help:
 	@echo "... src/bsp/system_stm32f4xx.obj"
 	@echo "... src/bsp/system_stm32f4xx.i"
 	@echo "... src/bsp/system_stm32f4xx.s"
-	@echo "... src/common/core/bmi270.obj"
-	@echo "... src/common/core/bmi270.i"
-	@echo "... src/common/core/bmi270.s"
 	@echo "... src/common/core/eeprom.obj"
 	@echo "... src/common/core/eeprom.i"
 	@echo "... src/common/core/eeprom.s"
@@ -1752,7 +1725,7 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	$(CMAKE_COMMAND) -P "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/build/CMakeFiles/VerifyGlobs.cmake"
+	$(CMAKE_COMMAND) -P "D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles/VerifyGlobs.cmake"
 	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

@@ -21,6 +21,7 @@ void hwInit(void)
   ledInit();
   // i2cInit();
   uartInit();
+  spiInit();
 
 	// ledOn(ST1);
   // ledOff(ST2);
