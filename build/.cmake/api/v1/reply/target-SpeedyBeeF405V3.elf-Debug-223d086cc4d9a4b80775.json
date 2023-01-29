@@ -236,7 +236,8 @@
 				55,
 				56,
 				57,
-				58
+				58,
+				59
 			]
 		},
 		{
@@ -347,7 +348,7 @@
 			"language" : "ASM",
 			"sourceIndexes" : 
 			[
-				59
+				60
 			]
 		}
 	],
@@ -488,14 +489,15 @@
 				55,
 				56,
 				57,
-				58
+				58,
+				59
 			]
 		},
 		{
 			"name" : "",
 			"sourceIndexes" : 
 			[
-				59
+				60
 			]
 		}
 	],
@@ -631,6 +633,12 @@
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
 			"path" : "src/hw/driver/cli.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/hw/driver/gpio.c",
 			"sourceGroupIndex" : 0
 		},
 		{

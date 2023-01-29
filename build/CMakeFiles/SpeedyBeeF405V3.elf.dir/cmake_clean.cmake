@@ -42,6 +42,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/cdc.c.obj.d"
   "CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/cli.c.obj"
   "CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/cli.c.obj.d"
+  "CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/gpio.c.obj"
+  "CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/gpio.c.obj.d"
   "CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/i2c.c.obj"
   "CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/i2c.c.obj.d"
   "CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/led.c.obj"

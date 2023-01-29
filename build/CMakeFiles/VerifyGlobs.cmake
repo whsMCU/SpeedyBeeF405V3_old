@@ -36,6 +36,7 @@ set(OLD_GLOB
   "D:/3. Project/SpeedyBeeF405V3/src/common/core/telemetry.c"
   "D:/3. Project/SpeedyBeeF405V3/src/hw/driver/cdc.c"
   "D:/3. Project/SpeedyBeeF405V3/src/hw/driver/cli.c"
+  "D:/3. Project/SpeedyBeeF405V3/src/hw/driver/gpio.c"
   "D:/3. Project/SpeedyBeeF405V3/src/hw/driver/i2c.c"
   "D:/3. Project/SpeedyBeeF405V3/src/hw/driver/led.c"
   "D:/3. Project/SpeedyBeeF405V3/src/hw/driver/spi.c"

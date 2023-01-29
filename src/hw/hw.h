@@ -17,6 +17,7 @@
 #include "i2c.h"
 #include "timer.h"
 #include "spi.h"
+#include "gpio.h"
 
 
 void hwInit(void);

@@ -59,6 +59,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "D:/3. Project/SpeedyBeeF405V3/src/common/core/telemetry.c" "CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/telemetry.c.obj" "gcc" "CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/telemetry.c.obj.d"
   "D:/3. Project/SpeedyBeeF405V3/src/hw/driver/cdc.c" "CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/cdc.c.obj" "gcc" "CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/cdc.c.obj.d"
   "D:/3. Project/SpeedyBeeF405V3/src/hw/driver/cli.c" "CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/cli.c.obj" "gcc" "CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/cli.c.obj.d"
+  "D:/3. Project/SpeedyBeeF405V3/src/hw/driver/gpio.c" "CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/gpio.c.obj" "gcc" "CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/gpio.c.obj.d"
   "D:/3. Project/SpeedyBeeF405V3/src/hw/driver/i2c.c" "CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/i2c.c.obj" "gcc" "CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/i2c.c.obj.d"
   "D:/3. Project/SpeedyBeeF405V3/src/hw/driver/led.c" "CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/led.c.obj" "gcc" "CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/led.c.obj.d"
   "D:/3. Project/SpeedyBeeF405V3/src/hw/driver/spi.c" "CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/spi.c.obj" "gcc" "CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/spi.c.obj.d"

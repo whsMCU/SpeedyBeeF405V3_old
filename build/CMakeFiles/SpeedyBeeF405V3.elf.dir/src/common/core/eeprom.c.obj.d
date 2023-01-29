@@ -56,6 +56,7 @@ CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/eeprom.c.obj: \
  D:/3.\ Project/SpeedyBeeF405V3/src/common/core/eeprom.h \
  D:/3.\ Project/SpeedyBeeF405V3/src/common/core/gps.h \
  D:/3.\ Project/SpeedyBeeF405V3/src/common/core/led_control.h \
+ D:/3.\ Project/SpeedyBeeF405V3/src/common/core/bmi270.h \
  D:/3.\ Project/SpeedyBeeF405V3/src/common/hw/include/i2c.h \
  D:/3.\ Project/SpeedyBeeF405V3/src/hw/hw_def.h \
  D:/3.\ Project/SpeedyBeeF405V3/src/bsp/bsp.h \

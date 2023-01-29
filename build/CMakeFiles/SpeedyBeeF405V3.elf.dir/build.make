@@ -377,10 +377,24 @@ CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/cli.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/cli.c.s"
 	C:/tools/gcc-arm-none-eabi-10.3-2021.07/bin/arm-none-eabi-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "D:/3. Project/SpeedyBeeF405V3/src/hw/driver/cli.c" -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/cli.c.s
 
+CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/gpio.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/flags.make
+CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/gpio.c.obj: D:/3.\ Project/SpeedyBeeF405V3/src/hw/driver/gpio.c
+CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/gpio.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_23) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/gpio.c.obj"
+	C:/tools/gcc-arm-none-eabi-10.3-2021.07/bin/arm-none-eabi-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/gpio.c.obj -MF CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/gpio.c.obj.d -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/gpio.c.obj -c "D:/3. Project/SpeedyBeeF405V3/src/hw/driver/gpio.c"
+
+CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/gpio.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/gpio.c.i"
+	C:/tools/gcc-arm-none-eabi-10.3-2021.07/bin/arm-none-eabi-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "D:/3. Project/SpeedyBeeF405V3/src/hw/driver/gpio.c" > CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/gpio.c.i
+
+CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/gpio.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/gpio.c.s"
+	C:/tools/gcc-arm-none-eabi-10.3-2021.07/bin/arm-none-eabi-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "D:/3. Project/SpeedyBeeF405V3/src/hw/driver/gpio.c" -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/gpio.c.s
+
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/i2c.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/flags.make
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/i2c.c.obj: D:/3.\ Project/SpeedyBeeF405V3/src/hw/driver/i2c.c
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/i2c.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_23) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/i2c.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_24) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/i2c.c.obj"
 	C:/tools/gcc-arm-none-eabi-10.3-2021.07/bin/arm-none-eabi-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/i2c.c.obj -MF CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/i2c.c.obj.d -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/i2c.c.obj -c "D:/3. Project/SpeedyBeeF405V3/src/hw/driver/i2c.c"
 
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/i2c.c.i: cmake_force
@@ -394,7 +408,7 @@ CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/i2c.c.s: cmake_force
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/led.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/flags.make
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/led.c.obj: D:/3.\ Project/SpeedyBeeF405V3/src/hw/driver/led.c
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/led.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_24) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/led.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_25) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/led.c.obj"
 	C:/tools/gcc-arm-none-eabi-10.3-2021.07/bin/arm-none-eabi-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/led.c.obj -MF CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/led.c.obj.d -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/led.c.obj -c "D:/3. Project/SpeedyBeeF405V3/src/hw/driver/led.c"
 
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/led.c.i: cmake_force
@@ -408,7 +422,7 @@ CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/led.c.s: cmake_force
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/spi.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/flags.make
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/spi.c.obj: D:/3.\ Project/SpeedyBeeF405V3/src/hw/driver/spi.c
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/spi.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_25) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/spi.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_26) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/spi.c.obj"
 	C:/tools/gcc-arm-none-eabi-10.3-2021.07/bin/arm-none-eabi-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/spi.c.obj -MF CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/spi.c.obj.d -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/spi.c.obj -c "D:/3. Project/SpeedyBeeF405V3/src/hw/driver/spi.c"
 
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/spi.c.i: cmake_force
@@ -422,7 +436,7 @@ CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/spi.c.s: cmake_force
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/timer.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/flags.make
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/timer.c.obj: D:/3.\ Project/SpeedyBeeF405V3/src/hw/driver/timer.c
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/timer.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_26) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/timer.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_27) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/timer.c.obj"
 	C:/tools/gcc-arm-none-eabi-10.3-2021.07/bin/arm-none-eabi-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/timer.c.obj -MF CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/timer.c.obj.d -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/timer.c.obj -c "D:/3. Project/SpeedyBeeF405V3/src/hw/driver/timer.c"
 
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/timer.c.i: cmake_force
@@ -436,7 +450,7 @@ CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/timer.c.s: cmake_force
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/uart.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/flags.make
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/uart.c.obj: D:/3.\ Project/SpeedyBeeF405V3/src/hw/driver/uart.c
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/uart.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_27) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/uart.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_28) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/uart.c.obj"
 	C:/tools/gcc-arm-none-eabi-10.3-2021.07/bin/arm-none-eabi-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/uart.c.obj -MF CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/uart.c.obj.d -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/uart.c.obj -c "D:/3. Project/SpeedyBeeF405V3/src/hw/driver/uart.c"
 
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/uart.c.i: cmake_force
@@ -450,7 +464,7 @@ CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/uart.c.s: cmake_force
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/usb.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/flags.make
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/usb.c.obj: D:/3.\ Project/SpeedyBeeF405V3/src/hw/driver/usb.c
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/usb.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_28) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/usb.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_29) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/usb.c.obj"
 	C:/tools/gcc-arm-none-eabi-10.3-2021.07/bin/arm-none-eabi-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/usb.c.obj -MF CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/usb.c.obj.d -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/usb.c.obj -c "D:/3. Project/SpeedyBeeF405V3/src/hw/driver/usb.c"
 
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/usb.c.i: cmake_force
@@ -464,7 +478,7 @@ CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/usb.c.s: cmake_force
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/hw.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/flags.make
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/hw.c.obj: D:/3.\ Project/SpeedyBeeF405V3/src/hw/hw.c
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/hw.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_29) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/hw.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_30) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/hw.c.obj"
 	C:/tools/gcc-arm-none-eabi-10.3-2021.07/bin/arm-none-eabi-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/hw.c.obj -MF CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/hw.c.obj.d -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/hw.c.obj -c "D:/3. Project/SpeedyBeeF405V3/src/hw/hw.c"
 
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/hw.c.i: cmake_force
@@ -478,7 +492,7 @@ CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/hw.c.s: cmake_force
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/flags.make
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c.obj: D:/3.\ Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_30) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_31) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c.obj"
 	C:/tools/gcc-arm-none-eabi-10.3-2021.07/bin/arm-none-eabi-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c.obj -MF CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c.obj.d -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c.obj -c "D:/3. Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c"
 
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c.i: cmake_force
@@ -492,7 +506,7 @@ CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm3
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/flags.make
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c.obj: D:/3.\ Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_31) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_32) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c.obj"
 	C:/tools/gcc-arm-none-eabi-10.3-2021.07/bin/arm-none-eabi-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c.obj -MF CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c.obj.d -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c.obj -c "D:/3. Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c"
 
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c.i: cmake_force
@@ -506,7 +520,7 @@ CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm3
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/flags.make
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c.obj: D:/3.\ Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_32) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_33) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c.obj"
 	C:/tools/gcc-arm-none-eabi-10.3-2021.07/bin/arm-none-eabi-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c.obj -MF CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c.obj.d -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c.obj -c "D:/3. Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c"
 
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c.i: cmake_force
@@ -520,7 +534,7 @@ CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm3
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/flags.make
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c.obj: D:/3.\ Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_33) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_34) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c.obj"
 	C:/tools/gcc-arm-none-eabi-10.3-2021.07/bin/arm-none-eabi-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c.obj -MF CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c.obj.d -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c.obj -c "D:/3. Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c"
 
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c.i: cmake_force
@@ -534,7 +548,7 @@ CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm3
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/flags.make
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c.obj: D:/3.\ Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_34) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_35) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c.obj"
 	C:/tools/gcc-arm-none-eabi-10.3-2021.07/bin/arm-none-eabi-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c.obj -MF CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c.obj.d -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c.obj -c "D:/3. Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c"
 
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c.i: cmake_force
@@ -548,7 +562,7 @@ CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm3
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/flags.make
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c.obj: D:/3.\ Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_35) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_36) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c.obj"
 	C:/tools/gcc-arm-none-eabi-10.3-2021.07/bin/arm-none-eabi-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c.obj -MF CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c.obj.d -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c.obj -c "D:/3. Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c"
 
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c.i: cmake_force
@@ -562,7 +576,7 @@ CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm3
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/flags.make
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c.obj: D:/3.\ Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_36) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_37) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c.obj"
 	C:/tools/gcc-arm-none-eabi-10.3-2021.07/bin/arm-none-eabi-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c.obj -MF CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c.obj.d -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c.obj -c "D:/3. Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c"
 
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c.i: cmake_force
@@ -576,7 +590,7 @@ CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm3
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/flags.make
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c.obj: D:/3.\ Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_37) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_38) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c.obj"
 	C:/tools/gcc-arm-none-eabi-10.3-2021.07/bin/arm-none-eabi-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c.obj -MF CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c.obj.d -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c.obj -c "D:/3. Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c"
 
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c.i: cmake_force
@@ -590,7 +604,7 @@ CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm3
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/flags.make
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c.obj: D:/3.\ Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_38) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_39) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c.obj"
 	C:/tools/gcc-arm-none-eabi-10.3-2021.07/bin/arm-none-eabi-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c.obj -MF CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c.obj.d -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c.obj -c "D:/3. Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c"
 
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c.i: cmake_force
@@ -604,7 +618,7 @@ CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm3
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/flags.make
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.c.obj: D:/3.\ Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.c
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_39) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_40) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.c.obj"
 	C:/tools/gcc-arm-none-eabi-10.3-2021.07/bin/arm-none-eabi-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.c.obj -MF CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.c.obj.d -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.c.obj -c "D:/3. Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.c"
 
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.c.i: cmake_force
@@ -618,7 +632,7 @@ CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm3
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/flags.make
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.c.obj: D:/3.\ Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.c
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_40) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_41) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.c.obj"
 	C:/tools/gcc-arm-none-eabi-10.3-2021.07/bin/arm-none-eabi-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.c.obj -MF CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.c.obj.d -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.c.obj -c "D:/3. Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.c"
 
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.c.i: cmake_force
@@ -632,7 +646,7 @@ CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm3
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/flags.make
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd.c.obj: D:/3.\ Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd.c
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_41) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_42) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd.c.obj"
 	C:/tools/gcc-arm-none-eabi-10.3-2021.07/bin/arm-none-eabi-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd.c.obj -MF CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd.c.obj.d -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd.c.obj -c "D:/3. Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd.c"
 
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd.c.i: cmake_force
@@ -646,7 +660,7 @@ CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm3
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd_ex.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/flags.make
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd_ex.c.obj: D:/3.\ Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd_ex.c
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd_ex.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_42) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd_ex.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_43) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd_ex.c.obj"
 	C:/tools/gcc-arm-none-eabi-10.3-2021.07/bin/arm-none-eabi-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd_ex.c.obj -MF CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd_ex.c.obj.d -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd_ex.c.obj -c "D:/3. Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd_ex.c"
 
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd_ex.c.i: cmake_force
@@ -660,7 +674,7 @@ CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm3
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/flags.make
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c.obj: D:/3.\ Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_43) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_44) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c.obj"
 	C:/tools/gcc-arm-none-eabi-10.3-2021.07/bin/arm-none-eabi-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c.obj -MF CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c.obj.d -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c.obj -c "D:/3. Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c"
 
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c.i: cmake_force
@@ -674,7 +688,7 @@ CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm3
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/flags.make
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c.obj: D:/3.\ Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_44) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_45) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c.obj"
 	C:/tools/gcc-arm-none-eabi-10.3-2021.07/bin/arm-none-eabi-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c.obj -MF CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c.obj.d -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c.obj -c "D:/3. Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c"
 
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c.i: cmake_force
@@ -688,7 +702,7 @@ CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm3
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/flags.make
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c.obj: D:/3.\ Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_45) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_46) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c.obj"
 	C:/tools/gcc-arm-none-eabi-10.3-2021.07/bin/arm-none-eabi-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c.obj -MF CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c.obj.d -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c.obj -c "D:/3. Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c"
 
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c.i: cmake_force
@@ -702,7 +716,7 @@ CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm3
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/flags.make
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c.obj: D:/3.\ Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_46) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_47) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c.obj"
 	C:/tools/gcc-arm-none-eabi-10.3-2021.07/bin/arm-none-eabi-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c.obj -MF CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c.obj.d -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c.obj -c "D:/3. Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c"
 
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c.i: cmake_force
@@ -716,7 +730,7 @@ CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm3
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/flags.make
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c.obj: D:/3.\ Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_47) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_48) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c.obj"
 	C:/tools/gcc-arm-none-eabi-10.3-2021.07/bin/arm-none-eabi-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c.obj -MF CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c.obj.d -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c.obj -c "D:/3. Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c"
 
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c.i: cmake_force
@@ -730,7 +744,7 @@ CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm3
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/flags.make
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c.obj: D:/3.\ Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_48) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_49) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c.obj"
 	C:/tools/gcc-arm-none-eabi-10.3-2021.07/bin/arm-none-eabi-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c.obj -MF CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c.obj.d -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c.obj -c "D:/3. Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c"
 
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c.i: cmake_force
@@ -744,7 +758,7 @@ CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm3
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/flags.make
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c.obj: D:/3.\ Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_49) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_50) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c.obj"
 	C:/tools/gcc-arm-none-eabi-10.3-2021.07/bin/arm-none-eabi-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c.obj -MF CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c.obj.d -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c.obj -c "D:/3. Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c"
 
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c.i: cmake_force
@@ -758,7 +772,7 @@ CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm3
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/flags.make
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c.obj: D:/3.\ Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_50) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_51) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c.obj"
 	C:/tools/gcc-arm-none-eabi-10.3-2021.07/bin/arm-none-eabi-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c.obj -MF CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c.obj.d -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c.obj -c "D:/3. Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c"
 
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c.i: cmake_force
@@ -772,7 +786,7 @@ CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm3
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/flags.make
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.c.obj: D:/3.\ Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.c
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_51) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_52) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.c.obj"
 	C:/tools/gcc-arm-none-eabi-10.3-2021.07/bin/arm-none-eabi-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.c.obj -MF CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.c.obj.d -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.c.obj -c "D:/3. Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.c"
 
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.c.i: cmake_force
@@ -786,7 +800,7 @@ CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Drivers/STM32F4xx_HAL_Driver/Src/stm3
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/flags.make
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c.obj: D:/3.\ Project/SpeedyBeeF405V3/src/lib/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_52) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_53) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c.obj"
 	C:/tools/gcc-arm-none-eabi-10.3-2021.07/bin/arm-none-eabi-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c.obj -MF CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c.obj.d -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c.obj -c "D:/3. Project/SpeedyBeeF405V3/src/lib/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c"
 
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c.i: cmake_force
@@ -800,7 +814,7 @@ CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Libra
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/flags.make
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.c.obj: D:/3.\ Project/SpeedyBeeF405V3/src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.c
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_53) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_54) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.c.obj"
 	C:/tools/gcc-arm-none-eabi-10.3-2021.07/bin/arm-none-eabi-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.c.obj -MF CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.c.obj.d -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.c.obj -c "D:/3. Project/SpeedyBeeF405V3/src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.c"
 
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.c.i: cmake_force
@@ -814,7 +828,7 @@ CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Libra
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/flags.make
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c.obj: D:/3.\ Project/SpeedyBeeF405V3/src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_54) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_55) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c.obj"
 	C:/tools/gcc-arm-none-eabi-10.3-2021.07/bin/arm-none-eabi-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c.obj -MF CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c.obj.d -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c.obj -c "D:/3. Project/SpeedyBeeF405V3/src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c"
 
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c.i: cmake_force
@@ -828,7 +842,7 @@ CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Libra
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/flags.make
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c.obj: D:/3.\ Project/SpeedyBeeF405V3/src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_55) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_56) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c.obj"
 	C:/tools/gcc-arm-none-eabi-10.3-2021.07/bin/arm-none-eabi-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c.obj -MF CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c.obj.d -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c.obj -c "D:/3. Project/SpeedyBeeF405V3/src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c"
 
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c.i: cmake_force
@@ -842,7 +856,7 @@ CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/Middlewares/ST/STM32_USB_Device_Libra
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/App/usb_device.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/flags.make
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/App/usb_device.c.obj: D:/3.\ Project/SpeedyBeeF405V3/src/lib/USB_DEVICE/App/usb_device.c
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/App/usb_device.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_56) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/App/usb_device.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_57) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/App/usb_device.c.obj"
 	C:/tools/gcc-arm-none-eabi-10.3-2021.07/bin/arm-none-eabi-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/App/usb_device.c.obj -MF CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/App/usb_device.c.obj.d -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/App/usb_device.c.obj -c "D:/3. Project/SpeedyBeeF405V3/src/lib/USB_DEVICE/App/usb_device.c"
 
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/App/usb_device.c.i: cmake_force
@@ -856,7 +870,7 @@ CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/App/usb_device.c.s: cmake_
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/App/usbd_cdc_if.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/flags.make
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/App/usbd_cdc_if.c.obj: D:/3.\ Project/SpeedyBeeF405V3/src/lib/USB_DEVICE/App/usbd_cdc_if.c
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/App/usbd_cdc_if.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_57) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/App/usbd_cdc_if.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_58) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/App/usbd_cdc_if.c.obj"
 	C:/tools/gcc-arm-none-eabi-10.3-2021.07/bin/arm-none-eabi-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/App/usbd_cdc_if.c.obj -MF CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/App/usbd_cdc_if.c.obj.d -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/App/usbd_cdc_if.c.obj -c "D:/3. Project/SpeedyBeeF405V3/src/lib/USB_DEVICE/App/usbd_cdc_if.c"
 
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/App/usbd_cdc_if.c.i: cmake_force
@@ -870,7 +884,7 @@ CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/App/usbd_cdc_if.c.s: cmake
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/App/usbd_desc.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/flags.make
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/App/usbd_desc.c.obj: D:/3.\ Project/SpeedyBeeF405V3/src/lib/USB_DEVICE/App/usbd_desc.c
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/App/usbd_desc.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_58) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/App/usbd_desc.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_59) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/App/usbd_desc.c.obj"
 	C:/tools/gcc-arm-none-eabi-10.3-2021.07/bin/arm-none-eabi-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/App/usbd_desc.c.obj -MF CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/App/usbd_desc.c.obj.d -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/App/usbd_desc.c.obj -c "D:/3. Project/SpeedyBeeF405V3/src/lib/USB_DEVICE/App/usbd_desc.c"
 
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/App/usbd_desc.c.i: cmake_force
@@ -884,7 +898,7 @@ CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/App/usbd_desc.c.s: cmake_f
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/Target/usbd_conf.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/flags.make
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/Target/usbd_conf.c.obj: D:/3.\ Project/SpeedyBeeF405V3/src/lib/USB_DEVICE/Target/usbd_conf.c
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/Target/usbd_conf.c.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_59) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/Target/usbd_conf.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_60) "Building C object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/Target/usbd_conf.c.obj"
 	C:/tools/gcc-arm-none-eabi-10.3-2021.07/bin/arm-none-eabi-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/Target/usbd_conf.c.obj -MF CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/Target/usbd_conf.c.obj.d -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/Target/usbd_conf.c.obj -c "D:/3. Project/SpeedyBeeF405V3/src/lib/USB_DEVICE/Target/usbd_conf.c"
 
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/Target/usbd_conf.c.i: cmake_force
@@ -897,7 +911,7 @@ CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/Target/usbd_conf.c.s: cmak
 
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/bsp/startup/startup_stm32f405rgtx.s.obj: CMakeFiles/SpeedyBeeF405V3.elf.dir/flags.make
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/bsp/startup/startup_stm32f405rgtx.s.obj: D:/3.\ Project/SpeedyBeeF405V3/src/bsp/startup/startup_stm32f405rgtx.s
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_60) "Building ASM object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/bsp/startup/startup_stm32f405rgtx.s.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_61) "Building ASM object CMakeFiles/SpeedyBeeF405V3.elf.dir/src/bsp/startup/startup_stm32f405rgtx.s.obj"
 	C:/tools/gcc-arm-none-eabi-10.3-2021.07/bin/arm-none-eabi-gcc.exe $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -o CMakeFiles/SpeedyBeeF405V3.elf.dir/src/bsp/startup/startup_stm32f405rgtx.s.obj -c "D:/3. Project/SpeedyBeeF405V3/src/bsp/startup/startup_stm32f405rgtx.s"
 
 CMakeFiles/SpeedyBeeF405V3.elf.dir/src/bsp/startup/startup_stm32f405rgtx.s.i: cmake_force
@@ -932,6 +946,7 @@ SpeedyBeeF405V3_elf_OBJECTS = \
 "CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/telemetry.c.obj" \
 "CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/cdc.c.obj" \
 "CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/cli.c.obj" \
+"CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/gpio.c.obj" \
 "CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/i2c.c.obj" \
 "CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/led.c.obj" \
 "CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/spi.c.obj" \
@@ -996,6 +1011,7 @@ SpeedyBeeF405V3.elf: CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/sensor.c
 SpeedyBeeF405V3.elf: CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/telemetry.c.obj
 SpeedyBeeF405V3.elf: CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/cdc.c.obj
 SpeedyBeeF405V3.elf: CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/cli.c.obj
+SpeedyBeeF405V3.elf: CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/gpio.c.obj
 SpeedyBeeF405V3.elf: CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/i2c.c.obj
 SpeedyBeeF405V3.elf: CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/led.c.obj
 SpeedyBeeF405V3.elf: CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/spi.c.obj
@@ -1036,7 +1052,7 @@ SpeedyBeeF405V3.elf: CMakeFiles/SpeedyBeeF405V3.elf.dir/src/lib/USB_DEVICE/Targe
 SpeedyBeeF405V3.elf: CMakeFiles/SpeedyBeeF405V3.elf.dir/src/bsp/startup/startup_stm32f405rgtx.s.obj
 SpeedyBeeF405V3.elf: CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make
 SpeedyBeeF405V3.elf: CMakeFiles/SpeedyBeeF405V3.elf.dir/objects1
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_61) "Linking C executable SpeedyBeeF405V3.elf"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_62) "Linking C executable SpeedyBeeF405V3.elf"
 	C:/tools/gcc-arm-none-eabi-10.3-2021.07/bin/arm-none-eabi-gcc.exe -g "-TD:/3. Project/SpeedyBeeF405V3/src/bsp/ldscript/STM32F405RGTX_FLASH.ld" -mcpu=cortex-m4 -mthumb -specs=nano.specs -lc -lm -Wl,-Map=SpeedyBeeF405V3.map,--cref -Wl,--gc-sections -Xlinker -print-memory-usage @CMakeFiles/SpeedyBeeF405V3.elf.dir/objects1 -o SpeedyBeeF405V3.elf 
 
 # Rule to build all files generated by this target.

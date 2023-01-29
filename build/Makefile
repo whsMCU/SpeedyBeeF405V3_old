@@ -642,6 +642,30 @@ src/hw/driver/cli.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/cli.c.s
 .PHONY : src/hw/driver/cli.c.s
 
+src/hw/driver/gpio.obj: src/hw/driver/gpio.c.obj
+.PHONY : src/hw/driver/gpio.obj
+
+# target to build an object file
+src/hw/driver/gpio.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/gpio.c.obj
+.PHONY : src/hw/driver/gpio.c.obj
+
+src/hw/driver/gpio.i: src/hw/driver/gpio.c.i
+.PHONY : src/hw/driver/gpio.i
+
+# target to preprocess a source file
+src/hw/driver/gpio.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/gpio.c.i
+.PHONY : src/hw/driver/gpio.c.i
+
+src/hw/driver/gpio.s: src/hw/driver/gpio.c.s
+.PHONY : src/hw/driver/gpio.s
+
+# target to generate assembly for a file
+src/hw/driver/gpio.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/gpio.c.s
+.PHONY : src/hw/driver/gpio.c.s
+
 src/hw/driver/i2c.obj: src/hw/driver/i2c.c.obj
 .PHONY : src/hw/driver/i2c.obj
 
@@ -1627,6 +1651,9 @@ help:
 	@echo "... src/hw/driver/cli.obj"
 	@echo "... src/hw/driver/cli.i"
 	@echo "... src/hw/driver/cli.s"
+	@echo "... src/hw/driver/gpio.obj"
+	@echo "... src/hw/driver/gpio.i"
+	@echo "... src/hw/driver/gpio.s"
 	@echo "... src/hw/driver/i2c.obj"
 	@echo "... src/hw/driver/i2c.i"
 	@echo "... src/hw/driver/i2c.s"

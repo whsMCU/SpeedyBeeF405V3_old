@@ -1,9 +1,6 @@
-CMakeFiles/SpeedyBeeF405V3.elf.dir/src/ap/ap.c.obj: \
- D:/3.\ Project/SpeedyBeeF405V3/src/ap/ap.c \
- D:/3.\ Project/SpeedyBeeF405V3/src/ap/ap.h \
- D:/3.\ Project/SpeedyBeeF405V3/src/hw/hw.h \
- D:/3.\ Project/SpeedyBeeF405V3/src/hw/hw_def.h \
- D:/3.\ Project/SpeedyBeeF405V3/src/bsp/bsp.h \
+CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/bmi270.c.obj: \
+ D:/3.\ Project/SpeedyBeeF405V3/src/common/core/bmi270.c \
+ D:/3.\ Project/SpeedyBeeF405V3/src/common/core/bmi270.h \
  D:/3.\ Project/SpeedyBeeF405V3/src/common/def.h \
  c:\tools\gcc-arm-none-eabi-10.3-2021.07\arm-none-eabi\include\stdio.h \
  c:\tools\gcc-arm-none-eabi-10.3-2021.07\arm-none-eabi\include\_ansi.h \
@@ -59,7 +56,9 @@ CMakeFiles/SpeedyBeeF405V3.elf.dir/src/ap/ap.c.obj: \
  D:/3.\ Project/SpeedyBeeF405V3/src/common/core/eeprom.h \
  D:/3.\ Project/SpeedyBeeF405V3/src/common/core/gps.h \
  D:/3.\ Project/SpeedyBeeF405V3/src/common/core/led_control.h \
- D:/3.\ Project/SpeedyBeeF405V3/src/common/core/bmi270.h \
+ D:/3.\ Project/SpeedyBeeF405V3/src/common/hw/include/spi.h \
+ D:/3.\ Project/SpeedyBeeF405V3/src/hw/hw_def.h \
+ D:/3.\ Project/SpeedyBeeF405V3/src/bsp/bsp.h \
  D:/3.\ Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  D:/3.\ Project/SpeedyBeeF405V3/src/bsp/stm32f4xx_hal_conf.h \
  D:/3.\ Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
@@ -93,13 +92,4 @@ CMakeFiles/SpeedyBeeF405V3.elf.dir/src/ap/ap.c.obj: \
  D:/3.\ Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
  D:/3.\ Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h \
  D:/3.\ Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h \
- D:/3.\ Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h \
- D:/3.\ Project/SpeedyBeeF405V3/src/common/hw/include/led.h \
- D:/3.\ Project/SpeedyBeeF405V3/src/hw/hw_def.h \
- D:/3.\ Project/SpeedyBeeF405V3/src/common/hw/include/uart.h \
- D:/3.\ Project/SpeedyBeeF405V3/src/common/hw/include/usb.h \
- D:/3.\ Project/SpeedyBeeF405V3/src/common/hw/include/cli.h \
- D:/3.\ Project/SpeedyBeeF405V3/src/common/hw/include/i2c.h \
- D:/3.\ Project/SpeedyBeeF405V3/src/common/hw/include/timer.h \
- D:/3.\ Project/SpeedyBeeF405V3/src/common/hw/include/spi.h \
- D:/3.\ Project/SpeedyBeeF405V3/src/common/hw/include/gpio.h
+ D:/3.\ Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h

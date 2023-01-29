@@ -20,6 +20,7 @@
 
 #include "bmi270.h"
 #include "spi.h"
+#include "gpio.h"
 
 #ifdef USE_ACCGYRO_BMI270
 
@@ -112,6 +113,50 @@ typedef enum {
     BMI270_VAL_FIFO_WTM_0 = 0x06,            // set the FIFO watermark level to 1 gyro sample (6 bytes)
     BMI270_VAL_FIFO_WTM_1 = 0x00,            // FIFO watermark MSB
 } bmi270ConfigValues_e;
+
+#define _PIN_DEF_CS 0
+
+static uint8_t   spi_ch = _DEF_SPI1;
+
+bool bmi270_Init(sensor_Dev_t *p_driver)
+{
+    bool ret = true;
+    bmi270_Driver_Init(p_driver);
+    p_driver->gyro_readFn = bmi270SpiGyroRead;
+    p_driver->acc_readFn = bmi270SpiAccRead;
+    p_driver->scale = GYRO_SCALE_2000DPS;
+    return ret;
+}
+
+bool bmi270_Driver_Init(sensor_Dev_t *p_driver)
+{
+    spiBegin(spi_ch);
+    spiSetDataMode(spi_ch, SPI_MODE2);
+    gpioPinWrite(_PIN_DEF_CS, _DEF_HIGH);
+    delay(10);
+
+    
+
+
+}
+
+bool bmi270SpiAccRead(void)
+{
+
+}
+bool bmi270SpiGyroRead(void)
+{
+
+}
+
+static void (*frameCallBack)(void) = NULL;
+
+bool bmi270SetCallBack(void (*p_func)(void))
+{
+  frameCallBack = p_func;
+
+  return true;
+}
 
 // Need to see at least this many interrupts during initialisation to confirm EXTI connectivity
 #define GYRO_EXTI_DETECT_THRESHOLD 1000

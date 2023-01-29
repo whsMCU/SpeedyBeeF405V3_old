@@ -22,7 +22,7 @@
 
 #include "def.h"
 
-uint8_t bmi270Detect(const extDevice_t *dev);
-bool bmi270SpiAccDetect(accDev_t *acc);
-bool bmi270SpiGyroDetect(gyroDev_t *gyro);
-uint8_t bmi270InterruptStatus(gyroDev_t *gyro);
+bool bmi270_Init(sensor_Dev_t *p_driver);
+bool bmi270SpiAccRead(void);
+bool bmi270SpiGyroRead(void);
+bool bmi270SetCallBack(void (*p_func)(void));

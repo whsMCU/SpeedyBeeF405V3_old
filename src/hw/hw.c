@@ -12,13 +12,13 @@
 void hwInit(void)
 {
   bspInit();
+  gpioInit();
   usbInit();
-  // timerInit();
   cliInit();
   ledInit();
-  // i2cInit();
   uartInit();
   spiInit();
+  Sensor_Init();
 
 	// ledOn(ST1);
   // ledOff(ST2);

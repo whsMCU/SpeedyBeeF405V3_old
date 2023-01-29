@@ -60,6 +60,7 @@ CMakeFiles/SpeedyBeeF405V3.elf.dir/src/main.c.obj: \
  D:/3.\ Project/SpeedyBeeF405V3/src/common/core/eeprom.h \
  D:/3.\ Project/SpeedyBeeF405V3/src/common/core/gps.h \
  D:/3.\ Project/SpeedyBeeF405V3/src/common/core/led_control.h \
+ D:/3.\ Project/SpeedyBeeF405V3/src/common/core/bmi270.h \
  D:/3.\ Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  D:/3.\ Project/SpeedyBeeF405V3/src/bsp/stm32f4xx_hal_conf.h \
  D:/3.\ Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
@@ -100,4 +101,6 @@ CMakeFiles/SpeedyBeeF405V3.elf.dir/src/main.c.obj: \
  D:/3.\ Project/SpeedyBeeF405V3/src/common/hw/include/usb.h \
  D:/3.\ Project/SpeedyBeeF405V3/src/common/hw/include/cli.h \
  D:/3.\ Project/SpeedyBeeF405V3/src/common/hw/include/i2c.h \
- D:/3.\ Project/SpeedyBeeF405V3/src/common/hw/include/timer.h
+ D:/3.\ Project/SpeedyBeeF405V3/src/common/hw/include/timer.h \
+ D:/3.\ Project/SpeedyBeeF405V3/src/common/hw/include/spi.h \
+ D:/3.\ Project/SpeedyBeeF405V3/src/common/hw/include/gpio.h

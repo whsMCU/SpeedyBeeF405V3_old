@@ -17,8 +17,10 @@
 #define _USE_HW_CDC
 #define _USE_HW_USB
 #define _USE_HW_I2C
-#define _USE_HW_SPI
 #define _USE_HW_TIMER
+
+#define _USE_HW_SPI
+#define      HW_SPI_MAX_CH          2
 
 #define _USE_HW_LED
 #define      HW_LED_MAX_CH          1
