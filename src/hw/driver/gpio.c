@@ -23,7 +23,7 @@ typedef struct
 
 const gpio_tbl_t gpio_tbl[GPIO_MAX_CH] =
   {
-    {GPIOA, GPIO_PIN_4,  _DEF_OUTPUT,       GPIO_PIN_SET,   GPIO_PIN_RESET, _DEF_LOW}, // 0. BMI270 CS
+    {GPIOA, GPIO_PIN_4,  _DEF_OUTPUT,       GPIO_PIN_SET,   GPIO_PIN_RESET, _DEF_HIGH}, // 0. BMI270 CS
     {GPIOC, GPIO_PIN_4,  _DEF_INPUT_PULLUP, GPIO_PIN_SET,   GPIO_PIN_RESET, true},     // 1. BMI270 INT
     };
 
@@ -41,6 +41,11 @@ bool gpioInit(void)
 
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOC_CLK_ENABLE();
+    /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
 
   for (int i=0; i<GPIO_MAX_CH; i++)
   {

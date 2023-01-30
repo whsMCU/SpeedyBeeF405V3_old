@@ -22,14 +22,14 @@ set(CMAKE_MAKEFILE_DEPENDS
   "C:/Program Files/CMake/share/cmake-3.25/Modules/Compiler/GNU-CXX.cmake"
   "C:/Program Files/CMake/share/cmake-3.25/Modules/Compiler/GNU.cmake"
   "C:/Program Files/CMake/share/cmake-3.25/Modules/Platform/Generic.cmake"
-  "D:/3. Project/SpeedyBeeF405V3/CMakeLists.txt"
+  "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/CMakeLists.txt"
   "CMakeFiles/3.25.2/CMakeASMCompiler.cmake"
   "CMakeFiles/3.25.2/CMakeCCompiler.cmake"
   "CMakeFiles/3.25.2/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.25.2/CMakeSystem.cmake"
   "CMakeFiles/VerifyGlobs.cmake"
   "CMakeFiles/cmake.verify_globs"
-  "D:/3. Project/SpeedyBeeF405V3/tools/arm-none-eabi-gcc.cmake"
+  "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/tools/arm-none-eabi-gcc.cmake"
   )
 
 # The corresponding makefile is:
