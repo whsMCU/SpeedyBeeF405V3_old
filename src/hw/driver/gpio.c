@@ -23,8 +23,8 @@ typedef struct
 
 const gpio_tbl_t gpio_tbl[GPIO_MAX_CH] =
   {
-    {GPIOA, GPIO_PIN_4,  _DEF_OUTPUT,       GPIO_PIN_RESET, GPIO_PIN_SET,   _DEF_HIGH},       // 0. BMI270 CS
-    {GPIOC, GPIO_PIN_4,  _DEF_INPUT_PULLUP, GPIO_PIN_SET,   GPIO_PIN_RESET, true},   // 1. BMI270 INT
+    {GPIOA, GPIO_PIN_4,  _DEF_OUTPUT,       GPIO_PIN_SET,   GPIO_PIN_RESET, _DEF_LOW}, // 0. BMI270 CS
+    {GPIOC, GPIO_PIN_4,  _DEF_INPUT_PULLUP, GPIO_PIN_SET,   GPIO_PIN_RESET, true},     // 1. BMI270 INT
     };
 
 

@@ -18,22 +18,6 @@
 #include <stdlib.h>
 #include <ctype.h>
 
-#include "imu.h"
-#include "sensor.h"
-#include "Typedef.h"
-#include "config.h"
-#include "filter.h"
-#include "radio.h"
-#include "pid.h"
-#include "mixer.h"
-#include "telemetry.h"
-#include "eeprom.h"
-#include "gps.h"
-#include "led_control.h"
-#include "bmi270.h"
-
-
-
 #define _DEF_LED1           0
 #define _DEF_LED2           1
 #define _DEF_LED3           2
@@ -59,20 +43,6 @@
 #define _DEF_OUTPUT_PULLUP    4
 #define _DEF_OUTPUT_PULLDOWN  5
 #define _DEF_INPUT_AF_PP      6
-
-
-#define constrain(amt,low,high) ((amt)<(low)?(low):((amt)>(high)?(high):(amt)))
-
-#ifndef max
-#define max(a,b) (((a) > (b)) ? (a) : (b))
-#define min(a,b) (((a) < (b)) ? (a) : (b))
-#endif
-
-
-#ifndef map
-#define map(value, in_min, in_max, out_min, out_max) ((value - in_min) * (out_max - out_min) / (in_max - in_min) + out_min)
-#endif
-
 
 
 

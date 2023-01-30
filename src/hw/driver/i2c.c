@@ -9,8 +9,6 @@
 #include "i2c.h"
 #include "cli.h"
 
-extern eeror_t Error;
-
 I2C_HandleTypeDef hi2c2;
 
 static void cliI2C(cli_args_t *args);
@@ -68,16 +66,7 @@ bool I2C_ByteWrite(uint8_t DevAddress, uint8_t MemAddress, uint8_t bitStart, uin
 	tmp |= data; // combine data with existing byte
 	state = HAL_I2C_Mem_Write(&hi2c2, DevAddress, MemAddress, 1, &tmp, 1, 1000);
   ErrorCode = hi2c2.ErrorCode;
-  while(state)
-  {
-  	logPrintf("MPU9250_Tx(write)_Error : %d, %ld\r\n", state, ErrorCode);
-    while (Error.error !=0)
-    {
-      Error.error = 2;
-      error_signal();
-      HAL_Delay(4);
-    }
-  }
+
   return true;
 }
 
@@ -110,16 +99,7 @@ bool I2C_ByteRead(uint16_t DevAddress, uint16_t MemAddress, uint16_t MemAddSize,
   uint32_t ErrorCode;
   state = HAL_I2C_Mem_Read(&hi2c2, DevAddress, MemAddress, MemAddSize, pData, Size, 1);
   ErrorCode = hi2c2.ErrorCode;
-  while(state)
-  {
-  	logPrintf("MPU9250_Rx_Error : %d, %ld\r\n", state, ErrorCode);
-    while (Error.error !=0)
-    {
-      Error.error = 2;
-      error_signal();
-      HAL_Delay(4);
-    }
-  }
+
   return true;
 }
 
@@ -129,16 +109,7 @@ bool I2C_ByteWrite_HAL(uint16_t DevAddress, uint16_t MemAddress, uint16_t MemAdd
   uint32_t ErrorCode;
   state = HAL_I2C_Mem_Write(&hi2c2, DevAddress, MemAddress, MemAddSize, pData, Size, 1);
   ErrorCode = hi2c2.ErrorCode;
-  while(state)
-  {
-  	logPrintf("MPU9250_Tx_Error : %d, %ld\r\n", state, ErrorCode);
-    while (Error.error !=0)
-    {
-      Error.error = 2;
-      error_signal();
-      HAL_Delay(4);
-    }
-  }
+
   return true;
 }
 
@@ -158,16 +129,7 @@ void I2C_Write(uint16_t DevAddress, uint8_t data, uint16_t Size)
 
   state = HAL_I2C_Master_Transmit(&hi2c2, DevAddress, &data, Size, 1000);
   ErrorCode = hi2c2.ErrorCode;
-   while(state)
-   {
-  	 logPrintf("MS5611_Tx_Error : %d, %ld\r\n", state, ErrorCode);
-     while (Error.error !=0)
-     {
-       Error.error = 2;
-       error_signal();
-       HAL_Delay(4);
-     }
-   }
+
   }
 }
 
@@ -180,16 +142,7 @@ void I2C_Read(uint16_t DevAddress, uint8_t *pData, uint16_t Size)
 
   state = HAL_I2C_Master_Receive(&hi2c2, DevAddress, pData, Size, 1000);
   ErrorCode = hi2c2.ErrorCode;
-    while(state)
-    {
-    	logPrintf("MS5611_Tx_Error : %d, %ld\r\n", state, ErrorCode);
-      while (Error.error !=0)
-      {
-        Error.error = 3;
-        error_signal();
-        HAL_Delay(4);
-      }
-    }
+
   }
 }
 

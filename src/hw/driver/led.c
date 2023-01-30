@@ -21,7 +21,7 @@ typedef struct
 
 led_tbl_t led_tbl[LED_MAX_CH] =
     {
-        {GPIOC, GPIO_PIN_8, GPIO_PIN_SET, GPIO_PIN_RESET},
+        {GPIOC, GPIO_PIN_8, GPIO_PIN_RESET, GPIO_PIN_SET},
     };
 
 #ifdef _USE_HW_CLI

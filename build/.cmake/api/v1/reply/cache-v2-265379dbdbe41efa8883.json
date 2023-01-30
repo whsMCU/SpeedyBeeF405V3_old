@@ -191,7 +191,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "d:/3. Project/SpeedyBeeF405V3/build"
+			"value" : "c:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/build"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -691,7 +691,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles/pkgRedirects"
+			"value" : "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/build/CMakeFiles/pkgRedirects"
 		},
 		{
 			"name" : "CMAKE_GENERATOR",
@@ -751,7 +751,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "D:/3. Project/SpeedyBeeF405V3"
+			"value" : "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -1247,11 +1247,11 @@
 			[
 				{
 					"name" : "HELPSTRING",
-					"value" : "No help, variable specified on the command line."
+					"value" : "The CMake toolchain file"
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "d:/3. Project/SpeedyBeeF405V3/tools/arm-none-eabi-gcc.cmake"
+			"value" : "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/tools/arm-none-eabi-gcc.cmake"
 		},
 		{
 			"name" : "CMAKE_VERBOSE_MAKEFILE",
@@ -1279,7 +1279,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "D:/3. Project/SpeedyBeeF405V3/build"
+			"value" : "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/build"
 		},
 		{
 			"name" : "SpeedyBeeF405V3_IS_TOP_LEVEL",
@@ -1303,7 +1303,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "D:/3. Project/SpeedyBeeF405V3"
+			"value" : "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3"
 		}
 	],
 	"kind" : "cache",

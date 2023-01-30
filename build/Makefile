@@ -57,10 +57,10 @@ RM = "C:/Program Files/CMake/bin/cmake.exe" -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "D:/3. Project/SpeedyBeeF405V3"
+CMAKE_SOURCE_DIR = "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "D:/3. Project/SpeedyBeeF405V3/build"
+CMAKE_BINARY_DIR = "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/build"
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" "D:/3. Project/SpeedyBeeF405V3/build//CMakeFiles/progress.marks"
+	$(CMAKE_COMMAND) -E cmake_progress_start "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/build/CMakeFiles" "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/build//CMakeFiles/progress.marks"
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start "D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/build/CMakeFiles" 0
 .PHONY : all
 
 # The main clean target
@@ -113,7 +113,7 @@ preinstall/fast:
 
 # clear depends
 depend:
-	$(CMAKE_COMMAND) -P "D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles/VerifyGlobs.cmake"
+	$(CMAKE_COMMAND) -P "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/build/CMakeFiles/VerifyGlobs.cmake"
 	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
@@ -330,198 +330,6 @@ src/common/core/bmi270.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/bmi270.c.s
 .PHONY : src/common/core/bmi270.c.s
 
-src/common/core/eeprom.obj: src/common/core/eeprom.c.obj
-.PHONY : src/common/core/eeprom.obj
-
-# target to build an object file
-src/common/core/eeprom.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/eeprom.c.obj
-.PHONY : src/common/core/eeprom.c.obj
-
-src/common/core/eeprom.i: src/common/core/eeprom.c.i
-.PHONY : src/common/core/eeprom.i
-
-# target to preprocess a source file
-src/common/core/eeprom.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/eeprom.c.i
-.PHONY : src/common/core/eeprom.c.i
-
-src/common/core/eeprom.s: src/common/core/eeprom.c.s
-.PHONY : src/common/core/eeprom.s
-
-# target to generate assembly for a file
-src/common/core/eeprom.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/eeprom.c.s
-.PHONY : src/common/core/eeprom.c.s
-
-src/common/core/filter.obj: src/common/core/filter.c.obj
-.PHONY : src/common/core/filter.obj
-
-# target to build an object file
-src/common/core/filter.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/filter.c.obj
-.PHONY : src/common/core/filter.c.obj
-
-src/common/core/filter.i: src/common/core/filter.c.i
-.PHONY : src/common/core/filter.i
-
-# target to preprocess a source file
-src/common/core/filter.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/filter.c.i
-.PHONY : src/common/core/filter.c.i
-
-src/common/core/filter.s: src/common/core/filter.c.s
-.PHONY : src/common/core/filter.s
-
-# target to generate assembly for a file
-src/common/core/filter.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/filter.c.s
-.PHONY : src/common/core/filter.c.s
-
-src/common/core/gps.obj: src/common/core/gps.c.obj
-.PHONY : src/common/core/gps.obj
-
-# target to build an object file
-src/common/core/gps.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/gps.c.obj
-.PHONY : src/common/core/gps.c.obj
-
-src/common/core/gps.i: src/common/core/gps.c.i
-.PHONY : src/common/core/gps.i
-
-# target to preprocess a source file
-src/common/core/gps.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/gps.c.i
-.PHONY : src/common/core/gps.c.i
-
-src/common/core/gps.s: src/common/core/gps.c.s
-.PHONY : src/common/core/gps.s
-
-# target to generate assembly for a file
-src/common/core/gps.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/gps.c.s
-.PHONY : src/common/core/gps.c.s
-
-src/common/core/imu.obj: src/common/core/imu.c.obj
-.PHONY : src/common/core/imu.obj
-
-# target to build an object file
-src/common/core/imu.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/imu.c.obj
-.PHONY : src/common/core/imu.c.obj
-
-src/common/core/imu.i: src/common/core/imu.c.i
-.PHONY : src/common/core/imu.i
-
-# target to preprocess a source file
-src/common/core/imu.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/imu.c.i
-.PHONY : src/common/core/imu.c.i
-
-src/common/core/imu.s: src/common/core/imu.c.s
-.PHONY : src/common/core/imu.s
-
-# target to generate assembly for a file
-src/common/core/imu.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/imu.c.s
-.PHONY : src/common/core/imu.c.s
-
-src/common/core/led_control.obj: src/common/core/led_control.c.obj
-.PHONY : src/common/core/led_control.obj
-
-# target to build an object file
-src/common/core/led_control.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/led_control.c.obj
-.PHONY : src/common/core/led_control.c.obj
-
-src/common/core/led_control.i: src/common/core/led_control.c.i
-.PHONY : src/common/core/led_control.i
-
-# target to preprocess a source file
-src/common/core/led_control.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/led_control.c.i
-.PHONY : src/common/core/led_control.c.i
-
-src/common/core/led_control.s: src/common/core/led_control.c.s
-.PHONY : src/common/core/led_control.s
-
-# target to generate assembly for a file
-src/common/core/led_control.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/led_control.c.s
-.PHONY : src/common/core/led_control.c.s
-
-src/common/core/mixer.obj: src/common/core/mixer.c.obj
-.PHONY : src/common/core/mixer.obj
-
-# target to build an object file
-src/common/core/mixer.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/mixer.c.obj
-.PHONY : src/common/core/mixer.c.obj
-
-src/common/core/mixer.i: src/common/core/mixer.c.i
-.PHONY : src/common/core/mixer.i
-
-# target to preprocess a source file
-src/common/core/mixer.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/mixer.c.i
-.PHONY : src/common/core/mixer.c.i
-
-src/common/core/mixer.s: src/common/core/mixer.c.s
-.PHONY : src/common/core/mixer.s
-
-# target to generate assembly for a file
-src/common/core/mixer.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/mixer.c.s
-.PHONY : src/common/core/mixer.c.s
-
-src/common/core/pid.obj: src/common/core/pid.c.obj
-.PHONY : src/common/core/pid.obj
-
-# target to build an object file
-src/common/core/pid.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/pid.c.obj
-.PHONY : src/common/core/pid.c.obj
-
-src/common/core/pid.i: src/common/core/pid.c.i
-.PHONY : src/common/core/pid.i
-
-# target to preprocess a source file
-src/common/core/pid.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/pid.c.i
-.PHONY : src/common/core/pid.c.i
-
-src/common/core/pid.s: src/common/core/pid.c.s
-.PHONY : src/common/core/pid.s
-
-# target to generate assembly for a file
-src/common/core/pid.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/pid.c.s
-.PHONY : src/common/core/pid.c.s
-
-src/common/core/radio.obj: src/common/core/radio.c.obj
-.PHONY : src/common/core/radio.obj
-
-# target to build an object file
-src/common/core/radio.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/radio.c.obj
-.PHONY : src/common/core/radio.c.obj
-
-src/common/core/radio.i: src/common/core/radio.c.i
-.PHONY : src/common/core/radio.i
-
-# target to preprocess a source file
-src/common/core/radio.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/radio.c.i
-.PHONY : src/common/core/radio.c.i
-
-src/common/core/radio.s: src/common/core/radio.c.s
-.PHONY : src/common/core/radio.s
-
-# target to generate assembly for a file
-src/common/core/radio.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/radio.c.s
-.PHONY : src/common/core/radio.c.s
-
 src/common/core/ring_buffer.obj: src/common/core/ring_buffer.c.obj
 .PHONY : src/common/core/ring_buffer.obj
 
@@ -569,30 +377,6 @@ src/common/core/sensor.s: src/common/core/sensor.c.s
 src/common/core/sensor.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/sensor.c.s
 .PHONY : src/common/core/sensor.c.s
-
-src/common/core/telemetry.obj: src/common/core/telemetry.c.obj
-.PHONY : src/common/core/telemetry.obj
-
-# target to build an object file
-src/common/core/telemetry.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/telemetry.c.obj
-.PHONY : src/common/core/telemetry.c.obj
-
-src/common/core/telemetry.i: src/common/core/telemetry.c.i
-.PHONY : src/common/core/telemetry.i
-
-# target to preprocess a source file
-src/common/core/telemetry.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/telemetry.c.i
-.PHONY : src/common/core/telemetry.c.i
-
-src/common/core/telemetry.s: src/common/core/telemetry.c.s
-.PHONY : src/common/core/telemetry.s
-
-# target to generate assembly for a file
-src/common/core/telemetry.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/SpeedyBeeF405V3.elf.dir/build.make CMakeFiles/SpeedyBeeF405V3.elf.dir/src/common/core/telemetry.c.s
-.PHONY : src/common/core/telemetry.c.s
 
 src/hw/driver/cdc.obj: src/hw/driver/cdc.c.obj
 .PHONY : src/hw/driver/cdc.obj
@@ -1612,39 +1396,12 @@ help:
 	@echo "... src/common/core/bmi270.obj"
 	@echo "... src/common/core/bmi270.i"
 	@echo "... src/common/core/bmi270.s"
-	@echo "... src/common/core/eeprom.obj"
-	@echo "... src/common/core/eeprom.i"
-	@echo "... src/common/core/eeprom.s"
-	@echo "... src/common/core/filter.obj"
-	@echo "... src/common/core/filter.i"
-	@echo "... src/common/core/filter.s"
-	@echo "... src/common/core/gps.obj"
-	@echo "... src/common/core/gps.i"
-	@echo "... src/common/core/gps.s"
-	@echo "... src/common/core/imu.obj"
-	@echo "... src/common/core/imu.i"
-	@echo "... src/common/core/imu.s"
-	@echo "... src/common/core/led_control.obj"
-	@echo "... src/common/core/led_control.i"
-	@echo "... src/common/core/led_control.s"
-	@echo "... src/common/core/mixer.obj"
-	@echo "... src/common/core/mixer.i"
-	@echo "... src/common/core/mixer.s"
-	@echo "... src/common/core/pid.obj"
-	@echo "... src/common/core/pid.i"
-	@echo "... src/common/core/pid.s"
-	@echo "... src/common/core/radio.obj"
-	@echo "... src/common/core/radio.i"
-	@echo "... src/common/core/radio.s"
 	@echo "... src/common/core/ring_buffer.obj"
 	@echo "... src/common/core/ring_buffer.i"
 	@echo "... src/common/core/ring_buffer.s"
 	@echo "... src/common/core/sensor.obj"
 	@echo "... src/common/core/sensor.i"
 	@echo "... src/common/core/sensor.s"
-	@echo "... src/common/core/telemetry.obj"
-	@echo "... src/common/core/telemetry.i"
-	@echo "... src/common/core/telemetry.s"
 	@echo "... src/hw/driver/cdc.obj"
 	@echo "... src/hw/driver/cdc.i"
 	@echo "... src/hw/driver/cdc.s"
@@ -1779,7 +1536,7 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	$(CMAKE_COMMAND) -P "D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles/VerifyGlobs.cmake"
+	$(CMAKE_COMMAND) -P "C:/Users/jjins/Documents/1. Project/SpeedyBeeF405V3/build/CMakeFiles/VerifyGlobs.cmake"
 	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

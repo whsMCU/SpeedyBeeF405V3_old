@@ -18,6 +18,7 @@
 #include "timer.h"
 #include "spi.h"
 #include "gpio.h"
+#include "sensor.h"
 
 
 void hwInit(void);

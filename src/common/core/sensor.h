@@ -14,20 +14,15 @@
 #define GYRO_SCALE_2000DPS (2000.0f / (1 << 15))   // 16.384 dps/lsb scalefactor for 2000dps sensors
 #define GYRO_SCALE_4000DPS (4000.0f / (1 << 15))   //  8.192 dps/lsb scalefactor for 4000dps sensors
 
-typedef struct sensor_Dev_t sensor_Dev_t;
+typedef struct sensor_Dev_t_ sensor_Dev_t;
 
-typedef struct sensor_Dev_t
+typedef struct sensor_Dev_t_
 {
   bool     (*initFn)(void);
   bool     (*gyro_readFn)(void);
   bool     (*acc_readFn)(void);
   bool     (*setCallBack)(void (*p_func)(void));
-  float scale;                                             // scalefactor
-  float gyroZero[3];
-  float gyroADC[3];                           // gyro data after calibration and alignment
-  int32_t gyroADCRawPrevious[3];
-  int16_t gyroADCRaw[3];  
-
+  float    scale;                                             // scalefactor
 } sensor_Dev_t;
 
 bool Sensor_Init(void);

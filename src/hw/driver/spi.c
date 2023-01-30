@@ -9,6 +9,7 @@
 #include "spi.h"
 #include "cli.h"
 
+
 typedef struct
 {
   bool is_open;
@@ -35,7 +36,6 @@ bool spiInit(void)
 {
   bool ret = true;
 
-
   for (int i=0; i<SPI_MAX_CH; i++)
   {
     spi_tbl[i].is_open = false;
@@ -60,7 +60,6 @@ bool spiBegin(uint8_t ch)
     case _DEF_SPI1:
       p_spi->h_spi = &hspi1;
       //p_spi->h_dma_tx = &hdma_spi1_tx;
-
       hspi1.Instance = SPI1;
       hspi1.Init.Mode = SPI_MODE_MASTER;
       hspi1.Init.Direction = SPI_DIRECTION_2LINES;
@@ -74,7 +73,7 @@ bool spiBegin(uint8_t ch)
       hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
       hspi1.Init.CRCPolynomial = 10;
 
-      HAL_SPI_DeInit(&hspi1);
+      //HAL_SPI_DeInit(&hspi1);
       if (HAL_SPI_Init(&hspi1) == HAL_OK)
       {
         p_spi->is_open = true;
@@ -83,8 +82,8 @@ bool spiBegin(uint8_t ch)
       break;
 
     case _DEF_SPI2:
-      p_spi->h_spi = &hspi1;
-      p_spi->h_dma_tx = &hdma_spi1_tx;
+      p_spi->h_spi = &hspi2;
+      p_spi->h_dma_tx = &hdma_spi2_tx;
 
       hspi2.Instance = SPI2;
       hspi2.Init.Mode = SPI_MODE_MASTER;
@@ -148,6 +147,16 @@ void spiSetDataMode(uint8_t ch, uint8_t dataMode)
       HAL_SPI_Init(p_spi->h_spi);
       break;
   }
+}
+
+HAL_StatusTypeDef SPI_ByteWriteRead(uint8_t ch, uint8_t MemAddress, uint8_t length, uint8_t *data)
+{
+  spi_t  *p_spi = &spi_tbl[ch];
+  HAL_StatusTypeDef status;
+  // HAL_SPI_Transmit(p_spi->h_spi, &MemAddress, 1, 10);
+  // HAL_SPI_Receive(p_spi->h_spi, data, length, 10);
+  status = HAL_SPI_TransmitReceive(p_spi->h_spi, &MemAddress, data, length, 10);
+  return status;
 }
 
 void spiSetBitWidth(uint8_t ch, uint8_t bit_width)
@@ -471,83 +480,11 @@ void HAL_SPI_MspDeInit(SPI_HandleTypeDef* spiHandle)
 void cliSPI(cli_args_t *args)
 {
   bool ret = true;
-  bool spi_ret;
-
-  uint16_t dev_addr;
-  uint16_t reg_addr;
-  uint16_t length;
-  uint8_t data;
-
-  uint32_t i;
-  uint8_t spi_data[128];
-  uint32_t pre_time;
-
-
-  if (args->argc == 1)
-  {
-
-    if(args->isStr(0, "scan") == true)
-    {
-      for (i=0x00; i<= 0x7F; i++)
-      {
-        // if (i2cIsDeviceReady(i) == true)
-        // {
-        //   cliPrintf("SPI CH%d Addr 0x%X : OK\n", 2, i);
-        // }
-      }
-    }
-  }
-  else if (args->argc == 4)
-  {
-    dev_addr = (uint16_t) args->getData(1);
-    reg_addr = (uint16_t) args->getData(2);
-    length   = (uint16_t) args->getData(3);
-
-    if(args->isStr(0, "read") == true)
-    {
-      for (i=0; i<length; i++)
-      {
-        spi_ret = FALSE;
-        //spi_ret = SPI_ByteRead(dev_addr<<1, reg_addr+i, I2C_MEMADD_SIZE_8BIT, spi_data, 1);
-        if (spi_ret == true)
-        {
-          cliPrintf("%d SPI - 0x%02X : 0x%02X\n", reg_addr+i, spi_data[0]);
-        }
-        else
-        {
-          cliPrintf("%d SPI - Fail \n", 2);
-          break;
-        }
-      }
-    }
-    else if(args->isStr(0, "write") == true)
-    {
-      pre_time = millis();
-      data = (uint8_t) length;
-      //spi_ret = SPI_ByteWrite_HAL(dev_addr<<1, reg_addr, I2C_MEMADD_SIZE_8BIT, &data, 1);
-      if (spi_ret == true)
-      {
-        cliPrintf("%d SPI - 0x%02X : 0x%02X, %d ms\n", 2, reg_addr, data, millis()-pre_time);
-      }
-      else
-      {
-        cliPrintf("%d SPI - Fail \n", 2);
-      }
-    }
-    else
-    {
-      ret = false;
-    }
-  }
-  else
-  {
-    ret = false;
-  }
 
   if (ret == false)
   {
-    cliPrintf( "i2c scan\n");
-    cliPrintf( "i2c read dev_addr reg_addr length\n");
-    cliPrintf( "i2c write dev_addr reg_addr data\n");
+    cliPrintf( "spi scan\n");
+    cliPrintf( "spi read dev_addr reg_addr length\n");
+    cliPrintf( "spi write dev_addr reg_addr data\n");
   }
 }

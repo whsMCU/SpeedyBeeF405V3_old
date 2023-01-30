@@ -6,12 +6,11 @@
  */
 
 #include "sensor.h"
-#include "led.h"
-#include "spi.h"
 #include "cli.h"
 
 static bool is_init = false;
-static sensor_Dev_t sensor;
+
+static sensor_Dev_t sensor_t;
 
 #ifdef _USE_HW_CLI
 static void cliSensor(cli_args_t *args);
@@ -20,7 +19,7 @@ static void cliSensor(cli_args_t *args);
 bool Sensor_Init(void)
 {
 	bool ret = true;
-	is_init = bmi270_Init(&sensor);
+	is_init = bmi270_Init(&sensor_t);
 
 	if (is_init != true)
  	{
@@ -36,11 +35,11 @@ bool Sensor_Init(void)
 
 void Gyro_getADC(void)
 {
-
+  uint8_t ret = false;
 }
 void ACC_getADC(void)
 {
-	
+	uint8_t ret = false;
 }
 
 
