@@ -64,10 +64,10 @@ bool spiBegin(uint8_t ch)
       hspi1.Init.Mode = SPI_MODE_MASTER;
       hspi1.Init.Direction = SPI_DIRECTION_2LINES;
       hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
-      hspi1.Init.CLKPolarity = SPI_POLARITY_HIGH;
+      hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
       hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
       hspi1.Init.NSS = SPI_NSS_SOFT;
-      hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;
+      hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_8;
       hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
       hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
       hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
@@ -153,8 +153,8 @@ HAL_StatusTypeDef SPI_ByteWriteRead(uint8_t ch, uint8_t MemAddress, uint8_t leng
 {
   spi_t  *p_spi = &spi_tbl[ch];
   HAL_StatusTypeDef status;
-  // HAL_SPI_Transmit(p_spi->h_spi, &MemAddress, 1, 10);
-  // HAL_SPI_Receive(p_spi->h_spi, data, length, 10);
+  //HAL_SPI_Transmit(p_spi->h_spi, &MemAddress, 1, 10);
+  //status = HAL_SPI_Receive(p_spi->h_spi, data, length, 10);
   status = HAL_SPI_TransmitReceive(p_spi->h_spi, &MemAddress, data, length, 10);
   return status;
 }

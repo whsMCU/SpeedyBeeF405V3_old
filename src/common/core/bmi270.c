@@ -146,7 +146,13 @@ bool bmi270_Init(sensor_Dev_t *p_driver)
 bool bmi270_Driver_Init(void)
 {
     spiBegin(spi_ch);
-    spiSetDataMode(spi_ch, SPI_MODE2);
+    spiSetDataMode(spi_ch, SPI_MODE0);
+
+    gpioPinWrite(_PIN_DEF_CS, _DEF_LOW);
+    delay(1);
+    gpioPinWrite(_PIN_DEF_CS, _DEF_HIGH);
+    delay(10);
+
     gpioPinWrite(_PIN_DEF_CS, _DEF_LOW);
     delay(10);
     SPI_ByteWriteRead(_DEF_SPI1, BMI270_REG_CHIP_ID, 1, _buffer);
@@ -193,13 +199,12 @@ void cliBmi270(cli_args_t *args)
     addr = addr | 0x80;
 
     gpioPinWrite(_PIN_DEF_CS, _DEF_LOW);
-    delay(10);
-    status = SPI_ByteWriteRead(ch, addr, 2, buffer);
+    status = SPI_ByteWriteRead(ch, addr, 1, buffer);
     gpioPinWrite(_PIN_DEF_CS, _DEF_HIGH);
 
     if(status == HAL_OK)
     {
-        cliPrintf("bmi270 mem_read : ch (%d), addr (0x%02X), data[0] (%X), data[1] (%X), data[2] (%X), status (%d)\n", ch, addr, buffer[0], buffer[1], buffer[1], status);
+        cliPrintf("bmi270 mem_read : ch (%d), addr (0x%02X), data[0] (0x%X), data[1] (0x%X), data[2] (0x%X), status (%d)\n", ch, addr, buffer[0], buffer[1], buffer[2], status);
     }else
     {
         cliPrintf("bmi270 read - Fail(%d) \n", status);
