@@ -11,7 +11,7 @@
 
 void apInit(void)
 {
-	cliOpen(_DEF_UART2, 57600);
+	cliOpen(_DEF_USB, 57600);
 }
 
 void apMain(void)

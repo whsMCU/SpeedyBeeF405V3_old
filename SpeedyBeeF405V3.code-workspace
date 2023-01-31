@@ -12,7 +12,9 @@
 		"cmake.generator": "Unix Makefiles",
 		"cortex-debug.armToolchainPath": "C:/tools/gcc-arm-none-eabi-10.3-2021.10/bin",
 		"files.associations": {
-			"hw.h": "c"
+			"hw.h": "c",
+			"usbd_cdc_if.h": "c",
+			"usbd_cdc.h": "c"
 		}
 	}
 }

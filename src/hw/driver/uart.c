@@ -8,6 +8,7 @@
 
 #include "uart.h"
 #include "ring_buffer.h"
+#include "usbd_cdc_if.h"
 
 
 static bool is_open[UART_MAX_CH];
@@ -70,7 +71,7 @@ bool uartOpen(uint8_t ch, uint32_t baud)
     	}
       break;
 
-    case _DEF_UART2:
+    case _DEF_USB:
       is_open[ch] = true;
       ret = true;
       break;
@@ -90,7 +91,7 @@ uint32_t uartAvailable(uint8_t ch)
       ret = QueueAvailable(&ring_buffer[ch]);
       break;
 
-    case _DEF_UART2:
+    case _DEF_USB:
       ret = cdcAvailable();
       break;
   }
@@ -108,7 +109,7 @@ uint8_t uartRead(uint8_t ch)
     	Q_read(&ring_buffer[_DEF_UART1], &ret, 1);
       break;
 
-    case _DEF_UART2:
+    case _DEF_USB:
       ret = cdcRead();
       break;
   }
@@ -131,7 +132,7 @@ uint32_t uartWrite(uint8_t ch, uint8_t *p_data, uint32_t length)
       }
       break;
 
-    case _DEF_UART2:
+    case _DEF_USB:
       ret = cdcWrite(p_data, length);
       break;
   }
@@ -154,7 +155,7 @@ uint32_t uartWriteIT(uint8_t ch, uint8_t *p_data, uint32_t length)
       }
       break;
 
-    case _DEF_UART2:
+    case _DEF_USB:
       status = HAL_UART_Transmit_IT(&huart2, p_data, length);
       if (status == HAL_OK)
       {
@@ -213,7 +214,7 @@ uint32_t uartGetBaud(uint8_t ch)
       ret = huart2.Init.BaudRate;
       break;
 
-    case _DEF_UART2:
+    case _DEF_USB:
       ret = cdcGetBaud();
       break;
   }
@@ -238,7 +239,7 @@ bool uartSetBaud(uint8_t ch, uint32_t baud)
     	}
 			break;
 
-		case _DEF_UART2:
+		case _DEF_USB:
 			huart2.Init.BaudRate = baud;
     	if (HAL_UART_Init(&huart2) != HAL_OK)
     	{

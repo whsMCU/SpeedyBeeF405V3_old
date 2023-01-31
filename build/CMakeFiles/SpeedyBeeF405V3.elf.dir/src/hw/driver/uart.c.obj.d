@@ -80,4 +80,24 @@ CMakeFiles/SpeedyBeeF405V3.elf.dir/src/hw/driver/uart.c.obj: \
  D:/3.\ Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h \
  D:/3.\ Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h \
  D:/3.\ Project/SpeedyBeeF405V3/src/lib/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h \
- D:/3.\ Project/SpeedyBeeF405V3/src/common/core/ring_buffer.h
+ D:/3.\ Project/SpeedyBeeF405V3/src/common/core/ring_buffer.h \
+ D:/3.\ Project/SpeedyBeeF405V3/src/lib/USB_DEVICE/App/usbd_cdc_if.h \
+ D:/3.\ Project/SpeedyBeeF405V3/src/lib/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc/usbd_cdc.h \
+ D:/3.\ Project/SpeedyBeeF405V3/src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h \
+ D:/3.\ Project/SpeedyBeeF405V3/src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h \
+ D:/3.\ Project/SpeedyBeeF405V3/src/lib/USB_DEVICE/Target/usbd_conf.h \
+ D:/3.\ Project/SpeedyBeeF405V3/src/main.h \
+ D:/3.\ Project/SpeedyBeeF405V3/src/ap/ap.h \
+ D:/3.\ Project/SpeedyBeeF405V3/src/hw/hw.h \
+ D:/3.\ Project/SpeedyBeeF405V3/src/hw/hw_def.h \
+ D:/3.\ Project/SpeedyBeeF405V3/src/common/hw/include/led.h \
+ D:/3.\ Project/SpeedyBeeF405V3/src/common/hw/include/usb.h \
+ D:/3.\ Project/SpeedyBeeF405V3/src/common/hw/include/cli.h \
+ D:/3.\ Project/SpeedyBeeF405V3/src/common/hw/include/i2c.h \
+ D:/3.\ Project/SpeedyBeeF405V3/src/common/hw/include/timer.h \
+ D:/3.\ Project/SpeedyBeeF405V3/src/common/hw/include/spi.h \
+ D:/3.\ Project/SpeedyBeeF405V3/src/common/hw/include/gpio.h \
+ D:/3.\ Project/SpeedyBeeF405V3/src/common/core/sensor.h \
+ D:/3.\ Project/SpeedyBeeF405V3/src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h \
+ D:/3.\ Project/SpeedyBeeF405V3/src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h \
+ D:/3.\ Project/SpeedyBeeF405V3/src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h

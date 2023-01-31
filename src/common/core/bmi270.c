@@ -154,10 +154,9 @@ bool bmi270_Driver_Init(void)
     // delay(10);
 
     gpioPinWrite(_PIN_DEF_CS, _DEF_LOW);
-    delay(10);
-    SPI_ByteWriteRead(_DEF_SPI1, BMI270_REG_CHIP_ID, 1, _buffer);
+    SPI_ByteWriteRead(_DEF_SPI1, BMI270_REG_CHIP_ID | 0x80, _buffer, 2);
     gpioPinWrite(_PIN_DEF_CS, _DEF_HIGH);
-    if (_buffer[0] == BMI270_CHIP_ID)
+    if (_buffer[1] == BMI270_CHIP_ID)
     {
         return true;
     }
@@ -199,7 +198,7 @@ void cliBmi270(cli_args_t *args)
     addr = addr | 0x80;
 
     gpioPinWrite(_PIN_DEF_CS, _DEF_LOW);
-    status = SPI_ByteWriteRead(ch, addr, 1, buffer);
+    status = SPI_ByteWriteRead(ch, addr, buffer, 1);
     gpioPinWrite(_PIN_DEF_CS, _DEF_HIGH);
 
     if(status == HAL_OK)
