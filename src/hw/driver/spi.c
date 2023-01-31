@@ -97,7 +97,7 @@ bool spiBegin(uint8_t ch)
       hspi2.Init.TIMode = SPI_TIMODE_DISABLE;
       hspi2.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
       hspi2.Init.CRCPolynomial = 10;
-      HAL_SPI_DeInit(&hspi2);
+      //HAL_SPI_DeInit(&hspi2);
       if (HAL_SPI_Init(&hspi2) == HAL_OK)
       {
         p_spi->is_open = true;

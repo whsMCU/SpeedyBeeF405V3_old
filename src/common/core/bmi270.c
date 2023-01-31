@@ -148,10 +148,10 @@ bool bmi270_Driver_Init(void)
     spiBegin(spi_ch);
     spiSetDataMode(spi_ch, SPI_MODE0);
 
-    gpioPinWrite(_PIN_DEF_CS, _DEF_LOW);
-    delay(1);
-    gpioPinWrite(_PIN_DEF_CS, _DEF_HIGH);
-    delay(10);
+    // gpioPinWrite(_PIN_DEF_CS, _DEF_LOW);
+    // delay(1);
+    // gpioPinWrite(_PIN_DEF_CS, _DEF_HIGH);
+    // delay(10);
 
     gpioPinWrite(_PIN_DEF_CS, _DEF_LOW);
     delay(10);

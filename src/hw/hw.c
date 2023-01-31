@@ -14,9 +14,9 @@ void hwInit(void)
   bspInit();
   gpioInit();
   usbInit();
+  uartInit();
   cliInit();
   ledInit();
-  uartInit();
   spiInit();
   Sensor_Init();
 

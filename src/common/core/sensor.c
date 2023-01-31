@@ -6,6 +6,7 @@
  */
 
 #include "sensor.h"
+#include "bmi270.h"
 #include "cli.h"
 
 static bool is_init = false;

@@ -24,7 +24,7 @@ typedef struct
 const gpio_tbl_t gpio_tbl[GPIO_MAX_CH] =
   {
     {GPIOA, GPIO_PIN_4,  _DEF_OUTPUT,       GPIO_PIN_SET,   GPIO_PIN_RESET, _DEF_HIGH}, // 0. BMI270 CS
-    {GPIOC, GPIO_PIN_4,  _DEF_INPUT_PULLUP, GPIO_PIN_SET,   GPIO_PIN_RESET, true},     // 1. BMI270 INT
+    {GPIOC, GPIO_PIN_4,  _DEF_INPUT_PULLUP, GPIO_PIN_SET,   GPIO_PIN_RESET, _DEF_LOW},     // 1. BMI270 INT
     };
 
 
@@ -38,9 +38,12 @@ bool gpioInit(void)
 {
   bool ret = true;
 
-
+  /* GPIO Ports Clock Enable */
+  __HAL_RCC_GPIOH_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOC_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
+
     /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
 
@@ -52,6 +55,10 @@ bool gpioInit(void)
     gpioPinMode(i, gpio_tbl[i].mode);
     gpioPinWrite(i, gpio_tbl[i].init_value);
   }
+
+  /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI4_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI4_IRQn);
 
 #ifdef _USE_HW_CLI
   cliAdd("gpio", cliGpio);
@@ -88,9 +95,15 @@ bool gpioPinMode(uint8_t ch, uint8_t mode)
       GPIO_InitStruct.Pull = GPIO_PULLDOWN;
       break;
 
+    case _DEF_INPUT_IT_RISING:
+      GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+      GPIO_InitStruct.Pull = GPIO_NOPULL;
+      break;
+
     case _DEF_OUTPUT:
       GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
       GPIO_InitStruct.Pull = GPIO_NOPULL;
+      GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
       break;
 
     case _DEF_OUTPUT_PULLUP:
