@@ -1,3 +1,0 @@
-D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles/SpeedyBeeF405V3.elf.dir
-D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles/edit_cache.dir
-D:/3. Project/SpeedyBeeF405V3/build/CMakeFiles/rebuild_cache.dir
