@@ -43,7 +43,8 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-
+#define BMI270_REG_CHIP_ID  0x00
+extern SPI_HandleTypeDef hspi1;
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -100,6 +101,18 @@ int main(void)
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
 
+  uint8_t addr = BMI270_REG_CHIP_ID | 0x80;
+  uint8_t buffer[2] = {0, 0};
+  HAL_StatusTypeDef status = HAL_OK;
+
+
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET);
+  HAL_SPI_Transmit(&hspi1, &addr, 1, 100);
+  status = HAL_SPI_Receive(&hspi1, buffer, 2, 100);
+  //status = HAL_SPI_TransmitReceive(p_spi->h_spi, &MemAddress, data, length, 10);
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
+
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -107,6 +120,7 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
+
 
     /* USER CODE BEGIN 3 */
   }

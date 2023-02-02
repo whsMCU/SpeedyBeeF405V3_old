@@ -19,8 +19,8 @@
  */
 
 #include "bmi270.h"
-#include "spi.h"
 #include "gpio.h"
+#include "spi.h"
 #include "led.h"
 #include "cli.h"
 
@@ -116,12 +116,11 @@ typedef enum {
     BMI270_VAL_FIFO_WTM_1 = 0x00,            // FIFO watermark MSB
 } bmi270ConfigValues_e;
 
-#define _PIN_DEF_CS 0
 // Need to see at least this many interrupts during initialisation to confirm EXTI connectivity
 #define GYRO_EXTI_DETECT_THRESHOLD 1000
 static bool bmi270_Driver_Init(void);
 static uint8_t spi_ch = _DEF_SPI1;
-static uint8_t _buffer[21];
+static uint8_t _buffer[16];
 
 #ifdef _USE_HW_CLI
 static void cliBmi270(cli_args_t *args);
@@ -149,8 +148,11 @@ bool bmi270_Driver_Init(void)
     spiSetDataMode(spi_ch, SPI_MODE0);
 
     gpioPinWrite(_PIN_DEF_CS, _DEF_LOW);
-    SPI_ByteWriteRead(_DEF_SPI1, BMI270_REG_CHIP_ID | 0x80, _buffer, 2);
+    delay(200);
     gpioPinWrite(_PIN_DEF_CS, _DEF_HIGH);
+    delay(200);
+
+    SPI_ByteWriteRead(_DEF_SPI1, BMI270_REG_CHIP_ID | 0x80, _buffer, 2);
     if (_buffer[1] == BMI270_CHIP_ID)
     {
         return true;
@@ -192,9 +194,7 @@ void cliBmi270(cli_args_t *args)
     addr = (uint8_t)args->getData(2);
     addr |= 0x80;
 
-    gpioPinWrite(_PIN_DEF_CS, _DEF_LOW);
     status = SPI_ByteWriteRead(ch, addr, buffer, 2);
-    gpioPinWrite(_PIN_DEF_CS, _DEF_HIGH);
 
     if(status == HAL_OK)
     {

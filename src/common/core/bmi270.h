@@ -4,6 +4,8 @@
 #include "def.h"
 #include "sensor.h"
 
+#define _PIN_DEF_CS 0
+
 bool bmi270_Init(sensor_Dev_t *p_driver);
 bool bmi270SpiAccRead(void);
 bool bmi270SpiGyroRead(void);
