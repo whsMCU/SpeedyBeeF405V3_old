@@ -19,6 +19,7 @@
 #include "spi.h"
 #include "gpio.h"
 #include "sensor.h"
+#include "bmi270.h"
 
 
 void hwInit(void);

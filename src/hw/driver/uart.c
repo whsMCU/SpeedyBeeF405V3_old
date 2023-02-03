@@ -21,9 +21,6 @@ static uint8_t u2_rx_buf[MAX_SIZE];
 UART_HandleTypeDef huart2;
 DMA_HandleTypeDef hdma_usart2_rx;
 
-static void MX_DMA_Init(void);
-
-
 bool uartInit(void)
 {
   for (int i=0; i<UART_MAX_CH; i++)
@@ -31,7 +28,6 @@ bool uartInit(void)
     is_open[i] = false;
   }
 
-  MX_DMA_Init();
   return true;
 }
 
@@ -337,24 +333,6 @@ void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
 
   /* USER CODE END USART2_MspInit 1 */
   }
-}
-
-/**
-  * Enable DMA controller clock
-  */
-static void MX_DMA_Init(void)
-{
-  /* DMA controller clock enable */
-  __HAL_RCC_DMA1_CLK_ENABLE();
-
-  /* DMA interrupt init */
-  /* DMA1_Stream4_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(DMA1_Stream4_IRQn, 0, 0);
-  HAL_NVIC_EnableIRQ(DMA1_Stream4_IRQn);
-  /* DMA1_Stream5_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(DMA1_Stream5_IRQn, 0, 0);
-  HAL_NVIC_EnableIRQ(DMA1_Stream5_IRQn);
-
 }
 
 void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)

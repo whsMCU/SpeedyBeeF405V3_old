@@ -146,11 +146,13 @@ bool bmi270_Driver_Init(void)
 {
     spiBegin(spi_ch);
     spiSetDataMode(spi_ch, SPI_MODE0);
+    gpioPinWrite(_PIN_DEF_CS, _DEF_HIGH);
+    delay(100);
 
     gpioPinWrite(_PIN_DEF_CS, _DEF_LOW);
-    delay(200);
+    delay(1);
     gpioPinWrite(_PIN_DEF_CS, _DEF_HIGH);
-    delay(200);
+    delay(10);
 
     SPI_ByteWriteRead(_DEF_SPI1, BMI270_REG_CHIP_ID | 0x80, _buffer, 2);
     if (_buffer[1] == BMI270_CHIP_ID)
@@ -160,12 +162,20 @@ bool bmi270_Driver_Init(void)
     return false;
 }
 
+bool bmi270SpiAddrRead(void)
+{
+    SPI_ByteWriteRead(_DEF_SPI1, BMI270_REG_CHIP_ID | 0x80, _buffer, 2);
+    return true;
+}
+
 bool bmi270SpiAccRead(void)
 {
+    SPI_ByteWriteRead(_DEF_SPI1, BMI270_REG_ACC_DATA_X_LSB | 0x80, _buffer, 6);
     return true;
 }
 bool bmi270SpiGyroRead(void)
 {
+    SPI_ByteWriteRead(_DEF_SPI1, BMI270_REG_GYR_DATA_X_LSB | 0x80, _buffer, 6);
     return true;
 }
 
