@@ -32,8 +32,6 @@ const gpio_tbl_t gpio_tbl[GPIO_MAX_CH] =
 static void cliGpio(cli_args_t *args);
 #endif
 
-
-
 bool gpioInit(void)
 {
   bool ret = true;

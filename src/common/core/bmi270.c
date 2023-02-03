@@ -154,7 +154,7 @@ bool bmi270_Driver_Init(void)
     gpioPinWrite(_PIN_DEF_CS, _DEF_HIGH);
     delay(10);
 
-    SPI_ByteWriteRead(_DEF_SPI1, BMI270_REG_CHIP_ID | 0x80, _buffer, 2);
+    SPI_ByteRead(_DEF_SPI1, BMI270_REG_CHIP_ID | 0x80, _buffer, 2);
     if (_buffer[1] == BMI270_CHIP_ID)
     {
         return true;
@@ -164,18 +164,18 @@ bool bmi270_Driver_Init(void)
 
 bool bmi270SpiAddrRead(void)
 {
-    SPI_ByteWriteRead(_DEF_SPI1, BMI270_REG_CHIP_ID | 0x80, _buffer, 2);
+    SPI_ByteRead(_DEF_SPI1, BMI270_REG_CHIP_ID | 0x80, _buffer, 2);
     return true;
 }
 
 bool bmi270SpiAccRead(void)
 {
-    SPI_ByteWriteRead(_DEF_SPI1, BMI270_REG_ACC_DATA_X_LSB | 0x80, _buffer, 6);
+    SPI_ByteRead(_DEF_SPI1, BMI270_REG_ACC_DATA_X_LSB | 0x80, _buffer, 6);
     return true;
 }
 bool bmi270SpiGyroRead(void)
 {
-    SPI_ByteWriteRead(_DEF_SPI1, BMI270_REG_GYR_DATA_X_LSB | 0x80, _buffer, 6);
+    SPI_ByteRead(_DEF_SPI1, BMI270_REG_GYR_DATA_X_LSB | 0x80, _buffer, 6);
     return true;
 }
 
@@ -204,7 +204,7 @@ void cliBmi270(cli_args_t *args)
     addr = (uint8_t)args->getData(2);
     addr |= 0x80;
 
-    status = SPI_ByteWriteRead(ch, addr, buffer, 2);
+    status = SPI_ByteRead(ch, addr, buffer, 2);
 
     if(status == HAL_OK)
     {
@@ -215,9 +215,34 @@ void cliBmi270(cli_args_t *args)
     }
     ret = true;
   }
+
+    if (args->argc == 4 && args->isStr(0, "mem_write") == true)
+  {
+    uint8_t ch;
+    uint8_t addr;
+    uint8_t buffer;
+    HAL_StatusTypeDef status;
+
+    ch     = (uint8_t)args->getData(1);
+    addr   = (uint8_t)args->getData(2);
+    buffer = (uint8_t)args->getData(3);
+
+    status = SPI_ByteWrite(ch, addr, &buffer, 1);
+
+    if(status == HAL_OK)
+    {
+        cliPrintf("bmi270 mem_write : ch (%d), addr (0x%X), data : (0x%X), status (%d)\n", ch, addr, buffer, status);
+    }else
+    {
+        cliPrintf("bmi270 write - Fail(%d) \n", status);
+    }
+    ret = true;
+  }
+
   if (ret != true)
   {
     cliPrintf("bmi270 mem_read ch0:1, addr \n");
+    cliPrintf("bmi270 mem_write ch0:1, addr data \n");
   }
 }
 #endif

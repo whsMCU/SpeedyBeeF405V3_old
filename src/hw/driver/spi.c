@@ -157,7 +157,7 @@ void spiSetDataMode(uint8_t ch, uint8_t dataMode)
   }
 }
 
-HAL_StatusTypeDef SPI_ByteWriteRead(uint8_t ch, uint8_t MemAddress, uint8_t *data, uint8_t length)
+HAL_StatusTypeDef SPI_ByteRead(uint8_t ch, uint8_t MemAddress, uint8_t *data, uint8_t length)
 {
   spi_t  *p_spi = &spi_tbl[ch];
   HAL_StatusTypeDef status;
@@ -165,6 +165,17 @@ HAL_StatusTypeDef SPI_ByteWriteRead(uint8_t ch, uint8_t MemAddress, uint8_t *dat
   HAL_SPI_Transmit(p_spi->h_spi, &MemAddress, 1, 100);
   status = HAL_SPI_Receive(p_spi->h_spi, data, length, 100);
   //status = HAL_SPI_TransmitReceive(p_spi->h_spi, &MemAddress, data, length, 10);
+  gpioPinWrite(_PIN_DEF_CS, _DEF_HIGH);
+  return status;
+}
+
+HAL_StatusTypeDef SPI_ByteWrite(uint8_t ch, uint8_t MemAddress, uint8_t *data, uint8_t length)
+{
+  spi_t  *p_spi = &spi_tbl[ch];
+  HAL_StatusTypeDef status;
+  gpioPinWrite(_PIN_DEF_CS, _DEF_LOW);
+  HAL_SPI_Transmit(p_spi->h_spi, &MemAddress, 1, 100);
+  status = HAL_SPI_Transmit(p_spi->h_spi, data, length, 100);
   gpioPinWrite(_PIN_DEF_CS, _DEF_HIGH);
   return status;
 }
@@ -381,12 +392,12 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef* spiHandle)
     GPIO_InitStruct.Alternate = GPIO_AF5_SPI1;
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-    // GPIO_InitStruct.Pin = ;
-    // GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-    // GPIO_InitStruct.Pull = GPIO_PULLUP;
-    // GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-    // GPIO_InitStruct.Alternate = GPIO_AF5_SPI1;
-    // HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+    GPIO_InitStruct.Pin = GPIO_PIN_6;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Pull = GPIO_PULLUP;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+    GPIO_InitStruct.Alternate = GPIO_AF5_SPI1;
+    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
     /* SPI1 DMA Init */
     /* SPI1_RX Init */
