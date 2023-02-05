@@ -126,6 +126,79 @@ static uint8_t _buffer[16];
 static void cliBmi270(cli_args_t *args);
 #endif
 
+// Toggle the CS to switch the device into SPI mode.
+// Device switches initializes as I2C and switches to SPI on a low to high CS transition
+static void bmi270EnableSPI(uint8_t ch)
+{
+    gpioPinWrite(_PIN_DEF_CS, _DEF_LOW);
+    delay(1);
+    gpioPinWrite(_PIN_DEF_CS, _DEF_HIGH);
+    delay(10);
+}
+
+static void bmi270Config(void)
+{
+    // If running in hardware_lpf experimental mode then switch to FIFO-based,
+    // 6.4KHz sampling, unfiltered data vs. the default 3.2KHz with hardware filtering
+#ifdef USE_GYRO_DLPF_EXPERIMENTAL
+    const bool fifoMode = (gyro->hardware_lpf == GYRO_HARDWARE_LPF_EXPERIMENTAL);
+#else
+    const bool fifoMode = false;
+#endif
+
+    // Perform a soft reset to set all configuration to default
+    // Delay 100ms before continuing configuration
+    SPI_RegisterWrite(_DEF_SPI1, BMI270_REG_CMD, BMI270_VAL_CMD_SOFTRESET, 100);
+    // Toggle the chip into SPI mode
+    bmi270EnableSPI(0);
+
+    //bmi270UploadConfig(dev);
+
+    // Configure the FIFO
+    if (fifoMode) {
+        SPI_RegisterWrite(_DEF_SPI1, BMI270_REG_FIFO_CONFIG_0, BMI270_VAL_FIFO_CONFIG_0, 1);
+        SPI_RegisterWrite(_DEF_SPI1, BMI270_REG_FIFO_CONFIG_1, BMI270_VAL_FIFO_CONFIG_1, 1);
+        SPI_RegisterWrite(_DEF_SPI1, BMI270_REG_FIFO_DOWNS, BMI270_VAL_FIFO_DOWNS, 1);
+        SPI_RegisterWrite(_DEF_SPI1, BMI270_REG_FIFO_WTM_0, BMI270_VAL_FIFO_WTM_0, 1);
+        SPI_RegisterWrite(_DEF_SPI1, BMI270_REG_FIFO_WTM_1, BMI270_VAL_FIFO_WTM_1, 1);
+    }
+
+    // Configure the accelerometer
+    SPI_RegisterWrite(_DEF_SPI1, BMI270_REG_ACC_CONF, (BMI270_VAL_ACC_CONF_HP << 7) | (BMI270_VAL_ACC_CONF_BWP << 4) | BMI270_VAL_ACC_CONF_ODR800, 1);
+
+    // Configure the accelerometer full-scale range
+    SPI_RegisterWrite(_DEF_SPI1, BMI270_REG_ACC_RANGE, BMI270_VAL_ACC_RANGE_16G, 1);
+
+    // Configure the gyro
+    SPI_RegisterWrite(_DEF_SPI1, BMI270_REG_GYRO_CONF, (BMI270_VAL_GYRO_CONF_FILTER_PERF << 7) | (BMI270_VAL_GYRO_CONF_NOISE_PERF << 6) | (BMI270_VAL_GYRO_CONF_BWP_OSR4 << 4) | BMI270_VAL_GYRO_CONF_ODR3200, 1);
+
+    // Configure the gyro full-range scale
+    SPI_RegisterWrite(_DEF_SPI1, BMI270_REG_GYRO_RANGE, BMI270_VAL_GYRO_RANGE_2000DPS, 1);
+
+    // Configure the gyro data ready interrupt
+    if (fifoMode) {
+        // Interrupt driven by FIFO watermark level
+        SPI_RegisterWrite(_DEF_SPI1, BMI270_REG_INT_MAP_DATA, BMI270_VAL_INT_MAP_FIFO_WM_INT1, 1);
+    } else {
+        // Interrupt driven by data ready
+        SPI_RegisterWrite(_DEF_SPI1, BMI270_REG_INT_MAP_DATA, BMI270_VAL_INT_MAP_DATA_DRDY_INT1, 1);
+    }
+
+    // Configure the behavior of the INT1 pin
+    SPI_RegisterWrite(_DEF_SPI1, BMI270_REG_INT1_IO_CTRL, BMI270_VAL_INT1_IO_CTRL_PINMODE, 1);
+
+    // Configure the device for  performance mode
+    //SPI_RegisterWrite(_DEF_SPI1, BMI270_REG_PWR_CONF, BMI270_VAL_PWR_CONF, 1);
+
+    // Enable the gyro, accelerometer and temperature sensor - disable aux interface
+    SPI_RegisterWrite(_DEF_SPI1, BMI270_REG_PWR_CTRL, BMI270_VAL_PWR_CTRL, 1);
+
+    // Flush the FIFO
+    if (fifoMode) {
+      SPI_RegisterWrite(_DEF_SPI1, BMI270_REG_CMD, BMI270_VAL_CMD_FIFOFLUSH, 1);
+    }
+}
+
 bool bmi270_Init(sensor_Dev_t *p_driver)
 {
     bool ret = true;
@@ -146,13 +219,10 @@ bool bmi270_Driver_Init(void)
 {
     spiBegin(spi_ch);
     spiSetDataMode(spi_ch, SPI_MODE0);
-    gpioPinWrite(_PIN_DEF_CS, _DEF_HIGH);
-    delay(100);
 
-    gpioPinWrite(_PIN_DEF_CS, _DEF_LOW);
-    delay(1);
-    gpioPinWrite(_PIN_DEF_CS, _DEF_HIGH);
-    delay(10);
+    bmi270EnableSPI(0);
+
+    bmi270Config();
 
     SPI_ByteRead(_DEF_SPI1, BMI270_REG_CHIP_ID | 0x80, _buffer, 2);
     if (_buffer[1] == BMI270_CHIP_ID)

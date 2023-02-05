@@ -180,6 +180,14 @@ HAL_StatusTypeDef SPI_ByteWrite(uint8_t ch, uint8_t MemAddress, uint8_t *data, u
   return status;
 }
 
+void SPI_RegisterWrite(uint8_t ch, uint8_t MemAddress, uint8_t data, uint8_t delayMs)
+{
+    SPI_ByteWrite(ch, MemAddress, &data, 1);
+    if (delayMs) {
+        delay(delayMs);
+    }
+}
+
 void spiSetBitWidth(uint8_t ch, uint8_t bit_width)
 {
   spi_t  *p_spi = &spi_tbl[ch];

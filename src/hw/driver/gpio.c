@@ -86,6 +86,7 @@ bool gpioPinMode(uint8_t ch, uint8_t mode)
     case _DEF_INPUT_PULLUP:
       GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
       GPIO_InitStruct.Pull = GPIO_PULLUP;
+      GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
       break;
 
     case _DEF_INPUT_PULLDOWN:
