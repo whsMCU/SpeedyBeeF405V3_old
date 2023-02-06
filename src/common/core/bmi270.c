@@ -118,8 +118,7 @@ typedef enum {
 
 // Need to see at least this many interrupts during initialisation to confirm EXTI connectivity
 #define GYRO_EXTI_DETECT_THRESHOLD 1000
-static bool bmi270_Driver_Init(void);
-static uint8_t spi_ch = _DEF_SPI1;
+
 static uint8_t _buffer[16];
 
 #ifdef _USE_HW_CLI
@@ -135,6 +134,19 @@ static void bmi270EnableSPI(uint8_t ch)
     gpioPinWrite(_PIN_DEF_CS, _DEF_HIGH);
     delay(10);
 }
+
+static void bmi270UploadConfig(uint8_t ch)
+{
+    SPI_RegisterWrite(_DEF_SPI1, BMI270_REG_PWR_CONF, 0, 1);
+    SPI_RegisterWrite(_DEF_SPI1, BMI270_REG_INIT_CTRL, 0, 1);
+
+    // Transfer the config file
+    SPI_ByteWrite(_DEF_SPI1, BMI270_REG_INIT_DATA, (uint8_t *)bmi270_maximum_fifo_config_file, sizeof(bmi270_maximum_fifo_config_file));
+
+    delay(10);
+    SPI_RegisterWrite(_DEF_SPI1, BMI270_REG_INIT_CTRL, 1, 1);
+}
+
 
 static void bmi270Config(void)
 {
@@ -152,7 +164,7 @@ static void bmi270Config(void)
     // Toggle the chip into SPI mode
     bmi270EnableSPI(0);
 
-    //bmi270UploadConfig(dev);
+    bmi270UploadConfig(_DEF_SPI1);
 
     // Configure the FIFO
     if (fifoMode) {
@@ -188,7 +200,7 @@ static void bmi270Config(void)
     SPI_RegisterWrite(_DEF_SPI1, BMI270_REG_INT1_IO_CTRL, BMI270_VAL_INT1_IO_CTRL_PINMODE, 1);
 
     // Configure the device for  performance mode
-    //SPI_RegisterWrite(_DEF_SPI1, BMI270_REG_PWR_CONF, BMI270_VAL_PWR_CONF, 1);
+    SPI_RegisterWrite(_DEF_SPI1, BMI270_REG_PWR_CONF, BMI270_VAL_PWR_CONF, 1);
 
     // Enable the gyro, accelerometer and temperature sensor - disable aux interface
     SPI_RegisterWrite(_DEF_SPI1, BMI270_REG_PWR_CTRL, BMI270_VAL_PWR_CTRL, 1);
@@ -202,28 +214,32 @@ static void bmi270Config(void)
 bool bmi270_Init(sensor_Dev_t *p_driver)
 {
     bool ret = true;
-    bmi270_Driver_Init();
-    p_driver->initFn = NULL;
+
+    bmi270EnableSPI(0);
+    // Allow 100ms before attempting to access gyro's SPI bus
+    // Do this once here rather than in each detection routine to speed boot
+    while (millis() < 100);
+
+    if (bmi270Detect(_DEF_SPI1))
+    {
+        bmi270Config();
+        return true;
+    }
+    p_driver->initFn = bmi270Config;
     p_driver->gyro_readFn = bmi270SpiGyroRead;
     p_driver->acc_readFn = bmi270SpiAccRead;
     p_driver->setCallBack = NULL;
     p_driver->scale = GYRO_SCALE_2000DPS;
+
     #ifdef _USE_HW_CLI
-     cliAdd("bmi270", cliBmi270);
+        cliAdd("bmi270", cliBmi270);
     #endif
 
     return ret;
 }
 
-bool bmi270_Driver_Init(void)
+bool bmi270Detect(uint8_t ch)
 {
-    spiBegin(spi_ch);
-    spiSetDataMode(spi_ch, SPI_MODE0);
-
-    bmi270EnableSPI(0);
-
-    bmi270Config();
-
     SPI_ByteRead(_DEF_SPI1, BMI270_REG_CHIP_ID | 0x80, _buffer, 2);
     if (_buffer[1] == BMI270_CHIP_ID)
     {

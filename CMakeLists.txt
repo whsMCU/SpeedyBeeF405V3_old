@@ -40,6 +40,7 @@ target_include_directories(${EXECUTABLE} PRIVATE
   src/bsp
   src/common
   src/common/core
+  src/common/core/BMI270-Sensor-API
   src/common/hw/include
   src/hw
   src/hw/driver

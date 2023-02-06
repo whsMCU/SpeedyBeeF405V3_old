@@ -28,7 +28,7 @@ void spiSetDataMode(uint8_t ch, uint8_t dataMode);
 void spiSetBitWidth(uint8_t ch, uint8_t bit_width);
 
 HAL_StatusTypeDef SPI_ByteRead(uint8_t ch, uint8_t MemAddress, uint8_t *data, uint8_t length);
-HAL_StatusTypeDef SPI_ByteWrite(uint8_t ch, uint8_t MemAddress, uint8_t *data, uint8_t length);
+HAL_StatusTypeDef SPI_ByteWrite(uint8_t ch, uint8_t MemAddress, uint8_t *data, uint32_t length);
 void SPI_RegisterWrite(uint8_t ch, uint8_t MemAddress, uint8_t data, uint8_t delayMs);
 
 bool     spiTransfer(uint8_t ch, uint8_t *tx_buf, uint8_t *rx_buf, uint32_t length, uint32_t timeout);

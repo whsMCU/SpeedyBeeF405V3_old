@@ -18,7 +18,7 @@ typedef struct sensor_Dev_t_ sensor_Dev_t;
 
 typedef struct sensor_Dev_t_
 {
-  bool     (*initFn)(void);
+  void     (*initFn)(void);
   bool     (*gyro_readFn)(void);
   bool     (*acc_readFn)(void);
   bool     (*setCallBack)(void (*p_func)(void));

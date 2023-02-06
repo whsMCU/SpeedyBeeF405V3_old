@@ -50,7 +50,8 @@ bool spiInit(void)
     spi_tbl[i].h_dma_rx = NULL;
     spi_tbl[i].h_dma_tx = NULL;
   }
-
+  spiBegin(_DEF_SPI1);
+  spiSetDataMode(_DEF_SPI1, SPI_MODE0);
   cliAdd("spi", cliSPI);
   return ret;
 }
@@ -169,7 +170,7 @@ HAL_StatusTypeDef SPI_ByteRead(uint8_t ch, uint8_t MemAddress, uint8_t *data, ui
   return status;
 }
 
-HAL_StatusTypeDef SPI_ByteWrite(uint8_t ch, uint8_t MemAddress, uint8_t *data, uint8_t length)
+HAL_StatusTypeDef SPI_ByteWrite(uint8_t ch, uint8_t MemAddress, uint8_t *data, uint32_t length)
 {
   spi_t  *p_spi = &spi_tbl[ch];
   HAL_StatusTypeDef status;
