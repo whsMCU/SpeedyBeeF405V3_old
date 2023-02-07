@@ -16,13 +16,22 @@
 
 typedef struct sensor_Dev_t_ sensor_Dev_t;
 
+typedef struct mpu_Data_t_
+{
+  uint16_t x;
+  uint16_t y;
+  uint16_t z;                                 
+} mpu_Data_t;
+
 typedef struct sensor_Dev_t_
 {
   void     (*initFn)(void);
-  bool     (*gyro_readFn)(void);
-  bool     (*acc_readFn)(void);
+  bool     (*gyro_readFn)(sensor_Dev_t *p_driver);
+  bool     (*acc_readFn)(sensor_Dev_t *p_driver);
   bool     (*setCallBack)(void (*p_func)(void));
-  float    scale;                                             // scalefactor
+  float    scale; // scalefactor
+  mpu_Data_t gyro;
+  mpu_Data_t acc;
 } sensor_Dev_t;
 
 bool Sensor_Init(void);

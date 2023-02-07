@@ -37,6 +37,7 @@ bool Sensor_Init(void)
 void Gyro_getADC(void)
 {
   uint8_t ret = false;
+  bmi270SpiGyroRead(&sensor_t);
 }
 void ACC_getADC(void)
 {

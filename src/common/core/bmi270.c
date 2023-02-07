@@ -119,7 +119,7 @@ typedef enum {
 // Need to see at least this many interrupts during initialisation to confirm EXTI connectivity
 #define GYRO_EXTI_DETECT_THRESHOLD 1000
 
-static uint8_t _buffer[16];
+static uint8_t _buffer[16] = {0, };
 
 #ifdef _USE_HW_CLI
 static void cliBmi270(cli_args_t *args);
@@ -220,16 +220,17 @@ bool bmi270_Init(sensor_Dev_t *p_driver)
     // Do this once here rather than in each detection routine to speed boot
     while (millis() < 100);
 
-    if (bmi270Detect(_DEF_SPI1))
-    {
-        bmi270Config();
-        return true;
-    }
     p_driver->initFn = bmi270Config;
     p_driver->gyro_readFn = bmi270SpiGyroRead;
     p_driver->acc_readFn = bmi270SpiAccRead;
     p_driver->setCallBack = NULL;
     p_driver->scale = GYRO_SCALE_2000DPS;
+
+    if (bmi270Detect(_DEF_SPI1))
+    {
+        bmi270Config();
+    }
+    bmi270Config();
 
     #ifdef _USE_HW_CLI
         cliAdd("bmi270", cliBmi270);
@@ -240,7 +241,7 @@ bool bmi270_Init(sensor_Dev_t *p_driver)
 
 bool bmi270Detect(uint8_t ch)
 {
-    SPI_ByteRead(_DEF_SPI1, BMI270_REG_CHIP_ID | 0x80, _buffer, 2);
+    SPI_ByteRead(ch, (BMI270_REG_CHIP_ID | 0x80), _buffer, 2);
     if (_buffer[1] == BMI270_CHIP_ID)
     {
         return true;
@@ -254,14 +255,18 @@ bool bmi270SpiAddrRead(void)
     return true;
 }
 
-bool bmi270SpiAccRead(void)
+bool bmi270SpiAccRead(sensor_Dev_t *p_driver)
 {
     SPI_ByteRead(_DEF_SPI1, BMI270_REG_ACC_DATA_X_LSB | 0x80, _buffer, 6);
     return true;
 }
-bool bmi270SpiGyroRead(void)
+bool bmi270SpiGyroRead(sensor_Dev_t *p_driver)
 {
+    memset(_buffer, 0x00, 6);
     SPI_ByteRead(_DEF_SPI1, BMI270_REG_GYR_DATA_X_LSB | 0x80, _buffer, 6);
+    p_driver->gyro.x = (uint16_t)_buffer[1] | (uint16_t)_buffer[0];
+    p_driver->gyro.y = (uint16_t)_buffer[3] | (uint16_t)_buffer[2];
+    p_driver->gyro.z = (uint16_t)_buffer[5] | (uint16_t)_buffer[4];
     return true;
 }
 
@@ -278,6 +283,48 @@ bool bmi270SetCallBack(void (*p_func)(void))
 void cliBmi270(cli_args_t *args)
 {
   bool ret = false;
+
+if (args->argc == 1 && args->isStr(0, "gyro_show") == true)
+  {
+    uint32_t pre_time;
+ 	pre_time = millis();
+    int16_t x=0, y=0, z=0;
+    while(cliKeepLoop())
+    {
+        if (millis()-pre_time >= 1000)
+    	{
+     		pre_time = millis();
+			memset(_buffer, 0x00, 7);
+            SPI_ByteRead(_DEF_SPI1, (BMI270_REG_GYR_DATA_X_LSB | 0x80), _buffer, 7);
+            x = (uint16_t)_buffer[2]<<8 | (uint16_t)_buffer[1];
+            y = (uint16_t)_buffer[4]<<8 | (uint16_t)_buffer[3];
+            z = (uint16_t)_buffer[6]<<8 | (uint16_t)_buffer[5];
+            cliPrintf("gyro x: %d, y: %d, z: %d\n\r", x, y, z);
+    	}
+    }
+    ret = true;
+  }
+
+  if (args->argc == 1 && args->isStr(0, "acc_show") == true)
+  {
+    uint32_t pre_time;
+ 	pre_time = millis();
+    int16_t x=0, y=0, z=0;
+    while(cliKeepLoop())
+    {
+        if (millis()-pre_time >= 1000)
+    	{
+     		pre_time = millis();
+			memset(_buffer, 0x00, 7);
+            SPI_ByteRead(_DEF_SPI1, (BMI270_REG_ACC_DATA_X_LSB | 0x80), _buffer, 7);
+            x = (uint16_t)_buffer[2]<<8 | (uint16_t)_buffer[1];
+            y = (uint16_t)_buffer[4]<<8 | (uint16_t)_buffer[3];
+            z = (uint16_t)_buffer[6]<<8 | (uint16_t)_buffer[5];
+            cliPrintf("acc x: %d, y: %d, z: %d\n\r", x, y, z);
+    	}
+    }
+    ret = true;
+  }
 
   if (args->argc == 3 && args->isStr(0, "mem_read") == true)
   {
@@ -327,8 +374,10 @@ void cliBmi270(cli_args_t *args)
 
   if (ret != true)
   {
-    cliPrintf("bmi270 mem_read ch0:1, addr \n");
-    cliPrintf("bmi270 mem_write ch0:1, addr data \n");
+    cliPrintf("bmi270 gyro_show \n\r");
+    cliPrintf("bmi270 acc_show \n\r");
+    cliPrintf("bmi270 mem_read ch0:1, addr \n\r");
+    cliPrintf("bmi270 mem_write ch0:1, addr data \n\r");
   }
 }
 #endif

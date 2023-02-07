@@ -68,7 +68,7 @@
     <stringAttribute key="org.eclipse.cdt.launch.PROGRAM_NAME" value="Debug/SpeedyBeeF405V3_CUBE.elf"/>
     <stringAttribute key="org.eclipse.cdt.launch.PROJECT_ATTR" value="SpeedyBeeF405V3_CUBE"/>
     <booleanAttribute key="org.eclipse.cdt.launch.PROJECT_BUILD_CONFIG_AUTO_ATTR" value="true"/>
-    <stringAttribute key="org.eclipse.cdt.launch.PROJECT_BUILD_CONFIG_ID_ATTR" value="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug.307125928"/>
+    <stringAttribute key="org.eclipse.cdt.launch.PROJECT_BUILD_CONFIG_ID_ATTR" value="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug.1403013593"/>
     <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
         <listEntry value="/SpeedyBeeF405V3_CUBE"/>
     </listAttribute>

@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2023 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2023 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -43,8 +42,9 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-#define BMI270_REG_CHIP_ID  0x00
+#define BMI270_REG_CHIP_ID 0x00
 extern SPI_HandleTypeDef hspi1;
+
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -100,18 +100,27 @@ int main(void)
   MX_SPI2_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
-
-  uint8_t addr = BMI270_REG_CHIP_ID | 0x80;
-  uint8_t buffer[2] = {0, 0};
-  HAL_StatusTypeDef status = HAL_OK;
-
-
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET);
-  HAL_SPI_Transmit(&hspi1, &addr, 1, 100);
-  status = HAL_SPI_Receive(&hspi1, buffer, 2, 100);
-  //status = HAL_SPI_TransmitReceive(p_spi->h_spi, &MemAddress, data, length, 10);
   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
 
+  HAL_Delay(1000);
+
+  uint8_t buffer[2] = {0, 0};
+
+  HAL_StatusTypeDef status = 0;
+
+  uint8_t addr = BMI270_REG_CHIP_ID | 0x80;
+
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET);
+
+  HAL_SPI_Transmit(&hspi1, &addr, 1, 100);
+  status = HAL_SPI_Receive(&hspi1, buffer, 2, 100);
+
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
+
+  if(status == 0)
+  {
+	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
+  }
 
   /* USER CODE END 2 */
 
