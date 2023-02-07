@@ -24,8 +24,9 @@ void apMain(void)
     	{
      		pre_time = millis();
       		ledToggle(_DEF_LED1);
-			//bmi270SpiAddrRead();
-			Gyro_getADC();
+
+			//Gyro_getADC();
+			//ACC_getADC();
     	}
 		cliMain();
 	}

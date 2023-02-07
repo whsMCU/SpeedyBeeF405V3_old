@@ -23,6 +23,7 @@
 #include "spi.h"
 #include "led.h"
 #include "cli.h"
+#include "axis.h"
 
 #ifdef USE_ACCGYRO_BMI270
 
@@ -211,7 +212,7 @@ static void bmi270Config(void)
     }
 }
 
-bool bmi270_Init(sensor_Dev_t *p_driver)
+bool bmi270_Init(sensor_Dev_t *gyro)
 {
     bool ret = true;
 
@@ -220,11 +221,11 @@ bool bmi270_Init(sensor_Dev_t *p_driver)
     // Do this once here rather than in each detection routine to speed boot
     while (millis() < 100);
 
-    p_driver->initFn = bmi270Config;
-    p_driver->gyro_readFn = bmi270SpiGyroRead;
-    p_driver->acc_readFn = bmi270SpiAccRead;
-    p_driver->setCallBack = NULL;
-    p_driver->scale = GYRO_SCALE_2000DPS;
+    gyro->initFn = bmi270Config;
+    gyro->gyro_readFn = bmi270SpiGyroRead;
+    gyro->acc_readFn = bmi270SpiAccRead;
+    gyro->setCallBack = NULL;
+    gyro->scale = GYRO_SCALE_2000DPS;
 
     if (bmi270Detect(_DEF_SPI1))
     {
@@ -255,18 +256,22 @@ bool bmi270SpiAddrRead(void)
     return true;
 }
 
-bool bmi270SpiAccRead(sensor_Dev_t *p_driver)
+bool bmi270SpiAccRead(sensor_Dev_t *gyro)
 {
-    SPI_ByteRead(_DEF_SPI1, BMI270_REG_ACC_DATA_X_LSB | 0x80, _buffer, 6);
+    memset(_buffer, 0x00, 7);
+    SPI_ByteRead(_DEF_SPI1, BMI270_REG_ACC_DATA_X_LSB | 0x80, _buffer, 7);
+    gyro->accADCRaw[X] = (uint16_t)_buffer[2]<<8 | (uint16_t)_buffer[1];
+    gyro->accADCRaw[Y] = (uint16_t)_buffer[4]<<8 | (uint16_t)_buffer[3];
+    gyro->accADCRaw[Z] = (uint16_t)_buffer[6]<<8 | (uint16_t)_buffer[5];
     return true;
 }
-bool bmi270SpiGyroRead(sensor_Dev_t *p_driver)
+bool bmi270SpiGyroRead(sensor_Dev_t *gyro)
 {
-    memset(_buffer, 0x00, 6);
-    SPI_ByteRead(_DEF_SPI1, BMI270_REG_GYR_DATA_X_LSB | 0x80, _buffer, 6);
-    p_driver->gyro.x = (uint16_t)_buffer[1] | (uint16_t)_buffer[0];
-    p_driver->gyro.y = (uint16_t)_buffer[3] | (uint16_t)_buffer[2];
-    p_driver->gyro.z = (uint16_t)_buffer[5] | (uint16_t)_buffer[4];
+    memset(_buffer, 0x00, 7);
+    SPI_ByteRead(_DEF_SPI1, BMI270_REG_GYR_DATA_X_LSB | 0x80, _buffer, 7);
+    gyro->gyroADCRaw[X] = (uint16_t)_buffer[2]<<8 | (uint16_t)_buffer[1];
+    gyro->gyroADCRaw[Y] = (uint16_t)_buffer[4]<<8 | (uint16_t)_buffer[3];
+    gyro->gyroADCRaw[Z] = (uint16_t)_buffer[6]<<8 | (uint16_t)_buffer[5];
     return true;
 }
 
@@ -277,6 +282,18 @@ bool bmi270SetCallBack(void (*p_func)(void))
   frameCallBack = p_func;
 
   return true;
+}
+
+void bmi270ExtiHandler(sensor_Dev_t *gyro)
+{
+    gyro->dataReady = true;
+}
+
+uint8_t bmi270InterruptStatus(sensor_Dev_t *gyro)
+{
+    uint8_t buffer[2] = {0, 0};
+    SPI_ByteRead(gyro->gyro_bus_ch, BMI270_REG_INT_STATUS_1 | 0x80, buffer, 2);
+    return buffer[1];
 }
 
 #ifdef _USE_HW_CLI

@@ -38,10 +38,13 @@ void Gyro_getADC(void)
 {
   uint8_t ret = false;
   bmi270SpiGyroRead(&sensor_t);
+  cliPrintf("gyro x: %d, y: %d, z: %d\n\r", sensor_t.gyroADCRaw[X], sensor_t.gyroADCRaw[Y], sensor_t.gyroADCRaw[Z]);
 }
 void ACC_getADC(void)
 {
 	uint8_t ret = false;
+  bmi270SpiAccRead(&sensor_t);
+  cliPrintf("acc x: %d, y: %d, z: %d\n\r", sensor_t.accADCRaw[X], sensor_t.accADCRaw[Y], sensor_t.accADCRaw[Z]);
 }
 
 
