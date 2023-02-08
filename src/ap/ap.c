@@ -12,6 +12,8 @@
 void apInit(void)
 {
 	cliOpen(_DEF_USB, 57600);
+
+	Sensor_Init();
 }
 
 void apMain(void)
@@ -24,10 +26,9 @@ void apMain(void)
     	{
      		pre_time = millis();
       		ledToggle(_DEF_LED1);
-
-			//Gyro_getADC();
-			//ACC_getADC();
+			imuUpdate();
     	}
+		//gyroUpdate();
 		cliMain();
 	}
 }

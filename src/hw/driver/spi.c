@@ -158,7 +158,7 @@ void spiSetDataMode(uint8_t ch, uint8_t dataMode)
   }
 }
 
-HAL_StatusTypeDef SPI_ByteRead(uint8_t ch, uint8_t MemAddress, uint8_t *data, uint8_t length)
+ HAL_StatusTypeDef SPI_ByteRead(uint8_t ch, uint8_t MemAddress, uint8_t *data, uint8_t length)
 {
   spi_t  *p_spi = &spi_tbl[ch];
   HAL_StatusTypeDef status;

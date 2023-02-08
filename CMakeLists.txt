@@ -76,6 +76,7 @@ target_link_options(${EXECUTABLE} PRIVATE
   -mthumb
   #-mfpu=fpv4-sp-d16
   #-mfloat-abi=hard
+  -u_printf_float
   -specs=nano.specs
   -lc
   -lm

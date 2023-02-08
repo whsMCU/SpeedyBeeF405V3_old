@@ -58,14 +58,6 @@
 #define map(x, in_min, in_max, out_min, out_max) ((x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min)
 
 #define ROUND(x, dig)  ( floor((x) * pow((float)(10), dig) + 0.5f) / pow((float)(10), dig) )
-#define applyDeadband(value, deadband)    \
-		if(abs(value) < deadband) {           \
-			value = 0;                          \
-		} else if(value > 0){                 \
-			value -= deadband;                  \
-		} else if(value < 0){                 \
-			value += deadband;                  \
-		}
 
 
 #endif /* SRC_HW_HW_DEF_H_ */

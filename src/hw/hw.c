@@ -21,7 +21,6 @@ void hwInit(void)
   uartInit();
   cliInit();
   spiInit();
-  Sensor_Init();
 
 	// ledOn(ST1);
   // ledOff(ST2);
