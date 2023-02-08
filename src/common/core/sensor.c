@@ -12,13 +12,74 @@
 
 static bool is_init = false;
 
+#define CALIBRATING_ACC_CYCLES              512
+#define acc_lpf_factor 4
+
+#define dcm_kp 2500                // 1.0 * 10000
+#define dcm_ki 0                   // 0.003 * 10000
+#define small_angle 25
+
+#define SPIN_RATE_LIMIT 20
+
+#define ATTITUDE_RESET_QUIET_TIME 250000   // 250ms - gyro quiet period after disarm before attitude reset
+#define ATTITUDE_RESET_GYRO_LIMIT 15       // 15 deg/sec - gyro limit for quiet period
+#define ATTITUDE_RESET_KP_GAIN    25.0     // dcmKpGain value to use during attitude reset
+#define ATTITUDE_RESET_ACTIVE_TIME 500000  // 500ms - Time to wait for attitude to converge at high gain
+#define GPS_COG_MIN_GROUNDSPEED 500        // 500cm/s minimum groundspeed for a gps heading to be considered valid
+
 float accAverage[XYZ_AXIS_COUNT];
+static float accumulatedMeasurements[XYZ_AXIS_COUNT];
+static int accumulatedMeasurementCount;
+
+float rMat[3][3];
+
+static bool attitudeIsEstablished = false;
+
+// quaternion of sensor frame relative to earth frame
+static quaternion q = QUATERNION_INITIALIZE;
+static quaternionProducts qP = QUATERNION_PRODUCTS_INITIALIZE;
+// headfree quaternions
+quaternion headfree = QUATERNION_INITIALIZE;
+quaternion offset = QUATERNION_INITIALIZE;
+
+// absolute angle inclination in multiple of 0.1 degree    180 deg = 1800
+attitudeEulerAngles_t attitude = EULER_INITIALIZE;
 
 static sensor_Dev_t sensor;
 
 #ifdef _USE_HW_CLI
 static void cliSensor(cli_args_t *args);
 #endif
+
+static void imuQuaternionComputeProducts(quaternion *quat, quaternionProducts *quatProd)
+{
+    quatProd->ww = quat->w * quat->w;
+    quatProd->wx = quat->w * quat->x;
+    quatProd->wy = quat->w * quat->y;
+    quatProd->wz = quat->w * quat->z;
+    quatProd->xx = quat->x * quat->x;
+    quatProd->xy = quat->x * quat->y;
+    quatProd->xz = quat->x * quat->z;
+    quatProd->yy = quat->y * quat->y;
+    quatProd->yz = quat->y * quat->z;
+    quatProd->zz = quat->z * quat->z;
+}
+
+static void imuComputeRotationMatrix(void){
+    imuQuaternionComputeProducts(&q, &qP);
+
+    rMat[0][0] = 1.0f - 2.0f * qP.yy - 2.0f * qP.zz;
+    rMat[0][1] = 2.0f * (qP.xy + -qP.wz);
+    rMat[0][2] = 2.0f * (qP.xz - -qP.wy);
+
+    rMat[1][0] = 2.0f * (qP.xy - -qP.wz);
+    rMat[1][1] = 1.0f - 2.0f * qP.xx - 2.0f * qP.zz;
+    rMat[1][2] = 2.0f * (qP.yz + -qP.wx);
+
+    rMat[2][0] = 2.0f * (qP.xz + -qP.wy);
+    rMat[2][1] = 2.0f * (qP.yz - -qP.wx);
+    rMat[2][2] = 1.0f - 2.0f * qP.xx - 2.0f * qP.yy;
+}
 
 static void Calibrate_gyro(void)
 {
@@ -62,6 +123,13 @@ bool Sensor_Init(void)
     return ret;
 }
 
+static void applyAccelerationTrims(const sensor_Dev_t *accelerationTrims)
+{
+    sensor.accADC[X] -= sensor.imuSensor1.calibration.accelerationTrims[X];
+    sensor.accADC[Y] -= sensor.imuSensor1.calibration.accelerationTrims[Y];
+    sensor.accADC[Z] -= sensor.imuSensor1.calibration.accelerationTrims[Z];
+}
+
 static void imuUpdateSensor(imuSensor_t *imu)
 {
   if(!imu->imuDev.gyro_readFn(&sensor.imuSensor1))
@@ -85,6 +153,8 @@ static void imuUpdateSensor(imuSensor_t *imu)
 
 void imuUpdate(void)
 {
+  static float accLPF[3];
+
   imuUpdateSensor(&sensor.imuSensor1);
   sensor.gyroADC[X] = sensor.imuSensor1.imuDev.gyroADC[X] * sensor.imuSensor1.imuDev.scale;
   sensor.gyroADC[Y] = sensor.imuSensor1.imuDev.gyroADC[Y] * sensor.imuSensor1.imuDev.scale;
@@ -93,12 +163,109 @@ void imuUpdate(void)
                                                   sensor.gyroADC[Y],
                                                   sensor.gyroADC[Z]);
 
+  accumulatedMeasurementCount++;
+
   sensor.accADC[X] = sensor.imuSensor1.imuDev.accADC[X];
   sensor.accADC[Y] = sensor.imuSensor1.imuDev.accADC[Y];
   sensor.accADC[Z] = sensor.imuSensor1.imuDev.accADC[Z];
-  cliPrintf("acc x: %.2f, y: %.2f, z: %.2f\n\r",  sensor.accADC[X],
+  cliPrintf("전acc x: %.2f, y: %.2f, z: %.2f\n\r",  sensor.accADC[X],
                                                   sensor.accADC[Y],
                                                   sensor.accADC[Z]);
+
+  for(int axis=0;axis<3;axis++)
+	{
+		if (acc_lpf_factor > 0)
+		{
+			accLPF[axis] = accLPF[axis] * (1.0f - (1.0f / acc_lpf_factor)) + sensor.accADC[axis] * (1.0f / acc_lpf_factor);
+			sensor.accADC[axis] = accLPF[axis];
+		}
+	}
+
+  if (!accIsCalibrationComplete()) {
+    performAcclerationCalibration();
+  }
+
+  applyAccelerationTrims(&sensor);
+
+  ++sensor.accumulatedMeasurementCount;
+  for (int axis = 0; axis < XYZ_AXIS_COUNT; axis++) {
+    sensor.accumulatedMeasurements[axis] += sensor.accADC[axis];
+  }
+  imuCalculateEstimatedAttitude(micros());
+  cliPrintf("후acc x: %.2f, y: %.2f, z: %.2f\n\n\r",  sensor.accADC[X],
+                                                  sensor.accADC[Y],
+                                                  sensor.accADC[Z]);
+}
+
+bool accGetAccumulationAverage(float *accumulationAverage)
+{
+  if (sensor.accumulatedMeasurementCount > 0) {
+    // If we have gyro data accumulated, calculate average rate that will yield the same rotation
+    for (int axis = 0; axis < XYZ_AXIS_COUNT; axis++) {
+      accumulationAverage[axis] = sensor.accumulatedMeasurements[axis] / sensor.accumulatedMeasurementCount;
+      sensor.accumulatedMeasurements[axis] = 0.0f;
+    }
+    sensor.accumulatedMeasurementCount = 0;
+    return true;
+    } else {
+      for (int axis = 0; axis < XYZ_AXIS_COUNT; axis++) {
+        accumulationAverage[axis] = 0.0f;
+      }
+      return false;
+    }
+}
+
+bool accIsCalibrationComplete(void)
+{
+    return sensor.imuSensor1.calibration.calibratingA == 0;
+}
+
+static bool isOnFinalAccelerationCalibrationCycle(void)
+{
+    return sensor.imuSensor1.calibration.calibratingA == 1;
+}
+
+static bool isOnFirstAccelerationCalibrationCycle(void)
+{
+    return sensor.imuSensor1.calibration.calibratingA == CALIBRATING_ACC_CYCLES;
+}
+
+static void setConfigCalibrationCompleted(void)
+{
+    sensor.imuSensor1.calibration.calibrationCompleted = 1;
+}
+
+void performAcclerationCalibration(void)
+{
+    static int32_t a[3];
+
+    for (int axis = 0; axis < 3; axis++) {
+
+        // Reset a[axis] at start of calibration
+        if (isOnFirstAccelerationCalibrationCycle()) {
+            a[axis] = 0;
+        }
+
+        // Sum up CALIBRATING_ACC_CYCLES readings
+        a[axis] += sensor.accADC[axis];
+
+        // Reset global variables to prevent other code from using un-calibrated data
+        sensor.accADC[axis] = 0;
+        sensor.imuSensor1.calibration.accelerationTrims[axis] = 0;
+    }
+
+    if (isOnFinalAccelerationCalibrationCycle()) {
+        // Calculate average, shift Z down by acc_1G and store values in EEPROM at end of calibration
+        sensor.imuSensor1.calibration.accelerationTrims[X] = (a[X] + (CALIBRATING_ACC_CYCLES / 2)) / CALIBRATING_ACC_CYCLES;
+        sensor.imuSensor1.calibration.accelerationTrims[Y] = (a[Y] + (CALIBRATING_ACC_CYCLES / 2)) / CALIBRATING_ACC_CYCLES;
+        sensor.imuSensor1.calibration.accelerationTrims[Z] = (a[Z] + (CALIBRATING_ACC_CYCLES / 2)) / CALIBRATING_ACC_CYCLES - sensor.imuSensor1.imuDev.acc_1G;
+
+        setConfigCalibrationCompleted();
+
+        //saveConfigAndNotify();
+    }
+
+    sensor.imuSensor1.calibration.calibratingA--;
 }
 
 void Gyro_getADC(void)
@@ -195,10 +362,10 @@ static void imuMahonyAHRSupdate(float dt, float gx, float gy, float gz,
     }
 
     // Compute and apply integral feedback if enabled
-    if (imuRuntimeConfig.dcm_ki > 0.0f) {
+    if (dcm_ki > 0.0f) {
         // Stop integrating if spinning beyond the certain limit
         if (spin_rate < DEGREES_TO_RADIANS(SPIN_RATE_LIMIT)) {
-            const float dcmKiGain = imuRuntimeConfig.dcm_ki;
+            const float dcmKiGain = dcm_ki;
             integralFBx += dcmKiGain * ex * dt;    // integral error scaled by Ki
             integralFBy += dcmKiGain * ey * dt;
             integralFBz += dcmKiGain * ez * dt;
@@ -257,7 +424,113 @@ static bool imuIsAccelerometerHealthy(float *accAverage)
     return (0.81f < accMagnitudeSq) && (accMagnitudeSq < 1.21f);
 }
 
-static void imuCalculateEstimatedAttitude(uint32_t currentTimeUs)
+static bool gyroGetAccumulationAverage(float *accumulationAverage)
+{
+    if (accumulatedMeasurementCount) {
+        // If we have gyro data accumulated, calculate average rate that will yield the same rotation
+        const uint32_t accumulatedMeasurementTimeUs = accumulatedMeasurementCount * 1;//gyro.targetLooptime;
+        for (int axis = 0; axis < XYZ_AXIS_COUNT; axis++) {
+            accumulationAverage[axis] = accumulatedMeasurements[axis] / accumulatedMeasurementTimeUs;
+            accumulatedMeasurements[axis] = 0.0f;
+        }
+        accumulatedMeasurementCount = 0;
+        return true;
+    } else {
+        for (int axis = 0; axis < XYZ_AXIS_COUNT; axis++) {
+            accumulationAverage[axis] = 0.0f;
+        }
+        return false;
+    }
+}
+
+// Calculate the dcmKpGain to use. When armed, the gain is imuRuntimeConfig.dcm_kp * 1.0 scaling.
+// When disarmed after initial boot, the scaling is set to 10.0 for the first 20 seconds to speed up initial convergence.
+// After disarming we want to quickly reestablish convergence to deal with the attitude estimation being incorrect due to a crash.
+//   - wait for a 250ms period of low gyro activity to ensure the craft is not moving
+//   - use a large dcmKpGain value for 500ms to allow the attitude estimate to quickly converge
+//   - reset the gain back to the standard setting
+static float imuCalcKpGain(uint32_t currentTimeUs, bool useAcc, float *gyroAverage)
+{
+  static bool lastArmState = false;
+  static uint32_t gyroQuietPeriodTimeEnd = 0;
+  static uint32_t attitudeResetTimeEnd = 0;
+  static bool attitudeResetCompleted = false;
+  float ret;
+  bool attitudeResetActive = false;
+
+  const bool armState = false;//ARMING_FLAG(ARMED);
+
+  if (!armState) {
+      if (lastArmState) {   // Just disarmed; start the gyro quiet period
+          gyroQuietPeriodTimeEnd = currentTimeUs + ATTITUDE_RESET_QUIET_TIME;
+          attitudeResetTimeEnd = 0;
+          attitudeResetCompleted = false;
+      }
+
+      // If gyro activity exceeds the threshold then restart the quiet period.
+      // Also, if the attitude reset has been complete and there is subsequent gyro activity then
+      // start the reset cycle again. This addresses the case where the pilot rights the craft after a crash.
+      if ((attitudeResetTimeEnd > 0) || (gyroQuietPeriodTimeEnd > 0) || attitudeResetCompleted) {
+          if ((fabsf(gyroAverage[X]) > ATTITUDE_RESET_GYRO_LIMIT)
+              || (fabsf(gyroAverage[Y]) > ATTITUDE_RESET_GYRO_LIMIT)
+              || (fabsf(gyroAverage[Z]) > ATTITUDE_RESET_GYRO_LIMIT)
+              || (!useAcc)) {
+
+              gyroQuietPeriodTimeEnd = currentTimeUs + ATTITUDE_RESET_QUIET_TIME;
+              attitudeResetTimeEnd = 0;
+          }
+      }
+      if (attitudeResetTimeEnd > 0) {        // Resetting the attitude estimation
+          if (currentTimeUs >= attitudeResetTimeEnd) {
+              gyroQuietPeriodTimeEnd = 0;
+              attitudeResetTimeEnd = 0;
+              attitudeResetCompleted = true;
+          } else {
+              attitudeResetActive = true;
+          }
+      } else if ((gyroQuietPeriodTimeEnd > 0) && (currentTimeUs >= gyroQuietPeriodTimeEnd)) {
+          // Start the high gain period to bring the estimation into convergence
+          attitudeResetTimeEnd = currentTimeUs + ATTITUDE_RESET_ACTIVE_TIME;
+          gyroQuietPeriodTimeEnd = 0;
+      }
+  }
+  lastArmState = armState;
+
+  if (attitudeResetActive) {
+      ret = ATTITUDE_RESET_KP_GAIN;
+  } else {
+      ret = dcm_kp;
+      if (!armState) {
+        ret = ret * 10.0f; // Scale the kP to generally converge faster when disarmed.
+      }
+  }
+
+  return ret;
+}
+
+static void imuUpdateEulerAngles(void)
+{
+    quaternionProducts buffer;
+
+    if (false) { //FLIGHT_MODE(HEADFREE_MODE)
+       imuQuaternionComputeProducts(&headfree, &buffer);
+
+       attitude.values.roll = lrintf(atan2_approx((+2.0f * (buffer.wx + buffer.yz)), (+1.0f - 2.0f * (buffer.xx + buffer.yy))) * (1800.0f / M_PIf));
+       attitude.values.pitch = lrintf(((0.5f * M_PIf) - acos_approx(+2.0f * (buffer.wy - buffer.xz))) * (1800.0f / M_PIf));
+       attitude.values.yaw = lrintf((-atan2_approx((+2.0f * (buffer.wz + buffer.xy)), (+1.0f - 2.0f * (buffer.yy + buffer.zz))) * (1800.0f / M_PIf)));
+    } else {
+       attitude.values.roll = lrintf(atan2_approx(rMat[2][1], rMat[2][2]) * (1800.0f / M_PIf));
+       attitude.values.pitch = lrintf(((0.5f * M_PIf) - acos_approx(-rMat[2][0])) * (1800.0f / M_PIf));
+       attitude.values.yaw = lrintf((-atan2_approx(rMat[1][0], rMat[0][0]) * (1800.0f / M_PIf)));
+    }
+
+    if (attitude.values.yaw < 0) {
+        attitude.values.yaw += 3600;
+    }
+}
+
+
+void imuCalculateEstimatedAttitude(uint32_t currentTimeUs)
 {
     static uint32_t previousIMUUpdateTime;
     bool useAcc = false;
@@ -269,11 +542,11 @@ static void imuCalculateEstimatedAttitude(uint32_t currentTimeUs)
     previousIMUUpdateTime = currentTimeUs;
 
     float gyroAverage[XYZ_AXIS_COUNT];
-    // gyroGetAccumulationAverage(gyroAverage);
+    gyroGetAccumulationAverage(gyroAverage);
 
-    // if (accGetAccumulationAverage(accAverage)) {
-    //     useAcc = imuIsAccelerometerHealthy(accAverage);
-    // }
+    if (accGetAccumulationAverage(accAverage)) {
+        useAcc = imuIsAccelerometerHealthy(accAverage);
+    }
 
     imuMahonyAHRSupdate(deltaT * 1e-6f,
                         DEGREES_TO_RADIANS(gyroAverage[X]), DEGREES_TO_RADIANS(gyroAverage[Y]), DEGREES_TO_RADIANS(gyroAverage[Z]),

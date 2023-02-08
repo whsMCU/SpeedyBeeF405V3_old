@@ -13,6 +13,28 @@
 #include "axis.h"
 #include "maths.h"
 
+typedef struct {
+    float w,x,y,z;
+} quaternion;
+#define QUATERNION_INITIALIZE  {.w=1, .x=0, .y=0,.z=0}
+
+typedef struct {
+    float ww,wx,wy,wz,xx,xy,xz,yy,yz,zz;
+} quaternionProducts;
+#define QUATERNION_PRODUCTS_INITIALIZE  {.ww=1, .wx=0, .wy=0, .wz=0, .xx=0, .xy=0, .xz=0, .yy=0, .yz=0, .zz=0}
+
+typedef union {
+    int16_t raw[XYZ_AXIS_COUNT];
+    struct {
+        // absolute angle inclination in multiple of 0.1 degree    180 deg = 1800
+        int16_t roll;
+        int16_t pitch;
+        int16_t yaw;
+    } values;
+} attitudeEulerAngles_t;
+
+#define EULER_INITIALIZE  { { 0, 0, 0 } }
+
 #define GYRO_SCALE_2000DPS (2000.0f / (1 << 15))   // 16.384 dps/lsb scalefactor for 2000dps sensors
 #define GYRO_SCALE_4000DPS (4000.0f / (1 << 15))   //  8.192 dps/lsb scalefactor for 4000dps sensors
 typedef struct sensor_Dev_s sensor_Dev_t;
@@ -41,8 +63,12 @@ typedef struct imuCalibration_s
   float sum[XYZ_AXIS_COUNT];
   stdev_t var[XYZ_AXIS_COUNT];
   int32_t cyclesRemaining;
-  uint8_t accCalibrationed;
+  uint16_t calibratingA;      // the calibration is done in the main loop. Calibrating decreases at each cycle down to 0, then we enter in a normal mode.
+  uint16_t calibratingB;      // baro calibration = get new ground pressure value
+  uint16_t calibratingG;
   uint8_t gyroCalibrationed;
+  int16_t calibrationCompleted;
+  int16_t accelerationTrims[XYZ_AXIS_COUNT];
 } imuCalibration_t;
 
 typedef struct imuSensor_s
@@ -55,13 +81,18 @@ typedef struct sensor_Dev_s
 {
   float         gyroADC[XYZ_AXIS_COUNT];                          // gyro data after calibration and alignment
   float         accADC[XYZ_AXIS_COUNT];
+  float         accumulatedMeasurements[XYZ_AXIS_COUNT];
+  int           accumulatedMeasurementCount;
   imuSensor_t   imuSensor1;
   int16_t       temperature;
 } sensor_Dev_t;
 
 bool Sensor_Init(void);
 void imuUpdate(void);
+bool accIsCalibrationComplete(void);
+void performAcclerationCalibration(void);
 void Gyro_getADC(void);
 void ACC_getADC(void);
+void imuCalculateEstimatedAttitude(uint32_t currentTimeUs);
 
 #endif /* SRC_COMMON_CORE_SENSOR_H_ */

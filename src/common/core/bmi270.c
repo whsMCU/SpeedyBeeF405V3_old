@@ -232,6 +232,9 @@ bool bmi270_Init(imuSensor_t *gyro)
     gyro->imuDev.acc_1G = 512 * 4;   // 16G sensor scale
     gyro->imuDev.acc_1G_rec = 1.0f / gyro->imuDev.acc_1G;
 
+    gyro->calibration.calibratingA = 512;
+    gyro->calibration.calibratingB = 200;
+
     gyro_instace = gyro;
 
     if (bmi270Detect(_DEF_SPI1))
