@@ -28,8 +28,9 @@ static bool is_init = false;
 #define GPS_COG_MIN_GROUNDSPEED 500        // 500cm/s minimum groundspeed for a gps heading to be considered valid
 
 float accAverage[XYZ_AXIS_COUNT];
-static float accumulatedMeasurements[XYZ_AXIS_COUNT];
-static int accumulatedMeasurementCount;
+static float gyro_accumulatedMeasurements[XYZ_AXIS_COUNT];
+static float gyroPrevious[XYZ_AXIS_COUNT];
+static int gyro_accumulatedMeasurementCount;
 
 float rMat[3][3];
 
@@ -163,7 +164,13 @@ void imuUpdate(void)
                                                   sensor.gyroADC[Y],
                                                   sensor.gyroADC[Z]);
 
-  accumulatedMeasurementCount++;
+  for (int axis = 0; axis < XYZ_AXIS_COUNT; axis++) {
+    // integrate using trapezium rule to avoid bias
+    accumulatedMeasurements[axis] += 0.5f * (gyroPrevious[axis] + sensor.gyroADC[axis]) * gyro.targetLooptime;
+    gyroPrevious[axis] = sensor.gyroADC[axis];
+    }
+
+  gyro_accumulatedMeasurementCount++;
 
   sensor.accADC[X] = sensor.imuSensor1.imuDev.accADC[X];
   sensor.accADC[Y] = sensor.imuSensor1.imuDev.accADC[Y];
@@ -426,14 +433,14 @@ static bool imuIsAccelerometerHealthy(float *accAverage)
 
 static bool gyroGetAccumulationAverage(float *accumulationAverage)
 {
-    if (accumulatedMeasurementCount) {
+    if (gyro_accumulatedMeasurementCount) {
         // If we have gyro data accumulated, calculate average rate that will yield the same rotation
-        const uint32_t accumulatedMeasurementTimeUs = accumulatedMeasurementCount * 1;//gyro.targetLooptime;
+        const uint32_t accumulatedMeasurementTimeUs = gyro_accumulatedMeasurementCount * 1;//gyro.targetLooptime;
         for (int axis = 0; axis < XYZ_AXIS_COUNT; axis++) {
-            accumulationAverage[axis] = accumulatedMeasurements[axis] / accumulatedMeasurementTimeUs;
-            accumulatedMeasurements[axis] = 0.0f;
+            accumulationAverage[axis] = gyro_accumulatedMeasurements[axis] / accumulatedMeasurementTimeUs;
+            gyro_accumulatedMeasurements[axis] = 0.0f;
         }
-        accumulatedMeasurementCount = 0;
+        gyro_accumulatedMeasurementCount = 0;
         return true;
     } else {
         for (int axis = 0; axis < XYZ_AXIS_COUNT; axis++) {
@@ -540,6 +547,35 @@ void imuCalculateEstimatedAttitude(uint32_t currentTimeUs)
 
     const int32_t deltaT = currentTimeUs - previousIMUUpdateTime;
     previousIMUUpdateTime = currentTimeUs;
+
+    #ifdef USE_MAG
+    if (sensors(SENSOR_MAG) && compassIsHealthy())
+    {
+        useMag = true;
+    }
+    #endif
+
+    #if defined(USE_GPS)
+    if (!useMag && sensors(SENSOR_GPS) && STATE(GPS_FIX) && gpsSol.numSat >= 5 && gpsSol.groundSpeed >= GPS_COG_MIN_GROUNDSPEED) {
+        // Use GPS course over ground to correct attitude.values.yaw
+        if (isFixedWing()) {
+            courseOverGround = DECIDEGREES_TO_RADIANS(gpsSol.groundCourse);
+            useCOG = true;
+        } else {
+            courseOverGround = DECIDEGREES_TO_RADIANS(gpsSol.groundCourse);
+
+            useCOG = true;
+        }
+
+        if (useCOG && shouldInitializeGPSHeading()) {
+            // Reset our reference and reinitialize quaternion.  This will likely ideally happen more than once per flight, but for now,
+            // shouldInitializeGPSHeading() returns true only once.
+            imuComputeQuaternionFromRPY(&qP, attitude.values.roll, attitude.values.pitch, gpsSol.groundCourse);
+
+            useCOG = false; // Don't use the COG when we first reinitialize.  Next time around though, yes.
+        }
+    }
+    #endif
 
     float gyroAverage[XYZ_AXIS_COUNT];
     gyroGetAccumulationAverage(gyroAverage);
