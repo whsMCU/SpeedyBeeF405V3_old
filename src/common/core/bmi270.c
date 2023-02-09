@@ -235,6 +235,8 @@ bool bmi270_Init(imuSensor_t *gyro)
     gyro->calibration.calibratingA = 512;
     gyro->calibration.calibratingB = 200;
 
+    gyro->imuDev.targetLooptime = 1000000/3200;
+
     gyro_instace = gyro;
 
     if (bmi270Detect(_DEF_SPI1))
@@ -311,6 +313,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
     if(GPIO_Pin==GPIO_PIN_4)
     {
         gyro_instace->imuDev.dataReady = true;
+        gyro_instace->imuDev.InterruptStatus = bmi270InterruptStatus(gyro_instace);
     }
 }
 
@@ -340,26 +343,26 @@ if (args->argc == 1 && args->isStr(0, "gyro_show") == true)
     ret = true;
   }
 
-  if (args->argc == 1 && args->isStr(0, "acc_show") == true)
-  {
+if (args->argc == 1 && args->isStr(0, "acc_show") == true)
+{
     uint32_t pre_time;
- 	pre_time = millis();
+    pre_time = millis();
     int16_t x=0, y=0, z=0;
-    while(cliKeepLoop())
+while(cliKeepLoop())
+{
+    if (millis()-pre_time >= 1000)
     {
-        if (millis()-pre_time >= 1000)
-    	{
-     		pre_time = millis();
-			memset(_buffer, 0x00, 7);
-            SPI_ByteRead(_DEF_SPI1, (BMI270_REG_ACC_DATA_X_LSB | 0x80), _buffer, 7);
-            x = (uint16_t)_buffer[2]<<8 | (uint16_t)_buffer[1];
-            y = (uint16_t)_buffer[4]<<8 | (uint16_t)_buffer[3];
-            z = (uint16_t)_buffer[6]<<8 | (uint16_t)_buffer[5];
-            cliPrintf("acc x: %d, y: %d, z: %d\n\r", x, y, z);
-    	}
+        pre_time = millis();
+        memset(_buffer, 0x00, 7);
+        SPI_ByteRead(_DEF_SPI1, (BMI270_REG_ACC_DATA_X_LSB | 0x80), _buffer, 7);
+        x = (uint16_t)_buffer[2]<<8 | (uint16_t)_buffer[1];
+        y = (uint16_t)_buffer[4]<<8 | (uint16_t)_buffer[3];
+        z = (uint16_t)_buffer[6]<<8 | (uint16_t)_buffer[5];
+        cliPrintf("acc x: %d, y: %d, z: %d\n\r", x, y, z);
     }
-    ret = true;
-  }
+}
+ret = true;
+}
 
   if (args->argc == 3 && args->isStr(0, "mem_read") == true)
   {

@@ -47,6 +47,7 @@ typedef struct imuDev_s {
   bool        (*acc_readFn)(imuSensor_t *gyro);
   bool        (*temp_readFn)(imuSensor_t *gyro);
   volatile bool dataReady;
+  uint32_t targetLooptime;
   uint16_t  acc_1G;
   float     acc_1G_rec;
   float scale;                                             // scalefactor
@@ -56,6 +57,7 @@ typedef struct imuDev_s {
   int16_t gyroADCRaw[XYZ_AXIS_COUNT];                      // raw data from sensor
   int16_t accADCRaw[XYZ_AXIS_COUNT];                       // raw data from sensor
   float   accADC[XYZ_AXIS_COUNT];
+  uint8_t InterruptStatus;
 } imuDev_t;
 
 typedef struct imuCalibration_s
@@ -94,5 +96,6 @@ void performAcclerationCalibration(void);
 void Gyro_getADC(void);
 void ACC_getADC(void);
 void imuCalculateEstimatedAttitude(uint32_t currentTimeUs);
+void DEBUG_print(void);
 
 #endif /* SRC_COMMON_CORE_SENSOR_H_ */

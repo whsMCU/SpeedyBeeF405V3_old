@@ -18,17 +18,22 @@ void apInit(void)
 
 void apMain(void)
 {
-	uint32_t pre_time;
+	uint32_t pre_time, pre_time1;
  	pre_time = millis();
+	pre_time1 = micros();
 	while(1)
 	{
 		if (millis()-pre_time >= 1000)
     	{
      		pre_time = millis();
       		ledToggle(_DEF_LED1);
-			//imuUpdate();
+			DEBUG_print();
     	}
-		imuUpdate();
+		if (micros()-pre_time1 >= 312)
+    	{
+     		pre_time1 = micros();
+			imuUpdate();	//DT 170us
+    	}
 		cliMain();
 	}
 }

@@ -133,23 +133,32 @@ static void applyAccelerationTrims(const sensor_Dev_t *accelerationTrims)
 
 static void imuUpdateSensor(imuSensor_t *imu)
 {
-  if(!imu->imuDev.gyro_readFn(&sensor.imuSensor1))
-  {
-    return;
-  }
+    bool gyroReady, accReady;
     if(!imu->imuDev.acc_readFn(&sensor.imuSensor1))
   {
     return;
   }
+
+  gyroReady = imu->imuDev.InterruptStatus & 0x40;
+  accReady = imu->imuDev.InterruptStatus & 0x80;
+
+  if(gyroReady)
+  {
+    imu->imuDev.gyro_readFn(&sensor.imuSensor1);
+    imu->imuDev.gyroADC[X] = imu->imuDev.gyroADCRaw[X] - imu->imuDev.gyroZero[X];
+    imu->imuDev.gyroADC[Y] = imu->imuDev.gyroADCRaw[Y] - imu->imuDev.gyroZero[Y];
+    imu->imuDev.gyroADC[Z] = imu->imuDev.gyroADCRaw[Z] - imu->imuDev.gyroZero[Z];
+  }
+
+  if(accReady)
+  {
+    imu->imuDev.acc_readFn(&sensor.imuSensor1);
+    imu->imuDev.accADC[X] = imu->imuDev.accADCRaw[X];
+    imu->imuDev.accADC[Y] = imu->imuDev.accADCRaw[Y];
+    imu->imuDev.accADC[Z] = imu->imuDev.accADCRaw[Z];
+
+  }
   imu->imuDev.dataReady = false;
-
-  imu->imuDev.gyroADC[X] = imu->imuDev.gyroADCRaw[X] - imu->imuDev.gyroZero[X];
-  imu->imuDev.gyroADC[Y] = imu->imuDev.gyroADCRaw[Y] - imu->imuDev.gyroZero[Y];
-  imu->imuDev.gyroADC[Z] = imu->imuDev.gyroADCRaw[Z] - imu->imuDev.gyroZero[Z];
-
-  imu->imuDev.accADC[X] = imu->imuDev.accADCRaw[X];
-  imu->imuDev.accADC[Y] = imu->imuDev.accADCRaw[Y];
-  imu->imuDev.accADC[Z] = imu->imuDev.accADCRaw[Z];
 }
 
 void imuUpdate(void)
@@ -160,13 +169,13 @@ void imuUpdate(void)
   sensor.gyroADC[X] = sensor.imuSensor1.imuDev.gyroADC[X] * sensor.imuSensor1.imuDev.scale;
   sensor.gyroADC[Y] = sensor.imuSensor1.imuDev.gyroADC[Y] * sensor.imuSensor1.imuDev.scale;
   sensor.gyroADC[Z] = sensor.imuSensor1.imuDev.gyroADC[Z] * sensor.imuSensor1.imuDev.scale;
-  cliPrintf("gyro x: %.2f, y: %.2f, z: %.2f\n\r", sensor.gyroADC[X],
-                                                  sensor.gyroADC[Y],
-                                                  sensor.gyroADC[Z]);
+//   cliPrintf("gyro x: %.2f, y: %.2f, z: %.2f\n\r", sensor.gyroADC[X],
+//                                                   sensor.gyroADC[Y],
+//                                                   sensor.gyroADC[Z]);
 
   for (int axis = 0; axis < XYZ_AXIS_COUNT; axis++) {
     // integrate using trapezium rule to avoid bias
-    accumulatedMeasurements[axis] += 0.5f * (gyroPrevious[axis] + sensor.gyroADC[axis]) * gyro.targetLooptime;
+    gyro_accumulatedMeasurements[axis] += 0.5f * (gyroPrevious[axis] + sensor.gyroADC[axis]) * sensor.imuSensor1.imuDev.targetLooptime;
     gyroPrevious[axis] = sensor.gyroADC[axis];
     }
 
@@ -175,9 +184,9 @@ void imuUpdate(void)
   sensor.accADC[X] = sensor.imuSensor1.imuDev.accADC[X];
   sensor.accADC[Y] = sensor.imuSensor1.imuDev.accADC[Y];
   sensor.accADC[Z] = sensor.imuSensor1.imuDev.accADC[Z];
-  cliPrintf("전acc x: %.2f, y: %.2f, z: %.2f\n\r",  sensor.accADC[X],
-                                                  sensor.accADC[Y],
-                                                  sensor.accADC[Z]);
+//   cliPrintf("전acc x: %.2f, y: %.2f, z: %.2f\n\r",  sensor.accADC[X],
+//                                                   sensor.accADC[Y],
+//                                                   sensor.accADC[Z]);
 
   for(int axis=0;axis<3;axis++)
 	{
@@ -199,9 +208,9 @@ void imuUpdate(void)
     sensor.accumulatedMeasurements[axis] += sensor.accADC[axis];
   }
   imuCalculateEstimatedAttitude(micros());
-  cliPrintf("후acc x: %.2f, y: %.2f, z: %.2f\n\n\r",  sensor.accADC[X],
-                                                  sensor.accADC[Y],
-                                                  sensor.accADC[Z]);
+//   cliPrintf("후acc x: %.2f, y: %.2f, z: %.2f\n\n\r",  sensor.accADC[X],
+//                                                   sensor.accADC[Y],
+//                                                   sensor.accADC[Z]);
 }
 
 bool accGetAccumulationAverage(float *accumulationAverage)
@@ -591,6 +600,13 @@ void imuCalculateEstimatedAttitude(uint32_t currentTimeUs)
                         useCOG, courseOverGround,  imuCalcKpGain(currentTimeUs, useAcc, gyroAverage));
 
     imuUpdateEulerAngles();
+}
+
+void DEBUG_print(void)
+{
+    cliPrintf("IMU R: %d, P: %d, Y: %d\n\r",    attitude.values.roll,
+                                                attitude.values.pitch,
+                                                attitude.values.yaw);
 }
 
 #ifdef _USE_HW_CLI
