@@ -23,7 +23,7 @@ void apMain(void)
 	pre_time1 = micros();
 	while(1)
 	{
-		if (millis()-pre_time >= 1000)
+		if (millis()-pre_time >= 100)
     	{
      		pre_time = millis();
       		ledToggle(_DEF_LED1);

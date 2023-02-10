@@ -134,61 +134,54 @@ static void applyAccelerationTrims(const sensor_Dev_t *accelerationTrims)
 static void imuUpdateSensor(imuSensor_t *imu)
 {
     bool gyroReady, accReady;
-    if(!imu->imuDev.acc_readFn(&sensor.imuSensor1))
-  {
-    return;
-  }
 
-  gyroReady = imu->imuDev.InterruptStatus & 0x40;
-  accReady = imu->imuDev.InterruptStatus & 0x80;
+    gyroReady = imu->imuDev.InterruptStatus & 0x40;
+    accReady = imu->imuDev.InterruptStatus & 0x80;
 
-  if(gyroReady)
-  {
-    imu->imuDev.gyro_readFn(&sensor.imuSensor1);
-    imu->imuDev.gyroADC[X] = imu->imuDev.gyroADCRaw[X] - imu->imuDev.gyroZero[X];
-    imu->imuDev.gyroADC[Y] = imu->imuDev.gyroADCRaw[Y] - imu->imuDev.gyroZero[Y];
-    imu->imuDev.gyroADC[Z] = imu->imuDev.gyroADCRaw[Z] - imu->imuDev.gyroZero[Z];
-  }
+    if(gyroReady)
+    {
+        imu->imuDev.gyro_readFn(&sensor.imuSensor1);
+        imu->imuDev.gyroADC[X] = imu->imuDev.gyroADCRaw[X] - imu->imuDev.gyroZero[X];
+        imu->imuDev.gyroADC[Y] = imu->imuDev.gyroADCRaw[Y] - imu->imuDev.gyroZero[Y];
+        imu->imuDev.gyroADC[Z] = imu->imuDev.gyroADCRaw[Z] - imu->imuDev.gyroZero[Z];
+    }
 
-  if(accReady)
-  {
-    imu->imuDev.acc_readFn(&sensor.imuSensor1);
-    imu->imuDev.accADC[X] = imu->imuDev.accADCRaw[X];
-    imu->imuDev.accADC[Y] = imu->imuDev.accADCRaw[Y];
-    imu->imuDev.accADC[Z] = imu->imuDev.accADCRaw[Z];
+    if(accReady)
+    {
+        imu->imuDev.acc_readFn(&sensor.imuSensor1);
+        imu->imuDev.accADC[X] = imu->imuDev.accADCRaw[X];
+        imu->imuDev.accADC[Y] = imu->imuDev.accADCRaw[Y];
+        imu->imuDev.accADC[Z] = imu->imuDev.accADCRaw[Z];
 
-  }
-  imu->imuDev.dataReady = false;
+    }
+    imu->imuDev.dataReady = false;
 }
 
 void imuUpdate(void)
 {
-  static float accLPF[3];
+    static float accLPF[3];
+    static float gyroLPF[3];
 
-  imuUpdateSensor(&sensor.imuSensor1);
-  sensor.gyroADC[X] = sensor.imuSensor1.imuDev.gyroADC[X] * sensor.imuSensor1.imuDev.scale;
-  sensor.gyroADC[Y] = sensor.imuSensor1.imuDev.gyroADC[Y] * sensor.imuSensor1.imuDev.scale;
-  sensor.gyroADC[Z] = sensor.imuSensor1.imuDev.gyroADC[Z] * sensor.imuSensor1.imuDev.scale;
-//   cliPrintf("gyro x: %.2f, y: %.2f, z: %.2f\n\r", sensor.gyroADC[X],
-//                                                   sensor.gyroADC[Y],
-//                                                   sensor.gyroADC[Z]);
-
-  for (int axis = 0; axis < XYZ_AXIS_COUNT; axis++) {
-    // integrate using trapezium rule to avoid bias
-    gyro_accumulatedMeasurements[axis] += 0.5f * (gyroPrevious[axis] + sensor.gyroADC[axis]) * sensor.imuSensor1.imuDev.targetLooptime;
-    gyroPrevious[axis] = sensor.gyroADC[axis];
+    imuUpdateSensor(&sensor.imuSensor1);
+    for (int axis = 0; axis < XYZ_AXIS_COUNT; axis++)
+    {
+        sensor.gyroADC[axis] = sensor.imuSensor1.imuDev.gyroADC[axis] * sensor.imuSensor1.imuDev.scale;
     }
+    for (int axis = 0; axis < XYZ_AXIS_COUNT; axis++)
+    {
+        // integrate using trapezium rule to avoid bias
+        // gyro_accumulatedMeasurements[axis] += 0.5f * (gyroPrevious[axis] + sensor.gyroADC[axis]) * sensor.imuSensor1.imuDev.targetLooptime;
+        // gyroPrevious[axis] = sensor.gyroADC[axis];
+        gyroLPF[axis] = gyroLPF[axis] * (1.0f - (1.0f / acc_lpf_factor)) + sensor.gyroADC[axis] * (1.0f / acc_lpf_factor);
+        gyro_accumulatedMeasurements[axis] = gyroLPF[axis];
+    }
+    gyro_accumulatedMeasurementCount++;
 
-  gyro_accumulatedMeasurementCount++;
-
-  sensor.accADC[X] = sensor.imuSensor1.imuDev.accADC[X];
-  sensor.accADC[Y] = sensor.imuSensor1.imuDev.accADC[Y];
-  sensor.accADC[Z] = sensor.imuSensor1.imuDev.accADC[Z];
-//   cliPrintf("전acc x: %.2f, y: %.2f, z: %.2f\n\r",  sensor.accADC[X],
-//                                                   sensor.accADC[Y],
-//                                                   sensor.accADC[Z]);
-
-  for(int axis=0;axis<3;axis++)
+    for (int axis = 0; axis < XYZ_AXIS_COUNT; axis++)
+    {
+        sensor.accADC[axis] = sensor.imuSensor1.imuDev.accADC[axis];
+    }
+    for(int axis=0;axis<3;axis++)
 	{
 		if (acc_lpf_factor > 0)
 		{
@@ -197,20 +190,17 @@ void imuUpdate(void)
 		}
 	}
 
-  if (!accIsCalibrationComplete()) {
-    performAcclerationCalibration();
-  }
+    if (!accIsCalibrationComplete()) {
+        performAcclerationCalibration();
+    }
 
-  applyAccelerationTrims(&sensor);
+    applyAccelerationTrims(&sensor);
 
-  ++sensor.accumulatedMeasurementCount;
-  for (int axis = 0; axis < XYZ_AXIS_COUNT; axis++) {
-    sensor.accumulatedMeasurements[axis] += sensor.accADC[axis];
-  }
-  imuCalculateEstimatedAttitude(micros());
-//   cliPrintf("후acc x: %.2f, y: %.2f, z: %.2f\n\n\r",  sensor.accADC[X],
-//                                                   sensor.accADC[Y],
-//                                                   sensor.accADC[Z]);
+    ++sensor.accumulatedMeasurementCount;
+    for (int axis = 0; axis < XYZ_AXIS_COUNT; axis++) {
+        sensor.accumulatedMeasurements[axis] += sensor.accADC[axis];
+    }
+    imuCalculateEstimatedAttitude(micros());
 }
 
 bool accGetAccumulationAverage(float *accumulationAverage)
@@ -515,7 +505,7 @@ static float imuCalcKpGain(uint32_t currentTimeUs, bool useAcc, float *gyroAvera
   if (attitudeResetActive) {
       ret = ATTITUDE_RESET_KP_GAIN;
   } else {
-      ret = dcm_kp;
+      ret = 0.25;
       if (!armState) {
         ret = ret * 10.0f; // Scale the kP to generally converge faster when disarmed.
       }
@@ -607,6 +597,10 @@ void DEBUG_print(void)
     cliPrintf("IMU R: %d, P: %d, Y: %d\n\r",    attitude.values.roll,
                                                 attitude.values.pitch,
                                                 attitude.values.yaw);
+
+    // cliPrintf("gyro x: %.2f, y: %.2f, z: %.2f\n\r", sensor.gyroADC[X],
+    //                                                 sensor.gyroADC[Y],
+    //                                                 sensor.gyroADC[Z]);
 }
 
 #ifdef _USE_HW_CLI
