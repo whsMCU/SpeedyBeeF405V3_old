@@ -20,6 +20,8 @@
 #include "gpio.h"
 #include "sensor.h"
 #include "bmi270.h"
+#include "barometer.h"
+#include "barometer_dps310.h"
 
 
 void hwInit(void);

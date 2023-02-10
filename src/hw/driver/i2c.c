@@ -97,7 +97,7 @@ bool I2C_ByteRead(uint16_t DevAddress, uint16_t MemAddress, uint16_t MemAddSize,
 {
   HAL_StatusTypeDef state;
   uint32_t ErrorCode;
-  state = HAL_I2C_Mem_Read(&hi2c2, DevAddress, MemAddress, MemAddSize, pData, Size, 1);
+  state = HAL_I2C_Mem_Read(&hi2c2, DevAddress<<1, MemAddress, MemAddSize, pData, Size, 1);
   ErrorCode = hi2c2.ErrorCode;
 
   return true;
@@ -107,7 +107,7 @@ bool I2C_ByteWrite_HAL(uint16_t DevAddress, uint16_t MemAddress, uint16_t MemAdd
 {
   HAL_StatusTypeDef state;
   uint32_t ErrorCode;
-  state = HAL_I2C_Mem_Write(&hi2c2, DevAddress, MemAddress, MemAddSize, pData, Size, 1);
+  state = HAL_I2C_Mem_Write(&hi2c2, DevAddress<<1, MemAddress, MemAddSize, pData, Size, 1);
   ErrorCode = hi2c2.ErrorCode;
 
   return true;

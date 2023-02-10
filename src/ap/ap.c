@@ -19,22 +19,28 @@ void apInit(void)
 
 void apMain(void)
 {
-	uint32_t pre_time, pre_time1;
+	uint32_t pre_time, pre_time1, pre_time2;
  	pre_time = millis();
 	pre_time1 = micros();
+	pre_time2 = millis();
 	while(1)
 	{
-		if (millis()-pre_time >= 100)
+		if (millis()-pre_time >= 1000)
     	{
      		pre_time = millis();
       		ledToggle(_DEF_LED1);
-			DEBUG_print();
     	}
 		if (micros()-pre_time1 >= 312)
     	{
      		pre_time1 = micros();
 			imuUpdate();	//DT 170us
-			baroUpdate();
+			baroUpdate(micros());
+    	}
+		if (millis()-pre_time2 >= 50)
+    	{
+     		pre_time2 = millis();
+			baroUpdate(micros());
+			calculateEstimatedAltitude(micros());
     	}
 		cliMain();
 	}

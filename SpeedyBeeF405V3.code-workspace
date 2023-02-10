@@ -15,7 +15,9 @@
 			"hw.h": "c",
 			"usbd_cdc_if.h": "c",
 			"usbd_cdc.h": "c",
-			"ap.h": "c"
+			"ap.h": "c",
+			"uart.h": "c",
+			"barometer.h": "c"
 		},
 		"cortex-debug.openocdPath": "C:/tools/OpenOCD-20230111-0.12.0/bin"
 	}

@@ -25,8 +25,13 @@
 #include "barometer.h"
 #include "barometer_dps310.h"
 #include "maths.h"
+#include "cli.h"
 
 #ifdef USE_BARO_DPS310
+
+#ifdef _USE_HW_CLI
+static void cliDps310(cli_args_t *args);
+#endif
 
 
 baro_t baro;                        // barometer access functions
@@ -43,6 +48,10 @@ uint8_t baro_sample_count = 21;              // size of baro filter array
 uint16_t baro_noise_lpf = 600;                // additional LPF to reduce baro noise
 uint16_t baro_cf_vel = 985;                   // apply Complimentary Filter to keep the calculated velocity based on baro velocity (i.e. near real velocity)
 
+static int32_t estimatedAltitudeCm = 0;                // in cm
+
+#define BARO_UPDATE_FREQUENCY_40HZ (1000 * 25)
+
 
 #define CALIBRATING_BARO_CYCLES 200 // 10 seconds init_delay + 200 * 25 ms = 15 seconds before ground pressure settles
 #define SET_GROUND_LEVEL_BARO_CYCLES 10 // calibrate baro to new ground level (10 * 25 ms = ~250 ms non blocking)
@@ -52,6 +61,11 @@ static bool baroReady = false;
 void Baro_Init(void)
 {
     dps310Detect(&baro.dev);
+    baroStartCalibration();
+
+    #ifdef _USE_HW_CLI
+    cliAdd("dps310", cliDps310);
+    #endif
 }
 
 bool baroIsCalibrationComplete(void)
@@ -212,6 +226,7 @@ uint32_t baroUpdate(uint32_t currentTimeUs)
             // DEBUG_SET(DEBUG_BARO, 1, baroTemperature);
             // DEBUG_SET(DEBUG_BARO, 2, baroPressure);
             // DEBUG_SET(DEBUG_BARO, 3, baroPressureSum);
+            //cliPrintf("BARO : (temp : %u), (press : %u), \n\r", baroTemperature, baroPressure);
 
             sleepTime = baro.dev.ut_delay;
             break;
@@ -269,5 +284,106 @@ void performBaroCalibrationCycle(void)
         savedGroundPressure = baroGroundPressure;
     }
 }
+
+//static bool altitudeOffsetSetBaro = false;
+//static bool altitudeOffsetSetGPS = false;
+
+void calculateEstimatedAltitude(uint32_t currentTimeUs)
+{
+    static uint32_t previousTimeUs = 0;
+    //static int32_t baroAltOffset = 0;
+    //static int32_t gpsAltOffset = 0;
+
+    const uint32_t dTime = currentTimeUs - previousTimeUs;
+    if (dTime < BARO_UPDATE_FREQUENCY_40HZ) {
+        //schedulerIgnoreTaskExecTime();
+        return;
+    }
+    previousTimeUs = currentTimeUs;
+
+    int32_t baroAlt = 0;
+    //int32_t gpsAlt = 0;
+    //uint8_t gpsNumSat = 0;
+
+    //float gpsTrust = 0.3; //conservative default
+    bool haveBaroAlt = false;
+    //bool haveGpsAlt = false;
+
+    if (!baroIsCalibrationComplete()) {
+        performBaroCalibrationCycle();
+    } else {
+        baroAlt = baroCalculateAltitude();
+        haveBaroAlt = true;
+    }
+
+
+    // if (ARMING_FLAG(ARMED) && !altitudeOffsetSetBaro) {
+    //     baroAltOffset = baroAlt;
+    //     altitudeOffsetSetBaro = true;
+    // } else if (!ARMING_FLAG(ARMED) && altitudeOffsetSetBaro) {
+    //     altitudeOffsetSetBaro = false;
+    // }
+
+    // baroAlt -= baroAltOffset;
+
+    estimatedAltitudeCm = baroAlt;
+
+    cliPrintf("BARO : %u cm \n\r", baroAlt);
+    //DEBUG_SET(DEBUG_ALTITUDE, 0, (int32_t)(100 * gpsTrust));
+    //DEBUG_SET(DEBUG_ALTITUDE, 1, baroAlt);
+    //DEBUG_SET(DEBUG_ALTITUDE, 2, gpsAlt);
+}
+
+#ifdef _USE_HW_CLI
+void cliDps310(cli_args_t *args)
+{
+  bool ret = false;
+
+if (args->argc == 1 && args->isStr(0, "baro_show") == true)
+{
+    uint32_t pre_time;
+    pre_time = millis();
+while(cliKeepLoop())
+{
+    if (millis()-pre_time >= 1000)
+    {
+        pre_time = millis();
+        // cliPrintf("acc x: %d, y: %d, z: %d\n\r", x, y, z);
+    }
+}
+ret = true;
+}
+
+  if (args->argc == 3 && args->isStr(0, "mem_read") == true)
+  {
+    uint8_t ch;
+    uint8_t addr;
+
+    ch   = (uint8_t)args->getData(1);
+    addr = (uint8_t)args->getData(2);
+    addr |= 0x80;
+
+    ret = true;
+  }
+
+    if (args->argc == 4 && args->isStr(0, "mem_write") == true)
+  {
+    uint8_t ch;
+    uint8_t addr;
+
+    ch     = (uint8_t)args->getData(1);
+    addr   = (uint8_t)args->getData(2);
+
+    ret = true;
+  }
+
+  if (ret != true)
+  {
+    cliPrintf("dsp310 baro_show \n\r");
+    cliPrintf("dsp310 mem_read ch0:1, addr \n\r");
+    cliPrintf("dsp310 mem_write ch0:1, addr data \n\r");
+  }
+}
+#endif
 
 #endif /* BARO */

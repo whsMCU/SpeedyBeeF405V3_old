@@ -20,7 +20,6 @@
 
 #include "barometer_dps310.h"
 #include "i2c.h"
-#include "cli.h"
 
 #ifdef USE_BARO_DPS310
 
@@ -94,14 +93,14 @@ static uint8_t buf[6];
 // Helper functions
 static uint8_t registerRead(const baroDev_t *dev, uint8_t reg)
 {
-    uint8_t buf_temp[0];
-    I2C_ByteRead(baro.dev.address, reg, 1, buf_temp, 1);
+    uint8_t buf_temp[1];
+    I2C_ByteRead(dev->address, reg, 1, buf_temp, 1);
     return buf_temp[0];
 }
 
 static void registerWrite(const baroDev_t *dev, uint8_t reg, uint8_t value)
 {
-    I2C_ByteWrite_HAL(baro.dev.address, reg, 1, &value, 1);
+    I2C_ByteWrite_HAL(dev->address, reg, 1, &value, 1);
 }
 
 static void registerSetBits(const baroDev_t *dev, uint8_t reg, uint8_t setbits)
@@ -280,7 +279,7 @@ static bool deviceDetect(const baroDev_t *dev)
 
         delay(100);
 
-        bool ack = busReadBuf(dev, DPS310_REG_ID, chipId, 1);
+        bool ack = I2C_ByteRead(dev->address, DPS310_REG_ID, 1, chipId, 1);
 
         if (ack && chipId[0] == DPS310_ID_REV_AND_PROD_ID) {
             return true;
@@ -341,87 +340,4 @@ bool dps310Detect(baroDev_t *baro)
     return true;
 }
 
-
-
-
-#ifdef _USE_HW_CLI
-void cliDsp310(cli_args_t *args)
-{
-  bool ret = false;
-
-if (args->argc == 1 && args->isStr(0, "baro_show") == true)
-{
-    uint32_t pre_time;
-    pre_time = millis();
-    int16_t x=0, y=0, z=0;
-while(cliKeepLoop())
-{
-    if (millis()-pre_time >= 1000)
-    {
-        pre_time = millis();
-        //memset(_buffer, 0x00, 7);
-        //SPI_ByteRead(_DEF_SPI1, (BMI270_REG_ACC_DATA_X_LSB | 0x80), _buffer, 7);
-        // x = (uint16_t)_buffer[2]<<8 | (uint16_t)_buffer[1];
-        // y = (uint16_t)_buffer[4]<<8 | (uint16_t)_buffer[3];
-        // z = (uint16_t)_buffer[6]<<8 | (uint16_t)_buffer[5];
-        // cliPrintf("acc x: %d, y: %d, z: %d\n\r", x, y, z);
-    }
-}
-ret = true;
-}
-
-  if (args->argc == 3 && args->isStr(0, "mem_read") == true)
-  {
-    uint8_t ch;
-    uint8_t addr;
-    uint8_t buffer[2] = {0, 0};
-    HAL_StatusTypeDef status;
-
-    ch   = (uint8_t)args->getData(1);
-    addr = (uint8_t)args->getData(2);
-    addr |= 0x80;
-
-    //status = SPI_ByteRead(ch, addr, buffer, 2);
-
-    if(status == HAL_OK)
-    {
-        cliPrintf("bmi270 mem_read : ch (%d), addr (0x%X), data[0] : (0x%X), data[1] : (0x%X), status (%d)\n", ch, addr, buffer[0], buffer[1], status);
-    }else
-    {
-        cliPrintf("bmi270 read - Fail(%d) \n", status);
-    }
-    ret = true;
-  }
-
-    if (args->argc == 4 && args->isStr(0, "mem_write") == true)
-  {
-    uint8_t ch;
-    uint8_t addr;
-    uint8_t buffer;
-    HAL_StatusTypeDef status;
-
-    ch     = (uint8_t)args->getData(1);
-    addr   = (uint8_t)args->getData(2);
-    buffer = (uint8_t)args->getData(3);
-
-    //status = SPI_ByteWrite(ch, addr, &buffer, 1);
-
-    if(status == HAL_OK)
-    {
-        cliPrintf("bmi270 mem_write : ch (%d), addr (0x%X), data : (0x%X), status (%d)\n", ch, addr, buffer, status);
-    }else
-    {
-        cliPrintf("bmi270 write - Fail(%d) \n", status);
-    }
-    ret = true;
-  }
-
-  if (ret != true)
-  {
-    cliPrintf("dsp310 baro_show \n\r");
-    cliPrintf("dsp310 mem_read ch0:1, addr \n\r");
-    cliPrintf("dsp310 mem_write ch0:1, addr data \n\r");
-  }
-}
-#endif
 #endif // USE_ACCGYRO_DSP310
