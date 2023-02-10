@@ -13,6 +13,7 @@
 #include "def.h"
 
 #define USE_ACCGYRO_BMI270
+#define USE_BARO_DPS310
 
 #define _USE_HW_CDC
 #define _USE_HW_USB

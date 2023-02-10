@@ -14,6 +14,7 @@ void apInit(void)
 	cliOpen(_DEF_USB, 57600);
 
 	Sensor_Init();
+	Baro_Init();
 }
 
 void apMain(void)
@@ -33,6 +34,7 @@ void apMain(void)
     	{
      		pre_time1 = micros();
 			imuUpdate();	//DT 170us
+			baroUpdate();
     	}
 		cliMain();
 	}

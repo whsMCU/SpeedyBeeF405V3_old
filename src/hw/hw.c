@@ -20,6 +20,7 @@ void hwInit(void)
   usbInit();
   uartInit();
   cliInit();
+  i2cInit();
   spiInit();
 
 	// ledOn(ST1);
