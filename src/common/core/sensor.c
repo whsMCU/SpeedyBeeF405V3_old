@@ -66,7 +66,8 @@ static void imuQuaternionComputeProducts(quaternion *quat, quaternionProducts *q
     quatProd->zz = quat->z * quat->z;
 }
 
-static void imuComputeRotationMatrix(void){
+static void imuComputeRotationMatrix(void)
+{
     imuQuaternionComputeProducts(&q, &qP);
 
     rMat[0][0] = 1.0f - 2.0f * qP.yy - 2.0f * qP.zz;
@@ -111,7 +112,7 @@ bool Sensor_Init(void)
 	bool ret = true;
 	is_init = bmi270_Init(&sensor.imuSensor1);
   
-  Calibrate_gyro();
+    Calibrate_gyro();
 	if (is_init != true)
  	{
    		return false;
@@ -131,13 +132,15 @@ static void applyAccelerationTrims(const sensor_Dev_t *accelerationTrims)
     sensor.accADC[Z] -= sensor.imuSensor1.calibration.accelerationTrims[Z];
 }
 
-static void imuUpdateSensor(imuSensor_t *imu)
+void gyroUpdate(void)
 {
-    bool gyroReady, accReady;
+    bool gyroReady;
+    static float gyroLPF[3];
+
+    imuSensor_t *imu = &sensor.imuSensor1;
 
     gyroReady = imu->imuDev.InterruptStatus & 0x40;
-    accReady = imu->imuDev.InterruptStatus & 0x80;
-
+    
     if(gyroReady)
     {
         imu->imuDev.gyro_readFn(&sensor.imuSensor1);
@@ -146,23 +149,20 @@ static void imuUpdateSensor(imuSensor_t *imu)
         imu->imuDev.gyroADC[Z] = imu->imuDev.gyroADCRaw[Z] - imu->imuDev.gyroZero[Z];
     }
 
-    if(accReady)
-    {
-        imu->imuDev.acc_readFn(&sensor.imuSensor1);
-        imu->imuDev.accADC[X] = imu->imuDev.accADCRaw[X];
-        imu->imuDev.accADC[Y] = imu->imuDev.accADCRaw[Y];
-        imu->imuDev.accADC[Z] = imu->imuDev.accADCRaw[Z];
-
-    }
     imu->imuDev.dataReady = false;
-}
+    // if (gyro.downsampleFilterEnabled) {
+    // // using gyro lowpass 2 filter for downsampling
+    // gyro.sampleSum[X] = gyro.lowpass2FilterApplyFn((filter_t *)&gyro.lowpass2Filter[X], gyro.gyroADC[X]);
+    // gyro.sampleSum[Y] = gyro.lowpass2FilterApplyFn((filter_t *)&gyro.lowpass2Filter[Y], gyro.gyroADC[Y]);
+    // gyro.sampleSum[Z] = gyro.lowpass2FilterApplyFn((filter_t *)&gyro.lowpass2Filter[Z], gyro.gyroADC[Z]);
+    // } else {
+    // // using simple averaging for downsampling
+    // gyro.sampleSum[X] += gyro.gyroADC[X];
+    // gyro.sampleSum[Y] += gyro.gyroADC[Y];
+    // gyro.sampleSum[Z] += gyro.gyroADC[Z];
+    // gyro.sampleCount++;
+    // }
 
-void imuUpdate(void)
-{
-    static float accLPF[3];
-    static float gyroLPF[3];
-
-    imuUpdateSensor(&sensor.imuSensor1);
     for (int axis = 0; axis < XYZ_AXIS_COUNT; axis++)
     {
         sensor.gyroADC[axis] = sensor.imuSensor1.imuDev.gyroADC[axis] * sensor.imuSensor1.imuDev.scale;
@@ -176,10 +176,31 @@ void imuUpdate(void)
         gyro_accumulatedMeasurements[axis] = gyroLPF[axis];
     }
     gyro_accumulatedMeasurementCount++;
+}
+
+void accUpdate(uint32_t currentTimeUs)
+{
+    UNUSED(currentTimeUs);
+    bool accReady;
+    static float accLPF[3];
+    imuSensor_t *imu = &sensor.imuSensor1;
+    
+    accReady = imu->imuDev.InterruptStatus & 0x80;
+
+    if(accReady)
+    {
+        imu->imuDev.acc_readFn(&sensor.imuSensor1);
+        imu->imuDev.isAccelUpdatedAtLeastOnce = true;
+        imu->imuDev.accADC[X] = imu->imuDev.accADCRaw[X];
+        imu->imuDev.accADC[Y] = imu->imuDev.accADCRaw[Y];
+        imu->imuDev.accADC[Z] = imu->imuDev.accADCRaw[Z];
+    }
+
+    imu->imuDev.dataReady = false;
 
     for (int axis = 0; axis < XYZ_AXIS_COUNT; axis++)
     {
-        sensor.accADC[axis] = sensor.imuSensor1.imuDev.accADC[axis];
+        sensor.accADC[axis] = imu->imuDev.accADC[axis];
     }
     for(int axis=0;axis<3;axis++)
 	{
@@ -200,7 +221,14 @@ void imuUpdate(void)
     for (int axis = 0; axis < XYZ_AXIS_COUNT; axis++) {
         sensor.accumulatedMeasurements[axis] += sensor.accADC[axis];
     }
-    imuCalculateEstimatedAttitude(micros());
+}
+
+void imuUpdateAttitude(uint32_t currentTimeUs)
+{
+    if (sensor.imuSensor1.imuDev.isAccelUpdatedAtLeastOnce) {
+
+        imuCalculateEstimatedAttitude(currentTimeUs);
+    }
 }
 
 bool accGetAccumulationAverage(float *accumulationAverage)

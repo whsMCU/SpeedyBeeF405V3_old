@@ -23,6 +23,7 @@
 
 
 void bspInit(void);
+uint32_t getCycleCounter(void);
 
 void HAL_SYSTICK_Callback(void);
 

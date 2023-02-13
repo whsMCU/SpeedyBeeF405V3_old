@@ -10,6 +10,13 @@
 #include "uart.h"
 
 
+
+#define DWT_LAR_UNLOCK_VALUE 0xC5ACCE55
+
+// cycles per microsecond
+static uint32_t usTicks = 0;
+static uint32_t cpuClockFrequency = 0;
+
 void SystemClock_Config(void);
 
 static volatile uint32_t msTicks = 0;
@@ -19,10 +26,33 @@ void HAL_SYSTICK_Callback(void)
 	msTicks++;
 }
 
+void cycleCounterInit(void)
+{
+  cpuClockFrequency = HAL_RCC_GetSysClockFreq();
+
+  usTicks = cpuClockFrequency / 1000000;
+
+  CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
+
+  __O uint32_t *DWTLAR = (uint32_t *)(DWT_BASE + 0x0FB0);
+  *(DWTLAR) = DWT_LAR_UNLOCK_VALUE;
+
+  DWT->CYCCNT = 0;
+  DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
+}
+
 void bspInit(void)
 {
   HAL_Init();
   SystemClock_Config();
+
+  // Init cycle counter
+  cycleCounterInit();
+}
+
+uint32_t getCycleCounter(void)
+{
+    return DWT->CYCCNT;
 }
 
 void delay(uint32_t ms)

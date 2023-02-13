@@ -58,6 +58,7 @@ typedef struct imuDev_s {
   int16_t accADCRaw[XYZ_AXIS_COUNT];                       // raw data from sensor
   float   accADC[XYZ_AXIS_COUNT];
   uint8_t InterruptStatus;
+  bool isAccelUpdatedAtLeastOnce;
 } imuDev_t;
 
 typedef struct imuCalibration_s
@@ -90,12 +91,16 @@ typedef struct sensor_Dev_s
 } sensor_Dev_t;
 
 bool Sensor_Init(void);
-void imuUpdate(void);
+void gyroUpdate(void);
+void accUpdate(uint32_t currentTimeUs);
+void imuUpdateAttitude(uint32_t currentTimeUs);
 bool accIsCalibrationComplete(void);
 void performAcclerationCalibration(void);
 void Gyro_getADC(void);
 void ACC_getADC(void);
 void imuCalculateEstimatedAttitude(uint32_t currentTimeUs);
 void DEBUG_print(void);
+
+extern attitudeEulerAngles_t attitude;
 
 #endif /* SRC_COMMON_CORE_SENSOR_H_ */

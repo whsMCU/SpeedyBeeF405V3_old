@@ -19,6 +19,7 @@
 			"uart.h": "c",
 			"barometer.h": "c"
 		},
-		"cortex-debug.openocdPath": "C:/tools/OpenOCD-20230111-0.12.0/bin"
+		"cortex-debug.openocdPath": "C:/tools/OpenOCD-20230111-0.12.0/bin",
+		"cortex-debug.variableUseNaturalFormat": true
 	}
 }

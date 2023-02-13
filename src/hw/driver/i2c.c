@@ -158,6 +158,19 @@ bool i2cIsDeviceReady(uint8_t dev_addr)
   return false;
 }
 
+// Returns true if bus is still busy
+bool busBusy(void)
+{
+  bool ret = false;
+  HAL_I2C_StateTypeDef *status = &hi2c2.State;
+
+  if(status == HAL_I2C_STATE_BUSY)
+  {
+    ret = true;
+  }
+  return ret;
+}
+
 void HAL_I2C_MspInit(I2C_HandleTypeDef* i2cHandle)
 {
 

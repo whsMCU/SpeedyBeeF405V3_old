@@ -26,6 +26,8 @@
 #include "barometer_dps310.h"
 #include "maths.h"
 #include "cli.h"
+#include "i2c.h"
+#include "scheduler.h"
 
 #ifdef USE_BARO_DPS310
 
@@ -159,11 +161,11 @@ uint32_t baroUpdate(uint32_t currentTimeUs)
     uint32_t executeTimeUs;
     uint32_t sleepTime = 1000; // Wait 1ms between states
 
-    // if (busBusy(&baro.dev.dev, NULL)) {
-    //     // If the bus is busy, simply return to have another go later
-    //     schedulerIgnoreTaskStateTime();
-    //     return sleepTime;
-    // }
+    if (busBusy()){
+        // If the bus is busy, simply return to have another go later
+        schedulerIgnoreTaskStateTime();
+        return sleepTime;
+    }
 
     switch (state) {
         default:
@@ -178,7 +180,7 @@ uint32_t baroUpdate(uint32_t currentTimeUs)
                 state = BARO_STATE_TEMPERATURE_SAMPLE;
             } else {
                 // No action was taken as the read has not completed
-                //schedulerIgnoreTaskExecTime();
+                schedulerIgnoreTaskExecTime();
             }
             break;
 
@@ -187,7 +189,7 @@ uint32_t baroUpdate(uint32_t currentTimeUs)
                 state = BARO_STATE_PRESSURE_START;
             } else {
                 // No action was taken as the read has not completed
-                //schedulerIgnoreTaskExecTime();
+                schedulerIgnoreTaskExecTime();
             }
             break;
 
@@ -202,14 +204,14 @@ uint32_t baroUpdate(uint32_t currentTimeUs)
                 state = BARO_STATE_PRESSURE_SAMPLE;
             } else {
                 // No action was taken as the read has not completed
-                //schedulerIgnoreTaskExecTime();
+                schedulerIgnoreTaskExecTime();
             }
             break;
 
         case BARO_STATE_PRESSURE_SAMPLE:
             if (!baro.dev.get_up(&baro.dev)) {
                 // No action was taken as the read has not completed
-                //schedulerIgnoreTaskExecTime();
+                schedulerIgnoreTaskExecTime();
                 break;
             }
 
@@ -226,7 +228,6 @@ uint32_t baroUpdate(uint32_t currentTimeUs)
             // DEBUG_SET(DEBUG_BARO, 1, baroTemperature);
             // DEBUG_SET(DEBUG_BARO, 2, baroPressure);
             // DEBUG_SET(DEBUG_BARO, 3, baroPressureSum);
-            //cliPrintf("BARO : (temp : %u), (press : %u), \n\r", baroTemperature, baroPressure);
 
             sleepTime = baro.dev.ut_delay;
             break;
@@ -234,7 +235,7 @@ uint32_t baroUpdate(uint32_t currentTimeUs)
 
     // Where we are using a state machine call schedulerIgnoreTaskExecRate() for all states bar one
     if (sleepTime != baro.dev.ut_delay) {
-        //schedulerIgnoreTaskExecRate();
+        schedulerIgnoreTaskExecRate();
     }
 
     executeTimeUs = micros() - currentTimeUs;
@@ -243,7 +244,7 @@ uint32_t baroUpdate(uint32_t currentTimeUs)
         baroStateDurationUs[oldState] = executeTimeUs;
     }
 
-    //schedulerSetNextStateTime(baroStateDurationUs[state]);
+    schedulerSetNextStateTime(baroStateDurationUs[state]);
 
     return sleepTime;
 }
@@ -296,7 +297,7 @@ void calculateEstimatedAltitude(uint32_t currentTimeUs)
 
     const uint32_t dTime = currentTimeUs - previousTimeUs;
     if (dTime < BARO_UPDATE_FREQUENCY_40HZ) {
-        //schedulerIgnoreTaskExecTime();
+        schedulerIgnoreTaskExecTime();
         return;
     }
     previousTimeUs = currentTimeUs;
@@ -327,8 +328,9 @@ void calculateEstimatedAltitude(uint32_t currentTimeUs)
     // baroAlt -= baroAltOffset;
 
     estimatedAltitudeCm = baroAlt;
+    baro.BaroAlt = baroAlt;
 
-    cliPrintf("BARO : %u cm \n\r", baroAlt);
+    //cliPrintf("BARO : %u cm \n\r", baroAlt);
     //DEBUG_SET(DEBUG_ALTITUDE, 0, (int32_t)(100 * gpsTrust));
     //DEBUG_SET(DEBUG_ALTITUDE, 1, baroAlt);
     //DEBUG_SET(DEBUG_ALTITUDE, 2, gpsAlt);
