@@ -46,7 +46,7 @@ quaternion offset = QUATERNION_INITIALIZE;
 // absolute angle inclination in multiple of 0.1 degree    180 deg = 1800
 attitudeEulerAngles_t attitude = EULER_INITIALIZE;
 
-static sensor_Dev_t sensor;
+sensor_Dev_t sensor;
 
 #ifdef _USE_HW_CLI
 static void cliSensor(cli_args_t *args);
@@ -92,7 +92,7 @@ static void Calibrate_gyro(void)
 	{
 		if (cal_int % 500 == 0)
 		{
-      ledToggle(_DEF_LED1); //Change the led status to indicate calibration.
+            ledToggle(_DEF_LED1); //Change the led status to indicate calibration.
 		}
 		Gyro_getADC();
 		for(axis=0; axis<3; axis++)
@@ -196,7 +196,7 @@ void accUpdate(uint32_t currentTimeUs)
         imu->imuDev.accADC[Z] = imu->imuDev.accADCRaw[Z];
     }
 
-    imu->imuDev.dataReady = false;
+    //imu->imuDev.dataReady = false;
 
     for (int axis = 0; axis < XYZ_AXIS_COUNT; axis++)
     {
@@ -462,7 +462,7 @@ static bool gyroGetAccumulationAverage(float *accumulationAverage)
 {
     if (gyro_accumulatedMeasurementCount) {
         // If we have gyro data accumulated, calculate average rate that will yield the same rotation
-        const uint32_t accumulatedMeasurementTimeUs = gyro_accumulatedMeasurementCount * 1;//gyro.targetLooptime;
+        const uint32_t accumulatedMeasurementTimeUs = gyro_accumulatedMeasurementCount * 312;//gyro.targetLooptime;
         for (int axis = 0; axis < XYZ_AXIS_COUNT; axis++) {
             accumulationAverage[axis] = gyro_accumulatedMeasurements[axis] / accumulatedMeasurementTimeUs;
             gyro_accumulatedMeasurements[axis] = 0.0f;

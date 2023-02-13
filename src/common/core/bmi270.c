@@ -270,12 +270,17 @@ bool bmi270SpiAddrRead(void)
 
 bool bmi270SpiAccRead(imuSensor_t *gyro)
 {
+    HAL_StatusTypeDef status = 0;
     memset(_buffer, 0x00, 7);
-    SPI_ByteRead(_DEF_SPI1, BMI270_REG_ACC_DATA_X_LSB | 0x80, _buffer, 7);
+    status = SPI_ByteRead(_DEF_SPI1, BMI270_REG_ACC_DATA_X_LSB | 0x80, _buffer, 7);
     gyro->imuDev.accADCRaw[X] = (uint16_t)_buffer[2]<<8 | (uint16_t)_buffer[1];
     gyro->imuDev.accADCRaw[Y] = (uint16_t)_buffer[4]<<8 | (uint16_t)_buffer[3];
     gyro->imuDev.accADCRaw[Z] = (uint16_t)_buffer[6]<<8 | (uint16_t)_buffer[5];
-    return true;
+    if(status == HAL_OK)
+    {
+        return true;
+    }
+    return false;
 }
 bool bmi270SpiGyroRead(imuSensor_t *gyro)
 {

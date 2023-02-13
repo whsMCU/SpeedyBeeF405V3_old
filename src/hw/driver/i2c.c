@@ -162,9 +162,9 @@ bool i2cIsDeviceReady(uint8_t dev_addr)
 bool busBusy(void)
 {
   bool ret = false;
-  HAL_I2C_StateTypeDef *status = &hi2c2.State;
+  volatile HAL_I2C_StateTypeDef *status = &hi2c2.State;
 
-  if(status == HAL_I2C_STATE_BUSY)
+  if(*status == HAL_I2C_STATE_BUSY)
   {
     ret = true;
   }

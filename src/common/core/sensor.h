@@ -102,5 +102,6 @@ void imuCalculateEstimatedAttitude(uint32_t currentTimeUs);
 void DEBUG_print(void);
 
 extern attitudeEulerAngles_t attitude;
+extern sensor_Dev_t sensor;
 
 #endif /* SRC_COMMON_CORE_SENSOR_H_ */
