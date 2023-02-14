@@ -162,11 +162,11 @@ void spiSetDataMode(uint8_t ch, uint8_t dataMode)
 {
   spi_t  *p_spi = &spi_tbl[ch];
   HAL_StatusTypeDef status;
-  gpioPinWrite(_PIN_DEF_CS, _DEF_LOW);
-  HAL_SPI_Transmit(p_spi->h_spi, &MemAddress, 1, 100);
-  status = HAL_SPI_Receive(p_spi->h_spi, data, length, 100);
-  //status = HAL_SPI_TransmitReceive(p_spi->h_spi, &MemAddress, data, length, 10);
-  gpioPinWrite(_PIN_DEF_CS, _DEF_HIGH);
+    gpioPinWrite(_PIN_DEF_CS, _DEF_LOW);
+    HAL_SPI_Transmit(p_spi->h_spi, &MemAddress, 1, 10);
+    status = HAL_SPI_Receive(p_spi->h_spi, data, length, 10);
+    //status = HAL_SPI_TransmitReceive(p_spi->h_spi, &MemAddress, data, length, 10);
+    gpioPinWrite(_PIN_DEF_CS, _DEF_HIGH);
   return status;
 }
 
@@ -174,10 +174,10 @@ HAL_StatusTypeDef SPI_ByteWrite(uint8_t ch, uint8_t MemAddress, uint8_t *data, u
 {
   spi_t  *p_spi = &spi_tbl[ch];
   HAL_StatusTypeDef status;
-  gpioPinWrite(_PIN_DEF_CS, _DEF_LOW);
-  HAL_SPI_Transmit(p_spi->h_spi, &MemAddress, 1, 100);
-  status = HAL_SPI_Transmit(p_spi->h_spi, data, length, 100);
-  gpioPinWrite(_PIN_DEF_CS, _DEF_HIGH);
+    gpioPinWrite(_PIN_DEF_CS, _DEF_LOW);
+    HAL_SPI_Transmit(p_spi->h_spi, &MemAddress, 1, 10);
+    status = HAL_SPI_Transmit(p_spi->h_spi, data, length, 10);
+    gpioPinWrite(_PIN_DEF_CS, _DEF_HIGH);
   return status;
 }
 

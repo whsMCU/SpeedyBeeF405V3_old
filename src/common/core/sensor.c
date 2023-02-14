@@ -46,7 +46,7 @@ quaternion offset = QUATERNION_INITIALIZE;
 // absolute angle inclination in multiple of 0.1 degree    180 deg = 1800
 attitudeEulerAngles_t attitude = EULER_INITIALIZE;
 
-sensor_Dev_t sensor;
+static sensor_Dev_t sensor;
 
 #ifdef _USE_HW_CLI
 static void cliSensor(cli_args_t *args);
@@ -183,6 +183,8 @@ void accUpdate(uint32_t currentTimeUs)
     UNUSED(currentTimeUs);
     bool accReady;
     static float accLPF[3];
+
+    static uint32_t test = 0;
     imuSensor_t *imu = &sensor.imuSensor1;
     
     accReady = imu->imuDev.InterruptStatus & 0x80;
@@ -194,6 +196,8 @@ void accUpdate(uint32_t currentTimeUs)
         imu->imuDev.accADC[X] = imu->imuDev.accADCRaw[X];
         imu->imuDev.accADC[Y] = imu->imuDev.accADCRaw[Y];
         imu->imuDev.accADC[Z] = imu->imuDev.accADCRaw[Z];
+    }else{
+        test +=1;
     }
 
     //imu->imuDev.dataReady = false;
@@ -622,13 +626,17 @@ void imuCalculateEstimatedAttitude(uint32_t currentTimeUs)
 
 void DEBUG_print(void)
 {
-    cliPrintf("IMU R: %d, P: %d, Y: %d\n\r",    attitude.values.roll,
-                                                attitude.values.pitch,
-                                                attitude.values.yaw);
+    // cliPrintf("IMU R: %d, P: %d, Y: %d\n\r",    attitude.values.roll,
+    //                                             attitude.values.pitch,
+    //                                             attitude.values.yaw);
 
     // cliPrintf("gyro x: %.2f, y: %.2f, z: %.2f\n\r", sensor.gyroADC[X],
     //                                                 sensor.gyroADC[Y],
     //                                                 sensor.gyroADC[Z]);
+
+    cliPrintf("ACC R: %d, P: %d, Y: %d\n\r",    sensor.imuSensor1.imuDev.accADCRaw[X],
+                                                sensor.imuSensor1.imuDev.accADCRaw[Y],
+                                                sensor.imuSensor1.imuDev.accADCRaw[Z]);
 }
 
 #ifdef _USE_HW_CLI

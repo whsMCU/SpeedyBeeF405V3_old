@@ -254,7 +254,8 @@ bool bmi270_Init(imuSensor_t *gyro)
 
 bool bmi270Detect(uint8_t ch)
 {
-    SPI_ByteRead(ch, (BMI270_REG_CHIP_ID | 0x80), _buffer, 2);
+    memset(_buffer, 0x00, 7);
+    SPI_ByteRead(ch, BMI270_REG_CHIP_ID | 0x80, _buffer, 2);
     if (_buffer[1] == BMI270_CHIP_ID)
     {
         return true;
@@ -262,20 +263,25 @@ bool bmi270Detect(uint8_t ch)
     return false;
 }
 
-bool bmi270SpiAddrRead(void)
-{
-    SPI_ByteRead(_DEF_SPI1, BMI270_REG_CHIP_ID | 0x80, _buffer, 2);
-    return true;
-}
-
 bool bmi270SpiAccRead(imuSensor_t *gyro)
 {
     HAL_StatusTypeDef status = 0;
+    uint8_t data_status[2] = {0, 0};
+    static uint32_t test = 0;
+    SPI_ByteRead(_DEF_SPI1, BMI270_REG_STATUS | 0x80, data_status, 2);
     memset(_buffer, 0x00, 7);
-    status = SPI_ByteRead(_DEF_SPI1, BMI270_REG_ACC_DATA_X_LSB | 0x80, _buffer, 7);
-    gyro->imuDev.accADCRaw[X] = (uint16_t)_buffer[2]<<8 | (uint16_t)_buffer[1];
-    gyro->imuDev.accADCRaw[Y] = (uint16_t)_buffer[4]<<8 | (uint16_t)_buffer[3];
-    gyro->imuDev.accADCRaw[Z] = (uint16_t)_buffer[6]<<8 | (uint16_t)_buffer[5];
+    if(data_status[1] & 0x80)
+    {
+        status = SPI_ByteRead(_DEF_SPI1, BMI270_REG_ACC_DATA_X_LSB | 0x80, _buffer, 7);
+        gyro->imuDev.accADCRaw[X] = (int16_t)((uint16_t)_buffer[2]<<8 | (uint16_t)_buffer[1]);
+        gyro->imuDev.accADCRaw[Y] = (int16_t)((uint16_t)_buffer[4]<<8 | (uint16_t)_buffer[3]);
+        gyro->imuDev.accADCRaw[Z] = (int16_t)((uint16_t)_buffer[6]<<8 | (uint16_t)_buffer[5]);
+    }else
+    {
+        test +=1;
+    }
+    
+
     if(status == HAL_OK)
     {
         return true;
@@ -287,9 +293,9 @@ bool bmi270SpiGyroRead(imuSensor_t *gyro)
     HAL_StatusTypeDef status = 0;
     memset(_buffer, 0x00, 7);
     status = SPI_ByteRead(_DEF_SPI1, BMI270_REG_GYR_DATA_X_LSB | 0x80, _buffer, 7);
-    gyro->imuDev.gyroADCRaw[X] = (uint16_t)_buffer[2]<<8 | (uint16_t)_buffer[1];
-    gyro->imuDev.gyroADCRaw[Y] = (uint16_t)_buffer[4]<<8 | (uint16_t)_buffer[3];
-    gyro->imuDev.gyroADCRaw[Z] = (uint16_t)_buffer[6]<<8 | (uint16_t)_buffer[5];
+    gyro->imuDev.gyroADCRaw[X] = (int16_t)((uint16_t)_buffer[2]<<8 | (uint16_t)_buffer[1]);
+    gyro->imuDev.gyroADCRaw[Y] = (int16_t)((uint16_t)_buffer[4]<<8 | (uint16_t)_buffer[3]);
+    gyro->imuDev.gyroADCRaw[Z] = (int16_t)((uint16_t)_buffer[6]<<8 | (uint16_t)_buffer[5]);
     if(status == HAL_OK)
     {
         return true;

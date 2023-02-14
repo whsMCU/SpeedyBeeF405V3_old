@@ -8,7 +8,6 @@
 
 bool bmi270_Init(imuSensor_t *gyro);
 bool bmi270Detect(uint8_t ch);
-bool bmi270SpiAddrRead(void);
 bool bmi270SpiAccRead(imuSensor_t *gyro);
 bool bmi270SpiGyroRead(imuSensor_t *gyro);
 bool bmi270SetCallBack(void (*p_func)(void));

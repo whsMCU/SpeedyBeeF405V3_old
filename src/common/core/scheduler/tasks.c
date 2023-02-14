@@ -59,6 +59,7 @@ static void ledUpdate(uint32_t currentTimeUs)
 
 static void debugPrint(uint32_t currentTimeUs)
 {
+    DEBUG_print();
     //cliPrintf("BARO : %d cm, Load : %d % \n\r", baro.BaroAlt, getAverageSystemLoadPercent());
     // cliPrintf("IMU R: %d, P: %d, Y: %d\n\r",    attitude.values.roll,
     //                                             attitude.values.pitch,
@@ -67,9 +68,9 @@ static void debugPrint(uint32_t currentTimeUs)
     // cliPrintf("ACC R: %d, P: %d, Y: %d\n\r",    sensor.imuSensor1.imuDev.accADCRaw[X],
     //                                             sensor.imuSensor1.imuDev.accADCRaw[Y],
     //                                             sensor.imuSensor1.imuDev.accADCRaw[Z]);
-    cliPrintf("GYRO R: %d, P: %d, Y: %d\n\r",    sensor.imuSensor1.imuDev.gyroADCRaw[X],
-                                                sensor.imuSensor1.imuDev.gyroADCRaw[Y],
-                                                sensor.imuSensor1.imuDev.gyroADCRaw[Z]);
+    // cliPrintf("GYRO R: %d, P: %d, Y: %d\n\r",    sensor.imuSensor1.imuDev.gyroADCRaw[X],
+    //                                             sensor.imuSensor1.imuDev.gyroADCRaw[Y],
+    //                                             sensor.imuSensor1.imuDev.gyroADCRaw[Z]);
 }
 
 static void taskHandleSerial(uint32_t currentTimeUs)
