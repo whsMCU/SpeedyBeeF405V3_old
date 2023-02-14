@@ -134,21 +134,29 @@ static void applyAccelerationTrims(const sensor_Dev_t *accelerationTrims)
 
 void gyroUpdate(void)
 {
-    bool gyroReady;
     static float gyroLPF[3];
 
     imuSensor_t *imu = &sensor.imuSensor1;
+    imu->imuDev.InterruptStatus = bmi270InterruptStatus(imu);
 
-    gyroReady = imu->imuDev.InterruptStatus & 0x40;
+    if(imu->imuDev.InterruptStatus & 0x40)
+    {
+        imu->imuDev.gyroReady = true;
+    }
+
+    if(imu->imuDev.InterruptStatus & 0x80)
+    {
+        imu->imuDev.accReady = true;
+    }
     
-    if(gyroReady)
+    if(imu->imuDev.gyroReady)
     {
         imu->imuDev.gyro_readFn(&sensor.imuSensor1);
         imu->imuDev.gyroADC[X] = imu->imuDev.gyroADCRaw[X] - imu->imuDev.gyroZero[X];
         imu->imuDev.gyroADC[Y] = imu->imuDev.gyroADCRaw[Y] - imu->imuDev.gyroZero[Y];
         imu->imuDev.gyroADC[Z] = imu->imuDev.gyroADCRaw[Z] - imu->imuDev.gyroZero[Z];
+        imu->imuDev.gyroReady = false;
     }
-
     imu->imuDev.dataReady = false;
     // if (gyro.downsampleFilterEnabled) {
     // // using gyro lowpass 2 filter for downsampling
@@ -181,26 +189,18 @@ void gyroUpdate(void)
 void accUpdate(uint32_t currentTimeUs)
 {
     UNUSED(currentTimeUs);
-    bool accReady;
     static float accLPF[3];
-
-    static uint32_t test = 0;
     imuSensor_t *imu = &sensor.imuSensor1;
-    
-    accReady = imu->imuDev.InterruptStatus & 0x80;
 
-    if(accReady)
+    if(imu->imuDev.accReady)
     {
         imu->imuDev.acc_readFn(&sensor.imuSensor1);
         imu->imuDev.isAccelUpdatedAtLeastOnce = true;
         imu->imuDev.accADC[X] = imu->imuDev.accADCRaw[X];
         imu->imuDev.accADC[Y] = imu->imuDev.accADCRaw[Y];
         imu->imuDev.accADC[Z] = imu->imuDev.accADCRaw[Z];
-    }else{
-        test +=1;
+        imu->imuDev.accReady = false;
     }
-
-    //imu->imuDev.dataReady = false;
 
     for (int axis = 0; axis < XYZ_AXIS_COUNT; axis++)
     {
@@ -626,17 +626,17 @@ void imuCalculateEstimatedAttitude(uint32_t currentTimeUs)
 
 void DEBUG_print(void)
 {
-    // cliPrintf("IMU R: %d, P: %d, Y: %d\n\r",    attitude.values.roll,
-    //                                             attitude.values.pitch,
-    //                                             attitude.values.yaw);
+    cliPrintf("IMU R: %d, P: %d, Y: %d\n\r",    attitude.values.roll,
+                                                attitude.values.pitch,
+                                                attitude.values.yaw);
+
+    // cliPrintf("ACC R: %d, P: %d, Y: %d\n\r",    sensor.imuSensor1.imuDev.accADCRaw[X],
+    //                                             sensor.imuSensor1.imuDev.accADCRaw[Y],
+    //                                             sensor.imuSensor1.imuDev.accADCRaw[Z]);
 
     // cliPrintf("gyro x: %.2f, y: %.2f, z: %.2f\n\r", sensor.gyroADC[X],
     //                                                 sensor.gyroADC[Y],
     //                                                 sensor.gyroADC[Z]);
-
-    cliPrintf("ACC R: %d, P: %d, Y: %d\n\r",    sensor.imuSensor1.imuDev.accADCRaw[X],
-                                                sensor.imuSensor1.imuDev.accADCRaw[Y],
-                                                sensor.imuSensor1.imuDev.accADCRaw[Z]);
 }
 
 #ifdef _USE_HW_CLI

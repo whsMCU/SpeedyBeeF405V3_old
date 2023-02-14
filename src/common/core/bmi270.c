@@ -269,7 +269,7 @@ bool bmi270SpiAccRead(imuSensor_t *gyro)
     uint8_t data_status[2] = {0, 0};
     static uint32_t test = 0;
     SPI_ByteRead(_DEF_SPI1, BMI270_REG_STATUS | 0x80, data_status, 2);
-    memset(_buffer, 0x00, 7);
+    //memset(_buffer, 0x00, 7);
     if(data_status[1] & 0x80)
     {
         status = SPI_ByteRead(_DEF_SPI1, BMI270_REG_ACC_DATA_X_LSB | 0x80, _buffer, 7);
@@ -291,7 +291,7 @@ bool bmi270SpiAccRead(imuSensor_t *gyro)
 bool bmi270SpiGyroRead(imuSensor_t *gyro)
 {
     HAL_StatusTypeDef status = 0;
-    memset(_buffer, 0x00, 7);
+    //memset(_buffer, 0x00, 7);
     status = SPI_ByteRead(_DEF_SPI1, BMI270_REG_GYR_DATA_X_LSB | 0x80, _buffer, 7);
     gyro->imuDev.gyroADCRaw[X] = (int16_t)((uint16_t)_buffer[2]<<8 | (uint16_t)_buffer[1]);
     gyro->imuDev.gyroADCRaw[Y] = (int16_t)((uint16_t)_buffer[4]<<8 | (uint16_t)_buffer[3]);
@@ -324,7 +324,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
     if(GPIO_Pin==GPIO_PIN_4)
     {
         gyro_instace->imuDev.dataReady = true;
-        gyro_instace->imuDev.InterruptStatus = bmi270InterruptStatus(gyro_instace);
+        //gyro_instace->imuDev.InterruptStatus = bmi270InterruptStatus(gyro_instace);
     }
 }
 

@@ -47,6 +47,8 @@ typedef struct imuDev_s {
   bool        (*acc_readFn)(imuSensor_t *gyro);
   bool        (*temp_readFn)(imuSensor_t *gyro);
   volatile bool dataReady;
+  bool gyroReady;
+  bool accReady;
   uint32_t targetLooptime;
   uint16_t  acc_1G;
   float     acc_1G_rec;
