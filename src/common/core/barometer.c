@@ -345,16 +345,16 @@ if (args->argc == 1 && args->isStr(0, "baro_show") == true)
 {
     uint32_t pre_time;
     pre_time = millis();
-while(cliKeepLoop())
-{
-    if (millis()-pre_time >= 1000)
+    while(cliKeepLoop())
     {
-        pre_time = millis();
-        // cliPrintf("acc x: %d, y: %d, z: %d\n\r", x, y, z);
+        if (millis()-pre_time >= 1000)
+        {
+            pre_time = millis();
+            // cliPrintf("acc x: %d, y: %d, z: %d\n\r", x, y, z);
+        }
     }
-}
-ret = true;
-}
+    ret = true;
+    }
 
   if (args->argc == 3 && args->isStr(0, "mem_read") == true)
   {
