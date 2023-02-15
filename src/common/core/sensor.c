@@ -28,6 +28,7 @@ static bool is_init = false;
 #define GPS_COG_MIN_GROUNDSPEED 500        // 500cm/s minimum groundspeed for a gps heading to be considered valid
 
 float accAverage[XYZ_AXIS_COUNT];
+float gyroAverage[XYZ_AXIS_COUNT];
 static float gyro_accumulatedMeasurements[XYZ_AXIS_COUNT];
 static float gyroPrevious[XYZ_AXIS_COUNT];
 static int gyro_accumulatedMeasurementCount;
@@ -178,10 +179,8 @@ void gyroUpdate(void)
     for (int axis = 0; axis < XYZ_AXIS_COUNT; axis++)
     {
         // integrate using trapezium rule to avoid bias
-        // gyro_accumulatedMeasurements[axis] += 0.5f * (gyroPrevious[axis] + sensor.gyroADC[axis]) * sensor.imuSensor1.imuDev.targetLooptime;
-        // gyroPrevious[axis] = sensor.gyroADC[axis];
-        gyroLPF[axis] = gyroLPF[axis] * (1.0f - (1.0f / acc_lpf_factor)) + sensor.gyroADC[axis] * (1.0f / acc_lpf_factor);
-        gyro_accumulatedMeasurements[axis] = gyroLPF[axis];
+        gyro_accumulatedMeasurements[axis] += 0.5f * (gyroPrevious[axis] + sensor.gyroADC[axis]) * sensor.imuSensor1.imuDev.targetLooptime;
+        gyroPrevious[axis] = sensor.gyroADC[axis];
     }
     gyro_accumulatedMeasurementCount++;
 }
@@ -466,7 +465,7 @@ static bool gyroGetAccumulationAverage(float *accumulationAverage)
 {
     if (gyro_accumulatedMeasurementCount) {
         // If we have gyro data accumulated, calculate average rate that will yield the same rotation
-        const uint32_t accumulatedMeasurementTimeUs = gyro_accumulatedMeasurementCount * 312;//gyro.targetLooptime;
+        const uint32_t accumulatedMeasurementTimeUs = gyro_accumulatedMeasurementCount * sensor.imuSensor1.imuDev.targetLooptime;//gyro.targetLooptime;
         for (int axis = 0; axis < XYZ_AXIS_COUNT; axis++) {
             accumulationAverage[axis] = gyro_accumulatedMeasurements[axis] / accumulatedMeasurementTimeUs;
             gyro_accumulatedMeasurements[axis] = 0.0f;
@@ -608,7 +607,6 @@ void imuCalculateEstimatedAttitude(uint32_t currentTimeUs)
     }
     #endif
 
-    float gyroAverage[XYZ_AXIS_COUNT];
     gyroGetAccumulationAverage(gyroAverage);
 
     if (accGetAccumulationAverage(accAverage)) {
@@ -630,13 +628,13 @@ void DEBUG_print(void)
                                                 attitude.values.pitch,
                                                 attitude.values.yaw);
 
-    // cliPrintf("ACC R: %d, P: %d, Y: %d\n\r",    sensor.imuSensor1.imuDev.accADCRaw[X],
-    //                                             sensor.imuSensor1.imuDev.accADCRaw[Y],
-    //                                             sensor.imuSensor1.imuDev.accADCRaw[Z]);
+    // cliPrintf("ACC R: %.f, P: %.f, Y: %.f\n\r",    sensor.accADC[X],
+    //                                             sensor.accADC[Y],
+    //                                             sensor.accADC[Z]);
 
-    // cliPrintf("gyro x: %.2f, y: %.2f, z: %.2f\n\r", sensor.gyroADC[X],
-    //                                                 sensor.gyroADC[Y],
-    //                                                 sensor.gyroADC[Z]);
+    // cliPrintf("gyro x: %.2f, y: %.2f, z: %.2f\n\r", gyroAverage[X],
+    //                                                 gyroAverage[Y],
+    //                                                 gyroAverage[Z]);
 }
 
 #ifdef _USE_HW_CLI
