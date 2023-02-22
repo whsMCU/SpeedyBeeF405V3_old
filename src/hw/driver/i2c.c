@@ -225,7 +225,7 @@ void cliI2C(cli_args_t *args)
       {
         if (i2cIsDeviceReady(i) == true)
         {
-          cliPrintf("I2C CH%d Addr 0x%X : OK\n", 2, i);
+          cliPrintf("I2C CH%d Addr 0x%X : OK\n\r", 2, i);
         }
       }
     }
@@ -243,11 +243,11 @@ void cliI2C(cli_args_t *args)
         i2c_ret = I2C_ByteRead(dev_addr<<1, reg_addr+i, I2C_MEMADD_SIZE_8BIT, i2c_data, 1);
         if (i2c_ret == true)
         {
-          cliPrintf("%d I2C - 0x%02X : 0x%02X\n", reg_addr+i, i2c_data[0]);
+          cliPrintf("%d I2C - 0x%02X : 0x%02X\n\r", reg_addr+i, i2c_data[0]);
         }
         else
         {
-          cliPrintf("%d I2C - Fail \n", 2);
+          cliPrintf("%d I2C - Fail \n\r", 2);
           break;
         }
       }
@@ -259,11 +259,11 @@ void cliI2C(cli_args_t *args)
       i2c_ret = I2C_ByteWrite_HAL(dev_addr<<1, reg_addr, I2C_MEMADD_SIZE_8BIT, &data, 1);
       if (i2c_ret == true)
       {
-        cliPrintf("%d I2C - 0x%02X : 0x%02X, %d ms\n", 2, reg_addr, data, millis()-pre_time);
+        cliPrintf("%d I2C - 0x%02X : 0x%02X, %d ms\n\r", 2, reg_addr, data, millis()-pre_time);
       }
       else
       {
-        cliPrintf("%d I2C - Fail \n", 2);
+        cliPrintf("%d I2C - Fail \n\r", 2);
       }
     }
     else
@@ -278,8 +278,8 @@ void cliI2C(cli_args_t *args)
 
   if (ret == false)
   {
-    cliPrintf( "i2c scan\n");
-    cliPrintf( "i2c read dev_addr reg_addr length\n");
-    cliPrintf( "i2c write dev_addr reg_addr data\n");
+    cliPrintf( "i2c scan\n\r");
+    cliPrintf( "i2c read dev_addr reg_addr length\n\r");
+    cliPrintf( "i2c write dev_addr reg_addr data\n\r");
   }
 }
