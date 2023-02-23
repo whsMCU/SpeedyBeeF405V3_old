@@ -222,6 +222,7 @@ bool bmi270_Init(imuSensor_t *gyro)
     // Allow 100ms before attempting to access gyro's SPI bus
     // Do this once here rather than in each detection routine to speed boot
     while (millis() < 100);
+    delay(35);
 
     gyro->imuDev.initFn = bmi270Config;
     gyro->imuDev.gyro_readFn = bmi270SpiGyroRead;
@@ -239,11 +240,17 @@ bool bmi270_Init(imuSensor_t *gyro)
 
     gyro_instace = gyro;
 
-    if (bmi270Detect(_DEF_SPI1))
-    {
-        bmi270Config();
-    }
     bmi270Config();
+
+    for(int i = 0; i > 5; i++)
+    {
+        if (bmi270Detect(_DEF_SPI1))
+        {
+            bmi270Config();
+            break;
+        }
+        delay(100);
+    }
 
     #ifdef _USE_HW_CLI
         cliAdd("bmi270", cliBmi270);
