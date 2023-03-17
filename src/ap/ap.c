@@ -21,6 +21,7 @@ void apInit(void)
 	Sensor_Init();
 	Baro_Init();
 	tasksInit();
+	rxInit();
 }
 
 void apMain(void)

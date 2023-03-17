@@ -107,7 +107,7 @@ typedef enum {
     //TASK_PID,
     TASK_ACCEL,
     TASK_ATTITUDE,
-    //TASK_RX,
+    TASK_RX,
     TASK_SERIAL,
     TASK_LED,
     TASK_DEBUG,
