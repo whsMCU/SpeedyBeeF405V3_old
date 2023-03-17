@@ -35,7 +35,7 @@ static inline int32_t cmpTimeUs(uint32_t a, uint32_t b) { return (int32_t)(a - b
 const char rcChannelLetters[] = "AERT12345678abcdefgh";
 
 static uint16_t rssi = 0;                  // range: [0;1023]
-static int16_t rssiDbm = CRSF_RSSI_MIN;    // range: [-130,20]
+//static int16_t rssiDbm = CRSF_RSSI_MIN;    // range: [-130,20]
 static uint32_t lastMspRssiUpdateUs = 0;
 
 //static pt1Filter_t frameErrFilter;

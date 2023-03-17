@@ -131,70 +131,70 @@ bool taskUpdateRxMainInProgress()
     return (rxState != RX_STATE_CHECK);
 }
 
-// static void taskUpdateRxMain(uint32_t currentTimeUs)
-// {
-//     static int32_t rxStateDurationFractionUs[RX_STATE_COUNT];
-//     int32_t executeTimeUs;
-//     rxState_e oldRxState = rxState;
-//     int32_t anticipatedExecutionTime;
+static void taskUpdateRxMain(uint32_t currentTimeUs)
+{
+    static int32_t rxStateDurationFractionUs[RX_STATE_COUNT];
+    int32_t executeTimeUs;
+    rxState_e oldRxState = rxState;
+    int32_t anticipatedExecutionTime;
 
-//     // Where we are using a state machine call schedulerIgnoreTaskExecRate() for all states bar one
-//     if (rxState != RX_STATE_UPDATE) {
-//         schedulerIgnoreTaskExecRate();
-//     }
+    // Where we are using a state machine call schedulerIgnoreTaskExecRate() for all states bar one
+    if (rxState != RX_STATE_UPDATE) {
+        schedulerIgnoreTaskExecRate();
+    }
 
-//     switch (rxState) {
-//     default:
-//     case RX_STATE_CHECK:
-//         if (!processRx(currentTimeUs)) {
-//             rxState = RX_STATE_CHECK;
-//             break;
-//         }
-//         rxState = RX_STATE_MODES;
-//         break;
+    switch (rxState) {
+    default:
+    case RX_STATE_CHECK:
+        if (!processRx(currentTimeUs)) {
+            rxState = RX_STATE_CHECK;
+            break;
+        }
+        rxState = RX_STATE_MODES;
+        break;
 
-//     case RX_STATE_MODES:
-//         processRxModes(currentTimeUs);
-//         rxState = RX_STATE_UPDATE;
-//         break;
+    case RX_STATE_MODES:
+        processRxModes(currentTimeUs);
+        rxState = RX_STATE_UPDATE;
+        break;
 
-//     case RX_STATE_UPDATE:
-//         // updateRcCommands sets rcCommand, which is needed by updateAltHoldState and updateSonarAltHoldState
-//         updateRcCommands();
-//         updateArmingStatus();
+    case RX_STATE_UPDATE:
+        // updateRcCommands sets rcCommand, which is needed by updateAltHoldState and updateSonarAltHoldState
+        updateRcCommands();
+        updateArmingStatus();
 
-// #ifdef USE_USB_CDC_HID
-//         if (!ARMING_FLAG(ARMED)) {
-//             sendRcDataToHid();
-//         }
-// #endif
-//         rxState = RX_STATE_CHECK;
-//         break;
-//     }
+#ifdef USE_USB_CDC_HID
+        if (!ARMING_FLAG(ARMED)) {
+            sendRcDataToHid();
+        }
+#endif
+        rxState = RX_STATE_CHECK;
+        break;
+    }
 
-//     if (!schedulerGetIgnoreTaskExecTime()) {
-//         executeTimeUs = micros() - currentTimeUs + RX_TASK_MARGIN;
+    if (!schedulerGetIgnoreTaskExecTime()) {
+        executeTimeUs = micros() - currentTimeUs + RX_TASK_MARGIN;
 
-//         // If the scheduler has reduced the anticipatedExecutionTime due to task aging, pick that up
-//         anticipatedExecutionTime = schedulerGetNextStateTime();
-//         if (anticipatedExecutionTime != (rxStateDurationFractionUs[oldRxState] >> RX_TASK_DECAY_SHIFT)) {
-//             rxStateDurationFractionUs[oldRxState] = anticipatedExecutionTime << RX_TASK_DECAY_SHIFT;
-//         }
+        // If the scheduler has reduced the anticipatedExecutionTime due to task aging, pick that up
+        anticipatedExecutionTime = schedulerGetNextStateTime();
+        if (anticipatedExecutionTime != (rxStateDurationFractionUs[oldRxState] >> RX_TASK_DECAY_SHIFT)) {
+            rxStateDurationFractionUs[oldRxState] = anticipatedExecutionTime << RX_TASK_DECAY_SHIFT;
+        }
 
-//         if (executeTimeUs > (rxStateDurationFractionUs[oldRxState] >> RX_TASK_DECAY_SHIFT)) {
-//             rxStateDurationFractionUs[oldRxState] = executeTimeUs << RX_TASK_DECAY_SHIFT;
-//         } else {
-//             // Slowly decay the max time
-//             rxStateDurationFractionUs[oldRxState]--;
-//         }
-//     }
+        if (executeTimeUs > (rxStateDurationFractionUs[oldRxState] >> RX_TASK_DECAY_SHIFT)) {
+            rxStateDurationFractionUs[oldRxState] = executeTimeUs << RX_TASK_DECAY_SHIFT;
+        } else {
+            // Slowly decay the max time
+            rxStateDurationFractionUs[oldRxState]--;
+        }
+    }
 
-//     if (debugMode == DEBUG_RX_STATE_TIME) {
-//         debug[oldRxState] = rxStateDurationFractionUs[oldRxState] >> RX_TASK_DECAY_SHIFT;
-//     }
+    // if (debugMode == DEBUG_RX_STATE_TIME) {
+    //     debug[oldRxState] = rxStateDurationFractionUs[oldRxState] >> RX_TASK_DECAY_SHIFT;
+    // }
 
-//     schedulerSetNextStateTime(rxStateDurationFractionUs[rxState] >> RX_TASK_DECAY_SHIFT);
-// }
+    schedulerSetNextStateTime(rxStateDurationFractionUs[rxState] >> RX_TASK_DECAY_SHIFT);
+}
 
 static void taskUpdateBaro(uint32_t currentTimeUs)
 {
