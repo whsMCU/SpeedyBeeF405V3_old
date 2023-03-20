@@ -624,9 +624,9 @@ void imuCalculateEstimatedAttitude(uint32_t currentTimeUs)
 
 void DEBUG_print(void)
 {
-    cliPrintf("IMU R: %d, P: %d, Y: %d\n\r",    attitude.values.roll,
-                                                attitude.values.pitch,
-                                                attitude.values.yaw);
+    // cliPrintf("IMU R: %d, P: %d, Y: %d\n\r",    attitude.values.roll,
+    //                                             attitude.values.pitch,
+    //                                             attitude.values.yaw);
 
     // cliPrintf("ACC R: %.f, P: %.f, Y: %.f\n\r",    sensor.accADC[X],
     //                                             sensor.accADC[Y],

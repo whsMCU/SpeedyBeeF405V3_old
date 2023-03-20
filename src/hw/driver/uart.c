@@ -35,7 +35,6 @@ bool uartOpen(uint8_t ch, uint32_t baud)
 {
   bool ret = false;
 
-
   switch(ch)
   {
     case _DEF_USB:
@@ -279,6 +278,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
   if(huart->Instance == USART2)
   {
     Q_write(&ring_buffer[_DEF_UART2], &u2_rx_buf[0], 1);
+    cliPrintf("%d",u2_rx_buf[0]);
   }
 }
 

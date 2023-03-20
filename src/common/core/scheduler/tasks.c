@@ -30,6 +30,7 @@
 #include "led.h"
 
 #include "tasks.h"
+#include "rx.h"
 #include "cli.h"
 
 // taskUpdateRxMain() has occasional peaks in execution time so normal moving average duration estimation doesn't work

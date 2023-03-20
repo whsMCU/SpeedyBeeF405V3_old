@@ -10,6 +10,7 @@
 #include "uart.h"
 #include "scheduler.h"
 #include "tasks.h"
+#include "rx.h"
 
 void apInit(void)
 {
@@ -17,7 +18,7 @@ void apInit(void)
 	// Initialize task data as soon as possible. Has to be done before tasksInit(),
     // and any init code that may try to modify task behaviour before tasksInit().
     tasksInitData();
-	uartOpen(_DEF_UART2, 115200); // UART2 = RC
+	uartOpen(_DEF_UART2, 100000); // UART2 = RC
 
 	Sensor_Init();
 	Baro_Init();
