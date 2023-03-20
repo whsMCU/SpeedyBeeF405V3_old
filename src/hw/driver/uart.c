@@ -38,7 +38,12 @@ bool uartOpen(uint8_t ch, uint32_t baud)
 
   switch(ch)
   {
-    case _DEF_UART1:
+    case _DEF_USB:
+      is_open[ch] = true;
+      ret = true;
+      break;
+
+    case _DEF_UART2:
     	huart2.Instance = USART2;
     	huart2.Init.BaudRate = baud;
     	huart2.Init.WordLength = UART_WORDLENGTH_8B;
@@ -48,7 +53,7 @@ bool uartOpen(uint8_t ch, uint32_t baud)
     	huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
     	huart2.Init.OverSampling = UART_OVERSAMPLING_16;
 
-    	QueueCreate(&ring_buffer[ch], &u1_rx_buf[0], MAX_SIZE);
+    	QueueCreate(&ring_buffer[ch], &u2_rx_buf[0], MAX_SIZE);
 
     	if (HAL_UART_Init(&huart2) != HAL_OK)
     	{
@@ -58,18 +63,13 @@ bool uartOpen(uint8_t ch, uint32_t baud)
     	{
     		ret = true;
         is_open[ch] = true;
-        if(HAL_UART_Receive_DMA(&huart2, (uint8_t *)&u1_rx_buf[0], MAX_SIZE) != HAL_OK)
+        if(HAL_UART_Receive_DMA(&huart2, (uint8_t *)&u2_rx_buf[0], MAX_SIZE) != HAL_OK)
         {
           ret = false;
         }
         ring_buffer[ch].head  = ring_buffer[ch].size - hdma_usart2_rx.Instance->NDTR;
         ring_buffer[ch].tail = ring_buffer[ch].head;
     	}
-      break;
-
-    case _DEF_USB:
-      is_open[ch] = true;
-      ret = true;
       break;
   }
 
@@ -82,16 +82,16 @@ uint32_t uartAvailable(uint8_t ch)
 
   switch(ch)
   {
-    case _DEF_UART1:
-    	ring_buffer[ch].head = (ring_buffer[ch].size - hdma_usart2_rx.Instance->NDTR);
-      ret = QueueAvailable(&ring_buffer[ch]);
-      break;
 
     case _DEF_USB:
       ret = cdcAvailable();
       break;
-  }
 
+    case _DEF_UART2:
+    	ring_buffer[ch].head = (ring_buffer[ch].size - hdma_usart2_rx.Instance->NDTR);
+      ret = QueueAvailable(&ring_buffer[ch]);
+      break;
+  }
   return ret;
 }
 
@@ -101,8 +101,8 @@ uint8_t uartRead(uint8_t ch)
 
   switch(ch)
   {
-    case _DEF_UART1:
-    	Q_read(&ring_buffer[_DEF_UART1], &ret, 1);
+    case _DEF_UART2:
+    	Q_read(&ring_buffer[_DEF_UART2], &ret, 1);
       break;
 
     case _DEF_USB:
@@ -120,7 +120,7 @@ uint32_t uartWrite(uint8_t ch, uint8_t *p_data, uint32_t length)
 
   switch(ch)
   {
-    case _DEF_UART1:
+    case _DEF_UART2:
       status = HAL_UART_Transmit(&huart2, p_data, length, 100);
       if (status == HAL_OK)
       {
@@ -143,7 +143,8 @@ uint32_t uartWriteIT(uint8_t ch, uint8_t *p_data, uint32_t length)
 
   switch(ch)
   {
-    case _DEF_UART1:
+
+    case _DEF_UART2:
       status = HAL_UART_Transmit_IT(&huart2, p_data, length);
       if (status == HAL_OK)
       {
@@ -206,12 +207,12 @@ uint32_t uartGetBaud(uint8_t ch)
 
   switch(ch)
   {
-    case _DEF_UART1:
-      ret = huart2.Init.BaudRate;
-      break;
-
     case _DEF_USB:
       ret = cdcGetBaud();
+      break;
+
+    case _DEF_UART2:
+      ret = huart2.Init.BaudRate;
       break;
   }
 
@@ -224,7 +225,7 @@ bool uartSetBaud(uint8_t ch, uint32_t baud)
 
 	switch(ch)
 	{
-		case _DEF_UART1:
+    case _DEF_USB:
 			huart2.Init.BaudRate = baud;
     	if (HAL_UART_Init(&huart2) != HAL_OK)
     	{
@@ -235,7 +236,7 @@ bool uartSetBaud(uint8_t ch, uint32_t baud)
     	}
 			break;
 
-		case _DEF_USB:
+		case _DEF_UART2:
 			huart2.Init.BaudRate = baud;
     	if (HAL_UART_Init(&huart2) != HAL_OK)
     	{
@@ -255,7 +256,7 @@ bool uartSetBaud(uint8_t ch, uint32_t baud)
 
 void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
 {
-  if (huart->Instance == USART1)
+  if (huart->Instance == USART2)
   {
   }
 
@@ -271,18 +272,15 @@ void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
-//  if (huart->Instance == USART1)
-//  {
-//  	Q_write(&ring_buffer[_DEF_UART1], &rx_data[_DEF_UART1], 1);
-//  }
-//  else if(huart->Instance == USART2)
-//  {
-//  	Q_write(&ring_buffer[_DEF_UART2], &rx_data[_DEF_UART2], 1);
-//  }
+  //  if (huart->Instance == USART1)
+  //  {
+  //  	Q_write(&ring_buffer[_DEF_UART1], &rx_data[_DEF_UART1], 1);
+  //  }
+  if(huart->Instance == USART2)
+  {
+    Q_write(&ring_buffer[_DEF_UART2], &u2_rx_buf[0], 1);
+  }
 }
-
-
-
 
 void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
 {

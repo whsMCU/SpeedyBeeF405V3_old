@@ -17,6 +17,7 @@ void apInit(void)
 	// Initialize task data as soon as possible. Has to be done before tasksInit(),
     // and any init code that may try to modify task behaviour before tasksInit().
     tasksInitData();
+	uartOpen(_DEF_UART2, 115200); // UART2 = RC
 
 	Sensor_Init();
 	Baro_Init();

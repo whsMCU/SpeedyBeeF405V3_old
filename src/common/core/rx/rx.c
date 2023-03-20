@@ -27,15 +27,22 @@
 
 #include "rx.h"
 #include "sbus.h"
+#include "tasks.h"
+#include "maths.h"
+#include "utils.h"
+#include "axis.h"
 //#include "rx/crsf.h"
 
-
+float rcCommand[4];           // interval [1000;2000] for THROTTLE and [-500;+500] for ROLL/PITCH/YAW
+static bool isRxDataNew = false;
 static inline int32_t cmpTimeUs(uint32_t a, uint32_t b) { return (int32_t)(a - b); }
 
 const char rcChannelLetters[] = "AERT12345678abcdefgh";
+#define RX_MAPPABLE_CHANNEL_COUNT 8
+uint8_t rcmap[RX_MAPPABLE_CHANNEL_COUNT];
 
 static uint16_t rssi = 0;                  // range: [0;1023]
-//static int16_t rssiDbm = CRSF_RSSI_MIN;    // range: [-130,20]
+static int16_t rssiDbm = -130;//CRSF_RSSI_MIN;    // range: [-130,20]
 static uint32_t lastMspRssiUpdateUs = 0;
 
 //static pt1Filter_t frameErrFilter;
@@ -82,26 +89,26 @@ uint32_t validRxSignalTimeout[MAX_SUPPORTED_RC_CHANNEL_COUNT];
 rxRuntimeState_t rxRuntimeState;
 static uint8_t rcSampleIndex = 0;
 
-PG_REGISTER_ARRAY_WITH_RESET_FN(rxChannelRangeConfig_t, NON_AUX_CHANNEL_COUNT, rxChannelRangeConfigs, PG_RX_CHANNEL_RANGE_CONFIG, 0);
-void pgResetFn_rxChannelRangeConfigs(rxChannelRangeConfig_t *rxChannelRangeConfigs)
-{
-    // set default calibration to full range and 1:1 mapping
-    for (int i = 0; i < NON_AUX_CHANNEL_COUNT; i++) {
-        rxChannelRangeConfigs[i].min = PWM_RANGE_MIN;
-        rxChannelRangeConfigs[i].max = PWM_RANGE_MAX;
-    }
-}
+// PG_REGISTER_ARRAY_WITH_RESET_FN(rxChannelRangeConfig_t, NON_AUX_CHANNEL_COUNT, rxChannelRangeConfigs, PG_RX_CHANNEL_RANGE_CONFIG, 0);
+// void pgResetFn_rxChannelRangeConfigs(rxChannelRangeConfig_t *rxChannelRangeConfigs)
+// {
+//     // set default calibration to full range and 1:1 mapping
+//     for (int i = 0; i < NON_AUX_CHANNEL_COUNT; i++) {
+//         rxChannelRangeConfigs[i].min = PWM_RANGE_MIN;
+//         rxChannelRangeConfigs[i].max = PWM_RANGE_MAX;
+//     }
+// }
 
-PG_REGISTER_ARRAY_WITH_RESET_FN(rxFailsafeChannelConfig_t, MAX_SUPPORTED_RC_CHANNEL_COUNT, rxFailsafeChannelConfigs, PG_RX_FAILSAFE_CHANNEL_CONFIG, 0);
-void pgResetFn_rxFailsafeChannelConfigs(rxFailsafeChannelConfig_t *rxFailsafeChannelConfigs)
-{
-    for (int i = 0; i < MAX_SUPPORTED_RC_CHANNEL_COUNT; i++) {
-        rxFailsafeChannelConfigs[i].mode = (i < NON_AUX_CHANNEL_COUNT) ? RX_FAILSAFE_MODE_AUTO : RX_FAILSAFE_MODE_HOLD;
-        rxFailsafeChannelConfigs[i].step = (i == THROTTLE)
-            ? CHANNEL_VALUE_TO_RXFAIL_STEP(RX_MIN_USEC)
-            : CHANNEL_VALUE_TO_RXFAIL_STEP(RX_MID_USEC);
-    }
-}
+// PG_REGISTER_ARRAY_WITH_RESET_FN(rxFailsafeChannelConfig_t, MAX_SUPPORTED_RC_CHANNEL_COUNT, rxFailsafeChannelConfigs, PG_RX_FAILSAFE_CHANNEL_CONFIG, 0);
+// void pgResetFn_rxFailsafeChannelConfigs(rxFailsafeChannelConfig_t *rxFailsafeChannelConfigs)
+// {
+//     for (int i = 0; i < MAX_SUPPORTED_RC_CHANNEL_COUNT; i++) {
+//         rxFailsafeChannelConfigs[i].mode = (i < NON_AUX_CHANNEL_COUNT) ? RX_FAILSAFE_MODE_AUTO : RX_FAILSAFE_MODE_HOLD;
+//         rxFailsafeChannelConfigs[i].step = (i == THROTTLE)
+//             ? CHANNEL_VALUE_TO_RXFAIL_STEP(RX_MIN_USEC)
+//             : CHANNEL_VALUE_TO_RXFAIL_STEP(RX_MID_USEC);
+//     }
+// }
 
 void resetAllRxChannelRangeConfigurations(rxChannelRangeConfig_t *rxChannelRangeConfig) {
     // set default calibration to full range and 1:1 mapping
@@ -117,7 +124,7 @@ static float nullReadRawRC(const rxRuntimeState_t *rxRuntimeState, uint8_t chann
     UNUSED(rxRuntimeState);
     UNUSED(channel);
 
-    return PPM_RCVR_TIMEOUT;
+    return 0; //PPM_RCVR_TIMEOUT
 }
 
 static uint8_t nullFrameStatus(rxRuntimeState_t *rxRuntimeState)
@@ -134,14 +141,16 @@ static bool nullProcessFrame(const rxRuntimeState_t *rxRuntimeState)
     return true;
 }
 
-STATIC_UNIT_TESTED bool isPulseValid(uint16_t pulseDuration)
+bool isPulseValid(uint16_t pulseDuration)
 {
-    return  pulseDuration >= rxConfig()->rx_min_usec &&
-            pulseDuration <= rxConfig()->rx_max_usec;
+    return  pulseDuration >= 885 &&
+            pulseDuration <= 2115;
 }
 
+#define USE_SERIAL_RX
+#define USE_SERIALRX_SBUS
 #ifdef USE_SERIAL_RX
-static bool serialRxInit(const rxConfig_t *rxConfig, rxRuntimeState_t *rxRuntimeState)
+static bool serialRxInit(rxRuntimeState_t *rxRuntimeState)
 {
     bool enabled = false;
     switch (rxRuntimeState->serialrxProvider) {
@@ -159,7 +168,7 @@ static bool serialRxInit(const rxConfig_t *rxConfig, rxRuntimeState_t *rxRuntime
 #endif
 #ifdef USE_SERIALRX_SBUS
     case SERIALRX_SBUS:
-        enabled = sbusInit(rxConfig, rxRuntimeState);
+        enabled = sbusInit(rxRuntimeState);
         break;
 #endif
 #ifdef USE_SERIALRX_SUMD
@@ -219,7 +228,7 @@ static bool serialRxInit(const rxConfig_t *rxConfig, rxRuntimeState_t *rxRuntime
 void rxInit(void)
 {
     rxRuntimeState.rxProvider = RX_PROVIDER_SERIAL;
-    rxRuntimeState.serialrxProvider = rxConfig()->serialrx_provider;
+    rxRuntimeState.serialrxProvider = SERIALRX_SBUS;
     rxRuntimeState.rcReadRawFn = nullReadRawRC;
     rxRuntimeState.rcFrameStatusFn = nullFrameStatus;
     rxRuntimeState.rcProcessFrameFn = nullProcessFrame;
@@ -227,28 +236,29 @@ void rxInit(void)
     rcSampleIndex = 0;
 
     for (int i = 0; i < MAX_SUPPORTED_RC_CHANNEL_COUNT; i++) {
-        rcData[i] = rxConfig()->midrc;
+        rcData[i] = 1500;
         validRxSignalTimeout[i] = millis() + MAX_INVALID_PULSE_TIME_MS;
     }
 
-    rcData[THROTTLE] = (featureIsEnabled(FEATURE_3D)) ? rxConfig()->midrc : rxConfig()->rx_min_usec;
+    rcData[THROTTLE] = 885;
 
     // Initialize ARM switch to OFF position when arming via switch is defined
     // TODO - move to rc_mode.c
-    for (int i = 0; i < MAX_MODE_ACTIVATION_CONDITION_COUNT; i++) {
-        const modeActivationCondition_t *modeActivationCondition = modeActivationConditions(i);
-        if (modeActivationCondition->modeId == BOXARM && IS_RANGE_USABLE(&modeActivationCondition->range)) {
-            // ARM switch is defined, determine an OFF value
-            uint16_t value;
-            if (modeActivationCondition->range.startStep > 0) {
-                value = MODE_STEP_TO_CHANNEL_VALUE((modeActivationCondition->range.startStep - 1));
-            } else {
-                value = MODE_STEP_TO_CHANNEL_VALUE((modeActivationCondition->range.endStep + 1));
-            }
-            // Initialize ARM AUX channel to OFF value
-            rcData[modeActivationCondition->auxChannelIndex + NON_AUX_CHANNEL_COUNT] = value;
-        }
-    }
+    // #define MAX_MODE_ACTIVATION_CONDITION_COUNT 20
+    // for (int i = 0; i < MAX_MODE_ACTIVATION_CONDITION_COUNT; i++) {
+    //     const modeActivationCondition_t *modeActivationCondition = modeActivationConditions(i);
+    //     if (modeActivationCondition->modeId == BOXARM && IS_RANGE_USABLE(&modeActivationCondition->range)) {
+    //         // ARM switch is defined, determine an OFF value
+    //         uint16_t value;
+    //         if (modeActivationCondition->range.startStep > 0) {
+    //             value = MODE_STEP_TO_CHANNEL_VALUE((modeActivationCondition->range.startStep - 1));
+    //         } else {
+    //             value = MODE_STEP_TO_CHANNEL_VALUE((modeActivationCondition->range.endStep + 1));
+    //         }
+    //         // Initialize ARM AUX channel to OFF value
+    //         rcData[modeActivationCondition->auxChannelIndex + NON_AUX_CHANNEL_COUNT] = value;
+    //     }
+    // }
 
     switch (rxRuntimeState.rxProvider) {
     default:
@@ -257,7 +267,7 @@ void rxInit(void)
 #ifdef USE_SERIAL_RX
     case RX_PROVIDER_SERIAL:
         {
-            const bool enabled = serialRxInit(rxConfig(), &rxRuntimeState);
+            const bool enabled = serialRxInit(&rxRuntimeState);
             if (!enabled) {
                 rxRuntimeState.rcReadRawFn = nullReadRawRC;
                 rxRuntimeState.rcFrameStatusFn = nullFrameStatus;
@@ -301,14 +311,14 @@ void rxInit(void)
         rssiSource = RSSI_SOURCE_ADC;
     } else
 #endif
-    if (rxConfig()->rssi_channel > 0) {
-        rssiSource = RSSI_SOURCE_RX_CHANNEL;
-    }
+    // if (rxConfig()->rssi_channel > 0) {
+    //     rssiSource = RSSI_SOURCE_RX_CHANNEL;
+    // }
 
     // Setup source frame RSSI filtering to take averaged values every FRAME_ERR_RESAMPLE_US
-    pt1FilterInit(&frameErrFilter, pt1FilterGain(GET_FRAME_ERR_LPF_FREQUENCY(rxConfig()->rssi_src_frame_lpf_period), FRAME_ERR_RESAMPLE_US/1000000.0));
+    //pt1FilterInit(&frameErrFilter, pt1FilterGain(GET_FRAME_ERR_LPF_FREQUENCY(rxConfig()->rssi_src_frame_lpf_period), FRAME_ERR_RESAMPLE_US/1000000.0));
 
-    rxChannelCount = MIN(rxConfig()->max_aux_channel + NON_AUX_CHANNEL_COUNT, rxRuntimeState.channelCount);
+    rxChannelCount = MIN(6 + NON_AUX_CHANNEL_COUNT, rxRuntimeState.channelCount);
 }
 
 bool rxIsReceivingSignal(void)
@@ -329,7 +339,7 @@ void suspendRxSignal(void)
         skipRxSamples = SKIP_RC_SAMPLES_ON_RESUME;
     }
 #endif
-    failsafeOnRxSuspend(DELAY_1500_MS);  // 1.5s
+    //failsafeOnRxSuspend(DELAY_1500_MS);  // 1.5s
 }
 
 void resumeRxSignal(void)
@@ -340,7 +350,7 @@ void resumeRxSignal(void)
         skipRxSamples = SKIP_RC_SAMPLES_ON_RESUME;
     }
 #endif
-    failsafeOnRxResume();
+    //failsafeOnRxResume();
 }
 
 #ifdef USE_RX_LINK_QUALITY_INFO
@@ -363,6 +373,8 @@ void rxSetRfMode(uint8_t rfModeValue)
     rfMode = rfModeValue;
 }
 #endif
+
+#define FRAME_ERR_RESAMPLE_US 100000
 
 static void setLinkQuality(bool validFrame, int32_t currentDeltaTimeUs)
 {
@@ -415,7 +427,7 @@ bool rxUpdateCheck(uint32_t currentTimeUs, int32_t currentDeltaTimeUs)
     return taskUpdateRxMainInProgress() || rxDataProcessingRequired || auxiliaryProcessingRequired;
 }
 
-FAST_CODE_NOINLINE void rxFrameCheck(uint32_t currentTimeUs, int32_t currentDeltaTimeUs)
+void rxFrameCheck(uint32_t currentTimeUs, int32_t currentDeltaTimeUs)
 {
     bool signalReceived = false;
     bool useDataDrivenProcessing = true;
@@ -453,7 +465,7 @@ FAST_CODE_NOINLINE void rxFrameCheck(uint32_t currentTimeUs, int32_t currentDelt
     case RX_PROVIDER_SPI:
         {
             const uint8_t frameStatus = rxRuntimeState.rcFrameStatusFn(&rxRuntimeState);
-            DEBUG_SET(DEBUG_RX_SIGNAL_LOSS, 1, (frameStatus & RX_FRAME_FAILSAFE));
+            //DEBUG_SET(DEBUG_RX_SIGNAL_LOSS, 1, (frameStatus & RX_FRAME_FAILSAFE));
             signalReceived = (frameStatus & RX_FRAME_COMPLETE) && !(frameStatus & (RX_FRAME_FAILSAFE | RX_FRAME_DROPPED));
             setLinkQuality(signalReceived, currentDeltaTimeUs);
             auxiliaryProcessingRequired |= (frameStatus & RX_FRAME_PROCESSING_REQUIRED);
@@ -481,7 +493,7 @@ FAST_CODE_NOINLINE void rxFrameCheck(uint32_t currentTimeUs, int32_t currentDelt
         }
     }
 
-    DEBUG_SET(DEBUG_RX_SIGNAL_LOSS, 0, rxSignalReceived);
+    //DEBUG_SET(DEBUG_RX_SIGNAL_LOSS, 0, rxSignalReceived);
 }
 
 #if defined(USE_PWM) || defined(USE_PPM)
@@ -514,22 +526,22 @@ static uint16_t calculateChannelMovingAverage(uint8_t chan, uint16_t sample)
 
 static uint16_t getRxfailValue(uint8_t channel)
 {
-    const rxFailsafeChannelConfig_t *channelFailsafeConfig = rxFailsafeChannelConfigs(channel);
-    const bool failsafeAuxSwitch = IS_RC_MODE_ACTIVE(BOXFAILSAFE);
+    //const rxFailsafeChannelConfig_t *channelFailsafeConfig = rxFailsafeChannelConfigs(channel);
+    const bool failsafeAuxSwitch = false;//IS_RC_MODE_ACTIVE(BOXFAILSAFE);
 
-    switch (channelFailsafeConfig->mode) {
+    switch (RX_FAILSAFE_MODE_AUTO) { //channelFailsafeConfig->mode
     case RX_FAILSAFE_MODE_AUTO:
         switch (channel) {
         case ROLL:
         case PITCH:
         case YAW:
-            return rxConfig()->midrc;
+            return 1500;
         case THROTTLE:
-            if (featureIsEnabled(FEATURE_3D) && !IS_RC_MODE_ACTIVE(BOX3D) && !flight3DConfig()->switched_mode3d) {
-                return rxConfig()->midrc;
-            } else {
-                return rxConfig()->rx_min_usec;
-            }
+            // if (featureIsEnabled(FEATURE_3D) && !IS_RC_MODE_ACTIVE(BOX3D) && !flight3DConfig()->switched_mode3d) {
+            //     return 1500;
+            // } else {
+                return 885;
+            //}
         }
 
     FALLTHROUGH;
@@ -542,18 +554,20 @@ static uint16_t getRxfailValue(uint8_t channel)
             return rcData[channel]; // last good value
         }
     case RX_FAILSAFE_MODE_SET:
-        return RXFAIL_STEP_TO_CHANNEL_VALUE(channelFailsafeConfig->step);
+        return RXFAIL_STEP_TO_CHANNEL_VALUE(CHANNEL_VALUE_TO_RXFAIL_STEP(1000));
     }
 }
 
-STATIC_UNIT_TESTED float applyRxChannelRangeConfiguraton(float sample, const rxChannelRangeConfig_t *range)
+#define PPM_RCVR_TIMEOUT            0
+
+static float applyRxChannelRangeConfiguraton(float sample)
 {
     // Avoid corruption of channel with a value of PPM_RCVR_TIMEOUT
     if (sample == PPM_RCVR_TIMEOUT) {
         return PPM_RCVR_TIMEOUT;
     }
 
-    sample = scaleRangef(sample, range->min, range->max, PWM_RANGE_MIN, PWM_RANGE_MAX);
+    sample = scaleRangef(sample, 1000, 2000, PWM_RANGE_MIN, PWM_RANGE_MAX);
     // out of range channel values are now constrained after the validity check in detectAndApplySignalLossBehaviour()
     return sample;
 }
@@ -562,7 +576,7 @@ static void readRxChannelsApplyRanges(void)
 {
     for (int channel = 0; channel < rxChannelCount; channel++) {
 
-        const uint8_t rawChannel = channel < RX_MAPPABLE_CHANNEL_COUNT ? rxConfig()->rcmap[channel] : channel;
+        const uint8_t rawChannel = channel < RX_MAPPABLE_CHANNEL_COUNT ? rcmap[channel] : channel;
 
         // sample the channel
         float sample;
@@ -577,7 +591,7 @@ static void readRxChannelsApplyRanges(void)
 
         // apply the rx calibration
         if (channel < NON_AUX_CHANNEL_COUNT) {
-            sample = applyRxChannelRangeConfiguraton(sample, rxChannelRangeConfigs(channel));
+            sample = applyRxChannelRangeConfiguraton(sample);
         }
 
         rcRaw[channel] = sample;
@@ -587,7 +601,7 @@ static void readRxChannelsApplyRanges(void)
 void detectAndApplySignalLossBehaviour(void)
 {
     const uint32_t currentTimeMs = millis();
-    const bool failsafeAuxSwitch = IS_RC_MODE_ACTIVE(BOXFAILSAFE);
+    const bool failsafeAuxSwitch = false; //IS_RC_MODE_ACTIVE(BOXFAILSAFE);
     rxFlightChannelsValid = rxSignalReceived && !failsafeAuxSwitch;
     //  set rxFlightChannelsValid false when a packet is bad or we use a failsafe switch
 
@@ -601,15 +615,15 @@ void detectAndApplySignalLossBehaviour(void)
             validRxSignalTimeout[channel] = currentTimeMs + MAX_INVALID_PULSE_TIME_MS;
         }
 
-       if (ARMING_FLAG(ARMED) && failsafeIsActive()) {
+       if (false) { //ARMING_FLAG(ARMED) && failsafeIsActive()
             // while in failsafe Stage 2, whether Rx loss or switch induced, pass valid incoming flight channel values
             // this allows GPS Rescue to detect the 30% requirement for termination
             if (channel < NON_AUX_CHANNEL_COUNT) {
                 if (!thisChannelValid) {
                     if (channel == THROTTLE ) {
-                        sample = failsafeConfig()->failsafe_throttle; // stage 2 failsafe throttle value
+                        sample = 1150; // stage 2 failsafe throttle value
                     } else {
-                        sample = rxConfig()->midrc;
+                        sample = 1500;
                     }
                 }
             } else {
@@ -653,17 +667,17 @@ void detectAndApplySignalLossBehaviour(void)
     }
 
     if (rxFlightChannelsValid) {
-        failsafeOnValidDataReceived();
+        //failsafeOnValidDataReceived();
         //  --> start the timer to exit stage 2 failsafe
     } else {
-        failsafeOnValidDataFailed();
+        //failsafeOnValidDataFailed();
         //  -> start timer to enter stage2 failsafe
     }
 
-    DEBUG_SET(DEBUG_RX_SIGNAL_LOSS, 3, rcData[THROTTLE]);
+    //DEBUG_SET(DEBUG_RX_SIGNAL_LOSS, 3, rcData[THROTTLE]);
 }
 
-bool calculateRxChannelsAndUpdateFailsafe(timeUs_t currentTimeUs)
+bool calculateRxChannelsAndUpdateFailsafe(uint32_t currentTimeUs)
 {
     if (auxiliaryProcessingRequired) {
         auxiliaryProcessingRequired = !rxRuntimeState.rcProcessFrameFn(&rxRuntimeState);
@@ -692,12 +706,12 @@ bool calculateRxChannelsAndUpdateFailsafe(timeUs_t currentTimeUs)
     return true;
 }
 
-void parseRcChannels(const char *input, rxConfig_t *rxConfig)
+void parseRcChannels(const char *input)
 {
     for (const char *c = input; *c; c++) {
         const char *s = strchr(rcChannelLetters, *c);
         if (s && (s < rcChannelLetters + RX_MAPPABLE_CHANNEL_COUNT)) {
-            rxConfig->rcmap[s - rcChannelLetters] = c - input;
+            rcmap[s - rcChannelLetters] = c - input;
         }
     }
 }
@@ -733,7 +747,7 @@ void setRssi(uint16_t rssiValue, rssiSource_e source)
 
     // Filter RSSI value
     if (source == RSSI_SOURCE_FRAME_ERRORS) {
-        rssi = pt1FilterApply(&frameErrFilter, rssiValue);
+        //rssi = pt1FilterApply(&frameErrFilter, rssiValue);
     } else {
         // calculate new sample mean
         rssi = updateRssiSamples(rssiValue);
@@ -755,13 +769,13 @@ void setRssiMsp(uint8_t newMspRssi)
 static void updateRSSIPWM(void)
 {
     // Read value of AUX channel as rssi
-    int16_t pwmRssi = rcData[rxConfig()->rssi_channel - 1];
+    int16_t pwmRssi = rcData[10 - 1]; //.rssi_channel = 0
 
     // Range of rawPwmRssi is [1000;2000]. rssi should be in [0;1023];
     setRssiDirect(scaleRange(constrain(pwmRssi, PWM_RANGE_MIN, PWM_RANGE_MAX), PWM_RANGE_MIN, PWM_RANGE_MAX, 0, RSSI_MAX_VALUE), RSSI_SOURCE_RX_CHANNEL);
 }
 
-static void updateRSSIADC(timeUs_t currentTimeUs)
+static void updateRSSIADC(uint32_t currentTimeUs)
 {
 #ifndef USE_ADC
     UNUSED(currentTimeUs);
@@ -780,7 +794,7 @@ static void updateRSSIADC(timeUs_t currentTimeUs)
 #endif
 }
 
-void updateRSSI(timeUs_t currentTimeUs)
+void updateRSSI(uint32_t currentTimeUs)
 {
     switch (rssiSource) {
     case RSSI_SOURCE_RX_CHANNEL:
@@ -804,11 +818,11 @@ uint16_t getRssi(void)
     uint16_t rssiValue = rssi;
 
     // RSSI_Invert option
-    if (rxConfig()->rssi_invert) {
+    if (0) { //.rssi_invert = 0
         rssiValue = RSSI_MAX_VALUE - rssiValue;
     }
 
-    return rxConfig()->rssi_scale / 100.0f * rssiValue + rxConfig()->rssi_offset * RSSI_OFFSET_SCALING;
+    return 100 / 100.0f * rssiValue + 0 * RSSI_OFFSET_SCALING; //.rssi_scale = 100, .rssi_offset = 0
 }
 
 uint8_t getRssiPercent(void)
@@ -887,17 +901,17 @@ bool isRssiConfigured(void)
     return rssiSource != RSSI_SOURCE_NONE;
 }
 
-timeDelta_t rxGetFrameDelta(timeDelta_t *frameAgeUs)
+int32_t rxGetFrameDelta(int32_t *frameAgeUs)
 {
-    static timeUs_t previousFrameTimeUs = 0;
-    static timeDelta_t frameTimeDeltaUs = 0;
+    static uint32_t previousFrameTimeUs = 0;
+    static int32_t frameTimeDeltaUs = 0;
 
     if (rxRuntimeState.rcFrameTimeUsFn) {
-        const timeUs_t frameTimeUs = rxRuntimeState.rcFrameTimeUsFn();
+        const uint32_t frameTimeUs = rxRuntimeState.rcFrameTimeUsFn();
 
         *frameAgeUs = cmpTimeUs(micros(), frameTimeUs);
 
-        const timeDelta_t deltaUs = cmpTimeUs(frameTimeUs, previousFrameTimeUs);
+        const int32_t deltaUs = cmpTimeUs(frameTimeUs, previousFrameTimeUs);
         if (deltaUs) {
             frameTimeDeltaUs = deltaUs;
             previousFrameTimeUs = frameTimeUs;
@@ -907,7 +921,444 @@ timeDelta_t rxGetFrameDelta(timeDelta_t *frameAgeUs)
     return frameTimeDeltaUs;
 }
 
-timeUs_t rxFrameTimeUs(void)
+uint32_t rxFrameTimeUs(void)
 {
     return rxRuntimeState.lastRcFrameTimeUs;
+}
+
+
+
+/*
+ * processRx called from taskUpdateRxMain
+ */
+bool processRx(uint32_t currentTimeUs)
+{
+    if (!calculateRxChannelsAndUpdateFailsafe(currentTimeUs)) {
+        return false;
+    }
+
+    //updateRcRefreshRate(currentTimeUs);
+
+    // in 3D mode, we need to be able to disarm by switch at any time
+    // if (featureIsEnabled(FEATURE_3D)) {
+    //     if (!IS_RC_MODE_ACTIVE(BOXARM))
+    //         disarm(DISARM_REASON_SWITCH);
+    // }
+
+    updateRSSI(currentTimeUs);
+
+    // if (currentTimeUs > FAILSAFE_POWER_ON_DELAY_US && !failsafeIsMonitoring()) {
+    //     failsafeStartMonitoring();
+    // }
+
+    // const throttleStatus_e throttleStatus = calculateThrottleStatus();
+    // const uint8_t throttlePercent = calculateThrottlePercentAbs();
+
+    // const bool launchControlActive = isLaunchControlActive();
+
+    // if (airmodeIsEnabled() && ARMING_FLAG(ARMED) && !launchControlActive) {
+    //     if (throttlePercent >= rxConfig()->airModeActivateThreshold) {
+    //         airmodeIsActivated = true; // Prevent iterm from being reset
+    //     }
+    // } else {
+    //     airmodeIsActivated = false;
+    // }
+
+    /* In airmode iterm should be prevented to grow when Low thottle and Roll + Pitch Centered.
+     This is needed to prevent iterm winding on the ground, but keep full stabilisation on 0 throttle while in air */
+    // if (throttleStatus == THROTTLE_LOW && !airmodeIsActivated && !launchControlActive) {
+    //     pidSetItermReset(true);
+    //     if (currentPidProfile->pidAtMinThrottle)
+    //         pidStabilisationState(PID_STABILISATION_ON);
+    //     else
+    //         pidStabilisationState(PID_STABILISATION_OFF);
+    // } else {
+    //     pidSetItermReset(false);
+    //     pidStabilisationState(PID_STABILISATION_ON);
+    // }
+
+#ifdef USE_RUNAWAY_TAKEOFF
+    // If runaway_takeoff_prevention is enabled, accumulate the amount of time that throttle
+    // is above runaway_takeoff_deactivate_throttle with the any of the R/P/Y sticks deflected
+    // to at least runaway_takeoff_stick_percent percent while the pidSum on all axis is kept low.
+    // Once the amount of accumulated time exceeds runaway_takeoff_deactivate_delay then disable
+    // prevention for the remainder of the battery.
+
+    if (ARMING_FLAG(ARMED)
+        && pidConfig()->runaway_takeoff_prevention
+        && !runawayTakeoffCheckDisabled
+        && !flipOverAfterCrashActive
+        && !runawayTakeoffTemporarilyDisabled
+        && !isFixedWing()) {
+
+        // Determine if we're in "flight"
+        //   - motors running
+        //   - throttle over runaway_takeoff_deactivate_throttle_percent
+        //   - sticks are active and have deflection greater than runaway_takeoff_deactivate_stick_percent
+        //   - pidSum on all axis is less then runaway_takeoff_deactivate_pidlimit
+        bool inStableFlight = false;
+        if (!featureIsEnabled(FEATURE_MOTOR_STOP) || airmodeIsEnabled() || (throttleStatus != THROTTLE_LOW)) { // are motors running?
+            const uint8_t lowThrottleLimit = pidConfig()->runaway_takeoff_deactivate_throttle;
+            const uint8_t midThrottleLimit = constrain(lowThrottleLimit * 2, lowThrottleLimit * 2, RUNAWAY_TAKEOFF_HIGH_THROTTLE_PERCENT);
+            if ((((throttlePercent >= lowThrottleLimit) && areSticksActive(RUNAWAY_TAKEOFF_DEACTIVATE_STICK_PERCENT)) || (throttlePercent >= midThrottleLimit))
+                && (fabsf(pidData[FD_PITCH].Sum) < RUNAWAY_TAKEOFF_DEACTIVATE_PIDSUM_LIMIT)
+                && (fabsf(pidData[FD_ROLL].Sum) < RUNAWAY_TAKEOFF_DEACTIVATE_PIDSUM_LIMIT)
+                && (fabsf(pidData[FD_YAW].Sum) < RUNAWAY_TAKEOFF_DEACTIVATE_PIDSUM_LIMIT)) {
+
+                inStableFlight = true;
+                if (runawayTakeoffDeactivateUs == 0) {
+                    runawayTakeoffDeactivateUs = currentTimeUs;
+                }
+            }
+        }
+
+        // If we're in flight, then accumulate the time and deactivate once it exceeds runaway_takeoff_deactivate_delay milliseconds
+        if (inStableFlight) {
+            if (runawayTakeoffDeactivateUs == 0) {
+                runawayTakeoffDeactivateUs = currentTimeUs;
+            }
+            uint16_t deactivateDelay = pidConfig()->runaway_takeoff_deactivate_delay;
+            // at high throttle levels reduce deactivation delay by 50%
+            if (throttlePercent >= RUNAWAY_TAKEOFF_HIGH_THROTTLE_PERCENT) {
+                deactivateDelay = deactivateDelay / 2;
+            }
+            if ((cmpTimeUs(currentTimeUs, runawayTakeoffDeactivateUs) + runawayTakeoffAccumulatedUs) > deactivateDelay * 1000) {
+                runawayTakeoffCheckDisabled = true;
+            }
+
+        } else {
+            if (runawayTakeoffDeactivateUs != 0) {
+                runawayTakeoffAccumulatedUs += cmpTimeUs(currentTimeUs, runawayTakeoffDeactivateUs);
+            }
+            runawayTakeoffDeactivateUs = 0;
+        }
+        if (runawayTakeoffDeactivateUs == 0) {
+            DEBUG_SET(DEBUG_RUNAWAY_TAKEOFF, DEBUG_RUNAWAY_TAKEOFF_DEACTIVATING_DELAY, DEBUG_RUNAWAY_TAKEOFF_FALSE);
+            DEBUG_SET(DEBUG_RUNAWAY_TAKEOFF, DEBUG_RUNAWAY_TAKEOFF_DEACTIVATING_TIME, runawayTakeoffAccumulatedUs / 1000);
+        } else {
+            DEBUG_SET(DEBUG_RUNAWAY_TAKEOFF, DEBUG_RUNAWAY_TAKEOFF_DEACTIVATING_DELAY, DEBUG_RUNAWAY_TAKEOFF_TRUE);
+            DEBUG_SET(DEBUG_RUNAWAY_TAKEOFF, DEBUG_RUNAWAY_TAKEOFF_DEACTIVATING_TIME, (cmpTimeUs(currentTimeUs, runawayTakeoffDeactivateUs) + runawayTakeoffAccumulatedUs) / 1000);
+        }
+    } else {
+        DEBUG_SET(DEBUG_RUNAWAY_TAKEOFF, DEBUG_RUNAWAY_TAKEOFF_DEACTIVATING_DELAY, DEBUG_RUNAWAY_TAKEOFF_FALSE);
+        DEBUG_SET(DEBUG_RUNAWAY_TAKEOFF, DEBUG_RUNAWAY_TAKEOFF_DEACTIVATING_TIME, DEBUG_RUNAWAY_TAKEOFF_FALSE);
+    }
+#endif
+
+#ifdef USE_LAUNCH_CONTROL
+    if (ARMING_FLAG(ARMED)) {
+        if (launchControlActive && (throttlePercent > currentPidProfile->launchControlThrottlePercent)) {
+            // throttle limit trigger reached, launch triggered
+            // reset the iterms as they may be at high values from holding the launch position
+            launchControlState = LAUNCH_CONTROL_TRIGGERED;
+            pidResetIterm();
+        }
+    } else {
+        if (launchControlState == LAUNCH_CONTROL_TRIGGERED) {
+            // If trigger mode is MULTIPLE then reset the state when disarmed
+            // and the mode switch is turned off.
+            // For trigger mode SINGLE we never reset the state and only a single
+            // launch is allowed until a reboot.
+            if (currentPidProfile->launchControlAllowTriggerReset && !IS_RC_MODE_ACTIVE(BOXLAUNCHCONTROL)) {
+                launchControlState = LAUNCH_CONTROL_DISABLED;
+            }
+        } else {
+            launchControlState = LAUNCH_CONTROL_DISABLED;
+        }
+    }
+#endif
+
+    return true;
+}
+
+void processRxModes(uint32_t currentTimeUs)
+{
+    //static bool armedBeeperOn = false;
+#ifdef USE_TELEMETRY
+    static bool sharedPortTelemetryEnabled = false;
+#endif
+    //const throttleStatus_e throttleStatus = calculateThrottleStatus();
+
+    // When armed and motors aren't spinning, do beeps and then disarm
+    // board after delay so users without buzzer won't lose fingers.
+    // mixTable constrains motor commands, so checking  throttleStatus is enough
+    // const timeUs_t autoDisarmDelayUs = armingConfig()->auto_disarm_delay * 1e6;
+    // if (ARMING_FLAG(ARMED)
+    //     && featureIsEnabled(FEATURE_MOTOR_STOP)
+    //     && !isFixedWing()
+    //     && !featureIsEnabled(FEATURE_3D)
+    //     && !airmodeIsEnabled()
+    //     && !FLIGHT_MODE(GPS_RESCUE_MODE)  // disable auto-disarm when GPS Rescue is active
+    // ) {
+    //     if (isUsingSticksForArming()) {
+    //         if (throttleStatus == THROTTLE_LOW) {
+    //             if ((autoDisarmDelayUs > 0) && (currentTimeUs > disarmAt)) {
+    //                 // auto-disarm configured and delay is over
+    //                 disarm(DISARM_REASON_THROTTLE_TIMEOUT);
+    //                 armedBeeperOn = false;
+    //             } else {
+    //                 // still armed; do warning beeps while armed
+    //                 beeper(BEEPER_ARMED);
+    //                 armedBeeperOn = true;
+    //             }
+    //         } else {
+    //             // throttle is not low - extend disarm time
+    //             disarmAt = currentTimeUs + autoDisarmDelayUs;
+
+    //             if (armedBeeperOn) {
+    //                 beeperSilence();
+    //                 armedBeeperOn = false;
+    //             }
+    //         }
+    //     } else {
+    //         // arming is via AUX switch; beep while throttle low
+    //         if (throttleStatus == THROTTLE_LOW) {
+    //             beeper(BEEPER_ARMED);
+    //             armedBeeperOn = true;
+    //         } else if (armedBeeperOn) {
+    //             beeperSilence();
+    //             armedBeeperOn = false;
+    //         }
+    //     }
+    // } else {
+    //     disarmAt = currentTimeUs + autoDisarmDelayUs;  // extend auto-disarm timer
+    // }
+
+    // if (!(IS_RC_MODE_ACTIVE(BOXPARALYZE) && !ARMING_FLAG(ARMED))
+#ifdef USE_CMS
+        && !cmsInMenu
+#endif
+    //    ) {
+    //    processRcStickPositions();
+    //}
+
+    // if (featureIsEnabled(FEATURE_INFLIGHT_ACC_CAL)) {
+    //     updateInflightCalibrationState();
+    // }
+
+    //updateActivatedModes();
+
+#ifdef USE_DSHOT
+    /* Enable beep warning when the crash flip mode is active */
+    if (flipOverAfterCrashActive) {
+        beeper(BEEPER_CRASH_FLIP_MODE);
+    }
+#endif
+
+    // if (!cliMode && !(IS_RC_MODE_ACTIVE(BOXPARALYZE) && !ARMING_FLAG(ARMED))) {
+    //     processRcAdjustments(currentControlRateProfile);
+    // }
+
+    // bool canUseHorizonMode = true;
+
+    // if ((IS_RC_MODE_ACTIVE(BOXANGLE) || failsafeIsActive()) && (sensors(SENSOR_ACC))) {
+    //     // bumpless transfer to Level mode
+    //     canUseHorizonMode = false;
+
+    //     if (!FLIGHT_MODE(ANGLE_MODE)) {
+    //         ENABLE_FLIGHT_MODE(ANGLE_MODE);
+    //     }
+    // } else {
+    //     DISABLE_FLIGHT_MODE(ANGLE_MODE); // failsafe support
+    // }
+
+    // if (IS_RC_MODE_ACTIVE(BOXHORIZON) && canUseHorizonMode) {
+
+    //     DISABLE_FLIGHT_MODE(ANGLE_MODE);
+
+    //     if (!FLIGHT_MODE(HORIZON_MODE)) {
+    //         ENABLE_FLIGHT_MODE(HORIZON_MODE);
+    //     }
+    // } else {
+    //     DISABLE_FLIGHT_MODE(HORIZON_MODE);
+    // }
+
+#ifdef USE_GPS_RESCUE
+    if (ARMING_FLAG(ARMED) && (IS_RC_MODE_ACTIVE(BOXGPSRESCUE) || (failsafeIsActive() && failsafeConfig()->failsafe_procedure == FAILSAFE_PROCEDURE_GPS_RESCUE))) {
+        if (!FLIGHT_MODE(GPS_RESCUE_MODE)) {
+            ENABLE_FLIGHT_MODE(GPS_RESCUE_MODE);
+        }
+    } else {
+        DISABLE_FLIGHT_MODE(GPS_RESCUE_MODE);
+    }
+#endif
+
+    // if (FLIGHT_MODE(ANGLE_MODE) || FLIGHT_MODE(HORIZON_MODE)) {
+    //     LED1_ON;
+    //     // increase frequency of attitude task to reduce drift when in angle or horizon mode
+    //     rescheduleTask(TASK_ATTITUDE, TASK_PERIOD_HZ(500));
+    // } else {
+    //     LED1_OFF;
+    //     rescheduleTask(TASK_ATTITUDE, TASK_PERIOD_HZ(100));
+    // }
+
+    // if (!IS_RC_MODE_ACTIVE(BOXPREARM) && ARMING_FLAG(WAS_ARMED_WITH_PREARM)) {
+    //     DISABLE_ARMING_FLAG(WAS_ARMED_WITH_PREARM);
+    // }
+
+#if defined(USE_ACC) || defined(USE_MAG)
+    if (sensors(SENSOR_ACC) || sensors(SENSOR_MAG)) {
+#if defined(USE_GPS) || defined(USE_MAG)
+        if (IS_RC_MODE_ACTIVE(BOXMAG)) {
+            if (!FLIGHT_MODE(MAG_MODE)) {
+                ENABLE_FLIGHT_MODE(MAG_MODE);
+                magHold = DECIDEGREES_TO_DEGREES(attitude.values.yaw);
+            }
+        } else {
+            DISABLE_FLIGHT_MODE(MAG_MODE);
+        }
+#endif
+        if (IS_RC_MODE_ACTIVE(BOXHEADFREE) && !FLIGHT_MODE(GPS_RESCUE_MODE)) {
+            if (!FLIGHT_MODE(HEADFREE_MODE)) {
+                ENABLE_FLIGHT_MODE(HEADFREE_MODE);
+            }
+        } else {
+            DISABLE_FLIGHT_MODE(HEADFREE_MODE);
+        }
+        if (IS_RC_MODE_ACTIVE(BOXHEADADJ) && !FLIGHT_MODE(GPS_RESCUE_MODE)) {
+            if (imuQuaternionHeadfreeOffsetSet()) {
+               beeper(BEEPER_RX_SET);
+            }
+        }
+    }
+#endif
+
+    // if (IS_RC_MODE_ACTIVE(BOXPASSTHRU)) {
+    //     ENABLE_FLIGHT_MODE(PASSTHRU_MODE);
+    // } else {
+    //     DISABLE_FLIGHT_MODE(PASSTHRU_MODE);
+    // }
+
+    // if (mixerConfig()->mixerMode == MIXER_FLYING_WING || mixerConfig()->mixerMode == MIXER_AIRPLANE) {
+    //     DISABLE_FLIGHT_MODE(HEADFREE_MODE);
+    // }
+
+#ifdef USE_TELEMETRY
+    if (featureIsEnabled(FEATURE_TELEMETRY)) {
+        bool enableSharedPortTelemetry = (!isModeActivationConditionPresent(BOXTELEMETRY) && ARMING_FLAG(ARMED)) || (isModeActivationConditionPresent(BOXTELEMETRY) && IS_RC_MODE_ACTIVE(BOXTELEMETRY));
+        if (enableSharedPortTelemetry && !sharedPortTelemetryEnabled) {
+            mspSerialReleaseSharedTelemetryPorts();
+            telemetryCheckState();
+
+            sharedPortTelemetryEnabled = true;
+        } else if (!enableSharedPortTelemetry && sharedPortTelemetryEnabled) {
+            // the telemetry state must be checked immediately so that shared serial ports are released.
+            telemetryCheckState();
+            mspSerialAllocatePorts();
+
+            sharedPortTelemetryEnabled = false;
+        }
+    }
+#endif
+
+#ifdef USE_VTX_CONTROL
+    vtxUpdateActivatedChannel();
+
+    if (canUpdateVTX()) {
+        handleVTXControlButton();
+    }
+#endif
+
+#ifdef USE_ACRO_TRAINER
+    pidSetAcroTrainerState(IS_RC_MODE_ACTIVE(BOXACROTRAINER) && sensors(SENSOR_ACC));
+#endif // USE_ACRO_TRAINER
+
+#ifdef USE_RC_SMOOTHING_FILTER
+    if (ARMING_FLAG(ARMED) && !rcSmoothingInitializationComplete()) {
+        beeper(BEEPER_RC_SMOOTHING_INIT_FAIL);
+    }
+#endif
+
+    //pidSetAntiGravityState(IS_RC_MODE_ACTIVE(BOXANTIGRAVITY) || featureIsEnabled(FEATURE_ANTI_GRAVITY));
+}
+
+#define THROTTLE_LOOKUP_LENGTH 12
+static int16_t lookupThrottleRC[THROTTLE_LOOKUP_LENGTH];    // lookup table for expo & mid THROTTLE
+
+static int16_t rcLookupThrottle(int32_t tmp)
+{
+    const int32_t tmp2 = tmp / 100;
+    // [0;1000] -> expo -> [MINTHROTTLE;MAXTHROTTLE]
+    return lookupThrottleRC[tmp2] + (tmp - tmp2 * 100) * (lookupThrottleRC[tmp2 + 1] - lookupThrottleRC[tmp2]) / 100;
+}
+
+void updateRcCommands(void)
+{
+    isRxDataNew = true;
+
+    for (int axis = 0; axis < 3; axis++) {
+        // non coupled PID reduction scaler used in PID controller 1 and PID controller 2.
+
+        float tmp = MIN(ABS(rcData[axis] - 1500), 500);
+        if (axis == ROLL || axis == PITCH) {
+            if (tmp > 5) {
+                tmp -= 5;
+            } else {
+                tmp = 0;
+            }
+            rcCommand[axis] = tmp;
+        } else {
+            if (tmp > 5) {
+                tmp -= 5;
+            } else {
+                tmp = 0;
+            }
+            rcCommand[axis] = tmp * -GET_DIRECTION(false);
+        }
+        if (rcData[axis] < 1500) {
+            rcCommand[axis] = -rcCommand[axis];
+        }
+    }
+
+    int32_t tmp;
+    // if (featureIsEnabled(FEATURE_3D)) {
+    //     tmp = constrain(rcData[THROTTLE], PWM_RANGE_MIN, PWM_RANGE_MAX);
+    //     tmp = (uint32_t)(tmp - PWM_RANGE_MIN);
+    // } else
+    {
+        tmp = constrain(rcData[THROTTLE], 1050, PWM_RANGE_MAX);
+        tmp = (uint32_t)(tmp - 1050) * PWM_RANGE_MIN / (PWM_RANGE_MAX - 1050);
+    }
+
+    // if (getLowVoltageCutoff()->enabled) {
+    //     tmp = tmp * getLowVoltageCutoff()->percentage / 100;
+    // }
+
+    rcCommand[THROTTLE] = rcLookupThrottle(tmp);
+
+    // if (featureIsEnabled(FEATURE_3D) && !failsafeIsActive()) {
+    //     if (!flight3DConfig()->switched_mode3d) {
+    //         if (IS_RC_MODE_ACTIVE(BOX3D)) {
+    //             fix12_t throttleScaler = qConstruct(rcCommand[THROTTLE] - 1000, 1000);
+    //             rcCommand[THROTTLE] = rxConfig()->midrc + qMultiply(throttleScaler, PWM_RANGE_MAX - rxConfig()->midrc);
+    //         }
+    //     } else {
+    //         if (IS_RC_MODE_ACTIVE(BOX3D)) {
+    //             reverseMotors = true;
+    //             fix12_t throttleScaler = qConstruct(rcCommand[THROTTLE] - 1000, 1000);
+    //             rcCommand[THROTTLE] = rxConfig()->midrc + qMultiply(throttleScaler, PWM_RANGE_MIN - rxConfig()->midrc);
+    //         } else {
+    //             reverseMotors = false;
+    //             fix12_t throttleScaler = qConstruct(rcCommand[THROTTLE] - 1000, 1000);
+    //             rcCommand[THROTTLE] = rxConfig()->midrc + qMultiply(throttleScaler, PWM_RANGE_MAX - rxConfig()->midrc);
+    //         }
+    //     }
+    // }
+    // if (FLIGHT_MODE(HEADFREE_MODE)) {
+    //     static t_fp_vector_def  rcCommandBuff;
+
+    //     rcCommandBuff.X = rcCommand[ROLL];
+    //     rcCommandBuff.Y = rcCommand[PITCH];
+    //     if ((!FLIGHT_MODE(ANGLE_MODE) && (!FLIGHT_MODE(HORIZON_MODE)) && (!FLIGHT_MODE(GPS_RESCUE_MODE)))) {
+    //         rcCommandBuff.Z = rcCommand[YAW];
+    //     } else {
+    //         rcCommandBuff.Z = 0;
+    //     }
+    //     imuQuaternionHeadfreeTransformVectorEarthToBody(&rcCommandBuff);
+    //     rcCommand[ROLL] = rcCommandBuff.X;
+    //     rcCommand[PITCH] = rcCommandBuff.Y;
+    //     if ((!FLIGHT_MODE(ANGLE_MODE)&&(!FLIGHT_MODE(HORIZON_MODE)) && (!FLIGHT_MODE(GPS_RESCUE_MODE)))) {
+    //         rcCommand[YAW] = rcCommandBuff.Z;
+    //     }
+    // }
 }
