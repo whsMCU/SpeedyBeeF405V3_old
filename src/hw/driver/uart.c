@@ -14,7 +14,7 @@
 static bool is_open[UART_MAX_CH];
 
 static Queue_t ring_buffer[UART_MAX_CH];
-static uint8_t u1_rx_buf[MAX_SIZE];
+//static uint8_t u1_rx_buf[MAX_SIZE];
 static uint8_t u2_rx_buf[MAX_SIZE];
 
 
@@ -261,11 +261,11 @@ void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
 
   if(huart->ErrorCode == HAL_UART_ERROR_FE) //current USART
   {
-    HAL_UART_Receive_DMA(&huart2, (uint8_t*)&u1_rx_buf[0], 1);
+    HAL_UART_Receive_DMA(&huart2, (uint8_t*)&u2_rx_buf[0], 1);
   }
   if(huart->ErrorCode == HAL_UART_ERROR_NE) //current USART
   {
-    HAL_UART_Receive_DMA(&huart2, (uint8_t*)&u1_rx_buf[0], 1);
+    HAL_UART_Receive_DMA(&huart2, (uint8_t*)&u2_rx_buf[0], 1);
   }
 }
 
@@ -275,11 +275,11 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
   //  {
   //  	Q_write(&ring_buffer[_DEF_UART1], &rx_data[_DEF_UART1], 1);
   //  }
-  if(huart->Instance == USART2)
-  {
-    Q_write(&ring_buffer[_DEF_UART2], &u2_rx_buf[0], 1);
-    cliPrintf("%d",u2_rx_buf[0]);
-  }
+  // if(huart->Instance == USART2)
+  // {
+  //   Q_write(&ring_buffer[_DEF_UART2], &u2_rx_buf[0], 1);
+  //   cliPrintf("%d",u2_rx_buf[0]);
+  // }
 }
 
 void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
