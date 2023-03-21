@@ -103,7 +103,7 @@ typedef struct sbusFrameData_s {
 } sbusFrameData_t;
 
 // Receive ISR callback
-void sbusDataReceive(uint16_t c, void *data)
+void sbusDataReceive(uint8_t c, void *data)
 {
     sbusFrameData_t *sbusFrameData = data;
 

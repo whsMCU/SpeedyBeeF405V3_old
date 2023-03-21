@@ -31,6 +31,7 @@
 #include "maths.h"
 #include "utils.h"
 #include "axis.h"
+#include "uart.h"
 //#include "rx/crsf.h"
 
 float rcCommand[4];           // interval [1000;2000] for THROTTLE and [-500;+500] for ROLL/PITCH/YAW
@@ -696,6 +697,10 @@ bool calculateRxChannelsAndUpdateFailsafe(uint32_t currentTimeUs)
         }
 
         return true;
+    }
+
+    if(uartAvailable(_DEF_UART2)){
+        sbusDataReceive(uartRead(_DEF_UART2), &rxRuntimeState.frameData);
     }
 
     readRxChannelsApplyRanges();            // returns rcRaw

@@ -26,6 +26,7 @@
 
 #include "tasks.h"
 #include "maths.h"
+#include "rx.h"
 
 #include "scheduler.h"
 
@@ -490,7 +491,7 @@ void scheduler(void)
             // Check for incoming RX data. Don't do this in the checker as that is called repeatedly within
             // a given gyro loop, and ELRS takes a long time to process this and so can only be safely processed
             // before the checkers
-            //rxFrameCheck(currentTimeUs, cmpTimeUs(currentTimeUs, getTask(TASK_RX)->lastExecutedAtUs));
+            rxFrameCheck(currentTimeUs, cmpTimeUs(currentTimeUs, getTask(TASK_RX)->lastExecutedAtUs));
 
             // Check for failsafe conditions without reliance on the RX task being well behaved
             // if (cmp32(millis(), lastFailsafeCheckMs) > PERIOD_RXDATA_FAILURE) {

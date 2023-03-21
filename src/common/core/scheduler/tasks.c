@@ -391,7 +391,7 @@ void tasksInit(void)
     }
 #endif
 
-    //setTaskEnabled(TASK_RX, true);
+    setTaskEnabled(TASK_RX, true);
 
     //setTaskEnabled(TASK_DISPATCH, dispatchIsEnabled());
 

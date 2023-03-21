@@ -21,4 +21,4 @@
 #pragma once
 
 bool sbusInit(rxRuntimeState_t *rxRuntimeState);
-void sbusDataReceive(uint16_t c, void *data);
+void sbusDataReceive(uint8_t c, void *data);
