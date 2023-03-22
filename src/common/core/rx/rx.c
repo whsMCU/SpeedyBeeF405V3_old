@@ -32,6 +32,7 @@
 #include "utils.h"
 #include "axis.h"
 #include "uart.h"
+#include "cli.h"
 //#include "rx/crsf.h"
 
 float rcCommand[4];           // interval [1000;2000] for THROTTLE and [-500;+500] for ROLL/PITCH/YAW
@@ -226,6 +227,10 @@ static bool serialRxInit(rxRuntimeState_t *rxRuntimeState)
 }
 #endif
 
+#ifdef _USE_HW_CLI
+static void cliRx(cli_args_t *args);
+#endif
+
 void rxInit(void)
 {
     rxRuntimeState.rxProvider = RX_PROVIDER_SERIAL;
@@ -320,6 +325,10 @@ void rxInit(void)
     //pt1FilterInit(&frameErrFilter, pt1FilterGain(GET_FRAME_ERR_LPF_FREQUENCY(rxConfig()->rssi_src_frame_lpf_period), FRAME_ERR_RESAMPLE_US/1000000.0));
 
     rxChannelCount = MIN(6 + NON_AUX_CHANNEL_COUNT, rxRuntimeState.channelCount);
+    
+    #ifdef _USE_HW_CLI
+        cliAdd("rx", cliRx);
+    #endif
 }
 
 bool rxIsReceivingSignal(void)
@@ -1367,3 +1376,31 @@ void updateRcCommands(void)
     //     }
     // }
 }
+
+
+#ifdef _USE_HW_CLI
+void cliRx(cli_args_t *args)
+{
+  bool ret = false;
+
+if (args->argc == 1 && args->isStr(0, "rx_show") == true)
+  {
+    uint32_t pre_time;
+ 	pre_time = millis();
+    while(cliKeepLoop())
+    {
+        if (millis()-pre_time >= 1000)
+    	{
+     		pre_time = millis();
+            cliPrintf("rx: %d\n\r", rcRaw[0]);
+    	}
+    }
+    ret = true;
+  }
+
+  if (ret != true)
+  {
+    cliPrintf("Rx rx_show \n\r");
+  }
+}
+#endif
