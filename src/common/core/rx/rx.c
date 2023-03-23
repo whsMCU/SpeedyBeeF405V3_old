@@ -1389,6 +1389,7 @@ if (args->argc == 1 && args->isStr(0, "rx_show") == true)
  	pre_time = millis();
     while(cliKeepLoop())
     {
+        scheduler();
         if (millis()-pre_time >= 1000)
     	{
      		pre_time = millis();

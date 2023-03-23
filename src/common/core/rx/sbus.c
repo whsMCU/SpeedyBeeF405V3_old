@@ -185,7 +185,7 @@ bool sbusInit(rxRuntimeState_t *rxRuntimeState)
 #else
     bool portShared = false;
 #endif
-
+    uartOpen(_DEF_UART2, sbusBaudRate); // UART2 = RC
     // serialPort_t *sBusPort = openSerialPort(portConfig->identifier,
     //     FUNCTION_RX_SERIAL,
     //     sbusDataReceive,
