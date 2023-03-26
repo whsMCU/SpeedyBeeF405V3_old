@@ -708,7 +708,7 @@ bool calculateRxChannelsAndUpdateFailsafe(uint32_t currentTimeUs)
         return true;
     }
 
-    if(uartAvailable(_DEF_UART2)){
+    while(uartAvailable(_DEF_UART2)){
         sbusDataReceive(uartRead(_DEF_UART2), &rxRuntimeState.frameData);
     }
 
