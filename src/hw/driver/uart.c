@@ -45,14 +45,14 @@ bool uartOpen(uint8_t ch, uint32_t baud)
     case _DEF_UART2:
     	huart2.Instance = USART2;
     	huart2.Init.BaudRate = baud;
-    	huart2.Init.WordLength = UART_WORDLENGTH_8B;
+    	huart2.Init.WordLength = UART_WORDLENGTH_9B;
       huart2.Init.StopBits = UART_STOPBITS_2;
     	huart2.Init.Parity = UART_PARITY_EVEN;
     	huart2.Init.Mode = UART_MODE_TX_RX;
     	huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
     	huart2.Init.OverSampling = UART_OVERSAMPLING_16;
 
-    	QueueCreate(&ring_buffer[ch], &u2_rx_buf[0], MAX_SIZE);
+    	QueueCreate(&ring_buffer[ch], (uint8_t *)&u2_rx_buf[0], MAX_SIZE);
 
     	if (HAL_UART_Init(&huart2) != HAL_OK)
     	{
@@ -100,12 +100,12 @@ uint8_t uartRead(uint8_t ch)
 
   switch(ch)
   {
-    case _DEF_UART2:
-    	Q_read(&ring_buffer[_DEF_UART2], &ret, 1);
-      break;
-
     case _DEF_USB:
       ret = cdcRead();
+      break;
+
+    case _DEF_UART2:
+    	Q_read(&ring_buffer[ch], &ret, 1);
       break;
   }
 
@@ -119,16 +119,17 @@ uint32_t uartWrite(uint8_t ch, uint8_t *p_data, uint32_t length)
 
   switch(ch)
   {
+
+    case _DEF_USB:
+      ret = cdcWrite(p_data, length);
+      break; 
+
     case _DEF_UART2:
       status = HAL_UART_Transmit(&huart2, p_data, length, 100);
       if (status == HAL_OK)
       {
         ret = length;
       }
-      break;
-
-    case _DEF_USB:
-      ret = cdcWrite(p_data, length);
       break;
   }
 
@@ -142,8 +143,7 @@ uint32_t uartWriteIT(uint8_t ch, uint8_t *p_data, uint32_t length)
 
   switch(ch)
   {
-
-    case _DEF_UART2:
+    case _DEF_USB:
       status = HAL_UART_Transmit_IT(&huart2, p_data, length);
       if (status == HAL_OK)
       {
@@ -151,7 +151,7 @@ uint32_t uartWriteIT(uint8_t ch, uint8_t *p_data, uint32_t length)
       }
       break;
 
-    case _DEF_USB:
+    case _DEF_UART2:
       status = HAL_UART_Transmit_IT(&huart2, p_data, length);
       if (status == HAL_OK)
       {
@@ -261,11 +261,11 @@ void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
 
   if(huart->ErrorCode == HAL_UART_ERROR_FE) //current USART
   {
-    HAL_UART_Receive_DMA(&huart2, (uint8_t*)&u2_rx_buf[0], 1);
+    //HAL_UART_Receive_DMA(&huart2, (uint8_t*)&u2_rx_buf[0], 1);
   }
   if(huart->ErrorCode == HAL_UART_ERROR_NE) //current USART
   {
-    HAL_UART_Receive_DMA(&huart2, (uint8_t*)&u2_rx_buf[0], 1);
+    //HAL_UART_Receive_DMA(&huart2, (uint8_t*)&u2_rx_buf[0], 1);
   }
 }
 
