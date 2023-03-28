@@ -709,7 +709,7 @@ bool calculateRxChannelsAndUpdateFailsafe(uint32_t currentTimeUs)
     }
 
     while(uartAvailable(_DEF_UART2)){
-        sbusDataReceive(uartRead(_DEF_UART2), &rxRuntimeState.frameData);
+        sbusDataReceive(uartRead(_DEF_UART2), rxRuntimeState.frameData);
     }
 
     readRxChannelsApplyRanges();            // returns rcRaw
@@ -1383,7 +1383,7 @@ void cliRx(cli_args_t *args)
 {
   bool ret = false;
 
-if (args->argc == 1 && args->isStr(0, "rx_show") == true)
+if (args->argc == 1 && args->isStr(0, "show") == true)
   {
     uint32_t pre_time;
  	pre_time = millis();
@@ -1393,7 +1393,7 @@ if (args->argc == 1 && args->isStr(0, "rx_show") == true)
         if (millis()-pre_time >= 1000)
     	{
      		pre_time = millis();
-            cliPrintf("rx: %d\n\r", rcRaw[0]);
+            cliPrintf("rx: %f, %f, %f, %f\n\r", rcRaw[0], rcRaw[1], rcRaw[2], rcRaw[3]);
     	}
     }
     ret = true;
@@ -1401,7 +1401,7 @@ if (args->argc == 1 && args->isStr(0, "rx_show") == true)
 
   if (ret != true)
   {
-    cliPrintf("Rx rx_show \n\r");
+    cliPrintf("Rx show \n\r");
   }
 }
 #endif
