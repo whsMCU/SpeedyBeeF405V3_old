@@ -240,6 +240,7 @@ void rxInit(void)
     rxRuntimeState.rcProcessFrameFn = nullProcessFrame;
     rxRuntimeState.lastRcFrameTimeUs = 0;
     rcSampleIndex = 0;
+    parseRcChannels("AETR1234");
 
     for (int i = 0; i < MAX_SUPPORTED_RC_CHANNEL_COUNT; i++) {
         rcData[i] = 1500;
@@ -1393,7 +1394,8 @@ if (args->argc == 1 && args->isStr(0, "show") == true)
         if (millis()-pre_time >= 1000)
     	{
      		pre_time = millis();
-            cliPrintf("rx: %f, %f, %f, %f\n\r", rcRaw[0], rcRaw[1], rcRaw[2], rcRaw[3]);
+            cliPrintf("rx: %f, %f, %f, %f, %f, %f, %f, %f, %f, %f\n\r", rcRaw[0], rcRaw[1], rcRaw[2], rcRaw[3], rcRaw[4],
+            rcRaw[5], rcRaw[6], rcRaw[7], rcRaw[8], rcRaw[9]);
     	}
     }
     ret = true;

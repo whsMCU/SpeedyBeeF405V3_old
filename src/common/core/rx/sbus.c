@@ -121,7 +121,7 @@ void sbusDataReceive(uint8_t c, void *data)
         }
         sbusFrameData->startAtUs = nowUs;
     }
-
+ 
     if (sbusFrameData->position < SBUS_FRAME_SIZE) {
         sbusFrameData->frame.bytes[sbusFrameData->position++] = (uint8_t)c;
         if (sbusFrameData->position < SBUS_FRAME_SIZE) {
