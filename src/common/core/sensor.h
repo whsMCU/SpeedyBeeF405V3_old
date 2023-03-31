@@ -12,6 +12,20 @@
 #include "def.h"
 #include "axis.h"
 #include "maths.h"
+#include "pg.h"
+
+typedef struct imuConfig_s {
+    uint16_t dcm_kp;                        // DCM filter proportional gain ( x 10000)
+    uint16_t dcm_ki;                        // DCM filter integral gain ( x 10000)
+    uint8_t small_angle;
+} imuConfig_t;
+
+PG_DECLARE(imuConfig_t, imuConfig);
+
+typedef struct imuRuntimeConfig_s {
+  float dcm_ki;
+  float dcm_kp;
+} imuRuntimeConfig_t;
 
 typedef struct {
     float w,x,y,z;
@@ -91,6 +105,8 @@ typedef struct sensor_Dev_s
   imuSensor_t   imuSensor1;
   int16_t       temperature;
 } sensor_Dev_t;
+
+void imuConfigure(void);
 
 bool Sensor_Init(void);
 void gyroUpdate(void);

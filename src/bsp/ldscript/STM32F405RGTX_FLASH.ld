@@ -37,9 +37,11 @@ _Min_Stack_Size = 0x400;	/* required amount of stack */
 /* Memories definition */
 MEMORY
 {
-  CCMRAM    (xrw)    : ORIGIN = 0x10000000,   LENGTH = 64K
-  RAM    (xrw)    : ORIGIN = 0x20000000,   LENGTH = 128K
-  FLASH    (rx)    : ORIGIN = 0x8000000,   LENGTH = 1024K
+  CCMRAM    (xrw)    : ORIGIN = 0x10000000,   LENGTH =   64K
+  RAM       (xrw)    : ORIGIN = 0x20000000,   LENGTH =  128K
+  VECTOR    (rx)     : ORIGIN = 0x08000000,   LENGTH =    1K
+  PG        (rx)     : ORIGIN = 0x08000400,   LENGTH =    1K
+  FLASH     (rx)     : ORIGIN = 0x08000800,   LENGTH = 1022K
 }
 
 /* Sections */
@@ -51,7 +53,22 @@ SECTIONS
     . = ALIGN(4);
     KEEP(*(.isr_vector)) /* Startup code */
     . = ALIGN(4);
-  } >FLASH
+  } >VECTOR
+
+  /* The startup code into "FLASH" Rom type memory */
+  .pg_registry :
+  {
+    . = ALIGN(4);
+    KEEP(*(.pg_registry)) /* Parameter Gruop code */
+    . = ALIGN(4);
+  } >PG
+
+    .pg_resetdata :
+  {
+    . = ALIGN(4);
+    KEEP(*(.pg_resetdata)) /* Parameter Gruop code */
+    . = ALIGN(4);
+  } >PG
 
   /* The program code and other data into "FLASH" Rom type memory */
   .text :
