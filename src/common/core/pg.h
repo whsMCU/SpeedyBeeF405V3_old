@@ -124,6 +124,31 @@ typedef struct motorMixer_s {
     struct _dummy                                                       \
     /**/
 
+    // const imuConfig_t pgResetTemplate_imuConfig __attribute__ ((section(".pg_resetdata"), used, aligned(2))) = {
+    //     .dcm_kp = 2500,                // 1.0 * 10000
+    //     .dcm_ki = 0,                   // 0.003 * 10000
+    //     .small_angle = 25,
+    // }
+
+    // extern const imuConfig_t pgResetTemplate_imuConfig;
+    // PG_REGISTER_I(imuConfig_t, imuConfig, PG_IMU_CONFIG, 2, .reset = {.ptr = (void*)&pgResetTemplate_imuConfig})
+
+    // imuConfig_t imuConfig_System;
+    // imuConfig_t imuConfig_Copy;
+    // uint32_t imuConfig_fnv_hash;
+
+    // extern const pgRegistry_t imuConfig_Registry;
+    // const pgRegistry_t imuConfig_Registry __attribute__ ((section(".pg_registry"), used, aligned(4))) = {
+    //     .pgn = _pgn | (2 << 12),
+    //     .length = 1,
+    //     .size = sizeof(imuConfig_t) | 0x0000,
+    //     .address = (uint8_t*)&imuConfig_System,
+    //     .fnv_hash = &imuConfig_fnv_hash,
+    //     .copy = (uint8_t*)&imuConfig_Copy,
+    //     .prt = 0,
+    //     _reset,
+    //     }
+
 // Register system config
 #define PG_REGISTER_I(_type, _name, _pgn, _version, _reset)             \
     _type _name ## _System;                                             \
