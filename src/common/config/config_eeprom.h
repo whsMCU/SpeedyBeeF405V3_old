@@ -18,35 +18,20 @@
  * If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <stdbool.h>
+#pragma once
+
 #include <stdint.h>
-#include <string.h>
-#include <math.h>
+#include <stdbool.h>
 
-#include "cli.h"
-#include "rx.h"
-#include "config.h"
-#include "sensor.h"
+#define EEPROM_CONF_VERSION 174
 
-static void activateConfig(void)
-{
-    imuConfigure();
-}
+extern uint8_t __config_start;   // configured via linker script when building binaries.
+extern uint8_t __config_end;
 
-bool readEEPROM(void)
-{
-    suspendRxSignal();
+// bool isEEPROMVersionValid(void);
+// bool isEEPROMStructureValid(void);
+bool loadEEPROM(void);
+// void writeConfigToEEPROM(void);
 
-    // Sanity check, read flash
-    bool success = loadEEPROM();
-
-    //featureInit();
-
-    //validateAndFixConfig();
-
-    activateConfig();
-
-    resumeRxSignal();
-
-    return success;
-}
+// uint16_t getEEPROMConfigSize(void);
+// size_t getEEPROMStorageSize(void);
