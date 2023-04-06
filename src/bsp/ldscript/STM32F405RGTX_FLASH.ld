@@ -31,10 +31,6 @@ ENTRY(Reset_Handler)
 /* Highest address of the user mode stack */
 _estack = ORIGIN(RAM) + LENGTH(RAM);	/* end of "RAM" Ram type memory */
 
-/* Base address where the config is stored. */
-__config_start = ORIGIN(FLASH_CONFIG);
-__config_end = ORIGIN(FLASH_CONFIG) + LENGTH(FLASH_CONFIG);
-
 _Min_Heap_Size = 0x200;	/* required amount of heap  */
 _Min_Stack_Size = 0x400;	/* required amount of stack */
 
@@ -43,10 +39,9 @@ MEMORY
 {
   CCMRAM         (xrw)    : ORIGIN = 0x10000000,   LENGTH =    64K
   RAM            (xrw)    : ORIGIN = 0x20000000,   LENGTH =   128K
-  VECTOR         (rx)     : ORIGIN = 0x08000000,   LENGTH =    16K
-  FLASH_CONFIG   (r)      : ORIGIN = 0x08004000,   LENGTH =    16K
+  VECTOR         (rx)     : ORIGIN = 0x08000000,   LENGTH =     1K
   PG             (rx)     : ORIGIN = 0x08008000,   LENGTH =     1K
-  FLASH          (rx)     : ORIGIN = 0x08008400,   LENGTH =   991K
+  FLASH          (rx)     : ORIGIN = 0x08008400,   LENGTH =  1022K
 }
 
 /* Sections */
@@ -68,15 +63,6 @@ SECTIONS
     KEEP(*(.pg_registry)) /* Parameter Gruop code */
     . = ALIGN(4);
     PROVIDE_HIDDEN (__pg_registry_end = .);
-  } >PG
-
-    .pg_resetdata :
-  {
-    . = ALIGN(4);
-    PROVIDE_HIDDEN (__pg_resetdata_start = .);
-    KEEP(*(.pg_resetdata)) /* Parameter Gruop code */
-    . = ALIGN(4);
-    PROVIDE_HIDDEN (__pg_resetdata_end = .);
   } >PG
 
   /* The program code and other data into "FLASH" Rom type memory */

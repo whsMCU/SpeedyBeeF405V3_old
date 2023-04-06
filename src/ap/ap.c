@@ -11,7 +11,6 @@
 #include "scheduler.h"
 #include "tasks.h"
 #include "rx.h"
-#include "config.h"
 
 void apInit(void)
 {
@@ -19,10 +18,6 @@ void apInit(void)
 	// Initialize task data as soon as possible. Has to be done before tasksInit(),
     // and any init code that may try to modify task behaviour before tasksInit().
     tasksInitData();
-
-	ensureEEPROMStructureIsValid();
-	readEEPROM();
-
 	Sensor_Init();
 	Baro_Init();
 	tasksInit();

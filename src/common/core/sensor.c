@@ -9,17 +9,15 @@
 #include "bmi270.h"
 #include "cli.h"
 #include "led.h"
-#include "pg.h"
-#include "pg_ids.h"
 
 static bool is_init = false;
 
 #define CALIBRATING_ACC_CYCLES              512
 #define acc_lpf_factor 4
 
-// #define dcm_kp 2500                // 1.0 * 10000
-// #define dcm_ki 0                   // 0.003 * 10000
-// #define small_angle 25
+#define dcm_kp 2500                // 1.0 * 10000
+#define dcm_ki 0                   // 0.003 * 10000
+#define small_angle 25
 
 #define SPIN_RATE_LIMIT 20
 
@@ -30,17 +28,10 @@ static bool is_init = false;
 #define GPS_COG_MIN_GROUNDSPEED 500        // 500cm/s minimum groundspeed for a gps heading to be considered valid
 
 float accAverage[XYZ_AXIS_COUNT];
-float gyroAverage[XYZ_AXIS_COUNT];
+
 static float gyro_accumulatedMeasurements[XYZ_AXIS_COUNT];
 static float gyroPrevious[XYZ_AXIS_COUNT];
 static int gyro_accumulatedMeasurementCount;
-
-// static float throttleAngleScale;
-// static int throttleAngleValue;
-static float fc_acc;
-static float smallAngleCosZ = 0;
-
-static imuRuntimeConfig_t imuRuntimeConfig;
 
 float rMat[3][3];
 
@@ -61,14 +52,6 @@ static sensor_Dev_t sensor;
 #ifdef _USE_HW_CLI
 static void cliSensor(cli_args_t *args);
 #endif
-
-PG_REGISTER_WITH_RESET_TEMPLATE(imuConfig_t, imuConfig, PG_IMU_CONFIG, 1);
-
-PG_RESET_TEMPLATE(imuConfig_t, imuConfig,
-    .dcm_kp = 2500,                // 1.0 * 10000
-    .dcm_ki = 0,                   // 0.003 * 10000
-    .small_angle = 25,
-);
 
 static void imuQuaternionComputeProducts(quaternion *quat, quaternionProducts *quatProd)
 {
@@ -99,29 +82,6 @@ static void imuComputeRotationMatrix(void)
     rMat[2][0] = 2.0f * (qP.xz + -qP.wy);
     rMat[2][1] = 2.0f * (qP.yz - -qP.wx);
     rMat[2][2] = 1.0f - 2.0f * qP.xx - 2.0f * qP.yy;
-}
-
-/*
-* Calculate RC time constant used in the accZ lpf.
-*/
-static float calculateAccZLowPassFilterRCTimeConstant(float accz_lpf_cutoff)
-{
-    return 0.5f / (M_PIf * accz_lpf_cutoff);
-}
-
-// static float calculateThrottleAngleScale(uint16_t throttle_correction_angle)
-// {
-//     return (1800.0f / M_PIf) * (900.0f / throttle_correction_angle);
-// }
-
-void imuConfigure(void)
-{
-    imuRuntimeConfig.dcm_kp = imuConfig()->dcm_kp / 10000.0f;
-    imuRuntimeConfig.dcm_ki = imuConfig()->dcm_ki / 10000.0f;
-
-    smallAngleCosZ = cos_approx(degreesToRadians(imuConfig()->small_angle));
-
-    fc_acc = calculateAccZLowPassFilterRCTimeConstant(5.0f); // Set to fix value
 }
 
 static void Calibrate_gyro(void)
@@ -439,10 +399,10 @@ static void imuMahonyAHRSupdate(float dt, float gx, float gy, float gz,
     }
 
     // Compute and apply integral feedback if enabled
-    if (imuRuntimeConfig.dcm_ki > 0.0f) {
+    if (dcm_ki > 0.0f) {
         // Stop integrating if spinning beyond the certain limit
         if (spin_rate < DEGREES_TO_RADIANS(SPIN_RATE_LIMIT)) {
-            const float dcmKiGain = imuRuntimeConfig.dcm_ki;
+            const float dcmKiGain = dcm_ki;
             integralFBx += dcmKiGain * ex * dt;    // integral error scaled by Ki
             integralFBy += dcmKiGain * ey * dt;
             integralFBz += dcmKiGain * ez * dt;
@@ -576,7 +536,7 @@ static float imuCalcKpGain(uint32_t currentTimeUs, bool useAcc, float *gyroAvera
   if (attitudeResetActive) {
       ret = ATTITUDE_RESET_KP_GAIN;
   } else {
-      ret = imuRuntimeConfig.dcm_kp;
+      ret = dcm_kp;
       if (!armState) {
         ret = ret * 10.0f; // Scale the kP to generally converge faster when disarmed.
       }
@@ -605,7 +565,6 @@ static void imuUpdateEulerAngles(void)
         attitude.values.yaw += 3600;
     }
 }
-
 
 void imuCalculateEstimatedAttitude(uint32_t currentTimeUs)
 {
@@ -646,7 +605,7 @@ void imuCalculateEstimatedAttitude(uint32_t currentTimeUs)
         }
     }
     #endif
-
+    float gyroAverage[XYZ_AXIS_COUNT];
     gyroGetAccumulationAverage(gyroAverage);
 
     if (accGetAccumulationAverage(accAverage)) {

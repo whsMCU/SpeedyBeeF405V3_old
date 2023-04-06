@@ -25,7 +25,6 @@
 #include "scheduler/scheduler.h"
 
 #include "barometer.h"
-//#include "sensors/gyro.h"
 #include "sensor.h"
 #include "led.h"
 
@@ -58,17 +57,15 @@ static void ledUpdate(uint32_t currentTimeUs)
     }
 }
 
+
 static void debugPrint(uint32_t currentTimeUs)
 {
     DEBUG_print();
     //baro.BaroAlt
     //cliPrintf("BARO : %d cm, Load : %d %, count : %d \n\r", baro.BaroAlt, getAverageSystemLoadPercent(), getCycleCounter());
-    // cliPrintf("IMU R: %d, P: %d, Y: %d\n\r",    attitude.values.roll,
-    //                                             attitude.values.pitch,
-    //                                             attitude.values.yaw);
-    cliPrintf("IMU R: %d, P: %d, Y: %d\n\r",    imuConfig()->dcm_kp,
-                                    imuConfig()->dcm_ki,
-                                    imuConfig()->small_angle);                                      
+    cliPrintf("IMU R: %d, P: %d, Y: %d\n\r",    attitude.values.roll,
+                                                attitude.values.pitch,
+                                                attitude.values.yaw);
 
 
     // cliPrintf("ACC R: %d, P: %d, Y: %d\n\r",    sensor.imuSensor1.imuDev.accADCRaw[X],
