@@ -20,7 +20,8 @@ void apInit(void)
     // and any init code that may try to modify task behaviour before tasksInit().
     tasksInitData();
 
-	bool readSuccess = readEEPROM();
+	ensureEEPROMStructureIsValid();
+	readEEPROM();
 
 	Sensor_Init();
 	Baro_Init();

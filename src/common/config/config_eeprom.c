@@ -27,7 +27,7 @@
 #include "utils.h"
 
 #include "config_eeprom.h"
-//#include "config/config_streamer.h"
+#include "config_streamer.h"
 #include "pg.h"
 #include "config.h"
 
@@ -68,11 +68,11 @@ typedef struct {
     uint8_t pg[];
 } PG_PACKED configRecord_t;
 
-// // Footer for the saved copy.
-// typedef struct {
-//     uint16_t terminator;
-// } PG_PACKED configFooter_t;
-// // checksum is appended just after footer. It is not included in footer to make checksum calculation consistent
+// Footer for the saved copy.
+typedef struct {
+    uint16_t terminator;
+} PG_PACKED configFooter_t;
+// checksum is appended just after footer. It is not included in footer to make checksum calculation consistent
 
 // // Used to check the compiler packing at build time.
 // typedef struct {
@@ -266,64 +266,64 @@ typedef struct {
 // #endif
 // }
 
-// bool isEEPROMVersionValid(void)
-// {
-//     const uint8_t *p = &__config_start;
-//     const configHeader_t *header = (const configHeader_t *)p;
+bool isEEPROMVersionValid(void)
+{
+    const uint8_t *p = &__config_start;
+    const configHeader_t *header = (const configHeader_t *)p;
 
-//     if (header->eepromConfigVersion != EEPROM_CONF_VERSION) {
-//         return false;
-//     }
+    if (header->eepromConfigVersion != EEPROM_CONF_VERSION) {
+        return false;
+    }
 
-//     return true;
-// }
+    return true;
+}
 
-// // Scan the EEPROM config. Returns true if the config is valid.
-// bool isEEPROMStructureValid(void)
-// {
-//     const uint8_t *p = &__config_start;
-//     const configHeader_t *header = (const configHeader_t *)p;
+// Scan the EEPROM config. Returns true if the config is valid.
+bool isEEPROMStructureValid(void)
+{
+    const uint8_t *p = &__config_start;
+    const configHeader_t *header = (const configHeader_t *)p;
 
-//     if (header->magic_be != 0xBE) {
-//         return false;
-//     }
+    if (header->magic_be != 0xBE) {
+        return false;
+    }
 
-//     uint16_t crc = CRC_START_VALUE;
-//     crc = crc16_ccitt_update(crc, header, sizeof(*header));
-//     p += sizeof(*header);
+    uint16_t crc = CRC_START_VALUE;
+    crc = crc16_ccitt_update(crc, header, sizeof(*header));
+    p += sizeof(*header);
 
-//     for (;;) {
-//         const configRecord_t *record = (const configRecord_t *)p;
+    for (;;) {
+        const configRecord_t *record = (const configRecord_t *)p;
 
-//         if (record->size == 0) {
-//             // Found the end.  Stop scanning.
-//             break;
-//         }
-//         if (p + record->size >= &__config_end
-//             || record->size < sizeof(*record)) {
-//             // Too big or too small.
-//             return false;
-//         }
+        if (record->size == 0) {
+            // Found the end.  Stop scanning.
+            break;
+        }
+        if (p + record->size >= &__config_end
+            || record->size < sizeof(*record)) {
+            // Too big or too small.
+            return false;
+        }
 
-//         crc = crc16_ccitt_update(crc, p, record->size);
+        crc = crc16_ccitt_update(crc, p, record->size);
 
-//         p += record->size;
-//     }
+        p += record->size;
+    }
 
-//     const configFooter_t *footer = (const configFooter_t *)p;
-//     crc = crc16_ccitt_update(crc, footer, sizeof(*footer));
-//     p += sizeof(*footer);
+    const configFooter_t *footer = (const configFooter_t *)p;
+    crc = crc16_ccitt_update(crc, footer, sizeof(*footer));
+    p += sizeof(*footer);
 
-//     // include stored CRC in the CRC calculation
-//     const uint16_t *storedCrc = (const uint16_t *)p;
-//     crc = crc16_ccitt_update(crc, storedCrc, sizeof(*storedCrc));
-//     p += sizeof(storedCrc);
+    // include stored CRC in the CRC calculation
+    const uint16_t *storedCrc = (const uint16_t *)p;
+    crc = crc16_ccitt_update(crc, storedCrc, sizeof(*storedCrc));
+    p += sizeof(storedCrc);
 
-//     eepromConfigSize = p - &__config_start;
+    eepromConfigSize = p - &__config_start;
 
-//     // CRC has the property that if the CRC itself is included in the calculation the resulting CRC will have constant value
-//     return crc == CRC_CHECK_VALUE;
-// }
+    // CRC has the property that if the CRC itself is included in the calculation the resulting CRC will have constant value
+    return crc == CRC_CHECK_VALUE;
+}
 
 // uint16_t getEEPROMConfigSize(void)
 // {
@@ -391,91 +391,91 @@ bool loadEEPROM(void)
     return success;
 }
 
-// static bool writeSettingsToEEPROM(void)
-// {
-//     bool dirtyConfig = !isEEPROMVersionValid() || !isEEPROMStructureValid();
+static bool writeSettingsToEEPROM(void)
+{
+    bool dirtyConfig = !isEEPROMVersionValid() || !isEEPROMStructureValid();
 
-//     configHeader_t header = {
-//         .eepromConfigVersion =  EEPROM_CONF_VERSION,
-//         .magic_be =             0xBE,
-//     };
+    configHeader_t header = {
+        .eepromConfigVersion =  EEPROM_CONF_VERSION,
+        .magic_be =             0xBE,
+    };
 
-//     PG_FOREACH(reg) {
-//         if (*reg->fnv_hash != fnv_update(FNV_OFFSET_BASIS, reg->address, pgSize(reg))) {
-//             dirtyConfig = true;
-//         }
-//     }
+    PG_FOREACH(reg) {
+        if (*reg->fnv_hash != fnv_update(FNV_OFFSET_BASIS, reg->address, pgSize(reg))) {
+            dirtyConfig = true;
+        }
+    }
 
-//     // Only write the config if it has changed
-//     if (dirtyConfig) {
-//         config_streamer_t streamer;
-//         config_streamer_init(&streamer);
+    // Only write the config if it has changed
+    if (dirtyConfig) {
+        config_streamer_t streamer;
+        config_streamer_init(&streamer);
 
-//         config_streamer_start(&streamer, (uintptr_t)&__config_start, &__config_end - &__config_start);
+        config_streamer_start(&streamer, (uintptr_t)&__config_start, &__config_end - &__config_start);
 
-//         config_streamer_write(&streamer, (uint8_t *)&header, sizeof(header));
-//         uint16_t crc = CRC_START_VALUE;
-//         crc = crc16_ccitt_update(crc, (uint8_t *)&header, sizeof(header));
-//         PG_FOREACH(reg) {
-//             const uint16_t regSize = pgSize(reg);
-//             configRecord_t record = {
-//                 .size = sizeof(configRecord_t) + regSize,
-//                 .pgn = pgN(reg),
-//                 .version = pgVersion(reg),
-//                 .flags = 0,
-//             };
-
-
-//             record.flags |= CR_CLASSICATION_SYSTEM;
-//             config_streamer_write(&streamer, (uint8_t *)&record, sizeof(record));
-//             crc = crc16_ccitt_update(crc, (uint8_t *)&record, sizeof(record));
-//             config_streamer_write(&streamer, reg->address, regSize);
-//             crc = crc16_ccitt_update(crc, reg->address, regSize);
-//         }
-
-//         configFooter_t footer = {
-//             .terminator = 0,
-//         };
-
-//         config_streamer_write(&streamer, (uint8_t *)&footer, sizeof(footer));
-//         crc = crc16_ccitt_update(crc, (uint8_t *)&footer, sizeof(footer));
-
-//         // include inverted CRC in big endian format in the CRC
-//         const uint16_t invertedBigEndianCrc = ~(((crc & 0xFF) << 8) | (crc >> 8));
-//         config_streamer_write(&streamer, (uint8_t *)&invertedBigEndianCrc, sizeof(crc));
-
-//         config_streamer_flush(&streamer);
-
-//         return (config_streamer_finish(&streamer) == 0);
-//     } else {
-//         return true;
-//     }
-// }
-
-// void writeConfigToEEPROM(void)
-// {
-//     bool success = false;
-//     // write it
-//     for (int attempt = 0; attempt < 3 && !success; attempt++) {
-//         if (writeSettingsToEEPROM()) {
-//             success = true;
-
-// #ifdef CONFIG_IN_EXTERNAL_FLASH
-//             // copy it back from flash to the in-memory buffer.
-//             success = loadEEPROMFromExternalFlash();
-// #endif
-// #ifdef CONFIG_IN_SDCARD
-//             // copy it back from flash to the in-memory buffer.
-//             success = loadEEPROMFromSDCard();
-// #endif
-//         }
-//     }
+        config_streamer_write(&streamer, (uint8_t *)&header, sizeof(header));
+        uint16_t crc = CRC_START_VALUE;
+        crc = crc16_ccitt_update(crc, (uint8_t *)&header, sizeof(header));
+        PG_FOREACH(reg) {
+            const uint16_t regSize = pgSize(reg);
+            configRecord_t record = {
+                .size = sizeof(configRecord_t) + regSize,
+                .pgn = pgN(reg),
+                .version = pgVersion(reg),
+                .flags = 0,
+            };
 
 
-//     if (success && isEEPROMVersionValid() && isEEPROMStructureValid()) {
-//         return;
-//     }
+            record.flags |= CR_CLASSICATION_SYSTEM;
+            config_streamer_write(&streamer, (uint8_t *)&record, sizeof(record));
+            crc = crc16_ccitt_update(crc, (uint8_t *)&record, sizeof(record));
+            config_streamer_write(&streamer, reg->address, regSize);
+            crc = crc16_ccitt_update(crc, reg->address, regSize);
+        }
 
-//     // Flash write failed - just die now
-//     failureMode(FAILURE_CONFIG_STORE_FAILURE);
-// }
+        configFooter_t footer = {
+            .terminator = 0,
+        };
+
+        config_streamer_write(&streamer, (uint8_t *)&footer, sizeof(footer));
+        crc = crc16_ccitt_update(crc, (uint8_t *)&footer, sizeof(footer));
+
+        // include inverted CRC in big endian format in the CRC
+        const uint16_t invertedBigEndianCrc = ~(((crc & 0xFF) << 8) | (crc >> 8));
+        config_streamer_write(&streamer, (uint8_t *)&invertedBigEndianCrc, sizeof(crc));
+
+        config_streamer_flush(&streamer);
+
+        return (config_streamer_finish(&streamer) == 0);
+    } else {
+        return true;
+    }
+}
+
+void writeConfigToEEPROM(void)
+{
+    bool success = false;
+    // write it
+    for (int attempt = 0; attempt < 3 && !success; attempt++) {
+        if (writeSettingsToEEPROM()) {
+            success = true;
+
+#ifdef CONFIG_IN_EXTERNAL_FLASH
+            // copy it back from flash to the in-memory buffer.
+            success = loadEEPROMFromExternalFlash();
+#endif
+#ifdef CONFIG_IN_SDCARD
+            // copy it back from flash to the in-memory buffer.
+            success = loadEEPROMFromSDCard();
+#endif
+        }
+    }
+
+
+    if (success && isEEPROMVersionValid() && isEEPROMStructureValid()) {
+        return;
+    }
+
+    // Flash write failed - just die now
+    //failureMode(FAILURE_CONFIG_STORE_FAILURE);
+}
