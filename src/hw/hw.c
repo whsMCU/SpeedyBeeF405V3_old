@@ -10,21 +10,6 @@
 
 static void MX_DMA_Init(void);
 
-typedef struct
-{
-  uint32_t magic_number;
-  char version_str[32];
-} version_info_t;
-
-__attribute__((section(".pg_registry"))) version_info_t verstion_info =
-{
-  .magic_number = 0x5555AAAA,
-  .version_str = "V230331R1"
-};
-
-const version_info_t *p_verstion_info = (version_info_t *)0x8000400;
-
-
 void hwInit(void)
 {
   bspInit();

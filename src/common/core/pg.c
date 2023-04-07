@@ -22,82 +22,68 @@
 #include <string.h>
 #include <stdint.h>
 
-
-#include "crc.h"
-#include "maths.h"
-
 #include "pg.h"
 
-const pgRegistry_t* pgFind(pgn_t pgn)
+typedef struct
 {
-    PG_FOREACH(reg) {
-        if (pgN(reg) == pgn) {
-            return reg;
-        }
-    }
-    return NULL;
-}
+  uint32_t magic_number;
+  char version_str[32];
+} version_info_t;
 
-static uint8_t *pgOffset(const pgRegistry_t* reg)
+__attribute__((section(".pg_registry"))) version_info_t verstion_info =
 {
-    return reg->address;
-}
+  .magic_number = 0x5555AAAA,
+  .version_str = "V230331R1"
+};
 
-void pgResetInstance(const pgRegistry_t *reg, uint8_t *base)
+const version_info_t *p_verstion_info = (version_info_t *)0x8000400;
+
+typedef enum {
+    PID_ROLL,
+    PID_PITCH,
+    PID_YAW,
+    PID_LEVEL,
+    PID_MAG,
+    PID_ITEM_COUNT
+} pidIndex_e;
+
+typedef struct pidf_s {
+    uint8_t P;
+    uint8_t I;
+    uint8_t D;
+} pidf_t;
+
+typedef struct pidPG_s {
+    pidf_t  outer_pid[PID_ITEM_COUNT];
+    pidf_t  inerer_pid[PID_ITEM_COUNT];
+} pidPG_t;
+
+__attribute__((section(".pg_registry"))) pidPG_t pid_pg =
 {
-    const uint16_t regSize = pgSize(reg);
+    .outer_pid[PID_ROLL].P = 100,
+    .outer_pid[PID_ROLL].I = 10,
+    .outer_pid[PID_ROLL].D = 1,
 
-    memset(base, 0, regSize);
-    if (reg->reset.ptr >= (void*)__pg_resetdata_start && reg->reset.ptr < (void*)__pg_resetdata_end) {
-        // pointer points to resetdata section, to it is data template
-        memcpy(base, reg->reset.ptr, regSize);
-    } else if (reg->reset.fn) {
-        // reset function, call it
-        reg->reset.fn(base);
-    }
-}
+    .outer_pid[PID_PITCH].P = 100,
+    .outer_pid[PID_PITCH].I = 10,
+    .outer_pid[PID_PITCH].D = 1,
 
-void pgReset(const pgRegistry_t* reg)
-{
-    pgResetInstance(reg, pgOffset(reg));
-}
+    .outer_pid[PID_YAW].P = 100,
+    .outer_pid[PID_YAW].I = 10,
+    .outer_pid[PID_YAW].D = 1,
 
-bool pgResetCopy(void *copy, pgn_t pgn)
-{
-    const pgRegistry_t *reg = pgFind(pgn);
-    if (reg) {
-        pgResetInstance(reg, copy);
-        return true;
-    }
-    return false;
-}
 
-bool pgLoad(const pgRegistry_t* reg, const void *from, int size, int version)
-{
-    pgResetInstance(reg, pgOffset(reg));
-    // restore only matching version, keep defaults otherwise
-    if (version == pgVersion(reg)) {
-        const int take = MIN(size, pgSize(reg));
-        memcpy(pgOffset(reg), from, take);
+    .inerer_pid[PID_ROLL].P = 100,
+    .inerer_pid[PID_ROLL].I = 10,
+    .inerer_pid[PID_ROLL].D = 1,
 
-        *reg->fnv_hash = fnv_update(FNV_OFFSET_BASIS, from, take);
+    .inerer_pid[PID_PITCH].P = 100,
+    .inerer_pid[PID_PITCH].I = 10,
+    .inerer_pid[PID_PITCH].D = 1,
 
-        return true;
-    }
+    .inerer_pid[PID_YAW].P = 100,
+    .inerer_pid[PID_YAW].I = 10,
+    .inerer_pid[PID_YAW].D = 1,
+};
 
-    return false;
-}
-
-int pgStore(const pgRegistry_t* reg, void *to, int size)
-{
-    const int take = MIN(size, pgSize(reg));
-    memcpy(to, pgOffset(reg), take);
-    return take;
-}
-
-void pgResetAll(void)
-{
-    PG_FOREACH(reg) {
-        pgReset(reg);
-    }
-}
+const pidPG_t *p_pid_pg = (pidPG_t *)(0x8000400+sizeof(version_info_t));
