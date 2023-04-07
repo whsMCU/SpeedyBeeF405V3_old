@@ -536,7 +536,7 @@ static float imuCalcKpGain(uint32_t currentTimeUs, bool useAcc, float *gyroAvera
   if (attitudeResetActive) {
       ret = ATTITUDE_RESET_KP_GAIN;
   } else {
-      ret = dcm_kp;
+      ret = 0.25;
       if (!armState) {
         ret = ret * 10.0f; // Scale the kP to generally converge faster when disarmed.
       }
