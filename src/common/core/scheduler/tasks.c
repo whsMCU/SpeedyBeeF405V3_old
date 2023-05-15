@@ -27,6 +27,7 @@
 #include "barometer.h"
 #include "sensor.h"
 #include "led.h"
+#include "telemetry.h"
 
 #include "tasks.h"
 #include "rx.h"
@@ -88,6 +89,7 @@ static void taskHandleSerial(uint32_t currentTimeUs)
     }
 #endif
     cliMain();
+    SerialCom();
     // bool evaluateMspData = ARMING_FLAG(ARMED) ? MSP_SKIP_NON_MSP_DATA : MSP_EVALUATE_NON_MSP_DATA;
     // mspSerialProcess(evaluateMspData, mspFcProcessCommand, mspFcProcessReply);
 }
