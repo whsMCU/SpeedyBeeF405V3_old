@@ -6,11 +6,11 @@
 	],
 	"settings": {
 		"cmake.configureArgs": [
-			"-DARM_TOOLCHAIN_DIR=C:/tools/gcc-arm-none-eabi-10.3-2021.07/bin",
-			"-DCMAKE_MAKE_PROGRAM=C:/tools/xpack-windows-build-tools-4.3.0-1/bin/make.exe"
+			"-DARM_TOOLCHAIN_DIR=C:/tools/gcc-arm-none-eabi-10.3-2021.10/bin",
+			"-DCMAKE_MAKE_PROGRAM=C:/tools/xpack-windows-build-tools-4.4.0-1/bin/make.exe"
 		],
 		"cmake.generator": "Unix Makefiles",
-		"cortex-debug.armToolchainPath": "C:/tools/gcc-arm-none-eabi-10.3-2021.07/bin",
+		"cortex-debug.armToolchainPath": "C:/tools/gcc-arm-none-eabi-10.3-2021.10/bin",
 		"files.associations": {
 			"hw.h": "c",
 			"usbd_cdc_if.h": "c",
