@@ -11,15 +11,17 @@
 		],
 		"cmake.generator": "Unix Makefiles",
 		"cortex-debug.armToolchainPath": "C:/tools/gcc-arm-none-eabi-10.3-2021.10/bin",
-		"files.associations": {
-			"hw.h": "c",
-			"usbd_cdc_if.h": "c",
-			"usbd_cdc.h": "c",
-			"ap.h": "c",
-			"uart.h": "c",
-			"barometer.h": "c"
-		},
 		"cortex-debug.openocdPath": "C:/tools/OpenOCD-20230111-0.12.0/bin",
-		"cortex-debug.variableUseNaturalFormat": true
+		"cortex-debug.variableUseNaturalFormat": true,
+		"files.associations": {
+			"hw_def.h": "c",
+			"sensor.h": "c",
+			"scheduler.h": "c",
+			"compass_qmc5883l.h": "c",
+			"barometer_dps310.h": "c",
+			"gpio.h": "c",
+			"compass.h": "c",
+			"def.h": "c"
+		},
 	}
 }

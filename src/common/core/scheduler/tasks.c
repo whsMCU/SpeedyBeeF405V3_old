@@ -26,6 +26,7 @@
 
 #include "barometer.h"
 #include "sensor.h"
+#include "compass.h"
 #include "led.h"
 #include "telemetry.h"
 
@@ -62,8 +63,7 @@ static void ledUpdate(uint32_t currentTimeUs)
 static void debugPrint(uint32_t currentTimeUs)
 {
     DEBUG_print();
-    //baro.BaroAlt
-    //cliPrintf("BARO : %d cm, Load : %d %, count : %d \n\r", baro.BaroAlt, getAverageSystemLoadPercent(), getCycleCounter());
+    cliPrintf("BARO : %d cm, Load : %d, count : %d \n\r", baro.BaroAlt, getAverageSystemLoadPercent(), getCycleCounter());
     // cliPrintf("IMU R: %d, P: %d, Y: %d\n\r",    attitude.values.roll,
     //                                             attitude.values.pitch,
     //                                             attitude.values.yaw);
@@ -210,19 +210,17 @@ static void taskUpdateBaro(uint32_t currentTimeUs)
         }
 }
 
-#ifdef USE_MAG
 static void taskUpdateMag(uint32_t currentTimeUs)
 {
     UNUSED(currentTimeUs);
 
-    if (sensors(SENSOR_MAG)) {
+    if (true) {
         const uint32_t newDeadline = compassUpdate(currentTimeUs);
         if (newDeadline != 0) {
             rescheduleTask(TASK_SELF, newDeadline);
         }
     }
 }
-#endif
 
 #if defined(USE_RANGEFINDER)
 void taskUpdateRangefinder(uint32_t currentTimeUs)
@@ -311,9 +309,7 @@ task_attribute_t task_attributes[TASK_COUNT] = {
     [TASK_GPS] = DEFINE_TASK("GPS", NULL, NULL, gpsUpdate, TASK_PERIOD_HZ(TASK_GPS_RATE), TASK_PRIORITY_MEDIUM), // Required to prevent buffer overruns if running at 115200 baud (115 bytes / period < 256 bytes buffer)
 #endif
 
-#ifdef USE_MAG
     [TASK_COMPASS] = DEFINE_TASK("COMPASS", NULL, NULL, taskUpdateMag, TASK_PERIOD_HZ(10), TASK_PRIORITY_LOW),
-#endif
 
     [TASK_BARO] = DEFINE_TASK("BARO", NULL, NULL, taskUpdateBaro, TASK_PERIOD_HZ(20), TASK_PRIORITY_LOW),
 
@@ -406,9 +402,7 @@ void tasksInit(void)
     setTaskEnabled(TASK_GPS, featureIsEnabled(FEATURE_GPS));
 #endif
 
-#ifdef USE_MAG
-    setTaskEnabled(TASK_COMPASS, sensors(SENSOR_MAG));
-#endif
+    setTaskEnabled(TASK_COMPASS, true);
 
     setTaskEnabled(TASK_BARO, true);
 

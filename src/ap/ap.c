@@ -20,6 +20,7 @@ void apInit(void)
     tasksInitData();
 	Sensor_Init();
 	Baro_Init();
+	compassInit();
 	tasksInit();
 	rxInit();
 }

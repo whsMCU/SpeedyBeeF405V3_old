@@ -4,8 +4,6 @@
 #include "def.h"
 #include "sensor.h"
 
-#define _PIN_DEF_CS 0
-
 bool bmi270_Init(imuSensor_t *gyro);
 bool bmi270Detect(uint8_t ch);
 bool bmi270SpiAccRead(imuSensor_t *gyro);

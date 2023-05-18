@@ -22,6 +22,8 @@
 #include "bmi270.h"
 #include "barometer.h"
 #include "barometer_dps310.h"
+#include "compass.h"
+#include "compass_qmc5883l.h"
 
 
 void hwInit(void);

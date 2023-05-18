@@ -4,8 +4,6 @@
 #include "def.h"
 #include "barometer.h"
 
-#define _PIN_DEF_CS 0
-
 bool dps310_Init(baroDev_t *baro);
 bool dps310Detect(baroDev_t *baro);
 bool dps310AddrRead(void);
