@@ -76,7 +76,7 @@ static bool qmc5883lInit(magDev_t *magDev)
     uint8_t temp;
 
     temp = 0x01;
-    ack = ack && I2C_ByteWrite_HAL(magDev->address, 0x0B, 1, &temp, 1);
+    ack = ack && I2C_ByteWrite_HAL(magDev->address, 0x0B, I2C_MEMADD_SIZE_8BIT, &temp, 1);
     ack = ack && I2C_ByteWrite_HAL(magDev->address, QMC5883L_REG_CONF1, 1, QMC5883L_MODE_CONTINUOUS | QMC5883L_ODR_200HZ | QMC5883L_OSR_512 | QMC5883L_RNG_8G, 1);
 
     if (!ack) {
