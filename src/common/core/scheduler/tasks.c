@@ -22,11 +22,12 @@
 #include <stdlib.h>
 #include <stdint.h>
 
-#include "scheduler/scheduler.h"
+#include "scheduler.h"
 
 #include "barometer.h"
 #include "sensor.h"
 #include "compass.h"
+#include "driver/gps/gps.h"
 #include "led.h"
 #include "telemetry.h"
 
@@ -304,9 +305,7 @@ task_attribute_t task_attributes[TASK_COUNT] = {
     [TASK_BEEPER] = DEFINE_TASK("BEEPER", NULL, NULL, beeperUpdate, TASK_PERIOD_HZ(100), TASK_PRIORITY_LOW),
 #endif
 
-#ifdef USE_GPS
     [TASK_GPS] = DEFINE_TASK("GPS", NULL, NULL, gpsUpdate, TASK_PERIOD_HZ(TASK_GPS_RATE), TASK_PRIORITY_MEDIUM), // Required to prevent buffer overruns if running at 115200 baud (115 bytes / period < 256 bytes buffer)
-#endif
 
     [TASK_COMPASS] = DEFINE_TASK("COMPASS", NULL, NULL, taskUpdateMag, TASK_PERIOD_HZ(10), TASK_PRIORITY_LOW),
 
@@ -397,9 +396,7 @@ void tasksInit(void)
     setTaskEnabled(TASK_BEEPER, true);
 #endif
 
-#ifdef USE_GPS
-    setTaskEnabled(TASK_GPS, featureIsEnabled(FEATURE_GPS));
-#endif
+    setTaskEnabled(TASK_GPS, true);
 
     setTaskEnabled(TASK_COMPASS, true);
 

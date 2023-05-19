@@ -24,6 +24,7 @@
 #include "barometer_dps310.h"
 #include "compass.h"
 #include "compass_qmc5883l.h"
+#include "gps.h"
 
 
 void hwInit(void);

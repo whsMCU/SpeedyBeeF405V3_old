@@ -18,6 +18,26 @@
 
 #define UART_MAX_CH         HW_UART_MAX_CH
 
+typedef enum {
+    BAUD_AUTO = 0,
+    BAUD_9600,
+    BAUD_19200,
+    BAUD_38400,
+    BAUD_57600,
+    BAUD_115200,
+    BAUD_230400,
+    BAUD_250000,
+    BAUD_400000,
+    BAUD_460800,
+    BAUD_500000,
+    BAUD_921600,
+    BAUD_1000000,
+    BAUD_1500000,
+    BAUD_2000000,
+    BAUD_2470000,
+    BAUD_COUNT
+} baudRate_e;
+
 
 bool     uartInit(void);
 bool     uartOpen(uint8_t ch, uint32_t baud);

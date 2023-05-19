@@ -117,9 +117,7 @@ typedef enum {
 #ifdef USE_BEEPER
     TASK_BEEPER,
 #endif
-#ifdef USE_GPS
     TASK_GPS,
-#endif
     TASK_COMPASS,
     TASK_BARO,
     TASK_ALTITUDE,

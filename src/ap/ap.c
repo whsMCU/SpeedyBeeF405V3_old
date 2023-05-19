@@ -21,6 +21,7 @@ void apInit(void)
 	Sensor_Init();
 	Baro_Init();
 	compassInit();
+	gpsInit();
 	tasksInit();
 	rxInit();
 }
