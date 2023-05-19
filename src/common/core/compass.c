@@ -68,6 +68,10 @@ bool compassDetect(magDev_t *magDev)
         magHardware = MAG_QMC5883;
     }
 
+    if (magHardware == MAG_NONE) {
+        return false;
+    }
+
     // detectedSensors[SENSOR_INDEX_MAG] = magHardware;
     // sensorsSet(SENSOR_MAG);
     return true;

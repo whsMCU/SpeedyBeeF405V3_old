@@ -21,7 +21,11 @@
 			"barometer_dps310.h": "c",
 			"gpio.h": "c",
 			"compass.h": "c",
-			"def.h": "c"
+			"def.h": "c",
+			"i2c.h": "c",
+			"bsp.h": "c",
+			"barometer.h": "c",
+			"bmi270.h": "c"
 		},
 	}
 }

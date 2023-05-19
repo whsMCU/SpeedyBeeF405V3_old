@@ -62,14 +62,6 @@
 #define QMC5883L_REG_ID 0x0D
 #define QMC5883_ID_VAL 0xFF
 
-// Helper functions
-static uint8_t registerRead(const magDev_t *magDev, uint8_t reg)
-{
-    uint8_t buf_temp[1];
-    I2C_ByteRead(magDev->address, reg, 1, buf_temp, 1);
-    return buf_temp[0];
-}
-
 static bool qmc5883lInit(magDev_t *magDev)
 {
     bool ack = true;
@@ -77,7 +69,8 @@ static bool qmc5883lInit(magDev_t *magDev)
 
     temp = 0x01;
     ack = ack && I2C_ByteWrite_HAL(magDev->address, 0x0B, I2C_MEMADD_SIZE_8BIT, &temp, 1);
-    ack = ack && I2C_ByteWrite_HAL(magDev->address, QMC5883L_REG_CONF1, 1, QMC5883L_MODE_CONTINUOUS | QMC5883L_ODR_200HZ | QMC5883L_OSR_512 | QMC5883L_RNG_8G, 1);
+    temp = QMC5883L_MODE_CONTINUOUS | QMC5883L_ODR_200HZ | QMC5883L_OSR_512 | QMC5883L_RNG_8G;
+    ack = ack && I2C_ByteWrite_HAL(magDev->address, QMC5883L_REG_CONF1, 1, &temp, 1);
 
     if (!ack) {
         return false;
@@ -128,10 +121,12 @@ static bool qmc5883lRead(magDev_t *magDev, int16_t *magData)
 
 bool qmc5883lDetect(magDev_t *magDev)
 {
+    uint8_t temp;
     magDev->address = QMC5883L_MAG_I2C_ADDRESS;
 
     // Must write reset first  - don't care about the result
-    I2C_ByteWrite_HAL(magDev->address, QMC5883L_REG_CONF2, I2C_MEMADD_SIZE_8BIT, QMC5883L_RST, 1);
+    temp = QMC5883L_RST;
+    I2C_ByteWrite_HAL(magDev->address, QMC5883L_REG_CONF2, I2C_MEMADD_SIZE_8BIT, &temp, 1);
     delay(20);
 
     uint8_t sig = 0;

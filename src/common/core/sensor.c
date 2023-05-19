@@ -6,7 +6,7 @@
  */
 
 #include "sensor.h"
-#include "bmi270.h"
+#include "driver/accgyro/bmi270.h"
 #include "cli.h"
 #include "led.h"
 
@@ -619,21 +619,6 @@ void imuCalculateEstimatedAttitude(uint32_t currentTimeUs)
                         useCOG, courseOverGround,  imuCalcKpGain(currentTimeUs, useAcc, gyroAverage));
 
     imuUpdateEulerAngles();
-}
-
-void DEBUG_print(void)
-{
-    // cliPrintf("IMU R: %d, P: %d, Y: %d\n\r",    attitude.values.roll,
-    //                                             attitude.values.pitch,
-    //                                             attitude.values.yaw);
-
-    // cliPrintf("ACC R: %.f, P: %.f, Y: %.f\n\r",    sensor.accADC[X],
-    //                                             sensor.accADC[Y],
-    //                                             sensor.accADC[Z]);
-
-    // cliPrintf("gyro x: %.2f, y: %.2f, z: %.2f\n\r", gyroAverage[X],
-    //                                                 gyroAverage[Y],
-    //                                                 gyroAverage[Z]);
 }
 
 #ifdef _USE_HW_CLI
