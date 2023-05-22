@@ -94,8 +94,6 @@ typedef struct gpsConfig_s {
     uint8_t sbas_integrity;
 } gpsConfig_t;
 
-PG_DECLARE(gpsConfig_t, gpsConfig);
-
 typedef struct gpsCoordinateDDDMMmmmm_s {
     int16_t dddmm;
     int16_t mmmm;
@@ -195,12 +193,6 @@ extern uint8_t GPS_svinfo_cno[GPS_SV_MAXSATS_M8N];      // Carrier to Noise Rati
 
 #define TASK_GPS_RATE       100
 #define TASK_GPS_RATE_FAST  1000
-
-typedef enum {
-    GPS_FIX_HOME   = (1 << 0),
-    GPS_FIX        = (1 << 1),
-    GPS_FIX_EVER   = (1 << 2),
-} stateFlags_t;
 
 void gpsInit(void);
 void gpsUpdate(uint32_t currentTimeUs);
