@@ -399,7 +399,7 @@ void serialPrint(uint8_t channel, const char *str)
 {
     uint8_t ch;
     while ((ch = *(str++)) != 0) {
-      uartWrite(channel, ch, 1);
+      uartWrite(channel, &ch, 1);
     }
 }
 
