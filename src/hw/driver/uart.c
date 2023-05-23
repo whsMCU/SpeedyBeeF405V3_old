@@ -37,6 +37,8 @@ DMA_HandleTypeDef hdma_usart6_rx;
 const uint32_t baudRates[] = {0, 9600, 19200, 38400, 57600, 115200, 230400, 250000,
         400000, 460800, 500000, 921600, 1000000, 1500000, 2000000, 2470000}; // see baudRate_e
 
+#define BAUD_RATE_COUNT (sizeof(baudRates) / sizeof(baudRates[0]))
+
 bool uartInit(void)
 {
   for (int i=0; i<UART_MAX_CH; i++)
@@ -393,6 +395,14 @@ uint32_t uartWriteIT(uint8_t ch, uint8_t *p_data, uint32_t length)
   return ret;
 }
 
+void serialPrint(uint8_t channel, const char *str)
+{
+    uint8_t ch;
+    while ((ch = *(str++)) != 0) {
+      uartWrite(channel, ch, 1);
+    }
+}
+
 uint32_t uartPrintf(uint8_t ch, char *fmt, ...)
 {
   char buf[MAX_SIZE];
@@ -540,7 +550,17 @@ bool uartSetBaud(uint8_t ch, uint32_t baud)
 	return ret;
 }
 
+baudRate_e lookupBaudRateIndex(uint32_t baudRate)
+{
+    uint8_t index;
 
+    for (index = 0; index < BAUD_RATE_COUNT; index++) {
+        if (baudRates[index] == baudRate) {
+            return index;
+        }
+    }
+    return BAUD_AUTO;
+}
 
 
 void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)

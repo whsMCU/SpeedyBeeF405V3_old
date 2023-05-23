@@ -416,7 +416,7 @@ static void ubloxSendByteUpdateChecksum(const uint8_t data, uint8_t *checksumA, 
 {
     *checksumA += data;
     *checksumB += *checksumA;
-    uartWrite(_DEF_UART6, data, 1);
+    uartWrite(_DEF_UART6, (uint8_t*)&data, 1);
     //serialWrite(gpsPort, data);
 }
 
@@ -431,8 +431,8 @@ static void ubloxSendDataUpdateChecksum(const uint8_t *data, uint8_t len, uint8_
 static void ubloxSendMessage(const uint8_t *data, uint8_t len)
 {
     uint8_t checksumA = 0, checksumB = 0;
-    uartWrite(_DEF_UART6, data[0], 1);
-    uartWrite(_DEF_UART6, data[1], 1);
+    uartWrite(_DEF_UART6, (uint8_t*)&data[0], 1);
+    uartWrite(_DEF_UART6, (uint8_t*)&data[1], 1);
     //serialWrite(gpsPort, data[0]);
     //serialWrite(gpsPort, data[1]);
     ubloxSendDataUpdateChecksum(&data[2], len - 2, &checksumA, &checksumB);
@@ -566,7 +566,7 @@ void gpsInitUblox(void)
     // UBX will run at the serial port's baudrate, it shouldn't be "autodetected". So here we force it to that rate
 
     // Wait until GPS transmit buffer is empty
-    if (!isSerialTransmitBufferEmpty(gpsPort))
+    if (!uartAvailable(_DEF_UART6))
         return;
 
     switch (gpsData.state) {
@@ -581,9 +581,10 @@ void gpsInitUblox(void)
 
                 gpsData.state_ts = now;
 
-                if (lookupBaudRateIndex(serialGetBaudRate(gpsPort)) != newBaudRateIndex) {
+                if (lookupBaudRateIndex(uartGetBaud(_DEF_UART6)) != newBaudRateIndex) {
                     // change the rate if needed and wait a little
-                    serialSetBaudRate(gpsPort, baudRates[newBaudRateIndex]);
+                    uartSetBaud(_DEF_UART6, baudRates[newBaudRateIndex]);
+                    //serialSetBaudRate(gpsPort, baudRates[newBaudRateIndex]);
 #if DEBUG_SERIAL_BAUD
                     debug[0] = baudRates[newBaudRateIndex] / 100;
 #endif
@@ -591,7 +592,7 @@ void gpsInitUblox(void)
                 }
 
                 // print our FIXED init string for the baudrate we want to be at
-                serialPrint(gpsPort, gpsInitData[gpsData.baudrateIndex].ubx);
+                serialPrint(_DEF_UART6, gpsInitData[gpsData.baudrateIndex].ubx);
 
                 gpsData.state_position++;
             } else {
@@ -766,8 +767,8 @@ void gpsUpdate(uint32_t currentTimeUs)
     gpsState_e gpsCurrentState = gpsData.state;
 
     // read out available GPS bytes
-    if (gpsPort) {
-        while (serialRxBytesWaiting(gpsPort)) {
+    if (true) {//gpsPort
+        while (uartAvailable(_DEF_UART6)) {
             if (cmpTimeUs(micros(), currentTimeUs) > GPS_MAX_WAIT_DATA_RX) {
                 // Wait 1ms and come back
                 rescheduleTask(TASK_SELF, TASK_PERIOD_HZ(TASK_GPS_RATE_FAST));
