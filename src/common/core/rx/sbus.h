@@ -19,6 +19,8 @@
  */
 
 #pragma once
+#include "def.h"
+#include "hw_def.h"
 
 bool sbusInit(rxRuntimeState_t *rxRuntimeState);
 void sbusDataReceive(uint8_t c, void *data);

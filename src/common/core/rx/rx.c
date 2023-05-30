@@ -33,7 +33,7 @@
 #include "axis.h"
 #include "uart.h"
 #include "cli.h"
-//#include "rx/crsf.h"
+#include "crsf.h"
 
 float rcCommand[4];           // interval [1000;2000] for THROTTLE and [-500;+500] for ROLL/PITCH/YAW
 static bool isRxDataNew = false;
@@ -151,6 +151,7 @@ bool isPulseValid(uint16_t pulseDuration)
 
 #define USE_SERIAL_RX
 #define USE_SERIALRX_SBUS
+#define USE_SERIALRX_CRSF
 #ifdef USE_SERIAL_RX
 static bool serialRxInit(rxRuntimeState_t *rxRuntimeState)
 {
@@ -201,7 +202,7 @@ static bool serialRxInit(rxRuntimeState_t *rxRuntimeState)
 #endif
 #ifdef USE_SERIALRX_CRSF
     case SERIALRX_CRSF:
-        enabled = crsfRxInit(rxConfig, rxRuntimeState);
+        enabled = crsfRxInit(rxRuntimeState);
         break;
 #endif
 #ifdef USE_SERIALRX_GHST
@@ -235,6 +236,7 @@ void rxInit(void)
 {
     rxRuntimeState.rxProvider = RX_PROVIDER_SERIAL;
     rxRuntimeState.serialrxProvider = SERIALRX_SBUS;
+    rxRuntimeState.serialrxProvider = SERIALRX_CRSF;
     rxRuntimeState.rcReadRawFn = nullReadRawRC;
     rxRuntimeState.rcFrameStatusFn = nullFrameStatus;
     rxRuntimeState.rcProcessFrameFn = nullProcessFrame;
@@ -711,6 +713,9 @@ bool calculateRxChannelsAndUpdateFailsafe(uint32_t currentTimeUs)
 
     while(uartAvailable(_DEF_UART2)){
         sbusDataReceive(uartRead(_DEF_UART2), rxRuntimeState.frameData);
+    }
+        while(uartAvailable(_DEF_UART2)){
+        crsfDataReceive(uartRead(_DEF_UART2), rxRuntimeState.frameData);
     }
 
     readRxChannelsApplyRanges();            // returns rcRaw
