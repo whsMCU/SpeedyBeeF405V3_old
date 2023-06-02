@@ -12,6 +12,11 @@
 #include "bsp.h"
 #include "def.h"
 
+#define _USE_HW_SD
+#define _USE_HW_FATFS
+#define _USE_HW_FILES
+#define _USE_HW_FLASH
+
 #define USE_ACCGYRO_BMI270
 #define _PIN_DEF_CS 0
 #define USE_BARO_DPS310
@@ -26,7 +31,7 @@
 #define      HW_SPI_MAX_CH          2
 
 #define _USE_HW_GPIO
-#define      HW_GPIO_MAX_CH         3
+#define      HW_GPIO_MAX_CH         4
 
 
 #define _USE_HW_LED
@@ -41,6 +46,8 @@
 #define      HW_CLI_CMD_LIST_MAX    16
 #define      HW_CLI_LINE_HIS_MAX    4
 #define      HW_CLI_LINE_BUF_MAX    32
+
+#define _PIN_GPIO_SDCARD_DETECT     0
 
 
 

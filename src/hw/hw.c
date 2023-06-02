@@ -14,6 +14,7 @@ void hwInit(void)
 {
   bspInit();
   gpioInit();
+  flashInit();
   ledInit();
   MX_DMA_Init();
   usbInit();
@@ -21,6 +22,10 @@ void hwInit(void)
   cliInit();
   i2cInit();
   spiInit();
+  if (sdInit() == true)
+  {
+    fatfsInit();
+  }
 
 	// ledOn(ST1);
   // ledOff(ST2);

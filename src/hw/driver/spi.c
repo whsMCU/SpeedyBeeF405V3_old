@@ -52,6 +52,9 @@ bool spiInit(void)
   }
   spiBegin(_DEF_SPI1);
   spiSetDataMode(_DEF_SPI1, SPI_MODE3);
+
+  spiBegin(_DEF_SPI2);
+  spiSetDataMode(_DEF_SPI2, SPI_MODE0);
   cliAdd("spi", cliSPI);
   return ret;
 }
