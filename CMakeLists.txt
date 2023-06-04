@@ -49,11 +49,8 @@ target_include_directories(${EXECUTABLE} PRIVATE
   src/hw/driver/accgyro
   src/hw/driver/barometer
   src/hw/driver/compass
-  src/hw/driver/fatfs
   src/hw/driver/gps
-  src/lib/FatFs
-  src/lib/FatFs/src
-  src/lib/FatFs/src/drivers
+  src/hw/driver/sdcard
   src/lib/Drivers/CMSIS/Include
   src/lib/Drivers/CMSIS/Device/ST/STM32F4xx/Include
   src/lib/Drivers/STM32F4xx_HAL_Driver/Inc

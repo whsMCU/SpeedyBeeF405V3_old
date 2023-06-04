@@ -31,7 +31,8 @@
 			"string_view": "c",
 			"ranges": "c",
 			"usbd_cdc_if.h": "c",
-			"sd.h": "c"
+			"sd.h": "c",
+			"sdcard.h": "c"
 		},
 	}
 }

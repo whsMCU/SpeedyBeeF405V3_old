@@ -16,7 +16,7 @@
 #include "cli.h"
 #include "i2c.h"
 #include "flash.h"
-#include "fatfs.h"
+#include "sdcard.h"
 #include "files.h"
 #include "timer.h"
 #include "spi.h"

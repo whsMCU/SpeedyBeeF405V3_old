@@ -12,10 +12,12 @@
 #include "bsp.h"
 #include "def.h"
 
-#define _USE_HW_SD
-#define _USE_HW_FATFS
-#define _USE_HW_FILES
+//#define _USE_HW_SD
+//#define _USE_HW_FATFS
+//#define _USE_HW_FILES
 #define _USE_HW_FLASH
+#define USE_SDCARD
+#define USE_SDCARD_SPI
 
 #define USE_ACCGYRO_BMI270
 #define _PIN_DEF_CS 0

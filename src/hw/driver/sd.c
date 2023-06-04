@@ -11,6 +11,7 @@
 #include "cli.h"
 
 
+#ifdef _USE_HW_SD
 
 static bool is_init = false;
 static bool is_detected = false;
@@ -451,4 +452,5 @@ void cliSd(cli_args_t *args)
     }
   }
 }
+#endif
 #endif
