@@ -22,10 +22,9 @@ void hwInit(void)
   cliInit();
   i2cInit();
   spiInit();
-  if (sdInit() == true)
-  {
-    fatfsInit();
-  }
+  
+  sdcard_init();
+
 
 	// ledOn(ST1);
   // ledOff(ST2);

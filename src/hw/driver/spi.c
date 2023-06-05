@@ -53,8 +53,6 @@ bool spiInit(void)
   spiBegin(_DEF_SPI1);
   spiSetDataMode(_DEF_SPI1, SPI_MODE3);
 
-  spiBegin(_DEF_SPI2);
-  spiSetDataMode(_DEF_SPI2, SPI_MODE0);
   cliAdd("spi", cliSPI);
   return ret;
 }
@@ -104,7 +102,7 @@ bool spiBegin(uint8_t ch)
       hspi2.Init.CLKPolarity = SPI_POLARITY_LOW;
       hspi2.Init.CLKPhase = SPI_PHASE_1EDGE;
       hspi2.Init.NSS = SPI_NSS_SOFT;
-      hspi2.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;
+      hspi2.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_32;
       hspi2.Init.FirstBit = SPI_FIRSTBIT_MSB;
       hspi2.Init.TIMode = SPI_TIMODE_DISABLE;
       hspi2.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
@@ -159,6 +157,20 @@ void spiSetDataMode(uint8_t ch, uint8_t dataMode)
       HAL_SPI_Init(p_spi->h_spi);
       break;
   }
+}
+
+uint32_t SPI_Get_Speed(uint8_t ch)
+{
+  spi_t  *p_spi = &spi_tbl[ch];
+  return p_spi->h_spi->Init.BaudRatePrescaler;
+}
+
+bool SPI_Set_Speed(uint8_t ch, uint32_t prescaler)
+{
+  spi_t  *p_spi = &spi_tbl[ch];
+  p_spi->h_spi->Init.BaudRatePrescaler = prescaler;
+  HAL_SPI_Init(p_spi->h_spi);
+  return true
 }
 
  HAL_StatusTypeDef SPI_ByteRead(uint8_t ch, uint8_t MemAddress, uint8_t *data, uint8_t length)

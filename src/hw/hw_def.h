@@ -21,6 +21,7 @@
 
 #define USE_ACCGYRO_BMI270
 #define _PIN_DEF_CS 0
+#define _PIN_SDCARD_CS 3
 #define USE_BARO_DPS310
 #define USE_MAG_QMC5883
 

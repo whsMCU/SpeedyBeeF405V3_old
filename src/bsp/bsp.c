@@ -75,6 +75,12 @@ uint32_t micros(void)
 	    return (ms * 1000) + (168 * 1000 - cycle_cnt) / 168; //168
 }
 
+void delayMicroseconds(uint32_t us)
+{
+    uint32_t now = micros();
+    while (micros() - now < us);
+}
+
 int __io_putchar(int ch)
 {
   uartWrite(_DEF_UART1, (uint8_t *)&ch, 1);

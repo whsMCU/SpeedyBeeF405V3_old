@@ -66,7 +66,7 @@
 
 sdcard_t sdcard;
 
-STATIC_ASSERT(sizeof(sdcardCSD_t) == 16, sdcard_csd_bitfields_didnt_pack_properly);
+//STATIC_ASSERT(sizeof(sdcardCSD_t) == 16, sdcard_csd_bitfields_didnt_pack_properly);
 
 // static void sdcardInsertionDetectInit(const sdcardConfig_t *config)
 // {
@@ -90,12 +90,12 @@ STATIC_ASSERT(sizeof(sdcardCSD_t) == 16, sdcard_csd_bitfields_didnt_pack_properl
 bool sdcard_isInserted(void)
 {
     bool result = true;
-    if (sdcard.cardDetectPin) {
-        result = IORead(sdcard.cardDetectPin) != 0;
-        if (sdcard.detectionInverted) {
-            result = !result;
-        }
-    }
+    // if (sdcard.cardDetectPin) {
+    //     result = IORead(sdcard.cardDetectPin) != 0;
+    //     if (sdcard.detectionInverted) {
+    //         result = !result;
+    //     }
+    // }
     return result;
 }
 

@@ -22,23 +22,26 @@
 #include <stdint.h>
 
 //#include "platform.h"
-#include "def.h"
+#include "hw_def.h"
 
 #ifdef USE_SDCARD_SPI
 
-#include "drivers/bus_spi.h"
-#include "drivers/dma.h"
-#include "drivers/dma_reqmap.h"
-#include "drivers/io.h"
-#include "drivers/nvic.h"
-#include "drivers/time.h"
+#include "spi.h"
+#include "gpio.h"
+//#include "drivers/dma.h"
+//#include "drivers/dma_reqmap.h"
+//#include "drivers/io.h"
+//#include "drivers/nvic.h"
+//#include "drivers/time.h"
 
-#include "pg/bus_spi.h"
-#include "pg/sdcard.h"
+//#include "pg/bus_spi.h"
+//#include "pg/sdcard.h"
 
 #include "sdcard.h"
 #include "sdcard_impl.h"
 #include "sdcard_standard.h"
+
+extern SPI_HandleTypeDef 	hspi2;
 
 #ifdef AFATFS_USE_INTROSPECTIVE_LOGGING
     #define SDCARD_PROFILING
@@ -63,6 +66,40 @@
  */
 #define SDCARD_NON_DMA_CHUNK_SIZE                   256
 
+uint16_t Timer1, Timer2;					/* 1ms Timer Counter */
+
+/* SPI transmit a byte */
+static void SPI_TxByte(uint8_t data)
+{
+	while(!__HAL_SPI_GET_FLAG(&hspi2, SPI_FLAG_TXE));
+	HAL_SPI_Transmit(&hspi2, &data, 1, 100);
+}
+
+/* SPI transmit buffer */
+static void SPI_TxBuffer(uint8_t *buffer, uint16_t len)
+{
+	while(!__HAL_SPI_GET_FLAG(&hspi2, SPI_FLAG_TXE));
+	HAL_SPI_Transmit(&hspi2, buffer, len, 100);
+}
+
+/* SPI receive a byte */
+static uint8_t SPI_RxByte(void)
+{
+	uint8_t dummy, data;
+	dummy = 0xFF;
+
+	while(!__HAL_SPI_GET_FLAG(&hspi2, SPI_FLAG_TXE));
+	HAL_SPI_TransmitReceive(&hspi2, &dummy, &data, 1, 100);
+
+	return data;
+}
+
+/* SPI receive a byte via pointer */
+static void SPI_RxBytePtr(uint8_t *buff) 
+{
+	*buff = SPI_RxByte();
+}
+
 /**
  * Returns true if the card has already been, or is currently, initializing and hasn't encountered enough errors to
  * trip our error threshold and be disabled (i.e. our card is in and working!)
@@ -74,7 +111,8 @@ static bool sdcardSpi_isFunctional(void)
 
 static void sdcard_select(void)
 {
-    IOLo(sdcard.dev.busType_u.spi.csnPin);
+    //IOLo(sdcard.dev.busType_u.spi.csnPin);
+    gpioPinWrite(_PIN_SDCARD_CS, _DEF_LOW);
 }
 
 static void sdcard_deselect(void)
@@ -82,10 +120,11 @@ static void sdcard_deselect(void)
     // As per the SD-card spec, give the card 8 dummy clocks so it can finish its operation
     //spiReadWrite(&sdcard.dev, 0xFF);
 
-    spiWait(&sdcard.dev);
+    //spiWait(&sdcard.dev);
 
     delayMicroseconds(10);
-    IOHi(sdcard.dev.busType_u.spi.csnPin);
+    //IOHi(sdcard.dev.busType_u.spi.csnPin);
+    gpioPinWrite(_PIN_SDCARD_CS, _DEF_HIGH);
 }
 
 /**
@@ -102,7 +141,8 @@ static void sdcard_reset(void)
     }
 
     if (sdcard.state >= SDCARD_STATE_READY) {
-        spiSetClkDivisor(&sdcard.dev, spiCalculateDivider(SDCARD_MAX_SPI_INIT_CLK_HZ));
+        //spiSetClkDivisor(&sdcard.dev, spiCalculateDivider(SDCARD_MAX_SPI_INIT_CLK_HZ));
+        SPI_Set_Speed(_DEF_SPI2, SPI_BAUDRATEPRESCALER_32);
     }
 
     sdcard.failureCount++;
@@ -115,47 +155,47 @@ static void sdcard_reset(void)
 }
 
 
-// Called in ISR context
-// Wait until idle indicated by a read value of 0xff
-busStatus_e sdcard_callbackIdle(uint32_t arg)
-{
-    sdcard_t *sdcard = (sdcard_t *)arg;
-    extDevice_t *dev = &sdcard->dev;
+// // Called in ISR context
+// // Wait until idle indicated by a read value of 0xff
+// busStatus_e sdcard_callbackIdle(uint32_t arg)
+// {
+//     sdcard_t *sdcard = (sdcard_t *)arg;
+//     extDevice_t *dev = &sdcard->dev;
 
-    uint8_t idleByte = dev->bus->curSegment->u.buffers.rxData[0];
+//     uint8_t idleByte = dev->bus->curSegment->u.buffers.rxData[0];
 
-    if (idleByte == 0xff) {
-        return BUS_READY;
-    }
+//     if (idleByte == 0xff) {
+//         return BUS_READY;
+//     }
 
-    if (--sdcard->idleCount == 0) {
-        dev->bus->curSegment->u.buffers.rxData[0] = 0x00;
-        return BUS_ABORT;
-    }
+//     if (--sdcard->idleCount == 0) {
+//         dev->bus->curSegment->u.buffers.rxData[0] = 0x00;
+//         return BUS_ABORT;
+//     }
 
-    return BUS_BUSY;
-}
+//     return BUS_BUSY;
+// }
 
 
-// Called in ISR context
-// Wait until idle is no longer indicated by a read value of 0xff
-busStatus_e sdcard_callbackNotIdle(uint32_t arg)
-{
-    sdcard_t *sdcard = (sdcard_t *)arg;
-    extDevice_t *dev = &sdcard->dev;
+// // Called in ISR context
+// // Wait until idle is no longer indicated by a read value of 0xff
+// busStatus_e sdcard_callbackNotIdle(uint32_t arg)
+// {
+//     sdcard_t *sdcard = (sdcard_t *)arg;
+//     extDevice_t *dev = &sdcard->dev;
 
-    uint8_t idleByte = dev->bus->curSegment->u.buffers.rxData[0];
+//     uint8_t idleByte = dev->bus->curSegment->u.buffers.rxData[0];
 
-    if (idleByte != 0xff) {
-        return BUS_READY;
-    }
+//     if (idleByte != 0xff) {
+//         return BUS_READY;
+//     }
 
-    if (sdcard->idleCount-- == 0) {
-        return BUS_ABORT;
-    }
+//     if (sdcard->idleCount-- == 0) {
+//         return BUS_ABORT;
+//     }
 
-    return BUS_BUSY;
-}
+//     return BUS_BUSY;
+// }
 
 
 /**
@@ -167,19 +207,12 @@ static bool sdcard_waitForIdle(int maxBytesToWait)
 {
     uint8_t idleByte;
 
-    // Note that this does not release the CS at the end of the transaction
-    busSegment_t segments[] = {
-        {.u.buffers = {NULL, &idleByte}, sizeof(idleByte), false, sdcard_callbackIdle},
-        {.u.link = {NULL, NULL}, 0, true, NULL},
-
-    };
-
-    sdcard.idleCount = maxBytesToWait;
-
-    spiSequence(&sdcard.dev, &segments[0]);
-
-    // Block pending completion of SPI access
-    spiWait(&sdcard.dev);
+    Timer2 = 500;
+    do
+    {
+        /* 0xFF 값이 수신될 때 까지 SPI 통신 */
+        idleByte = SPI_RxByte();
+    } while ((idleByte != 0xFF) && Timer2);
 
     return (idleByte == 0xff);
 }
@@ -193,21 +226,14 @@ static uint8_t sdcard_waitForNonIdleByte(int maxDelay)
 {
     uint8_t idleByte;
 
-    // Note that this does not release the CS at the end of the transaction
-    busSegment_t segments[] = {
-        {.u.buffers = {NULL, &idleByte}, sizeof(idleByte), false, sdcard_callbackNotIdle},
-        {.u.link = {NULL, NULL}, 0, true, NULL},
+    Timer2 = 500;
+    do
+    {
+        /* 0xFF 값이 수신될 때 까지 SPI 통신 */
+        idleByte = SPI_RxByte();
+    } while ((idleByte != 0xFF) && Timer2);
 
-    };
-
-    sdcard.idleCount = maxDelay;
-
-    spiSequence(&sdcard.dev, &segments[0]);
-
-    // Block pending completion of SPI access
-    spiWait(&sdcard.dev);
-
-    return idleByte;
+    return (idleByte == 0xff);
 }
 
 /**
@@ -234,22 +260,23 @@ static uint8_t sdcard_sendCommand(uint8_t commandCode, uint32_t commandArgument)
     uint8_t idleByte;
 
     // Note that this does not release the CS at the end of the transaction
-    busSegment_t segments[] = {
-            {.u.buffers = {command, NULL}, sizeof(command), false, NULL},
-            {.u.buffers = {NULL, &idleByte}, sizeof(idleByte), false, sdcard_callbackNotIdle},
-            {.u.link = {NULL, NULL}, 0, true, NULL},
+    // busSegment_t segments[] = {
+    //         {.u.buffers = {command, NULL}, sizeof(command), false, NULL},
+    //         {.u.buffers = {NULL, &idleByte}, sizeof(idleByte), false, sdcard_callbackNotIdle},
+    //         {.u.link = {NULL, NULL}, 0, true, NULL},
 
-    };
+    // };
 
     if (!sdcard_waitForIdle(SDCARD_MAXIMUM_BYTE_DELAY_FOR_CMD_REPLY) && commandCode != SDCARD_COMMAND_GO_IDLE_STATE)
         return 0xFF;
 
     sdcard.idleCount = SDCARD_MAXIMUM_BYTE_DELAY_FOR_CMD_REPLY;
 
-    spiSequence(&sdcard.dev, &segments[0]);
+    SPI_TxBuffer(command, sizeof(command));
+    //spiSequence(&sdcard.dev, &segments[0]);
 
     // Block pending completion of SPI access
-    spiWait(&sdcard.dev);
+    //spiWait(&sdcard.dev);
 
     return idleByte;
 }
@@ -353,7 +380,15 @@ typedef enum {
  */
 static sdcardReceiveBlockStatus_e sdcard_receiveDataBlock(uint8_t *buffer, int count)
 {
-    uint8_t dataToken = sdcard_waitForNonIdleByte(8);
+    uint8_t dataToken;// = sdcard_waitForNonIdleByte(8);
+
+    /* timeout 200ms */
+	Timer1 = 200;
+
+    /* loop until receive a response or timeout */
+	do {
+		dataToken = SPI_RxByte();
+	} while((dataToken == 0xFF) && Timer1);
 
     if (dataToken == 0xFF) {
         return SDCARD_RECEIVE_BLOCK_IN_PROGRESS;
@@ -363,19 +398,14 @@ static sdcardReceiveBlockStatus_e sdcard_receiveDataBlock(uint8_t *buffer, int c
         return SDCARD_RECEIVE_ERROR;
     }
 
-    // Note that this does not release the CS at the end of the transaction
-    busSegment_t segments[] = {
-            {.u.buffers = {NULL, buffer}, count, false, NULL},
-            // Discard trailing CRC, we don't care
-            {.u.buffers = {NULL, NULL}, 2, false, NULL},
-            {.u.link = {NULL, NULL}, 0, true, NULL},
+    /* receive data */
+	do {
+		SPI_RxBytePtr(buffer++);
+	} while(count--);
 
-        };
-
-    spiSequence(&sdcard.dev, &segments[0]);
-
-    // Block pending completion of SPI access
-    spiWait(&sdcard.dev);
+    	/* discard CRC */
+	SPI_RxByte();
+	SPI_RxByte();
 
     return SDCARD_RECEIVE_SUCCESS;
 }
@@ -530,43 +560,33 @@ void sdcardSpi_preInit(const sdcardConfig_t *config)
 /**
  * Begin the initialization process for the SD card. This must be called first before any other sdcard_ routine.
  */
-static void sdcardSpi_init(const sdcardConfig_t *config, const spiPinConfig_t *spiConfig)
+static void sdcardSpi_init()
 {
-    UNUSED(spiConfig);
-
-    sdcard.enabled = config->mode;
+    sdcard.enabled = true;
     if (!sdcard.enabled) {
         sdcard.state = SDCARD_STATE_NOT_PRESENT;
         return;
     }
 
-    spiSetBusInstance(&sdcard.dev, config->device);
-
-    IO_t chipSelectIO;
-    if (config->chipSelectTag) {
-        chipSelectIO = IOGetByTag(config->chipSelectTag);
-        IOInit(chipSelectIO, OWNER_SDCARD_CS, 0);
-        IOConfigGPIO(chipSelectIO, SPI_IO_CS_CFG);
-    } else {
-        chipSelectIO = IO_NONE;
-    }
-    sdcard.dev.busType_u.spi.csnPin = chipSelectIO;
+    spiBegin(_DEF_SPI2);
+    spiSetDataMode(_DEF_SPI2, SPI_MODE0);
 
     // Set the clock phase/polarity
-    spiSetClkPhasePolarity(&sdcard.dev, true);
+    //spiSetClkPhasePolarity(&sdcard.dev, true);
 
     // Set the callback argument when calling back to this driver for DMA completion
-    sdcard.dev.callbackArg = (uint32_t)&sdcard;
+    //sdcard.dev.callbackArg = (uint32_t)&sdcard;
 
     // Max frequency is initially 400kHz
 
-    spiSetClkDivisor(&sdcard.dev, spiCalculateDivider(SDCARD_MAX_SPI_INIT_CLK_HZ));
+    //spiSetClkDivisor(&sdcard.dev, spiCalculateDivider(SDCARD_MAX_SPI_INIT_CLK_HZ));
 
     // SDCard wants 1ms minimum delay after power is applied to it
     delay(1000);
 
     // Transmit at least 74 dummy clock cycles with CS high so the SD card can start up
-    IOHi(sdcard.dev.busType_u.spi.csnPin);
+    //IOHi(sdcard.dev.busType_u.spi.csnPin);
+    gpioPinWrite(_PIN_SDCARD_CS, _DEF_HIGH);
 
     // Note that this does not release the CS at the end of the transaction
     busSegment_t segments[] = {
