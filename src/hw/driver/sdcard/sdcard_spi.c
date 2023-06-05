@@ -258,7 +258,7 @@ static uint8_t sdcard_sendCommand(uint8_t commandCode, uint32_t commandArgument)
         commands that require a CRC */
     };
 
-    uint8_t idleByte;
+    uint8_t idleByte = 0;
 
     // Note that this does not release the CS at the end of the transaction
     // busSegment_t segments[] = {
@@ -390,13 +390,54 @@ static sdcardReceiveBlockStatus_e sdcard_receiveDataBlock(uint8_t *buffer, int c
     return SDCARD_RECEIVE_SUCCESS;
 }
 
+static bool SD_TxDataBlock(const uint8_t *buff, int token)
+{
+	uint8_t resp;
+	uint8_t i = 0;
+
+	/* wait SD ready */
+	if (SD_ReadyWait() != 0xFF) return FALSE;
+
+	/* transmit token */
+	SPI_TxByte(token);
+
+	/* if it's not STOP token, transmit data */
+	if (token != 0xFD)
+	{
+		SPI_TxBuffer((uint8_t*)buff, 512);
+
+		/* discard CRC */
+		SPI_RxByte();
+		SPI_RxByte();
+
+		/* receive response */
+		while (i <= 64)
+		{
+			resp = SPI_RxByte();
+
+			/* transmit 0x05 accepted */
+			if ((resp & 0x1F) == 0x05) break;
+			i++;
+		}
+
+		/* recv buffer clear */
+		while (SPI_RxByte() == 0);
+	}
+
+	/* transmit 0x05 accepted */
+	if ((resp & 0x1F) == 0x05) return TRUE;
+
+	return FALSE;
+}
+
 static bool sdcard_sendDataBlockFinish(void)
 {
     uint16_t dummyCRC = 0;
     uint8_t dataResponseToken;
 
     SD_TxDataBlock((uint8_t *)&dummyCRC, sizeof(dummyCRC));
-    SD_RxDataBlock(&dataResponseToken, sizeof(dataResponseToken));
+    sdcard_receiveDataBlock(&dataResponseToken, sizeof(dataResponseToken));
+    
     /*
      * Check if the card accepted the write (no CRC error / no address error)
      *
@@ -733,11 +774,14 @@ static bool sdcardSpi_poll(void)
         break;
         case SDCARD_STATE_SENDING_WRITE:
             // Have we finished sending the write yet?
-            sendComplete = !spiIsBusy(&sdcard.dev);
+            sendComplete = ! __HAL_SPI_GET_FLAG(&hspi2, SPI_FLAG_BSY);
+            //sendComplete = !spiIsBusy(&sdcard.dev);
 
-            if (!spiUseDMA(&sdcard.dev)) {
+            if (true) { //!spiUseDMA(&sdcard.dev)
                 // Send another chunk
-                spiReadWriteBuf(&sdcard.dev, sdcard.pendingOperation.buffer + SDCARD_NON_DMA_CHUNK_SIZE * sdcard.pendingOperation.chunkIndex, NULL, SDCARD_NON_DMA_CHUNK_SIZE);
+                while(!__HAL_SPI_GET_FLAG(&hspi2, SPI_FLAG_TXE));
+	            HAL_SPI_TransmitReceive(&hspi2, sdcard.pendingOperation.buffer + SDCARD_NON_DMA_CHUNK_SIZE * sdcard.pendingOperation.chunkIndex, NULL, SDCARD_NON_DMA_CHUNK_SIZE, 100);
+                //spiReadWriteBuf(&sdcard.dev, sdcard.pendingOperation.buffer + SDCARD_NON_DMA_CHUNK_SIZE * sdcard.pendingOperation.chunkIndex, NULL, SDCARD_NON_DMA_CHUNK_SIZE);
 
                 sdcard.pendingOperation.chunkIndex++;
 

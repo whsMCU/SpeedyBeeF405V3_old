@@ -29,6 +29,7 @@
 #include "hw_def.h"
 #include "sdcard.h"
 #include "sdcard_standard.h"
+#include "utils.h"
 
 #ifdef AFATFS_USE_INTROSPECTIVE_LOGGING
     #define SDCARD_PROFILING
@@ -104,7 +105,7 @@ typedef struct sdcard_t {
 
 extern sdcard_t sdcard;
 
-//STATIC_ASSERT(sizeof(sdcardCSD_t) == 16, sdcard_csd_bitfields_didnt_pack_properly);
+STATIC_ASSERT(sizeof(sdcardCSD_t) == 16, sdcard_csd_bitfields_didnt_pack_properly);
 
 bool sdcard_isInserted(void);
 

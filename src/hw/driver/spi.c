@@ -170,7 +170,7 @@ bool SPI_Set_Speed(uint8_t ch, uint32_t prescaler)
   spi_t  *p_spi = &spi_tbl[ch];
   p_spi->h_spi->Init.BaudRatePrescaler = prescaler;
   HAL_SPI_Init(p_spi->h_spi);
-  return true
+  return true;
 }
 
  HAL_StatusTypeDef SPI_ByteRead(uint8_t ch, uint8_t MemAddress, uint8_t *data, uint8_t length)
