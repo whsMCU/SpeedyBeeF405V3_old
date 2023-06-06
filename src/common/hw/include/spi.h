@@ -24,6 +24,7 @@
 
 bool spiInit(void);
 bool spiBegin(uint8_t ch);
+bool spiIsBegin(uint8_t ch);
 void spiSetDataMode(uint8_t ch, uint8_t dataMode);
 void spiSetBitWidth(uint8_t ch, uint8_t bit_width);
 uint32_t SPI_Get_Speed(uint8_t ch);

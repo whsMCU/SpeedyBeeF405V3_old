@@ -16,9 +16,11 @@ typedef struct
 {
   bool is_open;
   bool is_tx_done;
+  bool is_rx_done;
   bool is_error;
 
   void (*func_tx)(void);
+  void (*func_rx)(void);
 
   SPI_HandleTypeDef *h_spi;
   DMA_HandleTypeDef *h_dma_tx;
@@ -45,8 +47,10 @@ bool spiInit(void)
   {
     spi_tbl[i].is_open = false;
     spi_tbl[i].is_tx_done = true;
+    spi_tbl[i].is_rx_done = true;
     spi_tbl[i].is_error = false;
     spi_tbl[i].func_tx = NULL;
+    spi_tbl[i].func_rx = NULL;
     spi_tbl[i].h_dma_rx = NULL;
     spi_tbl[i].h_dma_tx = NULL;
   }
@@ -117,6 +121,11 @@ bool spiBegin(uint8_t ch)
   }
 
   return ret;
+}
+
+bool spiIsBegin(uint8_t ch)
+{
+  return spi_tbl[ch].is_open;
 }
 
 void spiSetDataMode(uint8_t ch, uint8_t dataMode)
@@ -354,6 +363,11 @@ void HAL_SPI_ErrorCallback(SPI_HandleTypeDef *hspi)
   {
     spi_tbl[_DEF_SPI1].is_error = true;
   }
+
+  if (hspi->Instance == spi_tbl[_DEF_SPI2].h_spi->Instance)
+  {
+    spi_tbl[_DEF_SPI2].is_error = true;
+  }
 }
 
 void HAL_SPI_TxCpltCallback(SPI_HandleTypeDef *hspi)
@@ -371,12 +385,6 @@ void HAL_SPI_TxCpltCallback(SPI_HandleTypeDef *hspi)
       (*p_spi->func_tx)();
     }
   }
-}
-
-void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi)
-{
-  spi_t  *p_spi;
-
 
   if (hspi->Instance == spi_tbl[_DEF_SPI2].h_spi->Instance)
   {
@@ -387,6 +395,78 @@ void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi)
     if (p_spi->func_tx != NULL)
     {
       (*p_spi->func_tx)();
+    }
+  }
+}
+
+void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)
+{
+  spi_t  *p_spi;
+
+  if (hspi->Instance == spi_tbl[_DEF_SPI1].h_spi->Instance)
+  {
+    p_spi = &spi_tbl[_DEF_SPI1];
+
+    p_spi->is_rx_done = true;
+
+    if (p_spi->func_rx != NULL)
+    {
+      (*p_spi->func_rx)();
+    }
+  }
+
+  if (hspi->Instance == spi_tbl[_DEF_SPI2].h_spi->Instance)
+  {
+    p_spi = &spi_tbl[_DEF_SPI2];
+
+    p_spi->is_rx_done = true;
+
+    if (p_spi->func_rx != NULL)
+    {
+      (*p_spi->func_rx)();
+    }
+  }
+}
+
+void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi)
+{
+  spi_t  *p_spi;
+
+  if (hspi->Instance == spi_tbl[_DEF_SPI1].h_spi->Instance)
+  {
+    p_spi = &spi_tbl[_DEF_SPI1];
+
+    p_spi->is_tx_done = true;
+
+    if (p_spi->func_tx != NULL)
+    {
+      (*p_spi->func_tx)();
+    }
+
+    p_spi->is_rx_done = true;
+
+    if (p_spi->func_rx != NULL)
+    {
+      (*p_spi->func_rx)();
+    }
+  }
+
+  if (hspi->Instance == spi_tbl[_DEF_SPI2].h_spi->Instance)
+  {
+    p_spi = &spi_tbl[_DEF_SPI2];
+
+    p_spi->is_tx_done = true;
+
+    if (p_spi->func_tx != NULL)
+    {
+      (*p_spi->func_tx)();
+    }
+
+    p_spi->is_rx_done = true;
+
+    if (p_spi->func_rx != NULL)
+    {
+      (*p_spi->func_rx)();
     }
   }
 }

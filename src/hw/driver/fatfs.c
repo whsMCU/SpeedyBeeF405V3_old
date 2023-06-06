@@ -11,7 +11,8 @@
 
 #ifdef _USE_HW_FATFS
 #include "ff_gen_drv.h"
-#include "sd_diskio.h"
+#include "diskio.h"
+#include "user_diskio.h"
 
 
 
@@ -30,7 +31,7 @@ bool fatfsInit(void)
   bool ret = true;
 
 
-  if(FATFS_LinkDriver(&SD_Driver, SDPath) == 0)
+  if(FATFS_LinkDriver(&USER_Driver, SDPath) == 0)
   {
     if(f_mount(&SDFatFs, (TCHAR const*)SDPath, 0) == FR_OK)
     {

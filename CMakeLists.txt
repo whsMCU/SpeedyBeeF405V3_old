@@ -56,6 +56,7 @@ target_include_directories(${EXECUTABLE} PRIVATE
   src/lib/Drivers/STM32F4xx_HAL_Driver/Inc
   src/lib/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc
   src/lib/Middlewares/ST/STM32_USB_Device_Library/Core/Inc
+  src/lib/Middlewares/Third_Party/FatFs/src
   src/lib/USB_DEVICE/App
   src/lib/USB_DEVICE/Target
   )

@@ -32,7 +32,10 @@
 			"ranges": "c",
 			"usbd_cdc_if.h": "c",
 			"sd.h": "c",
-			"sdcard.h": "c"
+			"sdcard.h": "c",
+			"fatfs.h": "c",
+			"ff_gen_drv.h": "c",
+			"diskio.h": "c"
 		},
 	}
 }
