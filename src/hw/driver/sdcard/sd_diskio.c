@@ -35,9 +35,14 @@
 /* Includes ------------------------------------------------------------------*/
 #include <string.h>
 #include "ff_gen_drv.h"
+#include "sd.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
+/* use the default SD timout as defined in the platform BSP driver*/
+
+#define SD_TIMEOUT            10 * 1000
+#define SD_DEFAULT_BLOCK_SIZE 512
 
 /* Private variables ---------------------------------------------------------*/
 /* Disk status */
@@ -46,42 +51,62 @@ static volatile DSTATUS Stat = STA_NOINIT;
 /* USER CODE END DECL */
 
 /* Private function prototypes -----------------------------------------------*/
-DSTATUS USER_initialize (BYTE pdrv);
-DSTATUS USER_status (BYTE pdrv);
-DRESULT USER_read (BYTE pdrv, BYTE *buff, DWORD sector, UINT count);
+static DSTATUS SD_CheckStatus(BYTE pdrv);
+DSTATUS SD_initialize (BYTE pdrv);
+DSTATUS SD_status (BYTE pdrv);
+DRESULT SD_read (BYTE pdrv, BYTE *buff, DWORD sector, UINT count);
 #if _USE_WRITE == 1
-  DRESULT USER_write (BYTE pdrv, const BYTE *buff, DWORD sector, UINT count);
+  DRESULT SD_write (BYTE pdrv, const BYTE *buff, DWORD sector, UINT count);
 #endif /* _USE_WRITE == 1 */
 #if _USE_IOCTL == 1
-  DRESULT USER_ioctl (BYTE pdrv, BYTE cmd, void *buff);
+  DRESULT SD_ioctl (BYTE pdrv, BYTE cmd, void *buff);
 #endif /* _USE_IOCTL == 1 */
 
-Diskio_drvTypeDef  USER_Driver =
+Diskio_drvTypeDef  SD_Driver =
 {
-  USER_initialize,
-  USER_status,
-  USER_read,
+  SD_initialize,
+  SD_status,
+  SD_read,
 #if  _USE_WRITE
-  USER_write,
+  SD_write,
 #endif  /* _USE_WRITE == 1 */
 #if  _USE_IOCTL == 1
-  USER_ioctl,
+  SD_ioctl,
 #endif /* _USE_IOCTL == 1 */
 };
 
 /* Private functions ---------------------------------------------------------*/
+static DSTATUS SD_CheckStatus(BYTE pdrv)
+{
+  Stat = 0;
 
+
+  if (sdIsInit() != true)
+  {
+    Stat |= STA_NOINIT;
+  }
+  if (sdIsDetected() != true)
+  {
+    Stat |= STA_NODISK;
+  }
+  return Stat;
+}
 /**
   * @brief  Initializes a Drive
   * @param  pdrv: Physical drive number (0..)
   * @retval DSTATUS: Operation status
   */
-DSTATUS USER_initialize (
+DSTATUS SD_initialize (
 	BYTE pdrv           /* Physical drive nmuber to identify the drive */
 )
 {
   /* USER CODE BEGIN INIT */
-    Stat = STA_NOINIT;
+  Stat = 0;
+
+  if (sdInit() != true)
+  {
+    Stat |= STA_NOINIT;
+  }
     return Stat;
   /* USER CODE END INIT */
 }
@@ -91,13 +116,13 @@ DSTATUS USER_initialize (
   * @param  pdrv: Physical drive number (0..)
   * @retval DSTATUS: Operation status
   */
-DSTATUS USER_status (
+DSTATUS SD_status (
 	BYTE pdrv       /* Physical drive number to identify the drive */
 )
 {
   /* USER CODE BEGIN STATUS */
-    Stat = STA_NOINIT;
-    return Stat;
+    //Stat = STA_NOINIT;
+    return SD_CheckStatus(pdrv);
   /* USER CODE END STATUS */
 }
 
@@ -109,7 +134,7 @@ DSTATUS USER_status (
   * @param  count: Number of sectors to read (1..128)
   * @retval DRESULT: Operation result
   */
-DRESULT USER_read (
+DRESULT SD_read (
 	BYTE pdrv,      /* Physical drive nmuber to identify the drive */
 	BYTE *buff,     /* Data buffer to store read data */
 	DWORD sector,   /* Sector address in LBA */
@@ -117,7 +142,14 @@ DRESULT USER_read (
 )
 {
   /* USER CODE BEGIN READ */
-    return RES_OK;
+  DRESULT res = RES_ERROR;
+
+  if (sdReadBlocks(sector, buff, count, SD_TIMEOUT) == true)
+  {
+    res = RES_OK;
+  }
+
+  return res;
   /* USER CODE END READ */
 }
 
@@ -130,7 +162,7 @@ DRESULT USER_read (
   * @retval DRESULT: Operation result
   */
 #if _USE_WRITE == 1
-DRESULT USER_write (
+DRESULT SD_write (
 	BYTE pdrv,          /* Physical drive nmuber to identify the drive */
 	const BYTE *buff,   /* Data to be written */
 	DWORD sector,       /* Sector address in LBA */
@@ -139,7 +171,14 @@ DRESULT USER_write (
 {
   /* USER CODE BEGIN WRITE */
   /* USER CODE HERE */
-    return RES_OK;
+  DRESULT res = RES_ERROR;
+
+  if (sdWriteBlocks(sector, (uint8_t *)buff, count, SD_TIMEOUT) == true)
+  {
+    res = RES_OK;
+  }
+
+  return res;
   /* USER CODE END WRITE */
 }
 #endif /* _USE_WRITE == 1 */
@@ -152,15 +191,51 @@ DRESULT USER_write (
   * @retval DRESULT: Operation result
   */
 #if _USE_IOCTL == 1
-DRESULT USER_ioctl (
+DRESULT SD_ioctl (
 	BYTE pdrv,      /* Physical drive nmuber (0..) */
 	BYTE cmd,       /* Control code */
 	void *buff      /* Buffer to send/receive control data */
 )
 {
   /* USER CODE BEGIN IOCTL */
-    DRESULT res = RES_ERROR;
-    return res;
+  DRESULT res = RES_ERROR;
+  sd_info_t sd_info;
+
+  if (Stat & STA_NOINIT) return RES_NOTRDY;
+
+  switch (cmd)
+  {
+  /* Make sure that no pending write process */
+  case CTRL_SYNC :
+    res = RES_OK;
+    break;
+
+  /* Get number of sectors on the disk (DWORD) */
+  case GET_SECTOR_COUNT :
+    sdGetInfo(&sd_info);
+    *(DWORD*)buff = sd_info.log_block_numbers;
+    res = RES_OK;
+    break;
+
+  /* Get R/W sector size (WORD) */
+  case GET_SECTOR_SIZE :
+    sdGetInfo(&sd_info);
+    *(WORD*)buff = sd_info.log_block_size;
+    res = RES_OK;
+    break;
+
+  /* Get erase block size in unit of sector (DWORD) */
+  case GET_BLOCK_SIZE :
+    sdGetInfo(&sd_info);
+    *(DWORD*)buff = sd_info.log_block_size / SD_DEFAULT_BLOCK_SIZE;
+    res = RES_OK;
+    break;
+
+  default:
+    res = RES_PARERR;
+  }
+
+  return res;
   /* USER CODE END IOCTL */
 }
 #endif /* _USE_IOCTL == 1 */
