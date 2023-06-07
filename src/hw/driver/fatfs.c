@@ -65,11 +65,11 @@ FRESULT fatfsDir(char* path)
       if (res != FR_OK || fno.fname[0] == 0) break;  /* Break on error or end of dir */
       if (fno.fattrib & AM_DIR)
       {                    /* It is a directory */
-        cliPrintf(" %s/%s \n", path, fno.fname);
+        cliPrintf(" %s/%s \n\r", path, fno.fname);
       }
       else
       {                                       /* It is a file. */
-        cliPrintf(" %s/%32s \t%d bytes\n", path, fno.fname, (int)fno.fsize);
+        cliPrintf(" %s/%32s \t%d bytes\n\r", path, fno.fname, (int)fno.fsize);
       }
     }
     f_closedir(&dir);
@@ -85,7 +85,7 @@ void cliFatfs(cli_args_t *args)
 
   if (args->argc == 1 && args->isStr(0, "info") == true)
   {
-    cliPrintf("fatfs init \t: %d\n", is_init);
+    cliPrintf("fatfs init \t: %d\n\r", is_init);
 
     if (is_init == true)
     {
@@ -102,11 +102,11 @@ void cliFatfs(cli_args_t *args)
          fre_sect = fre_clust * fs->csize;
 
          /* Print the free space (assuming 512 bytes/sector) */
-         cliPrintf("%10lu KiB total drive space.\n%10lu KiB available.\n", tot_sect / 2, fre_sect / 2);
+         cliPrintf("%10lu KiB total drive space.\n\r%10lu KiB available.\n\r", tot_sect / 2, fre_sect / 2);
        }
        else
        {
-         cliPrintf(" err : %d\n", res);
+         cliPrintf(" err : %d\n\r", res);
        }
     }
 
@@ -120,7 +120,7 @@ void cliFatfs(cli_args_t *args)
     res = fatfsDir("/");
     if (res != FR_OK)
     {
-      cliPrintf(" err : %d\n", res);
+      cliPrintf(" err : %d\n\r", res);
     }
 
     ret = true;
@@ -140,7 +140,7 @@ void cliFatfs(cli_args_t *args)
       f_printf(&log_file, "test2, ");
       f_printf(&log_file, "test3, ");
       f_printf(&log_file, ", ");
-      f_printf(&log_file, "\n");
+      f_printf(&log_file, "\n\r");
 
       for (int i=0; i<8; i++)
       {
@@ -183,9 +183,9 @@ void cliFatfs(cli_args_t *args)
 
   if (ret != true)
   {
-    cliPrintf("fatfs info\n");
-    cliPrintf("fatfs dir\n");
-    cliPrintf("fatfs test\n");
+    cliPrintf("fatfs info\n\r");
+    cliPrintf("fatfs dir\n\r");
+    cliPrintf("fatfs test\n\r");
   }
 }
 

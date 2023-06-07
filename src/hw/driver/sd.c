@@ -84,7 +84,6 @@ bool sdInit(void)
   sd_info.log_block_size    = 512;
   sd_info.card_size         = 0;
 
-
   if (is_detected == true)
   {
     ret = sdSpiInitialize();
@@ -187,7 +186,7 @@ bool sdReadBlocks(uint32_t block_addr, uint8_t *p_data, uint32_t num_of_blocks, 
     block_addr *= 512;      /* 지정 sector를 Byte addressing 단위로 변경 */
   }
 
-  sdSpiCS(true);
+  sdSpiCS(false);
 
   if (num_of_blocks == 1)
   {
@@ -217,7 +216,7 @@ bool sdReadBlocks(uint32_t block_addr, uint8_t *p_data, uint32_t num_of_blocks, 
     }
   }
 
-  sdSpiCS(false);
+  sdSpiCS(true);
   sdSpiRxByte(); /* Idle 상태(Release DO) */
 
   if (num_of_blocks == 0)
@@ -238,7 +237,7 @@ bool sdWriteBlocks(uint32_t block_addr, uint8_t *p_data, uint32_t num_of_blocks,
   }
 
 
-  sdSpiCS(true);
+  sdSpiCS(false);
 
   if (num_of_blocks == 1)
   {
@@ -273,7 +272,7 @@ bool sdWriteBlocks(uint32_t block_addr, uint8_t *p_data, uint32_t num_of_blocks,
     }
   }
 
-  sdSpiCS(false);
+  sdSpiCS(true);
   sdSpiRxByte();
 
   if (num_of_blocks == 0)
@@ -346,7 +345,7 @@ void sdSpiPowerOn(void)
   uint8_t rx_data;
 
   /* Deselect 상태에서 SPI 메시지를 전송하여 대기상태로 만든다. */
-  sdSpiCS(false);
+  sdSpiCS(true);
 
   for(int i = 0; i < 10; i++)
   {
@@ -354,7 +353,7 @@ void sdSpiPowerOn(void)
   }
 
   /* SPI Chips Select */
-  sdSpiCS(true);
+  sdSpiCS(false);
 
   /* 초기 GO_IDLE_STATE 상태 전환 */
   cmd_arg[0] = (CMD0 | 0x40);
@@ -376,7 +375,7 @@ void sdSpiPowerOn(void)
     Count--;
   }
 
-  sdSpiCS(false);
+  sdSpiCS(true);
   sdSpiTxByte(0XFF);
 
   PowerFlag = 1;
@@ -543,7 +542,7 @@ bool sdSpiInitialize(void)
   sdSpiPowerOn();
 
   /* SPI 통신을 위해 Chip Select */
-  sdSpiCS(true);
+  sdSpiCS(false);
 
   /* SD카드 타입변수 초기화 */
   type = 0;
@@ -611,14 +610,14 @@ bool sdSpiInitialize(void)
   CardType = type;
   sd_info.card_type = type;
 
-  sdSpiCS(false);
+  sdSpiCS(true);
   sdSpiRxByte(); /* Idle 상태 전환 (Release DO) */
 
 
 #if 1
   if (type)
   {
-    sdSpiCS(true);
+    sdSpiCS(false);
 
     /* SD카드 내 Sector의 개수 (DWORD) */
     if ((sdSpiSendCmd(CMD9, 0) == 0) && sdSpiRxDataBlock(csd, 16))
@@ -644,7 +643,7 @@ bool sdSpiInitialize(void)
     }
 
 
-    sdSpiCS(false);
+    sdSpiCS(true);
     sdSpiRxByte(); /* Idle 상태 전환 (Release DO) */
   }
 #endif
@@ -675,22 +674,22 @@ void cliSd(cli_args_t *args)
   {
     sd_info_t sd_info;
 
-    cliPrintf("sd init      : %d\n", is_init);
-    cliPrintf("sd connected : %d\n", is_detected);
+    cliPrintf("sd init      : %d\n\r", is_init);
+    cliPrintf("sd connected : %d\n\r", is_detected);
 
     if (is_init == true)
     {
       if (sdGetInfo(&sd_info) == true)
       {
-        cliPrintf("   card_type            : %d\n", sd_info.card_type);
-        cliPrintf("   card_version         : %d\n", sd_info.card_version);
-        cliPrintf("   card_class           : %d\n", sd_info.card_class);
-        cliPrintf("   rel_card_Add         : %d\n", sd_info.rel_card_Add);
-        cliPrintf("   block_numbers        : %d\n", sd_info.block_numbers);
-        cliPrintf("   block_size           : %d\n", sd_info.block_size);
-        cliPrintf("   log_block_numbers    : %d\n", sd_info.log_block_numbers);
-        cliPrintf("   log_block_size       : %d\n", sd_info.log_block_size);
-        cliPrintf("   card_size            : %d MB, %d.%d GB\n", sd_info.card_size, sd_info.card_size/1024, ((sd_info.card_size * 10)/1024) % 10);
+        cliPrintf("   card_type            : %d\n\r", sd_info.card_type);
+        cliPrintf("   card_version         : %d\n\r", sd_info.card_version);
+        cliPrintf("   card_class           : %d\n\r", sd_info.card_class);
+        cliPrintf("   rel_card_Add         : %d\n\r", sd_info.rel_card_Add);
+        cliPrintf("   block_numbers        : %d\n\r", sd_info.block_numbers);
+        cliPrintf("   block_size           : %d\n\r", sd_info.block_size);
+        cliPrintf("   log_block_numbers    : %d\n\r", sd_info.log_block_numbers);
+        cliPrintf("   log_block_size       : %d\n\r", sd_info.log_block_size);
+        cliPrintf("   card_size            : %d MB, %d.%d GB\n\r", sd_info.card_size, sd_info.card_size/1024, ((sd_info.card_size * 10)/1024) % 10);
       }
     }
     ret = true;
@@ -712,7 +711,7 @@ void cliSd(cli_args_t *args)
     }
     else
     {
-      cliPrintf("sdRead Fail\n");
+      cliPrintf("sdRead Fail\n\r");
     }
 
     ret = true;
@@ -721,11 +720,11 @@ void cliSd(cli_args_t *args)
 
   if (ret != true)
   {
-    cliPrintf("sd info\n");
+    cliPrintf("sd info\n\r");
 
     if (is_init == true)
     {
-      cliPrintf("sd read block_number\n");
+      cliPrintf("sd read block_number\n\r");
     }
   }
 }
