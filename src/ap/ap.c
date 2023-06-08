@@ -11,6 +11,7 @@
 #include "scheduler.h"
 #include "tasks.h"
 #include "rx.h"
+#include "pid_init.h"
 
 void apInit(void)
 {
@@ -24,6 +25,7 @@ void apInit(void)
 	gpsInit();
 	tasksInit();
 	rxInit();
+	pidInit(currentPidProfile);
 }
 
 void apMain(void)

@@ -47,7 +47,7 @@ quaternion offset = QUATERNION_INITIALIZE;
 // absolute angle inclination in multiple of 0.1 degree    180 deg = 1800
 attitudeEulerAngles_t attitude = EULER_INITIALIZE;
 
-static sensor_Dev_t sensor;
+sensor_Dev_t sensor;
 
 #ifdef _USE_HW_CLI
 static void cliSensor(cli_args_t *args);

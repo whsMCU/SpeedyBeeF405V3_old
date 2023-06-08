@@ -36,7 +36,9 @@
 			"fatfs.h": "c",
 			"ff_gen_drv.h": "c",
 			"diskio.h": "c",
-			"sd_diskio.h": "c"
+			"sd_diskio.h": "c",
+			"axis.h": "c",
+			"utils.h": "c"
 		},
 	}
 }
