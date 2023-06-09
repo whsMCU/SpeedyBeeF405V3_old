@@ -22,7 +22,7 @@
 
 #include <stdbool.h>
 //#include "common/time.h"
-//#include "common/filter.h"
+#include "filter.h"
 #include "axis.h"
 
 //#include "pg/pg.h"
@@ -251,12 +251,12 @@ typedef struct pidAxisData_s {
     float Sum;
 } pidAxisData_t;
 
-// typedef union dtermLowpass_u {
-//     pt1Filter_t pt1Filter;
-//     biquadFilter_t biquadFilter;
-//     pt2Filter_t pt2Filter;
-//     pt3Filter_t pt3Filter;
-// } dtermLowpass_t;
+typedef union dtermLowpass_u {
+    pt1Filter_t pt1Filter;
+    biquadFilter_t biquadFilter;
+    pt2Filter_t pt2Filter;
+    pt3Filter_t pt3Filter;
+} dtermLowpass_t;
 
 typedef struct pidCoefficient_s {
     float Kp;

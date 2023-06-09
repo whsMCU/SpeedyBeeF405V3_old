@@ -35,8 +35,8 @@
 //#include "cms/cms.h"
 
 #include "axis.h"
-//#include "common/filter.h"
-//#include "common/maths.h"
+#include "filter.h"
+#include "maths.h"
 #include "utils.h"
 
 //#include "config/config.h"
@@ -67,7 +67,7 @@
 
 //#include "imu.h"
 // #include "flight/mixer.h"
-// #include "flight/pid.h"
+#include "pid.h"
 // #include "flight/position.h"
 // #include "flight/rpm_filter.h"
 // #include "flight/servos.h"

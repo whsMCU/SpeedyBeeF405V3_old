@@ -22,6 +22,7 @@
 
 // #include "common/time.h"
 // #include "pg/pg.h"
+#include "pid_init.h"
 
 #if defined(USE_GPS) || defined(USE_MAG)
 extern int16_t magHold;

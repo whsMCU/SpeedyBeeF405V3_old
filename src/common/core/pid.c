@@ -29,7 +29,8 @@
 //#include "build/debug.h"
 
 #include "axis.h"
-//#include "common/filter.h"
+#include "filter.h"
+#include "maths.h"
 
 // #include "config/config_reset.h"
 // #include "config/simplified_tuning.h"
@@ -87,7 +88,7 @@ float throttleBoost;
 pt1Filter_t throttleLpf;
 #endif
 
-PG_REGISTER_WITH_RESET_TEMPLATE(pidConfig_t, pidConfig, PG_PID_CONFIG, 3);
+//PG_REGISTER_WITH_RESET_TEMPLATE(pidConfig_t, pidConfig, PG_PID_CONFIG, 3);
 
 #if defined(STM32F1)
 #define PID_PROCESS_DENOM_DEFAULT       8
@@ -107,9 +108,9 @@ PG_RESET_TEMPLATE(pidConfig_t, pidConfig,
     .runaway_takeoff_deactivate_delay = 500     // Accumulated time (in milliseconds) before deactivation in successful takeoff
 );
 #else
-PG_RESET_TEMPLATE(pidConfig_t, pidConfig,
-    .pid_process_denom = PID_PROCESS_DENOM_DEFAULT
-);
+// PG_RESET_TEMPLATE(pidConfig_t, pidConfig,
+//     .pid_process_denom = PID_PROCESS_DENOM_DEFAULT
+// );
 #endif
 
 #ifdef USE_ACRO_TRAINER
@@ -121,7 +122,7 @@ PG_RESET_TEMPLATE(pidConfig_t, pidConfig,
 
 #define LAUNCH_CONTROL_YAW_ITERM_LIMIT 50 // yaw iterm windup limit when launch mode is "FULL" (all axes)
 
-PG_REGISTER_ARRAY_WITH_RESET_FN(pidProfile_t, PID_PROFILE_COUNT, pidProfiles, PG_PID_PROFILE, 3);
+//PG_REGISTER_ARRAY_WITH_RESET_FN(pidProfile_t, PID_PROFILE_COUNT, pidProfiles, PG_PID_PROFILE, 3);
 
 void resetPidProfile(pidProfile_t *pidProfile)
 {
@@ -232,7 +233,7 @@ void resetPidProfile(pidProfile_t *pidProfile)
 
 void pgResetFn_pidProfiles(pidProfile_t *pidProfiles)
 {
-    for (int i = 0; i < PID_PROFILE_COUNT; i++) {
+    for (int i = 0; i < 3; i++) {
         resetPidProfile(&pidProfiles[i]);
     }
 }
@@ -293,8 +294,8 @@ void pidResetIterm(void)
 
 void pidUpdateTpaFactor(float throttle)
 {
-    const float tpaBreakpoint = (currentControlRateProfile->tpa_breakpoint - 1000) / 1000.0f;
-    float tpaRate = currentControlRateProfile->tpa_rate / 100.0f;
+    const float tpaBreakpoint = (1350 - 1000) / 1000.0f;
+    float tpaRate = 65 / 100.0f;
     if (throttle > tpaBreakpoint) {
         if (throttle < 1.0f) {
             tpaRate *= (throttle - tpaBreakpoint) / (1.0f - tpaBreakpoint);
@@ -627,7 +628,7 @@ static void rotateVector(float v[XYZ_AXIS_COUNT], float rotation[XYZ_AXIS_COUNT]
     }
 }
 
-STATIC_UNIT_TESTED void rotateItermAndAxisError()
+void rotateItermAndAxisError()
 {
     if (pidRuntime.itermRotation
 #if defined(USE_ABSOLUTE_CONTROL)
@@ -820,13 +821,13 @@ static FAST_CODE_NOINLINE float applyLaunchControl(int axis, const rollAndPitchT
 
 // Betaflight pid controller, which will be maintained in the future with additional features specialised for current (mini) multirotor usage.
 // Based on 2DOF reference design (matlab)
-void FAST_CODE pidController(const pidProfile_t *pidProfile, timeUs_t currentTimeUs)
+void pidController(const pidProfile_t *pidProfile, uint32_t currentTimeUs)
 {
     static float previousGyroRateDterm[XYZ_AXIS_COUNT];
     static float previousRawGyroRateDterm[XYZ_AXIS_COUNT];
 
 #if defined(USE_ACC)
-    static timeUs_t levelModeStartTimeUs = 0;
+    static uint32_t levelModeStartTimeUs = 0;
     static bool gpsRescuePreviousState = false;
 #endif
 
@@ -879,7 +880,7 @@ void FAST_CODE pidController(const pidProfile_t *pidProfile, timeUs_t currentTim
     if ((pidRuntime.antiGravityMode == ANTI_GRAVITY_SMOOTH) && pidRuntime.antiGravityEnabled) {
         // traditional itermAccelerator factor for iTerm
         pidRuntime.itermAccelerator = pidRuntime.antiGravityThrottleHpf * 0.01f * pidRuntime.itermAcceleratorGain;
-        DEBUG_SET(DEBUG_ANTI_GRAVITY, 1, lrintf(pidRuntime.itermAccelerator * 1000));
+        //DEBUG_SET(DEBUG_ANTI_GRAVITY, 1, lrintf(pidRuntime.itermAccelerator * 1000));
         // users AG Gain changes P boost
         pidRuntime.antiGravityPBoost *= pidRuntime.itermAcceleratorGain;
         // add some percentage of that slower, longer acting P boost factor to prolong AG effect on iTerm
@@ -889,7 +890,7 @@ void FAST_CODE pidController(const pidProfile_t *pidProfile, timeUs_t currentTim
     } else {
         pidRuntime.antiGravityPBoost = 0.0f;
     }
-    DEBUG_SET(DEBUG_ANTI_GRAVITY, 0, lrintf(pidRuntime.itermAccelerator * 1000));
+    //DEBUG_SET(DEBUG_ANTI_GRAVITY, 0, lrintf(pidRuntime.itermAccelerator * 1000));
 
     float agGain = pidRuntime.dT * pidRuntime.itermAccelerator * AG_KI;
 
@@ -915,11 +916,11 @@ void FAST_CODE pidController(const pidProfile_t *pidProfile, timeUs_t currentTim
         previousRawGyroRateDterm[axis] = gyroRateDterm[axis];
 
         // Log the unfiltered D
-        if (axis == FD_ROLL) {
-            DEBUG_SET(DEBUG_D_LPF, 0, lrintf(delta));
-        } else if (axis == FD_PITCH) {
-            DEBUG_SET(DEBUG_D_LPF, 1, lrintf(delta));
-        }
+        // if (axis == FD_ROLL) {
+        //     DEBUG_SET(DEBUG_D_LPF, 0, lrintf(delta));
+        // } else if (axis == FD_PITCH) {
+        //     DEBUG_SET(DEBUG_D_LPF, 1, lrintf(delta));
+        // }
 
         gyroRateDterm[axis] = pidRuntime.dtermNotchApplyFn((filter_t *) &pidRuntime.dtermNotch[axis], gyroRateDterm[axis]);
         gyroRateDterm[axis] = pidRuntime.dtermLowpassApplyFn((filter_t *) &pidRuntime.dtermLowpass[axis], gyroRateDterm[axis]);
@@ -1096,19 +1097,19 @@ void FAST_CODE pidController(const pidProfile_t *pidProfile, timeUs_t currentTim
             // Log the value of D pre application of TPA
             preTpaD *= D_LPF_FILT_SCALE;
 
-            if (axis == FD_ROLL) {
-                DEBUG_SET(DEBUG_D_LPF, 2, lrintf(preTpaD));
-            } else if (axis == FD_PITCH) {
-                DEBUG_SET(DEBUG_D_LPF, 3, lrintf(preTpaD));
-            }
+            // if (axis == FD_ROLL) {
+            //     DEBUG_SET(DEBUG_D_LPF, 2, lrintf(preTpaD));
+            // } else if (axis == FD_PITCH) {
+            //     DEBUG_SET(DEBUG_D_LPF, 3, lrintf(preTpaD));
+            // }
         } else {
             pidData[axis].D = 0;
 
-            if (axis == FD_ROLL) {
-                DEBUG_SET(DEBUG_D_LPF, 2, 0);
-            } else if (axis == FD_PITCH) {
-                DEBUG_SET(DEBUG_D_LPF, 3, 0);
-            }
+            // if (axis == FD_ROLL) {
+            //     DEBUG_SET(DEBUG_D_LPF, 2, 0);
+            // } else if (axis == FD_PITCH) {
+            //     DEBUG_SET(DEBUG_D_LPF, 3, 0);
+            // }
         }
 
         previousGyroRateDterm[axis] = gyroRateDterm[axis];
@@ -1124,7 +1125,7 @@ void FAST_CODE pidController(const pidProfile_t *pidProfile, timeUs_t currentTim
         float feedforwardGain = launchControlActive ? 0.0f : pidRuntime.pidCoefficient[axis].Kf;
         if (feedforwardGain > 0) {
             // halve feedforward in Level mode since stick sensitivity is weaker by about half
-            feedforwardGain *= FLIGHT_MODE(ANGLE_MODE) ? 0.5f : 1.0f;
+            feedforwardGain *= 0.5f;//FLIGHT_MODE(ANGLE_MODE) ? 0.5f : 1.0f;
             // transition now calculated in feedforward.c when new RC data arrives 
             float feedForward = feedforwardGain * pidSetpointDelta * pidRuntime.pidFrequency;
 
@@ -1180,7 +1181,7 @@ void FAST_CODE pidController(const pidProfile_t *pidProfile, timeUs_t currentTim
         const float agBoost = 1.0f + (pidRuntime.antiGravityPBoost / agBoostAttenuator);
         if (axis != FD_YAW) {
             pidData[axis].P *= agBoost;
-            DEBUG_SET(DEBUG_ANTI_GRAVITY, axis + 2, lrintf(agBoost * 1000));
+            //DEBUG_SET(DEBUG_ANTI_GRAVITY, axis + 2, lrintf(agBoost * 1000));
         }
 
         const float pidSum = pidData[axis].P + pidData[axis].I + pidData[axis].D + pidData[axis].F;
