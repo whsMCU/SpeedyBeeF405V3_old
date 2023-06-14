@@ -23,7 +23,7 @@
 #include "pid.h"
 
 struct pidProfile_s;
-extern struct pidProfile_s *currentPidProfile;
+extern struct pidProfile_s currentPidProfile;
 
 void pidInit(const pidProfile_t *pidProfile);
 void pidInitFilters(const pidProfile_t *pidProfile);

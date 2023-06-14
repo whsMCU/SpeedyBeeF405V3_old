@@ -61,6 +61,7 @@
 // #include "sensors/gyro.h"
 
 #include "pid.h"
+#include "pid_init.h"
 
 typedef enum {
     LEVEL_MODE_OFF = 0,
@@ -126,103 +127,100 @@ PG_RESET_TEMPLATE(pidConfig_t, pidConfig,
 
 void resetPidProfile(pidProfile_t *pidProfile)
 {
-    RESET_CONFIG(pidProfile_t, pidProfile,
-        .pid = {
+    currentPidProfile.pid= {
             [PID_ROLL] =  PID_ROLL_DEFAULT,
             [PID_PITCH] = PID_PITCH_DEFAULT,
             [PID_YAW] =   PID_YAW_DEFAULT,
             [PID_LEVEL] = { 50, 50, 75, 0 },
             [PID_MAG] =   { 40, 0, 0, 0 },
-        },
-        .pidSumLimit = PIDSUM_LIMIT,
-        .pidSumLimitYaw = PIDSUM_LIMIT_YAW,
-        .yaw_lowpass_hz = 100,
-        .dterm_notch_hz = 0,
-        .dterm_notch_cutoff = 0,
-        .itermWindupPointPercent = 85,
-        .pidAtMinThrottle = PID_STABILISATION_ON,
-        .levelAngleLimit = 55,
-        .feedforward_transition = 0,
-        .yawRateAccelLimit = 0,
-        .rateAccelLimit = 0,
-        .itermThrottleThreshold = 250,
-        .itermAcceleratorGain = 3500,
-        .crash_time = 500,          // ms
-        .crash_delay = 0,           // ms
-        .crash_recovery_angle = 10, // degrees
-        .crash_recovery_rate = 100, // degrees/second
-        .crash_dthreshold = 50,     // degrees/second/second
-        .crash_gthreshold = 400,    // degrees/second
-        .crash_setpoint_threshold = 350, // degrees/second
-        .crash_recovery = PID_CRASH_RECOVERY_OFF, // off by default
-        .horizon_tilt_effect = 75,
-        .horizon_tilt_expert_mode = false,
-        .crash_limit_yaw = 200,
-        .itermLimit = 400,
-        .throttle_boost = 5,
-        .throttle_boost_cutoff = 15,
-        .iterm_rotation = false,
-        .iterm_relax = ITERM_RELAX_RP,
-        .iterm_relax_cutoff = ITERM_RELAX_CUTOFF_DEFAULT,
-        .iterm_relax_type = ITERM_RELAX_SETPOINT,
-        .acro_trainer_angle_limit = 20,
-        .acro_trainer_lookahead_ms = 50,
-        .acro_trainer_debug_axis = FD_ROLL,
-        .acro_trainer_gain = 75,
-        .abs_control_gain = 0,
-        .abs_control_limit = 90,
-        .abs_control_error_limit = 20,
-        .abs_control_cutoff = 11,
-        .antiGravityMode = ANTI_GRAVITY_SMOOTH,
-        .dterm_lpf1_static_hz = DTERM_LPF1_DYN_MIN_HZ_DEFAULT,
+        };
+        currentPidProfile.pidSumLimit = PIDSUM_LIMIT;
+        currentPidProfile.pidSumLimitYaw = PIDSUM_LIMIT_YAW;
+        currentPidProfile.yaw_lowpass_hz = 100;
+        currentPidProfile.dterm_notch_hz = 0;
+        currentPidProfile.dterm_notch_cutoff = 0;
+        currentPidProfile.itermWindupPointPercent = 85;
+        currentPidProfile.pidAtMinThrottle = PID_STABILISATION_ON;
+        currentPidProfile.levelAngleLimit = 55;
+        currentPidProfile.feedforward_transition = 0;
+        currentPidProfile.yawRateAccelLimit = 0;
+        currentPidProfile.rateAccelLimit = 0;
+        currentPidProfile.itermThrottleThreshold = 250;
+        currentPidProfile.itermAcceleratorGain = 3500;
+        currentPidProfile.crash_time = 500;          // ms
+        currentPidProfile.crash_delay = 0;           // ms
+        currentPidProfile.crash_recovery_angle = 10; // degrees
+        currentPidProfile.crash_recovery_rate = 100; // degrees/second
+        currentPidProfile.crash_dthreshold = 50;     // degrees/second/second
+        currentPidProfile.crash_gthreshold = 400;    // degrees/second
+        currentPidProfile.crash_setpoint_threshold = 350; // degrees/second
+        currentPidProfile.crash_recovery = PID_CRASH_RECOVERY_OFF; // off by default
+        currentPidProfile.horizon_tilt_effect = 75;
+        currentPidProfile.horizon_tilt_expert_mode = false;
+        currentPidProfile.crash_limit_yaw = 200;
+        currentPidProfile.itermLimit = 400;
+        currentPidProfile.throttle_boost = 5;
+        currentPidProfile.throttle_boost_cutoff = 15;
+        currentPidProfile.iterm_rotation = false;
+        currentPidProfile.iterm_relax = ITERM_RELAX_RP;
+        currentPidProfile.iterm_relax_cutoff = ITERM_RELAX_CUTOFF_DEFAULT;
+        currentPidProfile.iterm_relax_type = ITERM_RELAX_SETPOINT;
+        currentPidProfile.acro_trainer_angle_limit = 20;
+        currentPidProfile.acro_trainer_lookahead_ms = 50;
+        currentPidProfile.acro_trainer_debug_axis = FD_ROLL;
+        currentPidProfile.acro_trainer_gain = 75;
+        currentPidProfile.abs_control_gain = 0;
+        currentPidProfile.abs_control_limit = 90;
+        currentPidProfile.abs_control_error_limit = 20;
+        currentPidProfile.abs_control_cutoff = 11;
+        currentPidProfile.antiGravityMode = ANTI_GRAVITY_SMOOTH;
+        currentPidProfile.dterm_lpf1_static_hz = DTERM_LPF1_DYN_MIN_HZ_DEFAULT;
             // NOTE: dynamic lpf is enabled by default so this setting is actually
             // overridden and the static lowpass 1 is disabled. We can't set this
             // value to 0 otherwise Configurator versions 10.4 and earlier will also
             // reset the lowpass filter type to PT1 overriding the desired BIQUAD setting.
-        .dterm_lpf2_static_hz = DTERM_LPF2_HZ_DEFAULT,   // second Dterm LPF ON by default
-        .dterm_lpf1_type = FILTER_PT1,
-        .dterm_lpf2_type = FILTER_PT1,
-        .dterm_lpf1_dyn_min_hz = DTERM_LPF1_DYN_MIN_HZ_DEFAULT,
-        .dterm_lpf1_dyn_max_hz = DTERM_LPF1_DYN_MAX_HZ_DEFAULT,
-        .launchControlMode = LAUNCH_CONTROL_MODE_NORMAL,
-        .launchControlThrottlePercent = 20,
-        .launchControlAngleLimit = 0,
-        .launchControlGain = 40,
-        .launchControlAllowTriggerReset = true,
-        .use_integrated_yaw = false,
-        .integrated_yaw_relax = 200,
-        .thrustLinearization = 0,
-        .d_min = D_MIN_DEFAULT,
-        .d_min_gain = 37,
-        .d_min_advance = 20,
-        .motor_output_limit = 100,
-        .auto_profile_cell_count = AUTO_PROFILE_CELL_COUNT_STAY,
-        .transient_throttle_limit = 0,
-        .profileName = { 0 },
-        .dyn_idle_min_rpm = 0,
-        .dyn_idle_p_gain = 50,
-        .dyn_idle_i_gain = 50,
-        .dyn_idle_d_gain = 50,
-        .dyn_idle_max_increase = 150,
-        .feedforward_averaging = FEEDFORWARD_AVERAGING_OFF,
-        .feedforward_max_rate_limit = 90,
-        .feedforward_smooth_factor = 25,
-        .feedforward_jitter_factor = 7,
-        .feedforward_boost = 15,
-        .dterm_lpf1_dyn_expo = 5,
-        .level_race_mode = false,
-        .vbat_sag_compensation = 0,
-        .simplified_pids_mode = PID_SIMPLIFIED_TUNING_RPY,
-        .simplified_master_multiplier = SIMPLIFIED_TUNING_DEFAULT,
-        .simplified_roll_pitch_ratio = SIMPLIFIED_TUNING_DEFAULT,
-        .simplified_i_gain = SIMPLIFIED_TUNING_DEFAULT,
-        .simplified_d_gain = SIMPLIFIED_TUNING_D_DEFAULT,
-        .simplified_pi_gain = SIMPLIFIED_TUNING_DEFAULT,
-        .simplified_dmin_ratio = SIMPLIFIED_TUNING_D_DEFAULT,
-        .simplified_feedforward_gain = SIMPLIFIED_TUNING_DEFAULT,
-        .simplified_pitch_pi_gain = SIMPLIFIED_TUNING_DEFAULT,
-        .simplified_dterm_filter = true,
-        .simplified_dterm_filter_multiplier = SIMPLIFIED_TUNING_DEFAULT,
+        currentPidProfile.dterm_lpf2_static_hz = DTERM_LPF2_HZ_DEFAULT;   // second Dterm LPF ON by default
+        currentPidProfile.dterm_lpf1_type = FILTER_PT1;
+        currentPidProfile.dterm_lpf2_type = FILTER_PT1;
+        currentPidProfile.dterm_lpf1_dyn_min_hz = DTERM_LPF1_DYN_MIN_HZ_DEFAULT;
+        currentPidProfile.dterm_lpf1_dyn_max_hz = DTERM_LPF1_DYN_MAX_HZ_DEFAULT;
+        currentPidProfile.launchControlMode = LAUNCH_CONTROL_MODE_NORMAL;
+        currentPidProfile.launchControlThrottlePercent = 20;
+        currentPidProfile.launchControlAngleLimit = 0;
+        currentPidProfile.launchControlGain = 40;
+        currentPidProfile.launchControlAllowTriggerReset = true;
+        currentPidProfile.use_integrated_yaw = false;
+        currentPidProfile.integrated_yaw_relax = 200;
+        currentPidProfile.thrustLinearization = 0;
+        currentPidProfile.d_min = D_MIN_DEFAULT;
+        currentPidProfile.d_min_gain = 37;
+        currentPidProfile.d_min_advance = 20;
+        currentPidProfile.motor_output_limit = 100;
+        currentPidProfile.auto_profile_cell_count = AUTO_PROFILE_CELL_COUNT_STAY;
+        currentPidProfile.transient_throttle_limit = 0;
+        currentPidProfile.profileName = { 0 };
+        currentPidProfile.dyn_idle_min_rpm = 0;
+        currentPidProfile.dyn_idle_p_gain = 50;
+        currentPidProfile.dyn_idle_i_gain = 50;
+        currentPidProfile.dyn_idle_d_gain = 50;
+        currentPidProfile.dyn_idle_max_increase = 150;
+        currentPidProfile.feedforward_averaging = FEEDFORWARD_AVERAGING_OFF;
+        currentPidProfile.feedforward_max_rate_limit = 90;
+        currentPidProfile.feedforward_boost = 15;
+        currentPidProfile.dterm_lpf1_dyn_expo = 5;
+        currentPidProfile.level_race_mode = false;
+        currentPidProfile.vbat_sag_compensation = 0;
+        currentPidProfile.simplified_pids_mode = PID_SIMPLIFIED_TUNING_RPY;
+        currentPidProfile.simplified_master_multiplier = SIMPLIFIED_TUNING_DEFAULT;
+        currentPidProfile.simplified_roll_pitch_ratio = SIMPLIFIED_TUNING_DEFAULT;
+        currentPidProfile.simplified_i_gain = SIMPLIFIED_TUNING_DEFAULT;
+        currentPidProfile.simplified_d_gain = SIMPLIFIED_TUNING_D_DEFAULT;
+        currentPidProfile.simplified_pi_gain = SIMPLIFIED_TUNING_DEFAULT;
+        currentPidProfile.simplified_dmin_ratio = SIMPLIFIED_TUNING_D_DEFAULT;
+       currentPidProfile.simplified_feedforward_gain = SIMPLIFIED_TUNING_DEFAULT;
+        currentPidProfile.simplified_pitch_pi_gain = SIMPLIFIED_TUNING_DEFAULT;
+        currentPidProfile.simplified_dterm_filter = true;
+        currentPidProfile.simplified_dterm_filter_multiplier = SIMPLIFIED_TUNING_DEFAULT;
     );
 
 #ifndef USE_D_MIN
@@ -638,7 +636,7 @@ void rotateItermAndAxisError()
         const float gyroToAngle = pidRuntime.dT * RAD;
         float rotationRads[XYZ_AXIS_COUNT];
         for (int i = FD_ROLL; i <= FD_YAW; i++) {
-            rotationRads[i] = gyro.gyroADCf[i] * gyroToAngle;
+            rotationRads[i] = sensor.imuSensor1.imuDev.gyroADCf[i] * gyroToAngle;
         }
 #if defined(USE_ABSOLUTE_CONTROL)
         if (pidRuntime.acGain > 0 || debugMode == DEBUG_AC_ERROR) {
@@ -903,7 +901,7 @@ void pidController(const pidProfile_t *pidProfile, uint32_t currentTimeUs)
     // Precalculate gyro deta for D-term here, this allows loop unrolling
     float gyroRateDterm[XYZ_AXIS_COUNT];
     for (int axis = FD_ROLL; axis <= FD_YAW; ++axis) {
-        gyroRateDterm[axis] = gyro.gyroADCf[axis];
+        gyroRateDterm[axis] = sensor.imuSensor1.imuDev.gyroADCf[axis];
         // -----calculate raw, unfiltered D component
 
         // Divide rate change by dT to get differential (ie dr/dt).
@@ -993,7 +991,7 @@ void pidController(const pidProfile_t *pidProfile, uint32_t currentTimeUs)
 #endif // USE_YAW_SPIN_RECOVERY
 
         // -----calculate error rate
-        const float gyroRate = gyro.gyroADCf[axis]; // Process variable from gyro output in deg/sec
+        const float gyroRate = sensor.imuSensor1.imuDev.gyroADCf[axis]; // Process variable from gyro output in deg/sec
         float errorRate = currentPidSetpoint - gyroRate; // r - y
 #if defined(USE_ACC)
         handleCrashRecovery(

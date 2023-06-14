@@ -42,6 +42,8 @@
 // Add a margin to the task duration estimation
 #define RX_TASK_MARGIN 1
 
+static uint8_t pidUpdateCounter;
+
 static void taskMain(uint32_t currentTimeUs)
 {
     UNUSED(currentTimeUs);
@@ -116,10 +118,10 @@ void taskGyroSample(uint32_t currentTimeUs)
 {
     UNUSED(currentTimeUs);
     gyroUpdate();
-    // if (pidUpdateCounter % activePidLoopDenom == 0) {
-    //     pidUpdateCounter = 0;
-    // }
-    // pidUpdateCounter++;
+    if (pidUpdateCounter % activePidLoopDenom == 0) {
+        pidUpdateCounter = 0;
+    }
+    pidUpdateCounter++;
 }
 
 typedef enum {

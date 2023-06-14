@@ -12,6 +12,7 @@
 #include "tasks.h"
 #include "rx.h"
 #include "pid_init.h"
+#include "sensor.h"
 
 void apInit(void)
 {
@@ -25,6 +26,8 @@ void apInit(void)
 	gpsInit();
 	tasksInit();
 	rxInit();
+	// Finally initialize the gyro filtering
+    gyroInitFilters();
 	pidInit(currentPidProfile);
 }
 
