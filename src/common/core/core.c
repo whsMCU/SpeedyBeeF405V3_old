@@ -907,11 +907,10 @@ bool pidLoopReady(void)
     return false;
 }
 
-// void taskFiltering(uint32_t currentTimeUs)
-// {
-//     gyroFiltering(currentTimeUs);
-
-// }
+void taskFiltering(uint32_t currentTimeUs)
+{
+    gyroFiltering(currentTimeUs);
+}
 
 // Function for loop trigger
 void taskMainPidLoop(uint32_t currentTimeUs)

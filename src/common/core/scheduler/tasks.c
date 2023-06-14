@@ -291,7 +291,7 @@ task_attribute_t task_attributes[TASK_COUNT] = {
 #endif
 
     [TASK_GYRO] = DEFINE_TASK("GYRO", NULL, NULL, taskGyroSample, TASK_GYROPID_DESIRED_PERIOD, TASK_PRIORITY_REALTIME),
-    //[TASK_FILTER] = DEFINE_TASK("FILTER", NULL, NULL, taskFiltering, TASK_GYROPID_DESIRED_PERIOD, TASK_PRIORITY_REALTIME),
+    [TASK_FILTER] = DEFINE_TASK("FILTER", NULL, NULL, taskFiltering, TASK_GYROPID_DESIRED_PERIOD, TASK_PRIORITY_REALTIME),
     [TASK_PID] = DEFINE_TASK("PID", NULL, NULL, taskMainPidLoop, TASK_GYROPID_DESIRED_PERIOD, TASK_PRIORITY_REALTIME),
 
     [TASK_ACCEL] = DEFINE_TASK("ACC", NULL, NULL, taskUpdateAccelerometer, TASK_PERIOD_HZ(1000), TASK_PRIORITY_MEDIUM),
@@ -371,11 +371,11 @@ void tasksInit(void)
 #endif
 
     rescheduleTask(TASK_GYRO, 312);
-    //rescheduleTask(TASK_FILTER, gyro.targetLooptime);
-    //rescheduleTask(TASK_PID, gyro.targetLooptime);
+    rescheduleTask(TASK_FILTER, sensor.imuSensor1.imuDev.targetLooptime);
+    rescheduleTask(TASK_PID, sensor.imuSensor1.imuDev.targetLooptime);
     setTaskEnabled(TASK_GYRO, true);
-    //setTaskEnabled(TASK_FILTER, true);
-    //setTaskEnabled(TASK_PID, true);
+    setTaskEnabled(TASK_FILTER, true);
+    setTaskEnabled(TASK_PID, true);
     schedulerEnableGyro();
 
     setTaskEnabled(TASK_ACCEL, true);

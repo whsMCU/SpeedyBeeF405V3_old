@@ -49,6 +49,10 @@
 #define _DEF_INPUT_AF_PP      7
 
 
+#define USE_GYRO_OVERFLOW_CHECK
+#define USE_YAW_SPIN_RECOVERY
+
+
 
 
 #endif /* SRC_COMMON_DEF_H_ */

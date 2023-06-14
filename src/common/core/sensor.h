@@ -33,6 +33,13 @@ typedef union {
     } values;
 } attitudeEulerAngles_t;
 
+typedef enum {
+    GYRO_OVERFLOW_NONE = 0x00,
+    GYRO_OVERFLOW_X = 0x01,
+    GYRO_OVERFLOW_Y = 0x02,
+    GYRO_OVERFLOW_Z = 0x04
+} gyroOverflow_e;
+
 #define EULER_INITIALIZE  { { 0, 0, 0 } }
 
 #define GYRO_SCALE_2000DPS (2000.0f / (1 << 15))   // 16.384 dps/lsb scalefactor for 2000dps sensors
