@@ -51,6 +51,7 @@
 
 #define USE_GYRO_OVERFLOW_CHECK
 #define USE_YAW_SPIN_RECOVERY
+#define USE_ACC
 
 
 

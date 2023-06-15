@@ -28,7 +28,7 @@ void apInit(void)
 	rxInit();
 	// Finally initialize the gyro filtering
     gyroInitFilters();
-	pidInit(currentPidProfile);
+	pidInit(&currentPidProfile);
 }
 
 void apMain(void)
