@@ -67,6 +67,26 @@ typedef enum {
     GYRO_OVERFLOW_Z = 0x04
 } gyroOverflow_e;
 
+enum {
+    GYRO_OVERFLOW_CHECK_NONE = 0,
+    GYRO_OVERFLOW_CHECK_YAW,
+    GYRO_OVERFLOW_CHECK_ALL_AXES
+};
+
+enum {
+    DYN_LPF_NONE = 0,
+    DYN_LPF_PT1,
+    DYN_LPF_BIQUAD,
+    DYN_LPF_PT2,
+    DYN_LPF_PT3,
+};
+
+typedef enum {
+    YAW_SPIN_RECOVERY_OFF,
+    YAW_SPIN_RECOVERY_ON,
+    YAW_SPIN_RECOVERY_AUTO
+} yawSpinRecoveryMode_e;
+
 #define EULER_INITIALIZE  { { 0, 0, 0 } }
 
 #define GYRO_SCALE_2000DPS (2000.0f / (1 << 15))   // 16.384 dps/lsb scalefactor for 2000dps sensors
@@ -116,6 +136,9 @@ typedef struct imuDev_s {
   filterApplyFnPtr notchFilter2ApplyFn;
   biquadFilter_t notchFilter2[XYZ_AXIS_COUNT];
 
+  bool gyroHasOverflowProtection;
+  uint8_t checkOverflow;
+
   #ifdef USE_DYN_LPF
     uint8_t dynLpfFilter;
     uint16_t dynLpfMin;
@@ -159,6 +182,7 @@ typedef struct sensor_Dev_s
 
 bool Sensor_Init(void);
 void gyroInitFilters(void);
+void gyroFiltering(uint32_t currentTimeUs);
 void gyroUpdate(void);
 void accUpdate(uint32_t currentTimeUs);
 void imuUpdateAttitude(uint32_t currentTimeUs);

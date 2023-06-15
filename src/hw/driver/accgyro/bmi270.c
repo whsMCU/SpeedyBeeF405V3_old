@@ -237,7 +237,7 @@ bool bmi270_Init(imuSensor_t *gyro)
     gyro->calibration.calibratingB = 200;
 
     gyro->imuDev.sampleLooptime = 1000000/3200;
-    gyro->imuDev.targetLooptime = 2000000/3200;
+    gyro->imuDev.targetLooptime = 1000000/3200;
 
     gyro_instace = gyro;
 

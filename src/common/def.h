@@ -50,8 +50,11 @@
 
 
 #define USE_GYRO_OVERFLOW_CHECK
-#define USE_YAW_SPIN_RECOVERY
+//#define USE_YAW_SPIN_RECOVERY
 #define USE_ACC
+#define USE_LAUNCH_CONTROL
+#define USE_DYN_LPF
+#define USE_D_MIN
 
 
 

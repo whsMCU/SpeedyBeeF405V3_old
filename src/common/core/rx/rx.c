@@ -1065,28 +1065,28 @@ bool processRx(uint32_t currentTimeUs)
     }
 #endif
 
-#ifdef USE_LAUNCH_CONTROL
-    if (ARMING_FLAG(ARMED)) {
-        if (launchControlActive && (throttlePercent > currentPidProfile->launchControlThrottlePercent)) {
-            // throttle limit trigger reached, launch triggered
-            // reset the iterms as they may be at high values from holding the launch position
-            launchControlState = LAUNCH_CONTROL_TRIGGERED;
-            pidResetIterm();
-        }
-    } else {
-        if (launchControlState == LAUNCH_CONTROL_TRIGGERED) {
-            // If trigger mode is MULTIPLE then reset the state when disarmed
-            // and the mode switch is turned off.
-            // For trigger mode SINGLE we never reset the state and only a single
-            // launch is allowed until a reboot.
-            if (currentPidProfile->launchControlAllowTriggerReset && !IS_RC_MODE_ACTIVE(BOXLAUNCHCONTROL)) {
-                launchControlState = LAUNCH_CONTROL_DISABLED;
-            }
-        } else {
-            launchControlState = LAUNCH_CONTROL_DISABLED;
-        }
-    }
-#endif
+// #ifdef USE_LAUNCH_CONTROL
+//     if (ARMING_FLAG(ARMED)) {
+//         if (launchControlActive && (throttlePercent > currentPidProfile->launchControlThrottlePercent)) {
+//             // throttle limit trigger reached, launch triggered
+//             // reset the iterms as they may be at high values from holding the launch position
+//             launchControlState = LAUNCH_CONTROL_TRIGGERED;
+//             pidResetIterm();
+//         }
+//     } else {
+//         if (launchControlState == LAUNCH_CONTROL_TRIGGERED) {
+//             // If trigger mode is MULTIPLE then reset the state when disarmed
+//             // and the mode switch is turned off.
+//             // For trigger mode SINGLE we never reset the state and only a single
+//             // launch is allowed until a reboot.
+//             if (currentPidProfile->launchControlAllowTriggerReset && !IS_RC_MODE_ACTIVE(BOXLAUNCHCONTROL)) {
+//                 launchControlState = LAUNCH_CONTROL_DISABLED;
+//             }
+//         } else {
+//             launchControlState = LAUNCH_CONTROL_DISABLED;
+//         }
+//     }
+// #endif
 
     return true;
 }
@@ -1216,32 +1216,32 @@ void processRxModes(uint32_t currentTimeUs)
     //     DISABLE_ARMING_FLAG(WAS_ARMED_WITH_PREARM);
     // }
 
-#if defined(USE_ACC) || defined(USE_MAG)
-    if (sensors(SENSOR_ACC) || sensors(SENSOR_MAG)) {
-#if defined(USE_GPS) || defined(USE_MAG)
-        if (IS_RC_MODE_ACTIVE(BOXMAG)) {
-            if (!FLIGHT_MODE(MAG_MODE)) {
-                ENABLE_FLIGHT_MODE(MAG_MODE);
-                magHold = DECIDEGREES_TO_DEGREES(attitude.values.yaw);
-            }
-        } else {
-            DISABLE_FLIGHT_MODE(MAG_MODE);
-        }
-#endif
-        if (IS_RC_MODE_ACTIVE(BOXHEADFREE) && !FLIGHT_MODE(GPS_RESCUE_MODE)) {
-            if (!FLIGHT_MODE(HEADFREE_MODE)) {
-                ENABLE_FLIGHT_MODE(HEADFREE_MODE);
-            }
-        } else {
-            DISABLE_FLIGHT_MODE(HEADFREE_MODE);
-        }
-        if (IS_RC_MODE_ACTIVE(BOXHEADADJ) && !FLIGHT_MODE(GPS_RESCUE_MODE)) {
-            if (imuQuaternionHeadfreeOffsetSet()) {
-               beeper(BEEPER_RX_SET);
-            }
-        }
-    }
-#endif
+// #if defined(USE_ACC) || defined(USE_MAG)
+//     if (sensors(SENSOR_ACC) || sensors(SENSOR_MAG)) {
+// #if defined(USE_GPS) || defined(USE_MAG)
+//         if (IS_RC_MODE_ACTIVE(BOXMAG)) {
+//             if (!FLIGHT_MODE(MAG_MODE)) {
+//                 ENABLE_FLIGHT_MODE(MAG_MODE);
+//                 magHold = DECIDEGREES_TO_DEGREES(attitude.values.yaw);
+//             }
+//         } else {
+//             DISABLE_FLIGHT_MODE(MAG_MODE);
+//         }
+// #endif
+//         if (IS_RC_MODE_ACTIVE(BOXHEADFREE) && !FLIGHT_MODE(GPS_RESCUE_MODE)) {
+//             if (!FLIGHT_MODE(HEADFREE_MODE)) {
+//                 ENABLE_FLIGHT_MODE(HEADFREE_MODE);
+//             }
+//         } else {
+//             DISABLE_FLIGHT_MODE(HEADFREE_MODE);
+//         }
+//         if (IS_RC_MODE_ACTIVE(BOXHEADADJ) && !FLIGHT_MODE(GPS_RESCUE_MODE)) {
+//             if (imuQuaternionHeadfreeOffsetSet()) {
+//                beeper(BEEPER_RX_SET);
+//             }
+//         }
+//     }
+// #endif
 
     // if (IS_RC_MODE_ACTIVE(BOXPASSTHRU)) {
     //     ENABLE_FLIGHT_MODE(PASSTHRU_MODE);

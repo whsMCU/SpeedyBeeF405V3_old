@@ -138,6 +138,17 @@ bool Sensor_Init(void)
  	{
    		return false;
   	}
+    sensor.imuSensor1.imuDev.checkOverflow = GYRO_OVERFLOW_CHECK_ALL_AXES;
+    #ifdef USE_GYRO_OVERFLOW_CHECK
+    if (sensor.imuSensor1.imuDev.checkOverflow == GYRO_OVERFLOW_CHECK_YAW) {
+        sensor.imuSensor1.imuDev.overflowAxisMask = GYRO_OVERFLOW_Z;
+    } else if (sensor.imuSensor1.imuDev.checkOverflow == GYRO_OVERFLOW_CHECK_ALL_AXES) {
+        sensor.imuSensor1.imuDev.overflowAxisMask = GYRO_OVERFLOW_X | GYRO_OVERFLOW_Y | GYRO_OVERFLOW_Z;
+    } else {
+        sensor.imuSensor1.imuDev.overflowAxisMask = 0;
+    }
+    #endif
+    sensor.imuSensor1.imuDev.gyroHasOverflowProtection = true;
 
 	#ifdef _USE_HW_CLI
   		cliAdd("Sensor", cliSensor);
@@ -374,13 +385,43 @@ static void gyroInitFilterNotch2(uint16_t notchHz, uint16_t notchCutoffHz)
     }
 }
 
+#ifdef USE_DYN_LPF
+static void dynLpfFilterInit()
+{
+    if (GYRO_LPF1_DYN_MIN_HZ_DEFAULT > 0) {
+        switch (FILTER_PT1) {
+        case FILTER_PT1:
+            sensor.imuSensor1.imuDev.dynLpfFilter = DYN_LPF_PT1;
+            break;
+        case FILTER_BIQUAD:
+            sensor.imuSensor1.imuDev.dynLpfFilter = DYN_LPF_BIQUAD;
+            break;
+        case FILTER_PT2:
+            sensor.imuSensor1.imuDev.dynLpfFilter = DYN_LPF_PT2;
+            break;
+        case FILTER_PT3:
+            sensor.imuSensor1.imuDev.dynLpfFilter = DYN_LPF_PT3;
+            break;
+        default:
+            sensor.imuSensor1.imuDev.dynLpfFilter = DYN_LPF_NONE;
+            break;
+        }
+    } else {
+        sensor.imuSensor1.imuDev.dynLpfFilter = DYN_LPF_NONE;
+    }
+    sensor.imuSensor1.imuDev.dynLpfMin = GYRO_LPF1_DYN_MIN_HZ_DEFAULT;
+    sensor.imuSensor1.imuDev.dynLpfMax = GYRO_LPF1_DYN_MAX_HZ_DEFAULT;
+    sensor.imuSensor1.imuDev.dynLpfCurveExpo = 5;
+}
+#endif
+
 void gyroInitFilters(void)
 {
     uint16_t gyro_lpf1_init_hz = GYRO_LPF1_DYN_MIN_HZ_DEFAULT;//gyroConfig()->gyro_lpf1_static_hz;
 
 #ifdef USE_DYN_LPF
-    if (gyroConfig()->gyro_lpf1_dyn_min_hz > 0) {
-        gyro_lpf1_init_hz = gyroConfig()->gyro_lpf1_dyn_min_hz;
+    if (GYRO_LPF1_DYN_MIN_HZ_DEFAULT > 0) {
+        gyro_lpf1_init_hz = GYRO_LPF1_DYN_MIN_HZ_DEFAULT;
     }
 #endif
 
@@ -527,7 +568,7 @@ void gyroFiltering(uint32_t currentTimeUs)
 //     }
 
 #ifdef USE_GYRO_OVERFLOW_CHECK
-    if (gyroConfig()->checkOverflow && !gyro.gyroHasOverflowProtection) {
+    if (sensor.imuSensor1.imuDev.checkOverflow && !sensor.imuSensor1.imuDev.gyroHasOverflowProtection) {
         checkForOverflow(currentTimeUs);
     }
 #endif
@@ -987,6 +1028,34 @@ void imuCalculateEstimatedAttitude(uint32_t currentTimeUs)
 
     imuUpdateEulerAngles();
 }
+
+#ifdef USE_YAW_SPIN_RECOVERY
+void initYawSpinRecovery(int maxYawRate)
+{
+    bool enabledFlag;
+    int threshold;
+
+    switch (YAW_SPIN_RECOVERY_AUTO) {
+    case YAW_SPIN_RECOVERY_ON:
+        enabledFlag = true;
+        threshold = 1950;//gyroConfig()->yaw_spin_threshold;
+        break;
+    case YAW_SPIN_RECOVERY_AUTO:
+        enabledFlag = true;
+        const int overshootAllowance = MAX(maxYawRate / 4, 200); // Allow a 25% or minimum 200dps overshoot tolerance
+        threshold = constrain(maxYawRate + overshootAllowance, YAW_SPIN_RECOVERY_THRESHOLD_MIN, YAW_SPIN_RECOVERY_THRESHOLD_MAX);
+        break;
+    case YAW_SPIN_RECOVERY_OFF:
+    default:
+        enabledFlag = false;
+        threshold = YAW_SPIN_RECOVERY_THRESHOLD_MAX;
+        break;
+    }
+
+    yawSpinRecoveryEnabled = enabledFlag;
+    yawSpinRecoveryThreshold = threshold;
+}
+#endif
 
 #ifdef _USE_HW_CLI
 void cliSensor(cli_args_t *args)

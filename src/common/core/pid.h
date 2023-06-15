@@ -25,6 +25,7 @@
 #include "filter.h"
 #include "axis.h"
 #include "sensor.h"
+#include "def.h"
 
 //#include "pg/pg.h"
 

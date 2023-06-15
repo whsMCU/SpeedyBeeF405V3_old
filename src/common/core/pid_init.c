@@ -380,7 +380,7 @@ void pidInitConfig(const pidProfile_t *pidProfile)
 
 #ifdef USE_LAUNCH_CONTROL
     pidRuntime.launchControlMode = pidProfile->launchControlMode;
-    if (sensors(SENSOR_ACC)) {
+    if (true) { //sensors(SENSOR_ACC)
         pidRuntime.launchControlAngleLimit = pidProfile->launchControlAngleLimit;
     } else {
         pidRuntime.launchControlAngleLimit = 0;
