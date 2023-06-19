@@ -67,7 +67,7 @@ static void ledUpdate(uint32_t currentTimeUs)
 static void debugPrint(uint32_t currentTimeUs)
 {
     //cliPrintf("BARO : %d cm, Load : %d, count : %d \n\r", baro.BaroAlt, getAverageSystemLoadPercent(), getCycleCounter());
-    //cliPrintf("IMU R: %d, P: %d, Y: %d\n\r",    attitude.values.roll,
+    // cliPrintf("IMU R: %d, P: %d, Y: %d\n\r",    attitude.values.roll,
     //                                             attitude.values.pitch,
     //                                             attitude.values.yaw);
 

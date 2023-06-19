@@ -32,7 +32,7 @@ static bool is_init = false;
 
 float accAverage[XYZ_AXIS_COUNT];
 
-uint8_t activePidLoopDenom = 2;
+uint8_t activePidLoopDenom = 1;
 
 static bool overflowDetected;
 #ifdef USE_GYRO_OVERFLOW_CHECK
