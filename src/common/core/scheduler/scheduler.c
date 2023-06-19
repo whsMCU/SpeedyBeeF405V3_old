@@ -80,12 +80,10 @@ static uint8_t skippedRxAttempts = 0;
 static uint8_t skippedOSDAttempts = 0;
 #endif
 
-#if defined(USE_LATE_TASK_STATISTICS)
 static int16_t lateTaskCount = 0;
 static uint32_t lateTaskTotal = 0;
 static int16_t taskCount = 0;
 static uint32_t nextTimingCycles;
-#endif
 
 static inline int32_t cmpTimeUs(uint32_t a, uint32_t b) { return (int32_t)(a - b); }
 static inline int32_t cmpTimeCycles(uint32_t a, uint32_t b) { return (int32_t)(a - b); }
@@ -205,11 +203,9 @@ void getTaskInfo(taskId_e taskId, taskInfo_t * taskInfo)
     taskInfo->averageDeltaTime10thUs = getTask(taskId)->movingSumDeltaTime10thUs / TASK_STATS_MOVING_SUM_COUNT;
     taskInfo->latestDeltaTimeUs = getTask(taskId)->taskLatestDeltaTimeUs;
     taskInfo->movingAverageCycleTimeUs = getTask(taskId)->movingAverageCycleTimeUs;
-#if defined(USE_LATE_TASK_STATISTICS)
     taskInfo->lateCount = getTask(taskId)->lateCount;
     taskInfo->runCount = getTask(taskId)->runCount;
     taskInfo->execTime = getTask(taskId)->execTime;
-#endif
 }
 
 void rescheduleTask(taskId_e taskId, int32_t newPeriodUs)
@@ -300,10 +296,8 @@ void schedulerResetTaskMaxExecutionTime(taskId_e taskId)
     } else if (taskId < TASK_COUNT) {
         task_t *task = getTask(taskId);
         task->maxExecutionTimeUs = 0;
-#if defined(USE_LATE_TASK_STATISTICS)
         task->lateCount = 0;
         task->runCount = 0;
-#endif
     }
 }
 
@@ -651,17 +645,15 @@ void scheduler(void)
                 nowCycles = getCycleCounter();
                 int32_t cyclesOverdue = cmpTimeCycles(nowCycles, antipatedEndCycles);
 
-#if defined(USE_LATE_TASK_STATISTICS)
                 if (cyclesOverdue > 0) {
                     if ((currentTask - tasks) != TASK_SERIAL) {
-                        DEBUG_SET(DEBUG_SCHEDULER_DETERMINISM, 1, currentTask - tasks);
-                        DEBUG_SET(DEBUG_SCHEDULER_DETERMINISM, 2, clockCyclesTo10thMicros(cyclesOverdue));
+                        // DEBUG_SET(DEBUG_SCHEDULER_DETERMINISM, 1, currentTask - tasks);
+                        // DEBUG_SET(DEBUG_SCHEDULER_DETERMINISM, 2, clockCyclesTo10thMicros(cyclesOverdue));
                         currentTask->lateCount++;
                         lateTaskCount++;
                         lateTaskTotal += cyclesOverdue;
                     }
                 }
-#endif  // USE_LATE_TASK_STATISTICS
 
                 // if ((currentTask - tasks) == TASK_RX) {
                 //     skippedRxAttempts = 0;
