@@ -58,7 +58,7 @@
 
 // #include "sensors/acceleration.h"
 // #include "sensors/battery.h"
-// #include "sensors/gyro.h"
+#include "gyro.h"
 
 #include "pid.h"
 #include "pid_init.h"
@@ -657,7 +657,7 @@ void rotateItermAndAxisError()
         const float gyroToAngle = pidRuntime.dT * RAD;
         float rotationRads[XYZ_AXIS_COUNT];
         for (int i = FD_ROLL; i <= FD_YAW; i++) {
-            rotationRads[i] = sensor.imuSensor1.imuDev.gyroADCf[i] * gyroToAngle;
+            rotationRads[i] = gyro.gyroADCf[i] * gyroToAngle;
         }
 #if defined(USE_ABSOLUTE_CONTROL)
         if (pidRuntime.acGain > 0 || debugMode == DEBUG_AC_ERROR) {
@@ -1261,47 +1261,6 @@ bool pidAntiGravityEnabled(void)
 {
     return pidRuntime.antiGravityEnabled;
 }
-
-static float dynThrottle(float throttle) {
-    return throttle * (1 - (throttle * throttle) / 3.0f) * 1.5f;
-}
-
-#ifdef USE_DYN_LPF
-void dynLpfDTermUpdate(float throttle)
-{
-    if (pidRuntime.dynLpfFilter != DYN_LPF_NONE) {
-        float cutoffFreq;
-        if (pidRuntime.dynLpfCurveExpo > 0) {
-            cutoffFreq = dynLpfCutoffFreq(throttle, pidRuntime.dynLpfMin, pidRuntime.dynLpfMax, pidRuntime.dynLpfCurveExpo);
-        } else {
-            cutoffFreq = fmaxf(dynThrottle(throttle) * pidRuntime.dynLpfMax, pidRuntime.dynLpfMin);
-        }
-
-        switch (pidRuntime.dynLpfFilter) {
-        case DYN_LPF_PT1:
-            for (int axis = 0; axis < XYZ_AXIS_COUNT; axis++) {
-                pt1FilterUpdateCutoff(&pidRuntime.dtermLowpass[axis].pt1Filter, pt1FilterGain(cutoffFreq, pidRuntime.dT));
-            }
-            break;
-        case DYN_LPF_BIQUAD:
-            for (int axis = 0; axis < XYZ_AXIS_COUNT; axis++) {
-                biquadFilterUpdateLPF(&pidRuntime.dtermLowpass[axis].biquadFilter, cutoffFreq, targetPidLooptime);
-            }
-            break;
-        case DYN_LPF_PT2:
-            for (int axis = 0; axis < XYZ_AXIS_COUNT; axis++) {
-                pt2FilterUpdateCutoff(&pidRuntime.dtermLowpass[axis].pt2Filter, pt2FilterGain(cutoffFreq, pidRuntime.dT));
-            }
-            break;
-        case DYN_LPF_PT3:
-            for (int axis = 0; axis < XYZ_AXIS_COUNT; axis++) {
-                pt3FilterUpdateCutoff(&pidRuntime.dtermLowpass[axis].pt3Filter, pt3FilterGain(cutoffFreq, pidRuntime.dT));
-            }
-            break;
-        }
-    }
-}
-#endif
 
 float dynLpfCutoffFreq(float throttle, uint16_t dynLpfMin, uint16_t dynLpfMax, uint8_t expo) {
     const float expof = expo / 10.0f;

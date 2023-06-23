@@ -24,7 +24,7 @@
 //#include "common/time.h"
 #include "filter.h"
 #include "axis.h"
-#include "sensor.h"
+#include "sensors.h"
 #include "def.h"
 
 //#include "pg/pg.h"

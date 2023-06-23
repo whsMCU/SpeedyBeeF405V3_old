@@ -25,6 +25,7 @@
 //#if defined(USE_MAG)
 #include "cli.h"
 #include "scheduler.h"
+#include "sensors.h"
 #include "compass.h"
 #include "compass_qmc5883l.h"
 

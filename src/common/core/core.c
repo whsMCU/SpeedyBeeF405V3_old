@@ -100,7 +100,7 @@
 //#include "sensors/battery.h"
 //#include "sensors/boardalignment.h"
 #include "compass.h"
-#include "sensor.h"
+#include "sensors.h"
 //#include "gyro.h"
 
 //#include "telemetry/telemetry.h"

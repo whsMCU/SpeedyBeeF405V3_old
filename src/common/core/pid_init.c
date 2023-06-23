@@ -40,8 +40,8 @@
 #include "pid.h"
 //#include "flight/rpm_filter.h"
 
-//#include "sensors/gyro.h"
-#include "sensor.h"
+#include "gyro.h"
+#include "sensors.h"
 
 #include "pid_init.h"
 
@@ -244,7 +244,7 @@ static void pidSetTargetLooptime(uint32_t pidLooptime)
 
 void pidInit(const pidProfile_t *pidProfile)
 {
-    pidSetTargetLooptime(sensor.imuSensor1.imuDev.targetLooptime); // Initialize pid looptime
+    pidSetTargetLooptime(gyro.targetLooptime); // Initialize pid looptime
     //pidInitFilters(pidProfile);
     pidInitConfig(pidProfile);
 #ifdef USE_RPM_FILTER

@@ -43,6 +43,7 @@ target_include_directories(${EXECUTABLE} PRIVATE
   src/common/core/BMI270-Sensor-API
   src/common/core/config
   src/common/core/scheduler
+  src/common/core/sensors
   src/common/core/rx
   src/common/hw/include
   src/hw

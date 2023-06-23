@@ -25,7 +25,7 @@
 #include "scheduler.h"
 
 #include "barometer.h"
-#include "sensor.h"
+#include "sensors.h"
 #include "compass.h"
 #include "driver/gps/gps.h"
 #include "led.h"
@@ -373,8 +373,8 @@ void tasksInit(void)
 #endif
 
     rescheduleTask(TASK_GYRO, 312);
-    rescheduleTask(TASK_FILTER, sensor.imuSensor1.imuDev.targetLooptime);
-    rescheduleTask(TASK_PID, sensor.imuSensor1.imuDev.targetLooptime);
+    rescheduleTask(TASK_FILTER, gyro.targetLooptime);
+    rescheduleTask(TASK_PID, gyro.targetLooptime);
     setTaskEnabled(TASK_GYRO, true);
     setTaskEnabled(TASK_FILTER, true);
     setTaskEnabled(TASK_PID, true);

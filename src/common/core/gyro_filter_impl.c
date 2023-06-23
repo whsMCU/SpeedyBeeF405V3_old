@@ -19,7 +19,7 @@
  */
 
 #include "axis.h"
-#include "sensor.h"
+#include "sensors.h"
 
 static void GYRO_FILTER_FUNCTION_NAME(void)
 {
@@ -36,15 +36,15 @@ static void GYRO_FILTER_FUNCTION_NAME(void)
 
         // downsample the individual gyro samples
         float gyroADCf = 0;
-        if (sensor.imuSensor1.imuDev.downsampleFilterEnabled) {
+        if (gyro.downsampleFilterEnabled) {
             // using gyro lowpass 2 filter for downsampling
-            gyroADCf = sensor.imuSensor1.imuDev.sampleSum[axis];
+            gyroADCf = gyro.sampleSum[axis];
         } else {
             // using simple average for downsampling
-            if (sensor.imuSensor1.imuDev.sampleCount) {
-                gyroADCf = sensor.imuSensor1.imuDev.sampleSum[axis] / sensor.imuSensor1.imuDev.sampleCount;
+            if (gyro.sampleCount) {
+                gyroADCf = gyro.sampleSum[axis] / gyro.sampleCount;
             }
-            sensor.imuSensor1.imuDev.sampleSum[axis] = 0;
+            gyro.sampleSum[axis] = 0;
         }
 
         // DEBUG_GYRO_SAMPLE(1) Record the post-downsample value for the selected debug axis
@@ -58,9 +58,9 @@ static void GYRO_FILTER_FUNCTION_NAME(void)
         //GYRO_FILTER_AXIS_DEBUG_SET(axis, DEBUG_GYRO_SAMPLE, 2, lrintf(gyroADCf));
 
         // apply static notch filters and software lowpass filters
-        gyroADCf = sensor.imuSensor1.imuDev.notchFilter1ApplyFn((filter_t *)&sensor.imuSensor1.imuDev.notchFilter1[axis], gyroADCf);
-        gyroADCf = sensor.imuSensor1.imuDev.notchFilter2ApplyFn((filter_t *)&sensor.imuSensor1.imuDev.notchFilter2[axis], gyroADCf);
-        gyroADCf = sensor.imuSensor1.imuDev.lowpassFilterApplyFn((filter_t *)&sensor.imuSensor1.imuDev.lowpassFilter[axis], gyroADCf);
+        gyroADCf = gyro.notchFilter1ApplyFn((filter_t *)&gyro.notchFilter1[axis], gyroADCf);
+        gyroADCf = gyro.notchFilter2ApplyFn((filter_t *)&gyro.notchFilter2[axis], gyroADCf);
+        gyroADCf = gyro.lowpassFilterApplyFn((filter_t *)&gyro.lowpassFilter[axis], gyroADCf);
 
         // DEBUG_GYRO_SAMPLE(3) Record the post-static notch and lowpass filter value for the selected debug axis
         //GYRO_FILTER_AXIS_DEBUG_SET(axis, DEBUG_GYRO_SAMPLE, 3, lrintf(gyroADCf));
@@ -86,7 +86,7 @@ static void GYRO_FILTER_FUNCTION_NAME(void)
         // DEBUG_GYRO_FILTERED records the scaled, filtered, after all software filtering has been applied.
         //GYRO_FILTER_DEBUG_SET(DEBUG_GYRO_FILTERED, axis, lrintf(gyroADCf));
 
-        sensor.imuSensor1.imuDev.gyroADCf[axis] = gyroADCf;
+        gyro.gyroADCf[axis] = gyroADCf;
     }
-    sensor.imuSensor1.imuDev.sampleCount = 0;
+    gyro.sampleCount = 0;
 }

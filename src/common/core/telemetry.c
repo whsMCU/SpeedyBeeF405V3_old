@@ -11,7 +11,7 @@
 #include "led.h"
 
 #include "barometer.h"
-#include "sensor.h"
+#include "sensors.h"
 
 
 char Buf[128];

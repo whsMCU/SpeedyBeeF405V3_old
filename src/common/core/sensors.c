@@ -5,11 +5,12 @@
  *      Author: WANG
  */
 
-#include "sensor.h"
+#include "sensors.h"
 #include "driver/accgyro/bmi270.h"
 #include "cli.h"
 #include "led.h"
 #include "filter.h"
+#include "gyro.h"
 
 static inline int32_t cmpTimeUs(uint32_t a, uint32_t b) { return (int32_t)(a - b); }
 
@@ -31,8 +32,6 @@ static bool is_init = false;
 #define GPS_COG_MIN_GROUNDSPEED 500        // 500cm/s minimum groundspeed for a gps heading to be considered valid
 
 float accAverage[XYZ_AXIS_COUNT];
-
-uint8_t activePidLoopDenom = 1;
 
 static bool overflowDetected;
 #ifdef USE_GYRO_OVERFLOW_CHECK
@@ -66,8 +65,6 @@ quaternion offset = QUATERNION_INITIALIZE;
 
 // absolute angle inclination in multiple of 0.1 degree    180 deg = 1800
 attitudeEulerAngles_t attitude = EULER_INITIALIZE;
-
-sensor_Dev_t sensor;
 
 #ifdef _USE_HW_CLI
 static void cliSensor(cli_args_t *args);
@@ -131,24 +128,15 @@ static void Calibrate_gyro(void)
 bool Sensor_Init(void)
 {
 	bool ret = true;
-	is_init = bmi270_Init(&sensor.imuSensor1);
+	is_init = bmi270_Init();
+
+    gyroSetTargetLooptime(activePidLoopDenom);
   
     Calibrate_gyro();
 	if (is_init != true)
  	{
    		return false;
   	}
-    sensor.imuSensor1.imuDev.checkOverflow = GYRO_OVERFLOW_CHECK_ALL_AXES;
-    #ifdef USE_GYRO_OVERFLOW_CHECK
-    if (sensor.imuSensor1.imuDev.checkOverflow == GYRO_OVERFLOW_CHECK_YAW) {
-        sensor.imuSensor1.imuDev.overflowAxisMask = GYRO_OVERFLOW_Z;
-    } else if (sensor.imuSensor1.imuDev.checkOverflow == GYRO_OVERFLOW_CHECK_ALL_AXES) {
-        sensor.imuSensor1.imuDev.overflowAxisMask = GYRO_OVERFLOW_X | GYRO_OVERFLOW_Y | GYRO_OVERFLOW_Z;
-    } else {
-        sensor.imuSensor1.imuDev.overflowAxisMask = 0;
-    }
-    #endif
-    sensor.imuSensor1.imuDev.gyroHasOverflowProtection = true;
 
 	#ifdef _USE_HW_CLI
   		cliAdd("Sensor", cliSensor);
@@ -449,150 +437,6 @@ void gyroInitFilters(void)
 #endif
 }
 
-void gyroUpdate(void)
-{
-    //static float gyroLPF[3];
-
-    imuSensor_t *imu = &sensor.imuSensor1;
-    imu->imuDev.InterruptStatus = bmi270InterruptStatus(imu);
-
-    if(imu->imuDev.InterruptStatus & 0x40)
-    {
-        imu->imuDev.gyroReady = true;
-    }
-
-    if(imu->imuDev.InterruptStatus & 0x80)
-    {
-        imu->imuDev.accReady = true;
-    }
-    
-    if(imu->imuDev.gyroReady)
-    {
-        imu->imuDev.gyro_readFn(&sensor.imuSensor1);
-        imu->imuDev.gyroADC[X] = imu->imuDev.gyroADCRaw[X] - imu->imuDev.gyroZero[X];
-        imu->imuDev.gyroADC[Y] = imu->imuDev.gyroADCRaw[Y] - imu->imuDev.gyroZero[Y];
-        imu->imuDev.gyroADC[Z] = imu->imuDev.gyroADCRaw[Z] - imu->imuDev.gyroZero[Z];
-        imu->imuDev.gyroReady = false;
-    }
-    imu->imuDev.dataReady = false;
-
-    for (int axis = 0; axis < XYZ_AXIS_COUNT; axis++)
-    {
-        sensor.gyroADC[axis] = sensor.imuSensor1.imuDev.gyroADC[axis] * sensor.imuSensor1.imuDev.scale;
-    }
-
-    if (sensor.imuSensor1.imuDev.downsampleFilterEnabled) {
-    // using gyro lowpass 2 filter for downsampling
-    sensor.imuSensor1.imuDev.sampleSum[X] = sensor.imuSensor1.imuDev.lowpass2FilterApplyFn((filter_t *)&sensor.imuSensor1.imuDev.lowpass2Filter[X], sensor.gyroADC[X]);
-    sensor.imuSensor1.imuDev.sampleSum[Y] = sensor.imuSensor1.imuDev.lowpass2FilterApplyFn((filter_t *)&sensor.imuSensor1.imuDev.lowpass2Filter[Y], sensor.gyroADC[Y]);
-    sensor.imuSensor1.imuDev.sampleSum[Z] = sensor.imuSensor1.imuDev.lowpass2FilterApplyFn((filter_t *)&sensor.imuSensor1.imuDev.lowpass2Filter[Z], sensor.gyroADC[Z]);
-    } else {
-    // using simple averaging for downsampling
-    sensor.imuSensor1.imuDev.sampleSum[X] += sensor.gyroADC[X];
-    sensor.imuSensor1.imuDev.sampleSum[Y] += sensor.gyroADC[Y];
-    sensor.imuSensor1.imuDev.sampleSum[Z] += sensor.gyroADC[Z];
-    sensor.imuSensor1.imuDev.sampleCount++;
-    }
-
-    // for (int axis = 0; axis < XYZ_AXIS_COUNT; axis++)
-    // {
-    //     // integrate using trapezium rule to avoid bias
-    //     gyro_accumulatedMeasurements[axis] += 0.5f * (gyroPrevious[axis] + sensor.gyroADC[axis]) * sensor.imuSensor1.imuDev.targetLooptime;
-    //     gyroPrevious[axis] = sensor.gyroADC[axis];
-    // }
-    // gyro_accumulatedMeasurementCount++;
-}
-
-#define GYRO_FILTER_FUNCTION_NAME filterGyro
-#define GYRO_FILTER_DEBUG_SET(mode, index, value) do { UNUSED(mode); UNUSED(index); UNUSED(value); } while (0)
-#define GYRO_FILTER_AXIS_DEBUG_SET(axis, mode, index, value) do { UNUSED(axis); UNUSED(mode); UNUSED(index); UNUSED(value); } while (0)
-#include "gyro_filter_impl.c"
-#undef GYRO_FILTER_FUNCTION_NAME
-#undef GYRO_FILTER_DEBUG_SET
-#undef GYRO_FILTER_AXIS_DEBUG_SET
-
-// #define GYRO_FILTER_FUNCTION_NAME filterGyroDebug
-// #define GYRO_FILTER_DEBUG_SET DEBUG_SET
-// #define GYRO_FILTER_AXIS_DEBUG_SET(axis, mode, index, value) if (axis == (int)gyro.gyroDebugAxis) DEBUG_SET(mode, index, value)
-// #include "gyro_filter_impl.c"
-// #undef GYRO_FILTER_FUNCTION_NAME
-// #undef GYRO_FILTER_DEBUG_SET
-// #undef GYRO_FILTER_AXIS_DEBUG_SET
-
-void gyroFiltering(uint32_t currentTimeUs)
-{
-    //if (gyro.gyroDebugMode == DEBUG_NONE) {
-        filterGyro();
-    // } else {
-    //     filterGyroDebug();
-    // }
-
-#ifdef USE_DYN_NOTCH_FILTER
-    if (isDynNotchActive()) {
-        dynNotchUpdate();
-    }
-#endif
-
-//     if (gyro.useDualGyroDebugging) {
-//         switch (gyro.gyroToUse) {
-//         case GYRO_CONFIG_USE_GYRO_1:
-//             DEBUG_SET(DEBUG_DUAL_GYRO_RAW, 0, gyro.gyroSensor1.gyroDev.gyroADCRaw[X]);
-//             DEBUG_SET(DEBUG_DUAL_GYRO_RAW, 1, gyro.gyroSensor1.gyroDev.gyroADCRaw[Y]);
-//             DEBUG_SET(DEBUG_DUAL_GYRO_SCALED, 0, lrintf(gyro.gyroSensor1.gyroDev.gyroADC[X] * gyro.gyroSensor1.gyroDev.scale));
-//             DEBUG_SET(DEBUG_DUAL_GYRO_SCALED, 1, lrintf(gyro.gyroSensor1.gyroDev.gyroADC[Y] * gyro.gyroSensor1.gyroDev.scale));
-//             break;
-
-// #ifdef USE_MULTI_GYRO
-//         case GYRO_CONFIG_USE_GYRO_2:
-//             DEBUG_SET(DEBUG_DUAL_GYRO_RAW, 2, gyro.gyroSensor2.gyroDev.gyroADCRaw[X]);
-//             DEBUG_SET(DEBUG_DUAL_GYRO_RAW, 3, gyro.gyroSensor2.gyroDev.gyroADCRaw[Y]);
-//             DEBUG_SET(DEBUG_DUAL_GYRO_SCALED, 2, lrintf(gyro.gyroSensor2.gyroDev.gyroADC[X] * gyro.gyroSensor2.gyroDev.scale));
-//             DEBUG_SET(DEBUG_DUAL_GYRO_SCALED, 3, lrintf(gyro.gyroSensor2.gyroDev.gyroADC[Y] * gyro.gyroSensor2.gyroDev.scale));
-//             break;
-
-//     case GYRO_CONFIG_USE_GYRO_BOTH:
-//             DEBUG_SET(DEBUG_DUAL_GYRO_RAW, 0, gyro.gyroSensor1.gyroDev.gyroADCRaw[X]);
-//             DEBUG_SET(DEBUG_DUAL_GYRO_RAW, 1, gyro.gyroSensor1.gyroDev.gyroADCRaw[Y]);
-//             DEBUG_SET(DEBUG_DUAL_GYRO_RAW, 2, gyro.gyroSensor2.gyroDev.gyroADCRaw[X]);
-//             DEBUG_SET(DEBUG_DUAL_GYRO_RAW, 3, gyro.gyroSensor2.gyroDev.gyroADCRaw[Y]);
-//             DEBUG_SET(DEBUG_DUAL_GYRO_SCALED, 0, lrintf(gyro.gyroSensor1.gyroDev.gyroADC[X] * gyro.gyroSensor1.gyroDev.scale));
-//             DEBUG_SET(DEBUG_DUAL_GYRO_SCALED, 1, lrintf(gyro.gyroSensor1.gyroDev.gyroADC[Y] * gyro.gyroSensor1.gyroDev.scale));
-//             DEBUG_SET(DEBUG_DUAL_GYRO_SCALED, 2, lrintf(gyro.gyroSensor2.gyroDev.gyroADC[X] * gyro.gyroSensor2.gyroDev.scale));
-//             DEBUG_SET(DEBUG_DUAL_GYRO_SCALED, 3, lrintf(gyro.gyroSensor2.gyroDev.gyroADC[Y] * gyro.gyroSensor2.gyroDev.scale));
-//             DEBUG_SET(DEBUG_DUAL_GYRO_DIFF, 0, lrintf((gyro.gyroSensor1.gyroDev.gyroADC[X] * gyro.gyroSensor1.gyroDev.scale) - (gyro.gyroSensor2.gyroDev.gyroADC[X] * gyro.gyroSensor2.gyroDev.scale)));
-//             DEBUG_SET(DEBUG_DUAL_GYRO_DIFF, 1, lrintf((gyro.gyroSensor1.gyroDev.gyroADC[Y] * gyro.gyroSensor1.gyroDev.scale) - (gyro.gyroSensor2.gyroDev.gyroADC[Y] * gyro.gyroSensor2.gyroDev.scale)));
-//             DEBUG_SET(DEBUG_DUAL_GYRO_DIFF, 2, lrintf((gyro.gyroSensor1.gyroDev.gyroADC[Z] * gyro.gyroSensor1.gyroDev.scale) - (gyro.gyroSensor2.gyroDev.gyroADC[Z] * gyro.gyroSensor2.gyroDev.scale)));
-//             break;
-// #endif
-//         }
-//     }
-
-#ifdef USE_GYRO_OVERFLOW_CHECK
-    if (sensor.imuSensor1.imuDev.checkOverflow && !sensor.imuSensor1.imuDev.gyroHasOverflowProtection) {
-        checkForOverflow(currentTimeUs);
-    }
-#endif
-
-#ifdef USE_YAW_SPIN_RECOVERY
-    if (yawSpinRecoveryEnabled) {
-        checkForYawSpin(currentTimeUs);
-    }
-#endif
-
-    if (!overflowDetected) {
-        for (int axis = 0; axis < XYZ_AXIS_COUNT; axis++) {
-            // integrate using trapezium rule to avoid bias
-            gyro_accumulatedMeasurements[axis] += 0.5f * (gyroPrevious[axis] + sensor.imuSensor1.imuDev.gyroADCf[axis]) * sensor.imuSensor1.imuDev.targetLooptime;
-            gyroPrevious[axis] = sensor.imuSensor1.imuDev.gyroADCf[axis];
-        }
-        gyro_accumulatedMeasurementCount++;
-    }
-
-#if !defined(USE_GYRO_OVERFLOW_CHECK) && !defined(USE_YAW_SPIN_RECOVERY)
-    UNUSED(currentTimeUs);
-#endif
-}
-
 void accUpdate(uint32_t currentTimeUs)
 {
     UNUSED(currentTimeUs);
@@ -660,67 +504,15 @@ bool accGetAccumulationAverage(float *accumulationAverage)
     }
 }
 
-bool accIsCalibrationComplete(void)
-{
-    return sensor.imuSensor1.calibration.calibratingA == 0;
-}
-
-static bool isOnFinalAccelerationCalibrationCycle(void)
-{
-    return sensor.imuSensor1.calibration.calibratingA == 1;
-}
-
-static bool isOnFirstAccelerationCalibrationCycle(void)
-{
-    return sensor.imuSensor1.calibration.calibratingA == CALIBRATING_ACC_CYCLES;
-}
-
-static void setConfigCalibrationCompleted(void)
-{
-    sensor.imuSensor1.calibration.calibrationCompleted = 1;
-}
-
-void performAcclerationCalibration(void)
-{
-    static int32_t a[3];
-
-    for (int axis = 0; axis < 3; axis++) {
-
-        // Reset a[axis] at start of calibration
-        if (isOnFirstAccelerationCalibrationCycle()) {
-            a[axis] = 0;
-        }
-
-        // Sum up CALIBRATING_ACC_CYCLES readings
-        a[axis] += sensor.accADC[axis];
-
-        // Reset global variables to prevent other code from using un-calibrated data
-        sensor.accADC[axis] = 0;
-        sensor.imuSensor1.calibration.accelerationTrims[axis] = 0;
-    }
-
-    if (isOnFinalAccelerationCalibrationCycle()) {
-        // Calculate average, shift Z down by acc_1G and store values in EEPROM at end of calibration
-        sensor.imuSensor1.calibration.accelerationTrims[X] = (a[X] + (CALIBRATING_ACC_CYCLES / 2)) / CALIBRATING_ACC_CYCLES;
-        sensor.imuSensor1.calibration.accelerationTrims[Y] = (a[Y] + (CALIBRATING_ACC_CYCLES / 2)) / CALIBRATING_ACC_CYCLES;
-        sensor.imuSensor1.calibration.accelerationTrims[Z] = (a[Z] + (CALIBRATING_ACC_CYCLES / 2)) / CALIBRATING_ACC_CYCLES - sensor.imuSensor1.imuDev.acc_1G;
-
-        setConfigCalibrationCompleted();
-
-        //saveConfigAndNotify();
-    }
-
-    sensor.imuSensor1.calibration.calibratingA--;
-}
 
 void Gyro_getADC(void)
 {
-  bmi270SpiGyroRead(&sensor.imuSensor1);
+  bmi270SpiGyroRead(&gyro.rawSensorDev);
   //cliPrintf("gyro x: %d, y: %d, z: %d\n\r", sensor.imuSensor1.imuDev.gyroADCRaw[X], sensor.imuSensor1.imuDev.gyroADCRaw[Y], sensor.imuSensor1.imuDev.gyroADCRaw[Z]);
 }
 void ACC_getADC(void)
 {
-  bmi270SpiAccRead(&sensor.imuSensor1);
+  bmi270SpiAccRead(&acc.dev);
   //cliPrintf("acc x: %d, y: %d, z: %d\n\r", sensor.imuSensor1.imuDev.accADCRaw[X], sensor.imuSensor1.imuDev.accADCRaw[Y], sensor.imuSensor1.imuDev.accADCRaw[Z]);
 }
 

@@ -12,7 +12,7 @@
 #include "tasks.h"
 #include "rx.h"
 #include "pid_init.h"
-#include "sensor.h"
+#include "sensors.h"
 
 void apInit(void)
 {
