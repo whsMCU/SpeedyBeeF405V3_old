@@ -197,10 +197,6 @@ typedef enum {
     GYRO_EXTI_NO_INT
 } gyroModeSPI_e;
 
-typedef bool (*sensorInterruptFuncPtr)(void);
-struct magDev_s;
-typedef bool (*sensorMagInitFuncPtr)(struct magDev_s *magdev);
-typedef bool (*sensorMagReadFuncPtr)(struct magDev_s *magdev, int16_t *data);
 struct accDev_s;
 typedef void (*sensorAccInitFuncPtr)(struct accDev_s *acc);
 typedef bool (*sensorAccReadFuncPtr)(struct accDev_s *acc);
@@ -242,7 +238,7 @@ typedef struct gyroDev_s {
     //ioTag_t mpuIntExtiTag;
     uint8_t gyroHasOverflowProtection;
     //gyroHardware_e gyroHardware;
-    //fp_rotationMatrix_t rotationMatrix;
+    fp_rotationMatrix_t rotationMatrix;
     uint16_t gyroSampleRateHz;
     uint16_t accSampleRateHz;
     uint8_t accDataReg;

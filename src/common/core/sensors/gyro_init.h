@@ -30,7 +30,7 @@ void gyroSetTargetLooptime(uint8_t pidDenom);
 void gyroPreInit(void);
 bool gyroInit(void);
 void gyroInitFilters(void);
-void gyroInitSensor(gyroSensor_t *gyroSensor, const gyroDeviceConfig_t *config);
+//void gyroInitSensor(gyroSensor_t *gyroSensor, const gyroDeviceConfig_t *config);
 gyroDetectionFlags_t getGyroDetectionFlags(void);
 gyroDev_t *gyroActiveDev(void);
 struct mpuDetectionResult_s;

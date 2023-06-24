@@ -235,16 +235,16 @@ void performGyroCalibration(gyroSensor_t *gyroSensor, uint8_t gyroMovementCalibr
             // please take care with exotic boardalignment !!
             gyroSensor->gyroDev.gyroZero[axis] = gyroSensor->calibration.sum[axis] / gyroCalculateCalibratingCycles();
             if (axis == Z) {
-              gyroSensor->gyroDev.gyroZero[axis] -= ((float)gyroConfig()->gyro_offset_yaw / 100);
+              gyroSensor->gyroDev.gyroZero[axis] -= (0 / 100);//(float)gyroConfig()->gyro_offset_yaw
             }
         }
     }
 
     if (isOnFinalGyroCalibrationCycle(&gyroSensor->calibration)) {
         schedulerResetTaskStatistics(TASK_SELF); // so calibration cycles do not pollute tasks statistics
-        if (!firstArmingCalibrationWasStarted || (getArmingDisableFlags() & ~ARMING_DISABLED_CALIBRATING) == 0) {
-            beeper(BEEPER_GYRO_CALIBRATED);
-        }
+        // if (!firstArmingCalibrationWasStarted || (getArmingDisableFlags() & ~ARMING_DISABLED_CALIBRATING) == 0) {
+        //     beeper(BEEPER_GYRO_CALIBRATED);
+        // }
     }
 
     --gyroSensor->calibration.cyclesRemaining;
@@ -269,7 +269,7 @@ FAST_CODE int32_t gyroSlewLimiter(gyroSensor_t *gyroSensor, int axis)
 #endif
 
 #ifdef USE_GYRO_OVERFLOW_CHECK
-static void handleOverflow(timeUs_t currentTimeUs)
+static void handleOverflow(uint32_t currentTimeUs)
 {
     // This will need to be revised if we ever allow different sensor types to be
     // used simultaneously. In that case the scale might be different between sensors.
@@ -557,7 +557,7 @@ bool gyroGetAccumulationAverage(float *accumulationAverage)
 {
     if (accumulatedMeasurementCount) {
         // If we have gyro data accumulated, calculate average rate that will yield the same rotation
-        const timeUs_t accumulatedMeasurementTimeUs = accumulatedMeasurementCount * gyro.targetLooptime;
+        const uint32_t accumulatedMeasurementTimeUs = accumulatedMeasurementCount * gyro.targetLooptime;
         for (int axis = 0; axis < XYZ_AXIS_COUNT; axis++) {
             accumulationAverage[axis] = accumulatedMeasurements[axis] / accumulatedMeasurementTimeUs;
             accumulatedMeasurements[axis] = 0.0f;

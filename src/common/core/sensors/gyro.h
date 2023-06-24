@@ -66,6 +66,9 @@ typedef struct gyroCalibration_s {
     int32_t cyclesRemaining;
 } gyroCalibration_t;
 
+
+typedef struct gyroDev_s gyroDev_t;
+
 typedef struct gyroSensor_s {
     gyroDev_t gyroDev;
     gyroCalibration_t calibration;

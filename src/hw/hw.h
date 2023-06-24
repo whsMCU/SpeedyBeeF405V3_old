@@ -23,6 +23,8 @@
 #include "spi.h"
 #include "gpio.h"
 #include "sensors.h"
+#include "gyro_init.h"
+#include "gyro.h"
 #include "bmi270.h"
 #include "barometer.h"
 #include "barometer_dps310.h"
