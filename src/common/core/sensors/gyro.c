@@ -627,7 +627,7 @@ uint16_t gyroAbsRateDps(int axis)
 
 #ifdef USE_DYN_LPF
 
-static float dynThrottle(float throttle) {
+float dynThrottle(float throttle) {
     return throttle * (1 - (throttle * throttle) / 3.0f) * 1.5f;
 }
 
