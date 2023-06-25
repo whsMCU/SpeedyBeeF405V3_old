@@ -55,7 +55,7 @@ void resetRollAndPitchTrims(rollAndPitchTrims_t *rollAndPitchTrims)
 
 static void setConfigCalibrationCompleted(void)
 {
-    accelerometerConfigMutable()->accZero.values.calibrationCompleted = 1;
+    //accelerometerConfigMutable()->accZero.values.calibrationCompleted = 1;
 }
 
 // bool accHasBeenCalibrated(void)
@@ -341,6 +341,7 @@ bool accInit(uint16_t accSampleRateHz)
     // if (!accDetect(&acc.dev, accelerometerConfig()->acc_hardware)) {
     //     return false;
     // }
+    bmi270SpiAccDetect(&acc.dev);
     acc.dev.acc_1G = 256; // set default
     acc.dev.initFn(&acc.dev); // driver initialisation
     acc.dev.acc_1G_rec = 1.0f / acc.dev.acc_1G;
@@ -433,7 +434,7 @@ void performInflightAccelerationCalibration(rollAndPitchTrims_t *rollAndPitchTri
         if (InflightcalibratingA == 1) {
             AccInflightCalibrationActive = false;
             AccInflightCalibrationMeasurementDone = true;
-            beeper(BEEPER_ACC_CALIBRATION); // indicate end of calibration
+            //beeper(BEEPER_ACC_CALIBRATION); // indicate end of calibration
             // recover saved values to maintain current flight behaviour until new values are transferred
             accelerationRuntime.accelerationTrims->raw[X] = accZero_saved[X];
             accelerationRuntime.accelerationTrims->raw[Y] = accZero_saved[Y];
@@ -453,7 +454,7 @@ void performInflightAccelerationCalibration(rollAndPitchTrims_t *rollAndPitchTri
         resetRollAndPitchTrims(rollAndPitchTrims);
         setConfigCalibrationCompleted();
 
-        saveConfigAndNotify();
+        //saveConfigAndNotify();
     }
 }
 
@@ -462,8 +463,8 @@ void setAccelerationTrims(flightDynamicsTrims_t *accelerationTrimsToUse)
     accelerationRuntime.accelerationTrims = accelerationTrimsToUse;
 }
 
-void applyAccelerometerTrimsDelta(rollAndPitchTrims_t *rollAndPitchTrimsDelta)
-{
-    accelerometerConfigMutable()->accelerometerTrims.values.roll += rollAndPitchTrimsDelta->values.roll;
-    accelerometerConfigMutable()->accelerometerTrims.values.pitch += rollAndPitchTrimsDelta->values.pitch;
-}
+// void applyAccelerometerTrimsDelta(rollAndPitchTrims_t *rollAndPitchTrimsDelta)
+// {
+//     accelerometerConfigMutable()->accelerometerTrims.values.roll += rollAndPitchTrimsDelta->values.roll;
+//     accelerometerConfigMutable()->accelerometerTrims.values.pitch += rollAndPitchTrimsDelta->values.pitch;
+// }

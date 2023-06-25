@@ -24,6 +24,7 @@
 #include "led.h"
 #include "cli.h"
 #include "axis.h"
+#include "gyro_init.h"
 
 #ifdef USE_ACCGYRO_BMI270
 
@@ -218,7 +219,7 @@ static void bmi270SpiAccInit(accDev_t *acc)
     acc->acc_1G = 512 * 4;   // 16G sensor scale
 }
 
-static bool bmi270SpiAccDetect(accDev_t *acc)
+bool bmi270SpiAccDetect(accDev_t *acc)
 {
 
     acc->initFn = bmi270SpiAccInit;
@@ -248,10 +249,12 @@ bool bmi270_Init(void)
     delay(35);
 
     gyroInit();
-    bmi270SpiGyroDetect(&gyro.gyroSensor1);
+    gyroSetTargetLooptime(activePidLoopDenom);
+    gyroStartCalibration(false);
+
+    bmi270SpiGyroDetect(&gyro.gyroSensor1.gyroDev);
 
     accInit(gyro.accSampleRateHz);
-    bmi270SpiAccDetect(&acc.dev);
 
     accStartCalibration();
     

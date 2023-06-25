@@ -56,12 +56,15 @@
 #include "gyro.h"
 #include "gyro_init.h"
 #include "acceleration.h"
+#include "driver/accgyro/bmi270.h"
 
 #if ((TARGET_FLASH_SIZE > 128) && (defined(USE_GYRO_SPI_ICM20601) || defined(USE_GYRO_SPI_ICM20689) || defined(USE_GYRO_SPI_MPU6500)))
 #define USE_GYRO_SLEW_LIMITER
 #endif
 
 gyro_t gyro;
+
+static inline int32_t cmpTimeUs(uint32_t a, uint32_t b) { return (int32_t)(a - b); }
 
 static bool overflowDetected;
 #ifdef USE_GYRO_OVERFLOW_CHECK
@@ -373,7 +376,7 @@ static void checkForYawSpin(timeUs_t currentTimeUs)
 static void gyroUpdateSensor(gyroSensor_t *gyroSensor)
 {
 
-    gyroSensor->gyroDev.InterruptStatus = bmi270InterruptStatus(gyroSensor);
+    gyroSensor->gyroDev.InterruptStatus = bmi270InterruptStatus(gyro.rawSensorDev);
 
     if(gyroSensor->gyroDev.InterruptStatus & 0x40)
     {

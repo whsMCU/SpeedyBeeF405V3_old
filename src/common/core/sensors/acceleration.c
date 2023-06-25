@@ -43,57 +43,38 @@ static void applyAccelerationTrims(const flightDynamicsTrims_t *accelerationTrim
 void accUpdate(uint32_t currentTimeUs)
 {
     UNUSED(currentTimeUs);
-    static float accLPF[3];
+    //static float accLPF[3];
 
     if(acc.dev.dataReady){
         if (!acc.dev.readFn(&acc.dev)) {
             return;
         }
-        acc.dev.dataReady == false;
+        acc.dev.dataReady = false;
     }
     acc.isAccelUpdatedAtLeastOnce = true;
-
-        imu->imuDev.isAccelUpdatedAtLeastOnce = true;
-        imu->imuDev.accADC[X] = imu->imuDev.accADCRaw[X];
-        imu->imuDev.accADC[Y] = imu->imuDev.accADCRaw[Y];
-        imu->imuDev.accADC[Z] = imu->imuDev.accADCRaw[Z];
 
     for (int axis = 0; axis < XYZ_AXIS_COUNT; axis++) {
         //DEBUG_SET(DEBUG_ACCELEROMETER, axis, acc.dev.ADCRaw[axis]);
         acc.accADC[axis] = acc.dev.ADCRaw[axis];
     }
 
-    for(int axis=0;axis<3;axis++)
-	{
-		if (acc_lpf_factor > 0)
-		{
-			accLPF[axis] = accLPF[axis] * (1.0f - (1.0f / acc_lpf_factor)) + acc.accADC[axis] * (1.0f / acc_lpf_factor);
-			acc.accADC[axis] = accLPF[axis];
-		}
-	}
+    // for(int axis=0;axis<3;axis++)
+	// {
+	// 	if (acc_lpf_factor > 0)
+	// 	{
+	// 		accLPF[axis] = accLPF[axis] * (1.0f - (1.0f / acc_lpf_factor)) + acc.accADC[axis] * (1.0f / acc_lpf_factor);
+	// 		acc.accADC[axis] = accLPF[axis];
+	// 	}
+	// }
 
-    // if (accelerationRuntime.accLpfCutHz) {
-    //     for (int axis = 0; axis < XYZ_AXIS_COUNT; axis++) {
-    //         acc.accADC[axis] = biquadFilterApply(&accelerationRuntime.accFilter[axis], acc.accADC[axis]);
-    //     }
-    // }
+    if (accelerationRuntime.accLpfCutHz) {
+        for (int axis = 0; axis < XYZ_AXIS_COUNT; axis++) {
+            acc.accADC[axis] = biquadFilterApply(&accelerationRuntime.accFilter[axis], acc.accADC[axis]);
+        }
+    }
 
     if (!accIsCalibrationComplete()) {
         performAcclerationCalibration();
-    }
-
-    applyAccelerationTrims(&sensor);
-
-    ++sensor.accumulatedMeasurementCount;
-    for (int axis = 0; axis < XYZ_AXIS_COUNT; axis++) {
-        sensor.accumulatedMeasurements[axis] += sensor.accADC[axis];
-    }
-
-
-
-
-    if (featureIsEnabled(FEATURE_INFLIGHT_ACC_CAL)) {
-        performInflightAccelerationCalibration(rollAndPitchTrims);
     }
 
     applyAccelerationTrims(accelerationRuntime.accelerationTrims);

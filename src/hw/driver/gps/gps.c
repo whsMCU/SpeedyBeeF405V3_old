@@ -43,7 +43,7 @@
 
 #include "scheduler.h"
 
-#include "sensor.h"
+#include "sensors.h"
 
 #define USE_GPS_UBLOX
 

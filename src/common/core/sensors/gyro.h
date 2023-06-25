@@ -85,7 +85,7 @@ typedef enum {
 } gyroModeSPI_e;
 
 struct gyroDev_s;
-typedef void (*sensorGyroInitFuncPtr)(struct gyroDev_s *gyro);
+typedef void (*sensorGyroInitFuncPtr)(void);
 typedef bool (*sensorGyroReadFuncPtr)(struct gyroDev_s *gyro);
 typedef bool (*sensorGyroReadDataFuncPtr)(struct gyroDev_s *gyro, int16_t *data);
 

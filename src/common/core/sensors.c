@@ -10,7 +10,9 @@
 #include "cli.h"
 #include "led.h"
 #include "filter.h"
+#include "gyro_init.h"
 #include "gyro.h"
+#include "scheduler.h"
 
 static inline int32_t cmpTimeUs(uint32_t a, uint32_t b) { return (int32_t)(a - b); }
 
@@ -33,11 +35,6 @@ static bool is_init = false;
 
 float accAverage[XYZ_AXIS_COUNT];
 
-static bool overflowDetected;
-#ifdef USE_GYRO_OVERFLOW_CHECK
-static uint32_t overflowTimeUs;
-#endif
-
 #ifdef USE_YAW_SPIN_RECOVERY
 static bool yawSpinRecoveryEnabled;
 static int yawSpinRecoveryThreshold;
@@ -47,10 +44,6 @@ static uint32_t yawSpinTimeUs;
 
 #define GYRO_OVERFLOW_TRIGGER_THRESHOLD 31980  // 97.5% full scale (1950dps for 2000dps gyro)
 #define GYRO_OVERFLOW_RESET_THRESHOLD 30340    // 92.5% full scale (1850dps for 2000dps gyro)
-
-static float gyro_accumulatedMeasurements[XYZ_AXIS_COUNT];
-static float gyroPrevious[XYZ_AXIS_COUNT];
-static int gyro_accumulatedMeasurementCount;
 
 float rMat[3][3];
 
@@ -101,38 +94,12 @@ static void imuComputeRotationMatrix(void)
     rMat[2][2] = 1.0f - 2.0f * qP.xx - 2.0f * qP.yy;
 }
 
-static void Calibrate_gyro(void)
-{
-	int cal_int = 0;
-	uint8_t axis = 0;
-
-	for (cal_int = 0; cal_int < 2000; cal_int ++)
-	{
-		if (cal_int % 500 == 0)
-		{
-            ledToggle(_DEF_LED1); //Change the led status to indicate calibration.
-		}
-		Gyro_getADC();
-		for(axis=0; axis<3; axis++)
-		{
-      sensor.imuSensor1.calibration.sum[axis] += (float)sensor.imuSensor1.imuDev.gyroADCRaw[axis];
-		}
-	}
-	for(axis=0; axis<3; axis++)
-	{
-    sensor.imuSensor1.imuDev.gyroZero[axis] = sensor.imuSensor1.calibration.sum[axis]/2000.0f;
-	}
-	HAL_Delay(100);
-}
-
 bool Sensor_Init(void)
 {
 	bool ret = true;
-	is_init = bmi270_Init();
 
-    gyroSetTargetLooptime(activePidLoopDenom);
+	is_init = bmi270_Init();
   
-    Calibrate_gyro();
 	if (is_init != true)
  	{
    		return false;
@@ -145,375 +112,17 @@ bool Sensor_Init(void)
     return ret;
 }
 
-static void applyAccelerationTrims(const sensor_Dev_t *accelerationTrims)
-{
-    sensor.accADC[X] -= sensor.imuSensor1.calibration.accelerationTrims[X];
-    sensor.accADC[Y] -= sensor.imuSensor1.calibration.accelerationTrims[Y];
-    sensor.accADC[Z] -= sensor.imuSensor1.calibration.accelerationTrims[Z];
-}
-
-#ifdef USE_GYRO_OVERFLOW_CHECK
-static void handleOverflow(uint32_t currentTimeUs)
-{
-    // This will need to be revised if we ever allow different sensor types to be
-    // used simultaneously. In that case the scale might be different between sensors.
-    // It's complicated by the fact that we're using filtered gyro data here which is
-    // after both sensors are scaled and averaged.
-    const float gyroOverflowResetRate = GYRO_OVERFLOW_RESET_THRESHOLD * GYRO_SCALE_2000DPS;
-
-    if ((fabsf(sensor.imuSensor1.imuDev.gyroADCf[X]) < gyroOverflowResetRate)
-          && (fabsf(sensor.imuSensor1.imuDev.gyroADCf[Y]) < gyroOverflowResetRate)
-          && (fabsf(sensor.imuSensor1.imuDev.gyroADCf[Z]) < gyroOverflowResetRate)) {
-        // if we have 50ms of consecutive OK gyro vales, then assume yaw readings are OK again and reset overflowDetected
-        // reset requires good OK values on all axes
-        if (cmpTimeUs(currentTimeUs, overflowTimeUs) > 50000) {
-            overflowDetected = false;
-        }
-    } else {
-        // not a consecutive OK value, so reset the overflow time
-        overflowTimeUs = currentTimeUs;
-    }
-}
-
-static void checkForOverflow(uint32_t currentTimeUs)
-{
-    // check for overflow to handle Yaw Spin To The Moon (YSTTM)
-    // ICM gyros are specified to +/- 2000 deg/sec, in a crash they can go out of spec.
-    // This can cause an overflow and sign reversal in the output.
-    // Overflow and sign reversal seems to result in a gyro value of +1996 or -1996.
-    if (overflowDetected) {
-        handleOverflow(currentTimeUs);
-    } else {
-#ifndef SIMULATOR_BUILD
-        // check for overflow in the axes set in overflowAxisMask
-        gyroOverflow_e overflowCheck = GYRO_OVERFLOW_NONE;
-
-        // This will need to be revised if we ever allow different sensor types to be
-        // used simultaneously. In that case the scale might be different between sensors.
-        // It's complicated by the fact that we're using filtered gyro data here which is
-        // after both sensors are scaled and averaged.
-        const float gyroOverflowTriggerRate = GYRO_OVERFLOW_TRIGGER_THRESHOLD * GYRO_SCALE_2000DPS;
-
-        if (fabsf(sensor.imuSensor1.imuDev.gyroADCf[X]) > gyroOverflowTriggerRate) {
-            overflowCheck |= GYRO_OVERFLOW_X;
-        }
-        if (fabsf(sensor.imuSensor1.imuDev.gyroADCf[Y]) > gyroOverflowTriggerRate) {
-            overflowCheck |= GYRO_OVERFLOW_Y;
-        }
-        if (fabsf(sensor.imuSensor1.imuDev.gyroADCf[Z]) > gyroOverflowTriggerRate) {
-            overflowCheck |= GYRO_OVERFLOW_Z;
-        }
-        if (overflowCheck & sensor.imuSensor1.imuDev.overflowAxisMask) {
-            overflowDetected = true;
-            overflowTimeUs = currentTimeUs;
-#ifdef USE_YAW_SPIN_RECOVERY
-            yawSpinDetected = false;
-#endif // USE_YAW_SPIN_RECOVERY
-        }
-#endif // SIMULATOR_BUILD
-    }
-}
-#endif // USE_GYRO_OVERFLOW_CHECK
-
-#ifdef USE_YAW_SPIN_RECOVERY
-static void handleYawSpin(uint32_t currentTimeUs)
-{
-    const float yawSpinResetRate = yawSpinRecoveryThreshold - 100.0f;
-    if (fabsf(sensor.imuSensor1.imuDev.gyroADCf[Z]) < yawSpinResetRate) {
-        // testing whether 20ms of consecutive OK gyro yaw values is enough
-        if (cmpTimeUs(currentTimeUs, yawSpinTimeUs) > 20000) {
-            yawSpinDetected = false;
-        }
-    } else {
-        // reset the yaw spin time
-        yawSpinTimeUs = currentTimeUs;
-    }
-}
-
-static void checkForYawSpin(uint32_t currentTimeUs)
-{
-    // if not in overflow mode, handle yaw spins above threshold
-#ifdef USE_GYRO_OVERFLOW_CHECK
-    if (overflowDetected) {
-        yawSpinDetected = false;
-        return;
-    }
-#endif // USE_GYRO_OVERFLOW_CHECK
-
-    if (yawSpinDetected) {
-        handleYawSpin(currentTimeUs);
-    } else {
-#ifndef SIMULATOR_BUILD
-        // check for spin on yaw axis only
-         if (abs((int)sensor.imuSensor1.imuDev.gyroADCf[Z]) > yawSpinRecoveryThreshold) {
-            yawSpinDetected = true;
-            yawSpinTimeUs = currentTimeUs;
-        }
-#endif // SIMULATOR_BUILD
-    }
-}
-#endif // USE_YAW_SPIN_RECOVERY
-
-static bool gyroInitLowpassFilterLpf(int slot, int type, uint16_t lpfHz, uint32_t looptime)
-{
-    filterApplyFnPtr *lowpassFilterApplyFn;
-    gyroLowpassFilter_t *lowpassFilter = NULL;
-
-    switch (slot) {
-    case FILTER_LPF1:
-        lowpassFilterApplyFn = &sensor.imuSensor1.imuDev.lowpassFilterApplyFn;
-        lowpassFilter = sensor.imuSensor1.imuDev.lowpassFilter;
-        break;
-
-    case FILTER_LPF2:
-        lowpassFilterApplyFn = &sensor.imuSensor1.imuDev.lowpass2FilterApplyFn;
-        lowpassFilter = sensor.imuSensor1.imuDev.lowpass2Filter;
-        break;
-
-    default:
-        return false;
-    }
-
-    bool ret = false;
-
-    // Establish some common constants
-    const uint32_t gyroFrequencyNyquist = 1000000 / 2 / looptime;
-    const float gyroDt = looptime * 1e-6f;
-
-    // Gain could be calculated a little later as it is specific to the pt1/bqrcf2/fkf branches
-    const float gain = pt1FilterGain(lpfHz, gyroDt);
-
-    // Dereference the pointer to null before checking valid cutoff and filter
-    // type. It will be overridden for positive cases.
-    *lowpassFilterApplyFn = nullFilterApply;
-
-    // If lowpass cutoff has been specified
-    if (lpfHz) {
-        switch (type) {
-        case FILTER_PT1:
-            *lowpassFilterApplyFn = (filterApplyFnPtr) pt1FilterApply;
-            for (int axis = 0; axis < XYZ_AXIS_COUNT; axis++) {
-                pt1FilterInit(&lowpassFilter[axis].pt1FilterState, gain);
-            }
-            ret = true;
-            break;
-        case FILTER_BIQUAD:
-            if (lpfHz <= gyroFrequencyNyquist) {
-#ifdef USE_DYN_LPF
-                *lowpassFilterApplyFn = (filterApplyFnPtr) biquadFilterApplyDF1;
-#else
-                *lowpassFilterApplyFn = (filterApplyFnPtr) biquadFilterApply;
-#endif
-                for (int axis = 0; axis < XYZ_AXIS_COUNT; axis++) {
-                    biquadFilterInitLPF(&lowpassFilter[axis].biquadFilterState, lpfHz, looptime);
-                }
-                ret = true;
-            }
-            break;
-        case FILTER_PT2:
-            *lowpassFilterApplyFn = (filterApplyFnPtr) pt2FilterApply;
-            for (int axis = 0; axis < XYZ_AXIS_COUNT; axis++) {
-                pt2FilterInit(&lowpassFilter[axis].pt2FilterState, gain);
-            }
-            ret = true;
-            break;
-        case FILTER_PT3:
-            *lowpassFilterApplyFn = (filterApplyFnPtr) pt3FilterApply;
-            for (int axis = 0; axis < XYZ_AXIS_COUNT; axis++) {
-                pt3FilterInit(&lowpassFilter[axis].pt3FilterState, gain);
-            }
-            ret = true;
-            break;
-        }
-    }
-    return ret;
-}
-
-static uint16_t calculateNyquistAdjustedNotchHz(uint16_t notchHz, uint16_t notchCutoffHz)
-{
-    const uint32_t gyroFrequencyNyquist = 1000000 / 2 / sensor.imuSensor1.imuDev.targetLooptime;
-    if (notchHz > gyroFrequencyNyquist) {
-        if (notchCutoffHz < gyroFrequencyNyquist) {
-            notchHz = gyroFrequencyNyquist;
-        } else {
-            notchHz = 0;
-        }
-    }
-
-    return notchHz;
-}
-
-static void gyroInitFilterNotch1(uint16_t notchHz, uint16_t notchCutoffHz)
-{
-    sensor.imuSensor1.imuDev.notchFilter1ApplyFn = nullFilterApply;
-
-    notchHz = calculateNyquistAdjustedNotchHz(notchHz, notchCutoffHz);
-
-    if (notchHz != 0 && notchCutoffHz != 0) {
-        sensor.imuSensor1.imuDev.notchFilter1ApplyFn = (filterApplyFnPtr)biquadFilterApply;
-        const float notchQ = filterGetNotchQ(notchHz, notchCutoffHz);
-        for (int axis = 0; axis < XYZ_AXIS_COUNT; axis++) {
-            biquadFilterInit(&sensor.imuSensor1.imuDev.notchFilter1[axis], notchHz, sensor.imuSensor1.imuDev.targetLooptime, notchQ, FILTER_NOTCH, 1.0f);
-        }
-    }
-}
-
-static void gyroInitFilterNotch2(uint16_t notchHz, uint16_t notchCutoffHz)
-{
-    sensor.imuSensor1.imuDev.notchFilter2ApplyFn = nullFilterApply;
-
-    notchHz = calculateNyquistAdjustedNotchHz(notchHz, notchCutoffHz);
-
-    if (notchHz != 0 && notchCutoffHz != 0) {
-        sensor.imuSensor1.imuDev.notchFilter2ApplyFn = (filterApplyFnPtr)biquadFilterApply;
-        const float notchQ = filterGetNotchQ(notchHz, notchCutoffHz);
-        for (int axis = 0; axis < XYZ_AXIS_COUNT; axis++) {
-            biquadFilterInit(&sensor.imuSensor1.imuDev.notchFilter2[axis], notchHz, sensor.imuSensor1.imuDev.targetLooptime, notchQ, FILTER_NOTCH, 1.0f);
-        }
-    }
-}
-
-#ifdef USE_DYN_LPF
-static void dynLpfFilterInit()
-{
-    if (GYRO_LPF1_DYN_MIN_HZ_DEFAULT > 0) {
-        switch (FILTER_PT1) {
-        case FILTER_PT1:
-            sensor.imuSensor1.imuDev.dynLpfFilter = DYN_LPF_PT1;
-            break;
-        case FILTER_BIQUAD:
-            sensor.imuSensor1.imuDev.dynLpfFilter = DYN_LPF_BIQUAD;
-            break;
-        case FILTER_PT2:
-            sensor.imuSensor1.imuDev.dynLpfFilter = DYN_LPF_PT2;
-            break;
-        case FILTER_PT3:
-            sensor.imuSensor1.imuDev.dynLpfFilter = DYN_LPF_PT3;
-            break;
-        default:
-            sensor.imuSensor1.imuDev.dynLpfFilter = DYN_LPF_NONE;
-            break;
-        }
-    } else {
-        sensor.imuSensor1.imuDev.dynLpfFilter = DYN_LPF_NONE;
-    }
-    sensor.imuSensor1.imuDev.dynLpfMin = GYRO_LPF1_DYN_MIN_HZ_DEFAULT;
-    sensor.imuSensor1.imuDev.dynLpfMax = GYRO_LPF1_DYN_MAX_HZ_DEFAULT;
-    sensor.imuSensor1.imuDev.dynLpfCurveExpo = 5;
-}
-#endif
-
-void gyroInitFilters(void)
-{
-    uint16_t gyro_lpf1_init_hz = GYRO_LPF1_DYN_MIN_HZ_DEFAULT;//gyroConfig()->gyro_lpf1_static_hz;
-
-#ifdef USE_DYN_LPF
-    if (GYRO_LPF1_DYN_MIN_HZ_DEFAULT > 0) {
-        gyro_lpf1_init_hz = GYRO_LPF1_DYN_MIN_HZ_DEFAULT;
-    }
-#endif
-
-    gyroInitLowpassFilterLpf(
-      FILTER_LPF1,
-      FILTER_PT1,
-      gyro_lpf1_init_hz,
-      sensor.imuSensor1.imuDev.targetLooptime
-    );
-
-    sensor.imuSensor1.imuDev.downsampleFilterEnabled = gyroInitLowpassFilterLpf(
-      FILTER_LPF2,
-      FILTER_PT1,
-      GYRO_LPF2_HZ_DEFAULT,
-      sensor.imuSensor1.imuDev.sampleLooptime
-    );
-
-    gyroInitFilterNotch1(0, 0);//gyroConfig()->gyro_soft_notch_hz_1, gyroConfig()->gyro_soft_notch_cutoff_1);
-    gyroInitFilterNotch2(0, 0);//gyroConfig()->gyro_soft_notch_hz_2, gyroConfig()->gyro_soft_notch_cutoff_2);
-#ifdef USE_DYN_LPF
-    dynLpfFilterInit();
-#endif
-#ifdef USE_DYN_NOTCH_FILTER
-    dynNotchInit(dynNotchConfig(), gyro.targetLooptime);
-#endif
-}
-
-void accUpdate(uint32_t currentTimeUs)
-{
-    UNUSED(currentTimeUs);
-    static float accLPF[3];
-    imuSensor_t *imu = &sensor.imuSensor1;
-
-    if(imu->imuDev.accReady)
-    {
-        imu->imuDev.acc_readFn(&sensor.imuSensor1);
-        imu->imuDev.isAccelUpdatedAtLeastOnce = true;
-        imu->imuDev.accADC[X] = imu->imuDev.accADCRaw[X];
-        imu->imuDev.accADC[Y] = imu->imuDev.accADCRaw[Y];
-        imu->imuDev.accADC[Z] = imu->imuDev.accADCRaw[Z];
-        imu->imuDev.accReady = false;
-    }
-
-    for (int axis = 0; axis < XYZ_AXIS_COUNT; axis++)
-    {
-        sensor.accADC[axis] = imu->imuDev.accADC[axis];
-    }
-    for(int axis=0;axis<3;axis++)
-	{
-		if (acc_lpf_factor > 0)
-		{
-			accLPF[axis] = accLPF[axis] * (1.0f - (1.0f / acc_lpf_factor)) + sensor.accADC[axis] * (1.0f / acc_lpf_factor);
-			sensor.accADC[axis] = accLPF[axis];
-		}
-	}
-
-    if (!accIsCalibrationComplete()) {
-        performAcclerationCalibration();
-    }
-
-    applyAccelerationTrims(&sensor);
-
-    ++sensor.accumulatedMeasurementCount;
-    for (int axis = 0; axis < XYZ_AXIS_COUNT; axis++) {
-        sensor.accumulatedMeasurements[axis] += sensor.accADC[axis];
-    }
-}
-
 void imuUpdateAttitude(uint32_t currentTimeUs)
 {
-    if (sensor.imuSensor1.imuDev.isAccelUpdatedAtLeastOnce) {
+    if (acc.isAccelUpdatedAtLeastOnce) {
 
         imuCalculateEstimatedAttitude(currentTimeUs);
-    }
-}
-
-bool accGetAccumulationAverage(float *accumulationAverage)
-{
-  if (sensor.accumulatedMeasurementCount > 0) {
-    // If we have gyro data accumulated, calculate average rate that will yield the same rotation
-    for (int axis = 0; axis < XYZ_AXIS_COUNT; axis++) {
-      accumulationAverage[axis] = sensor.accumulatedMeasurements[axis] / sensor.accumulatedMeasurementCount;
-      sensor.accumulatedMeasurements[axis] = 0.0f;
-    }
-    sensor.accumulatedMeasurementCount = 0;
-    return true;
     } else {
-      for (int axis = 0; axis < XYZ_AXIS_COUNT; axis++) {
-        accumulationAverage[axis] = 0.0f;
-      }
-      return false;
+        acc.accADC[X] = 0;
+        acc.accADC[Y] = 0;
+        acc.accADC[Z] = 0;
+        schedulerIgnoreTaskStateTime();
     }
-}
-
-
-void Gyro_getADC(void)
-{
-  bmi270SpiGyroRead(&gyro.rawSensorDev);
-  //cliPrintf("gyro x: %d, y: %d, z: %d\n\r", sensor.imuSensor1.imuDev.gyroADCRaw[X], sensor.imuSensor1.imuDev.gyroADCRaw[Y], sensor.imuSensor1.imuDev.gyroADCRaw[Z]);
-}
-void ACC_getADC(void)
-{
-  bmi270SpiAccRead(&acc.dev);
-  //cliPrintf("acc x: %d, y: %d, z: %d\n\r", sensor.imuSensor1.imuDev.accADCRaw[X], sensor.imuSensor1.imuDev.accADCRaw[Y], sensor.imuSensor1.imuDev.accADCRaw[Z]);
 }
 
 static float invSqrt(float x)
@@ -655,29 +264,10 @@ static bool imuIsAccelerometerHealthy(float *accAverage)
         accMagnitudeSq += a * a;
     }
 
-    accMagnitudeSq = accMagnitudeSq * sq(sensor.imuSensor1.imuDev.acc_1G_rec);
+    accMagnitudeSq = accMagnitudeSq * sq(acc.dev.acc_1G_rec);
 
     // Accept accel readings only in range 0.9g - 1.1g
     return (0.81f < accMagnitudeSq) && (accMagnitudeSq < 1.21f);
-}
-
-static bool gyroGetAccumulationAverage(float *accumulationAverage)
-{
-    if (gyro_accumulatedMeasurementCount) {
-        // If we have gyro data accumulated, calculate average rate that will yield the same rotation
-        const uint32_t accumulatedMeasurementTimeUs = gyro_accumulatedMeasurementCount * sensor.imuSensor1.imuDev.targetLooptime;//gyro.targetLooptime;
-        for (int axis = 0; axis < XYZ_AXIS_COUNT; axis++) {
-            accumulationAverage[axis] = gyro_accumulatedMeasurements[axis] / accumulatedMeasurementTimeUs;
-            gyro_accumulatedMeasurements[axis] = 0.0f;
-        }
-        gyro_accumulatedMeasurementCount = 0;
-        return true;
-    } else {
-        for (int axis = 0; axis < XYZ_AXIS_COUNT; axis++) {
-            accumulationAverage[axis] = 0.0f;
-        }
-        return false;
-    }
 }
 
 // Calculate the dcmKpGain to use. When armed, the gain is imuRuntimeConfig.dcm_kp * 1.0 scaling.

@@ -49,6 +49,28 @@ typedef enum {
     ACC_FAKE
 } accelerationSensor_e;
 
+struct accDev_s;
+typedef void (*sensorAccInitFuncPtr)(struct accDev_s *acc);
+typedef bool (*sensorAccReadFuncPtr)(struct accDev_s *acc);
+
+typedef struct gyroDev_s gyroDev_t;
+
+typedef struct accDev_s {
+    float acc_1G_rec;
+    sensorAccInitFuncPtr initFn;                              // initialize function
+    sensorAccReadFuncPtr readFn;                              // read 3 axis data function
+    uint16_t acc_1G;
+    int16_t ADCRaw[XYZ_AXIS_COUNT];
+    //mpuDetectionResult_t mpuDetectionResult;
+    //sensor_align_e accAlign;
+    bool dataReady;
+    gyroDev_t *gyro;
+    bool acc_high_fsr;
+    char revisionCode;                                      // a revision code for the sensor, if known
+    uint8_t filler[2];
+    //fp_rotationMatrix_t rotationMatrix;
+} accDev_t;
+
 typedef struct acc_s {
     accDev_t dev;
     uint16_t sampleRateHz;
