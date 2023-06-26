@@ -26,6 +26,7 @@
 
 #include "barometer.h"
 #include "sensors.h"
+#include "acceleration.h"
 #include "compass.h"
 #include "driver/gps/gps.h"
 #include "led.h"
