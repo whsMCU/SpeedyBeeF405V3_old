@@ -72,7 +72,6 @@ static void debugPrint(uint32_t currentTimeUs)
                                                 attitude.values.pitch,
                                                 attitude.values.yaw);
 
-
     // cliPrintf("ACC R: %d, P: %d, Y: %d\n\r",    sensor.imuSensor1.imuDev.accADCRaw[X],
     //                                             sensor.imuSensor1.imuDev.accADCRaw[Y],
     //                                             sensor.imuSensor1.imuDev.accADCRaw[Z]);

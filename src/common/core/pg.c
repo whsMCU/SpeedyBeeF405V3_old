@@ -171,4 +171,4 @@ __attribute__((section(".pg_registry"))) pidProfile_t pid_pg =
 #endif
 };
 
-const pidProfile_t *p_pid_pg = (pidProfile_t *)(0x8000400+sizeof(version_info_t)+sizeof(gyroConfig_t));
+const pidProfile_t *p_pid_pg = (pidProfile_t *)(0x8000400+(sizeof(version_info_t)+sizeof(gyroConfig_t)));

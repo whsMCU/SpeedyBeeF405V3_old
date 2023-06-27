@@ -166,7 +166,7 @@ static bool isOnFinalGyroCalibrationCycle(const gyroCalibration_t *gyroCalibrati
 
 static int32_t gyroCalculateCalibratingCycles(void)
 {
-    return (125 * 10000) / gyro.sampleLooptime; //gyroCalibrationDuration
+    return (p_gyro_pg->gyroCalibrationDuration * 10000) / gyro.sampleLooptime; //gyroCalibrationDuration
 }
 
 static bool isOnFirstGyroCalibrationCycle(const gyroCalibration_t *gyroCalibration)
@@ -238,7 +238,7 @@ void performGyroCalibration(gyroSensor_t *gyroSensor, uint8_t gyroMovementCalibr
             // please take care with exotic boardalignment !!
             gyroSensor->gyroDev.gyroZero[axis] = gyroSensor->calibration.sum[axis] / gyroCalculateCalibratingCycles();
             if (axis == Z) {
-              gyroSensor->gyroDev.gyroZero[axis] -= (0 / 100);//(float)gyroConfig()->gyro_offset_yaw
+              gyroSensor->gyroDev.gyroZero[axis] -= (p_gyro_pg->gyro_offset_yaw / 100);//(float)gyroConfig()->gyro_offset_yaw
             }
         }
     }
@@ -257,7 +257,7 @@ void performGyroCalibration(gyroSensor_t *gyroSensor, uint8_t gyroMovementCalibr
 FAST_CODE int32_t gyroSlewLimiter(gyroSensor_t *gyroSensor, int axis)
 {
     int32_t ret = (int32_t)gyroSensor->gyroDev.gyroADCRaw[axis];
-    if (gyroConfig()->checkOverflow || gyro.gyroHasOverflowProtection) {
+    if (p_gyro_pg->checkOverflow || gyro.gyroHasOverflowProtection) {
         // don't use the slew limiter if overflow checking is on or gyro is not subject to overflow bug
         return ret;
     }
@@ -416,7 +416,7 @@ static void gyroUpdateSensor(gyroSensor_t *gyroSensor)
         gyroSensor->gyroDev.gyroADC[Z] = gyroSensor->gyroDev.gyroADCRaw[Z] - gyroSensor->gyroDev.gyroZero[Z];
 #endif
     }else {
-        performGyroCalibration(gyroSensor, 48); //gyroConfig()->gyroMovementCalibrationThreshold
+        performGyroCalibration(gyroSensor, p_gyro_pg->gyroMovementCalibrationThreshold);
     }
 }
 
@@ -676,10 +676,10 @@ void initYawSpinRecovery(int maxYawRate)
     bool enabledFlag;
     int threshold;
 
-    switch (gyroConfig()->yaw_spin_recovery) {
+    switch (p_gyro_pg->yaw_spin_recovery) {
     case YAW_SPIN_RECOVERY_ON:
         enabledFlag = true;
-        threshold = gyroConfig()->yaw_spin_threshold;
+        threshold = p_gyro_pg->yaw_spin_threshold;
         break;
     case YAW_SPIN_RECOVERY_AUTO:
         enabledFlag = true;
