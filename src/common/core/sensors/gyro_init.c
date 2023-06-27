@@ -42,6 +42,7 @@
 
 #include "gyro.h"
 #include "sensors.h"
+#include "pg.h"
 
 #ifdef USE_MULTI_GYRO
 #define ACTIVE_GYRO ((gyro.gyroToUse == GYRO_CONFIG_USE_GYRO_2) ? &gyro.gyroSensor2 : &gyro.gyroSensor1)
@@ -178,8 +179,8 @@ static bool gyroInitLowpassFilterLpf(int slot, int type, uint16_t lpfHz, uint32_
 #ifdef USE_DYN_LPF
 static void dynLpfFilterInit()
 {
-    if (GYRO_LPF1_DYN_MIN_HZ_DEFAULT > 0) {
-        switch (FILTER_PT1) {
+    if (p_gyro_pg->gyro_lpf1_dyn_min_hz > 0) {
+        switch (p_gyro_pg->gyro_lpf1_type) {
         case FILTER_PT1:
             gyro.dynLpfFilter = DYN_LPF_PT1;
             break;
@@ -199,38 +200,38 @@ static void dynLpfFilterInit()
     } else {
         gyro.dynLpfFilter = DYN_LPF_NONE;
     }
-    gyro.dynLpfMin = GYRO_LPF1_DYN_MIN_HZ_DEFAULT;
-    gyro.dynLpfMax = GYRO_LPF1_DYN_MAX_HZ_DEFAULT;
-    gyro.dynLpfCurveExpo = 5;
+    gyro.dynLpfMin = p_gyro_pg->gyro_lpf1_dyn_min_hz;
+    gyro.dynLpfMax = p_gyro_pg->gyro_lpf1_dyn_max_hz;
+    gyro.dynLpfCurveExpo = p_gyro_pg->gyro_lpf1_dyn_expo;
 }
 #endif
 
 void gyroInitFilters(void)
 {
-    uint16_t gyro_lpf1_init_hz = GYRO_LPF1_DYN_MIN_HZ_DEFAULT;
+    uint16_t gyro_lpf1_init_hz = p_gyro_pg->gyro_lpf1_static_hz;
 
 #ifdef USE_DYN_LPF
-    if (GYRO_LPF1_DYN_MIN_HZ_DEFAULT > 0) {
-        gyro_lpf1_init_hz = GYRO_LPF1_DYN_MIN_HZ_DEFAULT;
+    if (p_gyro_pg->gyro_lpf1_dyn_min_hz > 0) {
+        gyro_lpf1_init_hz = p_gyro_pg->gyro_lpf1_dyn_min_hz;
     }
 #endif
 
     gyroInitLowpassFilterLpf(
       FILTER_LPF1,
-      FILTER_PT1,
+      p_gyro_pg->gyro_lpf1_type,
       gyro_lpf1_init_hz,
       gyro.targetLooptime
     );
 
     gyro.downsampleFilterEnabled = gyroInitLowpassFilterLpf(
       FILTER_LPF2,
-      FILTER_PT1,
-      GYRO_LPF2_HZ_DEFAULT,
+      p_gyro_pg->gyro_lpf2_type,
+      p_gyro_pg->gyro_lpf2_static_hz,
       gyro.sampleLooptime
     );
 
-    gyroInitFilterNotch1(0, 0);
-    gyroInitFilterNotch2(0, 0);
+    gyroInitFilterNotch1(p_gyro_pg->gyro_soft_notch_hz_1, p_gyro_pg->gyro_soft_notch_cutoff_1);
+    gyroInitFilterNotch2(p_gyro_pg->gyro_soft_notch_hz_2, p_gyro_pg->gyro_soft_notch_cutoff_2);
 #ifdef USE_DYN_LPF
     dynLpfFilterInit();
 #endif
@@ -529,11 +530,10 @@ static void gyroInitSensorFilters(gyroSensor_t *gyroSensor)
 
 bool gyroInit(void)
 {
-    gyro.checkOverflow = GYRO_OVERFLOW_CHECK_ALL_AXES;
 #ifdef USE_GYRO_OVERFLOW_CHECK
-    if (gyro.checkOverflow == GYRO_OVERFLOW_CHECK_YAW) {
+    if (p_gyro_pg->checkOverflow == GYRO_OVERFLOW_CHECK_YAW) {
         gyro.overflowAxisMask = GYRO_OVERFLOW_Z;
-    } else if (gyro.checkOverflow == GYRO_OVERFLOW_CHECK_ALL_AXES) {
+    } else if (p_gyro_pg->checkOverflow == GYRO_OVERFLOW_CHECK_ALL_AXES) {
         gyro.overflowAxisMask = GYRO_OVERFLOW_X | GYRO_OVERFLOW_Y | GYRO_OVERFLOW_Z;
     } else {
         gyro.overflowAxisMask = 0;
@@ -543,6 +543,12 @@ bool gyroInit(void)
     gyro.gyroDebugMode = 0;//DEBUG_NONE;
     gyro.useDualGyroDebugging = false;
     gyro.gyroHasOverflowProtection = true;
+
+    gyroDetectionFlags = GYRO_NONE_MASK;
+    uint8_t gyrosToScan = p_gyro_pg->gyrosDetected;
+
+    gyro.gyroToUse = p_gyro_pg->gyro_to_use;
+    gyro.gyroDebugAxis = p_gyro_pg->gyro_filter_debug_axis;
 
     // if (eepromWriteRequired) {
     //     writeEEPROM();

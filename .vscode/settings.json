@@ -9,6 +9,9 @@
     "files.associations": {
         "def.h": "c",
         "scheduler.h": "c",
-        "hw_def.h": "c"
+        "hw_def.h": "c",
+        "stdint.h": "c",
+        "core.h": "c",
+        "gyro.h": "c"
     }
 }

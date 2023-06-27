@@ -27,6 +27,16 @@
 #define YAW_SPIN_RECOVERY_THRESHOLD_MAX 1950
 #endif
 
+typedef enum {
+    GYRO_HARDWARE_LPF_NORMAL,
+    GYRO_HARDWARE_LPF_OPTION_1,
+    GYRO_HARDWARE_LPF_OPTION_2,
+#ifdef USE_GYRO_DLPF_EXPERIMENTAL
+    GYRO_HARDWARE_LPF_EXPERIMENTAL,
+#endif
+    GYRO_HARDWARE_LPF_COUNT
+} gyroHardwareLpf_e;
+
 typedef struct {
     float w,x,y,z;
 } quaternion;

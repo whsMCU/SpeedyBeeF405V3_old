@@ -29,6 +29,7 @@
 #endif
 #include "sensors.h"
 #include "pid.h"
+#include "pg.h"
 
 
 #define LPF_MAX_HZ 1000 // so little filtering above 1000hz that if the user wants less delay, they must disable the filter
@@ -184,7 +185,6 @@ typedef struct gyro_s {
 
 #ifdef USE_GYRO_OVERFLOW_CHECK
     uint8_t overflowAxisMask;
-    uint8_t checkOverflow;
 #endif
 
 } gyro_t;

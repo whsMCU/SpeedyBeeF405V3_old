@@ -22,3 +22,19 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+
+#include "core.h"
+#include "gyro.h"
+#include "pid.h"
+
+typedef struct {
+    uint32_t magic_number;
+    char version_str[32];
+} version_info_t;
+
+typedef struct gyroConfig_s gyroConfig_t;
+typedef struct pidProfile_s pidProfile_t;
+
+extern const version_info_t *p_verstion_info;
+extern const gyroConfig_t *p_gyro_pg;
+extern const pidProfile_t *p_pid_pg;

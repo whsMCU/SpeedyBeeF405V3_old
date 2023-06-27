@@ -242,11 +242,11 @@ static void pidSetTargetLooptime(uint32_t pidLooptime)
 //     pt1FilterInit(&pidRuntime.antiGravitySmoothLpf, pt1FilterGain(ANTI_GRAVITY_SMOOTH_FILTER_CUTOFF, pidRuntime.dT));
 // }
 
-void pidInit(const pidProfile_t *pidProfile)
+void pidInit(void)
 {
     pidSetTargetLooptime(gyro.targetLooptime); // Initialize pid looptime
     //pidInitFilters(pidProfile);
-    pidInitConfig(pidProfile);
+    //pidInitConfig(pidProfile);
 #ifdef USE_RPM_FILTER
     rpmFilterInit(rpmFilterConfig());
 #endif

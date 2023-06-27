@@ -531,7 +531,7 @@ void gyroFiltering(uint32_t currentTimeUs)
 //     }
 
 #ifdef USE_GYRO_OVERFLOW_CHECK
-    if (gyro.checkOverflow && !gyro.gyroHasOverflowProtection) {
+    if (p_gyro_pg->checkOverflow && !gyro.gyroHasOverflowProtection) {
         checkForOverflow(currentTimeUs);
     }
 #endif
