@@ -2,7 +2,8 @@
 ADC1.Channel-0\#ChannelRegularConversion=ADC_CHANNEL_10
 ADC1.ContinuousConvMode=ENABLE
 ADC1.ExternalTrigConv=ADC_EXTERNALTRIGCONV_T1_CC1
-ADC1.IPParameters=Rank-0\#ChannelRegularConversion,Channel-0\#ChannelRegularConversion,SamplingTime-0\#ChannelRegularConversion,NbrOfConversionFlag,master,ScanConvMode,ContinuousConvMode,ExternalTrigConv
+ADC1.ExternalTrigConvEdge=ADC_EXTERNALTRIGCONVEDGE_RISINGFALLING
+ADC1.IPParameters=Rank-0\#ChannelRegularConversion,Channel-0\#ChannelRegularConversion,SamplingTime-0\#ChannelRegularConversion,NbrOfConversionFlag,master,ScanConvMode,ContinuousConvMode,ExternalTrigConv,ExternalTrigConvEdge
 ADC1.NbrOfConversionFlag=1
 ADC1.Rank-0\#ChannelRegularConversion=1
 ADC1.SamplingTime-0\#ChannelRegularConversion=ADC_SAMPLETIME_3CYCLES
