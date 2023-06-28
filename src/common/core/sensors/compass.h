@@ -24,6 +24,8 @@
 #include "hw_def.h"
 #include "axis.h"
 #include "maths.h"
+#include "sensors.h"
+#include "accgyro.h"
 
 typedef bool (*sensorInterruptFuncPtr)(void);
 struct magDev_s;
@@ -61,16 +63,18 @@ typedef struct mag_s {
 
 extern mag_t mag;
 
+//typedef union flightDynamicsTrims_u flightDynamicsTrims_t;
+
 typedef struct compassConfig_s {
-    uint8_t mag_alignment;                  // mag alignment
-    uint8_t mag_hardware;                   // Which mag hardware to use on boards with more than one device
-    uint8_t mag_busType;
-    uint8_t mag_i2c_device;
-    uint8_t mag_i2c_address;
-    uint8_t mag_spi_device;
+    //uint8_t mag_alignment;                  // mag alignment
+    //uint8_t mag_hardware;                   // Which mag hardware to use on boards with more than one device
+    // uint8_t mag_busType;
+    // uint8_t mag_i2c_device;
+    // uint8_t mag_i2c_address;
+    // uint8_t mag_spi_device;
     //ioTag_t mag_spi_csn;
     //ioTag_t interruptTag;
-    //flightDynamicsTrims_t magZero;
+    flightDynamicsTrims_t magZero;
     //sensorAlignment_t mag_customAlignment;
 } compassConfig_t;
 

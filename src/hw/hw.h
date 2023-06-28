@@ -30,6 +30,8 @@
 #include "barometer_dps310.h"
 #include "compass.h"
 #include "compass_qmc5883l.h"
+#include "acceleration.h"
+#include "acceleration_init.h"
 #include "gps.h"
 
 

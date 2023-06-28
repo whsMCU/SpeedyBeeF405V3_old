@@ -22,9 +22,9 @@
 
 #include "gyro.h"
 
-#include "sensors.h"
 #include "def.h"
 #include "hw_def.h"
+#include "sensors.h"
 
 void gyroSetTargetLooptime(uint8_t pidDenom);
 void gyroPreInit(void);

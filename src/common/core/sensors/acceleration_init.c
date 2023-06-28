@@ -55,18 +55,18 @@ void resetRollAndPitchTrims(rollAndPitchTrims_t *rollAndPitchTrims)
 
 static void setConfigCalibrationCompleted(void)
 {
-    //accelerometerConfigMutable()->accZero.values.calibrationCompleted = 1;
+    p_acc_pg->accZero.values.calibrationCompleted = 1;
 }
 
-// bool accHasBeenCalibrated(void)
-// {
-//     return accelerometerConfig()->accZero.values.calibrationCompleted;
-// }
+bool accHasBeenCalibrated(void)
+{
+    return p_acc_pg->accZero.values.calibrationCompleted;
+}
 
-// void accResetRollAndPitchTrims(void)
-// {
-//     resetRollAndPitchTrims(&accelerometerConfigMutable()->accelerometerTrims);
-// }
+void accResetRollAndPitchTrims(void)
+{
+    resetRollAndPitchTrims(&p_acc_pg->accelerometerTrims);
+}
 
 static void resetFlightDynamicsTrims(flightDynamicsTrims_t *accZero)
 {
@@ -305,7 +305,7 @@ void accInitFilters(void)
 {
     // Only set the lowpass cutoff if the ACC sample rate is detected otherwise
     // the filter initialization is not defined (sample rate = 0)
-    accelerationRuntime.accLpfCutHz = (acc.sampleRateHz) ? 10 : 0;
+    accelerationRuntime.accLpfCutHz = (acc.sampleRateHz) ? p_acc_pg->acc_lpf_hz : 0;
     if (accelerationRuntime.accLpfCutHz) {
         const uint32_t accSampleTimeUs = 1e6 / acc.sampleRateHz;
         for (int axis = 0; axis < XYZ_AXIS_COUNT; axis++) {
@@ -320,7 +320,7 @@ bool accInit(uint16_t accSampleRateHz)
     // copy over the common gyro mpu settings
     acc.dev.gyro = gyroActiveDev();
     //acc.dev.mpuDetectionResult = *gyroMpuDetectionResult();
-    //acc.dev.acc_high_fsr = accelerometerConfig()->acc_high_fsr;
+    acc.dev.acc_high_fsr = p_acc_pg->acc_high_fsr;
 
     // Copy alignment from active gyro, as all production boards use acc-gyro-combi chip.
     // Exceptions are STM32F3DISCOVERY and STM32F411DISCOVERY, and (may be) handled in future enhancement.

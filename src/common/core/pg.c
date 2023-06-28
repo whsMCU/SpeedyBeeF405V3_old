@@ -163,12 +163,37 @@ __attribute__((section(".pg_registry"))) pidProfile_t pid_pg =
   .simplified_feedforward_gain = SIMPLIFIED_TUNING_DEFAULT,
   .simplified_pitch_pi_gain = SIMPLIFIED_TUNING_DEFAULT,
   .simplified_dterm_filter = true,
-  .simplified_dterm_filter_multiplier = SIMPLIFIED_TUNING_DEFAULT
+  .simplified_dterm_filter_multiplier = SIMPLIFIED_TUNING_DEFAULT,
 
   #ifndef USE_D_MIN
-    .pid[PID_ROLL].D = 30;
-    .pid[PID_PITCH].D = 32;
-#endif
+    .pid[PID_ROLL].D = 30,
+    .pid[PID_PITCH].D = 32,
+  #endif
 };
 
 const pidProfile_t *p_pid_pg = (pidProfile_t *)(0x8000400+(sizeof(version_info_t)+sizeof(gyroConfig_t)));
+
+__attribute__((section(".pg_registry"))) compassConfig_t compass_pg =
+{
+  .magZero.values.roll = 0,
+  .magZero.values.pitch = 0,
+  .magZero.values.yaw = 0,
+  .magZero.values.calibrationCompleted = 0
+};
+
+compassConfig_t *p_compass_pg = (compassConfig_t *)(0x8000400+(sizeof(version_info_t)+sizeof(gyroConfig_t)+sizeof(pidProfile_t)));
+
+__attribute__((section(".pg_registry"))) accelerometerConfig_t acc_pg =
+{
+  .acc_lpf_hz = 10,
+  .acc_hardware = ACC_DEFAULT,
+  .acc_high_fsr = false,
+  .accZero.values.roll = 0,
+  .accZero.values.pitch = 0,
+  .accZero.values.yaw = 0,
+  .accZero.values.calibrationCompleted = 0,
+  .accelerometerTrims.values.roll = 0,
+  .accelerometerTrims.values.pitch = 0
+};
+
+accelerometerConfig_t *p_acc_pg = (accelerometerConfig_t *)(0x8000400+(sizeof(version_info_t)+sizeof(gyroConfig_t)+sizeof(pidProfile_t)+sizeof(compassConfig_t)));

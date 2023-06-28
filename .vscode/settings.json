@@ -12,6 +12,19 @@
         "hw_def.h": "c",
         "stdint.h": "c",
         "core.h": "c",
-        "gyro.h": "c"
+        "gyro.h": "c",
+        "compare": "c",
+        "concepts": "c",
+        "type_traits": "c",
+        "cmath": "c",
+        "limits": "c",
+        "new": "c",
+        "ranges": "c",
+        "sensors.h": "c",
+        "hw.h": "c",
+        "bsp.h": "c",
+        "axis.h": "c",
+        "maths.h": "c",
+        "accgyro.h": "c"
     }
 }

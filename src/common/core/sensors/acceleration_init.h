@@ -24,6 +24,7 @@
 #include "hw_def.h"
 #include "acceleration.h"
 #include "config_reset.h"
+#include "accgyro.h"
 
 
 typedef struct accelerationRuntime_s {

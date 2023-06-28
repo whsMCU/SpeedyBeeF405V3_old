@@ -20,9 +20,10 @@
 
 #pragma once
 
-#include "sensors.h"
 #include "def.h"
 #include "hw_def.h"
+#include "sensors.h"
+#include "accgyro.h"
 
 // Type of accelerometer used/detected
 typedef enum {
@@ -90,6 +91,8 @@ typedef union rollAndPitchTrims_u {
     int16_t raw[2];
     rollAndPitchTrims_t_def values;
 } rollAndPitchTrims_t;
+
+//typedef union flightDynamicsTrims_u flightDynamicsTrims_t;
 
 typedef struct accelerometerConfig_s {
     uint16_t acc_lpf_hz;                    // cutoff frequency for the low pass filter used on the acc z-axis for althold in Hz

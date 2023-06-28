@@ -25,7 +25,6 @@
 //#if defined(USE_MAG)
 #include "cli.h"
 #include "scheduler.h"
-#include "sensors.h"
 #include "compass.h"
 #include "compass_qmc5883l.h"
 
@@ -36,7 +35,6 @@ static void cliQmc5883l(cli_args_t *args);
 static uint32_t tCal = 0;
 static flightDynamicsTrims_t magZeroTempMin;
 static flightDynamicsTrims_t magZeroTempMax;
-flightDynamicsTrims_t magZero_t;
 
 magDev_t magDev;
 mag_t mag;
@@ -116,7 +114,7 @@ bool compassIsHealthy(void)
 void compassStartCalibration(void)
 {
     tCal = micros();
-    flightDynamicsTrims_t *magZero = &magZero_t;
+    flightDynamicsTrims_t *magZero = &p_compass_pg->magZero;
     for (int axis = 0; axis < 3; axis++) {
         magZero->raw[axis] = 0;
         magZeroTempMin.raw[axis] = mag.magADC[axis];
@@ -146,7 +144,7 @@ uint32_t compassUpdate(uint32_t currentTimeUs)
     //     alignSensorViaRotation(mag.magADC, magDev.magAlignment);
     // }
 
-    flightDynamicsTrims_t *magZero = &magZero_t;
+    flightDynamicsTrims_t *magZero = &p_compass_pg->magZero;
     if (magInit) {              // we apply offset only once mag calibration is done
         mag.magADC[X] -= magZero->raw[X];
         mag.magADC[Y] -= magZero->raw[Y];
