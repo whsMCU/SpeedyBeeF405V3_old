@@ -72,6 +72,8 @@ static void debugPrint(uint32_t currentTimeUs)
                                                 attitude.values.pitch,
                                                 attitude.values.yaw);
 
+    //cliPrintf("IMU R: %d, P: %d, Y: %d\n\r",    p_pid_pg->simplified_pi_gain, p_pid_pg->feedforward_boost, p_pid_pg->dyn_idle_max_increase);
+
     // cliPrintf("ACC R: %d, P: %d, Y: %d\n\r",    sensor.imuSensor1.imuDev.accADCRaw[X],
     //                                             sensor.imuSensor1.imuDev.accADCRaw[Y],
     //                                             sensor.imuSensor1.imuDev.accADCRaw[Z]);
