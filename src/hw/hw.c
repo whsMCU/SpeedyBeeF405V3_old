@@ -22,6 +22,7 @@ void hwInit(void)
   cliInit();
   i2cInit();
   spiInit();
+  adcInit();
   
   if (sdInit() == true)
   {

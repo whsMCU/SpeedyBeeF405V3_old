@@ -29,6 +29,7 @@
 #include "compass.h"
 #include "acceleration.h"
 #include "sensors.h"
+#include "adc.h"
 
 typedef struct {
     uint32_t magic_number;
@@ -39,9 +40,11 @@ typedef struct gyroConfig_s gyroConfig_t;
 typedef struct pidProfile_s pidProfile_t;
 typedef struct compassConfig_s compassConfig_t;
 typedef struct accelerometerConfig_s accelerometerConfig_t;
+typedef struct adcConfig_s adcConfig_t;
 
 extern const version_info_t *p_verstion_info;
 extern const gyroConfig_t *p_gyro_pg;
 extern const pidProfile_t *p_pid_pg;
 extern compassConfig_t *p_compass_pg;
 extern accelerometerConfig_t *p_acc_pg;
+extern adcConfig_t *p_adc_pg;

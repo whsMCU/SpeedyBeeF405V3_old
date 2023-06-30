@@ -25,6 +25,7 @@
         "bsp.h": "c",
         "axis.h": "c",
         "maths.h": "c",
-        "accgyro.h": "c"
+        "accgyro.h": "c",
+        "i2c.h": "c"
     }
 }

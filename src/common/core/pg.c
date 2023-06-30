@@ -197,3 +197,17 @@ __attribute__((section(".pg_registry"))) accelerometerConfig_t acc_pg =
 };
 
 accelerometerConfig_t *p_acc_pg = (accelerometerConfig_t *)(0x8000400+(sizeof(version_info_t)+sizeof(gyroConfig_t)+sizeof(pidProfile_t)+sizeof(compassConfig_t)));
+
+__attribute__((section(".pg_registry"))) adcConfig_t adc_pg =
+{
+    .vbat.enabled = true,
+    .rssi.enabled = false,
+    .current.enabled = true,
+    .external1.enabled = false,
+    //int8_t device, // ADCDevice
+    .vrefIntCalibration = 0,
+    .tempSensorCalibration1 = 0,
+    .tempSensorCalibration2 = 0
+};
+
+adcConfig_t *p_adc_pg = (adcConfig_t *)(0x8000400+(sizeof(version_info_t)+sizeof(gyroConfig_t)+sizeof(pidProfile_t)+sizeof(compassConfig_t)+sizeof(accelerometerConfig_t)));

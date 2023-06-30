@@ -33,6 +33,7 @@
 #include "acceleration.h"
 #include "acceleration_init.h"
 #include "gps.h"
+#include "adc.h"
 
 
 void hwInit(void);
