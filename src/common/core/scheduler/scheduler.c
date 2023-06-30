@@ -80,10 +80,12 @@ static uint8_t skippedRxAttempts = 0;
 static uint8_t skippedOSDAttempts = 0;
 #endif
 
+#if defined(USE_LATE_TASK_STATISTICS)
 static int16_t lateTaskCount = 0;
 static uint32_t lateTaskTotal = 0;
 static int16_t taskCount = 0;
 static uint32_t nextTimingCycles;
+#endif
 
 static inline int32_t cmpTimeUs(uint32_t a, uint32_t b) { return (int32_t)(a - b); }
 static inline int32_t cmpTimeCycles(uint32_t a, uint32_t b) { return (int32_t)(a - b); }
@@ -203,9 +205,11 @@ void getTaskInfo(taskId_e taskId, taskInfo_t * taskInfo)
     taskInfo->averageDeltaTime10thUs = getTask(taskId)->movingSumDeltaTime10thUs / TASK_STATS_MOVING_SUM_COUNT;
     taskInfo->latestDeltaTimeUs = getTask(taskId)->taskLatestDeltaTimeUs;
     taskInfo->movingAverageCycleTimeUs = getTask(taskId)->movingAverageCycleTimeUs;
+#if defined(USE_LATE_TASK_STATISTICS)
     taskInfo->lateCount = getTask(taskId)->lateCount;
     taskInfo->runCount = getTask(taskId)->runCount;
     taskInfo->execTime = getTask(taskId)->execTime;
+#endif
 }
 
 void rescheduleTask(taskId_e taskId, int32_t newPeriodUs)
@@ -296,8 +300,10 @@ void schedulerResetTaskMaxExecutionTime(taskId_e taskId)
     } else if (taskId < TASK_COUNT) {
         task_t *task = getTask(taskId);
         task->maxExecutionTimeUs = 0;
+    #if defined(USE_LATE_TASK_STATISTICS)
         task->lateCount = 0;
         task->runCount = 0;
+    #endif
     }
 }
 
@@ -497,17 +503,17 @@ void scheduler(void)
 
 #if defined(USE_LATE_TASK_STATISTICS)
             // % CPU busy
-            DEBUG_SET(DEBUG_TIMING_ACCURACY, 0, getAverageSystemLoadPercent());
+            //DEBUG_SET(DEBUG_TIMING_ACCURACY, 0, getAverageSystemLoadPercent());
 
             if (cmpTimeCycles(nextTimingCycles, nowCycles) < 0) {
                 nextTimingCycles += clockMicrosToCycles(1000000);
 
                 // Tasks late in last second
-                DEBUG_SET(DEBUG_TIMING_ACCURACY, 1, lateTaskCount);
+                //DEBUG_SET(DEBUG_TIMING_ACCURACY, 1, lateTaskCount);
                 // Total lateness in last second in us
-                DEBUG_SET(DEBUG_TIMING_ACCURACY, 2, clockCyclesTo10thMicros(lateTaskTotal));
+                //DEBUG_SET(DEBUG_TIMING_ACCURACY, 2, clockCyclesTo10thMicros(lateTaskTotal));
                 // Total tasks run in last second
-                DEBUG_SET(DEBUG_TIMING_ACCURACY, 3, taskCount);
+                //DEBUG_SET(DEBUG_TIMING_ACCURACY, 3, taskCount);
 
                 lateTaskCount = 0;
                 lateTaskTotal = 0;
@@ -638,7 +644,7 @@ void scheduler(void)
 
             // Allow a little extra time
             taskRequiredTimeCycles += taskGuardCycles;
-
+#if defined(USE_LATE_TASK_STATISTICS)
             if (!gyroEnabled || (taskRequiredTimeCycles < schedLoopRemainingCycles)) {
                 uint32_t antipatedEndCycles = nowCycles + taskRequiredTimeCycles;
                 taskExecutionTimeUs += schedulerExecuteTask(selectedTask, currentTimeUs);
@@ -654,10 +660,10 @@ void scheduler(void)
                         lateTaskTotal += cyclesOverdue;
                     }
                 }
-
-                // if ((currentTask - tasks) == TASK_RX) {
-                //     skippedRxAttempts = 0;
-                // }
+#endif  // USE_LATE_TASK_STATISTICS
+                if ((currentTask - tasks) == TASK_RX) {
+                    skippedRxAttempts = 0;
+                }
 #ifdef USE_OSD
                 else if ((currentTask - tasks) == TASK_OSD) {
                     skippedOSDAttempts = 0;

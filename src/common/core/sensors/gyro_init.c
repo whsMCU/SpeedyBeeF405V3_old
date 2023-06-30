@@ -37,7 +37,7 @@
 //#include "fc/runtime_config.h"
 
 #ifdef USE_DYN_NOTCH_FILTER
-#include "flight/dyn_notch_filter.h"
+#include "dyn_notch_filter.h"
 #endif
 
 #include "gyro.h"
@@ -236,7 +236,7 @@ void gyroInitFilters(void)
     dynLpfFilterInit();
 #endif
 #ifdef USE_DYN_NOTCH_FILTER
-    dynNotchInit(dynNotchConfig(), gyro.targetLooptime);
+    dynNotchInit(p_notch_pg, gyro.targetLooptime);
 #endif
 }
 

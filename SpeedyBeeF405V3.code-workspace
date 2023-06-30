@@ -38,7 +38,8 @@
 			"diskio.h": "c",
 			"sd_diskio.h": "c",
 			"axis.h": "c",
-			"utils.h": "c"
+			"utils.h": "c",
+			"pg.h": "c"
 		},
 	}
 }

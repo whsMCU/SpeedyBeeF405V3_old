@@ -91,9 +91,11 @@ typedef struct {
     uint32_t     averageExecutionTime10thUs;
     uint32_t     averageDeltaTime10thUs;
     float        movingAverageCycleTimeUs;
+#if defined(USE_LATE_TASK_STATISTICS)
     uint32_t     runCount;
     uint32_t     lateCount;
     uint32_t     execTime;
+#endif
 } taskInfo_t;
 
 typedef enum {
@@ -170,10 +172,11 @@ typedef struct {
     uint32_t maxExecutionTimeUs;
     uint32_t totalExecutionTimeUs;      // total time consumed by task since boot
     uint32_t lastStatsAtUs;             // time of last stats gathering for rate calculation
-
+#if defined(USE_LATE_TASK_STATISTICS)
     uint32_t runCount;
     uint32_t lateCount;
     uint32_t execTime;
+#endif
 } task_t;
 
 void getCheckFuncInfo(cfCheckFuncInfo_t *checkFuncInfo);

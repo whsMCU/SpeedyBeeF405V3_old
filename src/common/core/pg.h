@@ -23,6 +23,8 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+#include "hw_def.h"
+
 #include "core.h"
 #include "gyro.h"
 #include "pid.h"
@@ -30,6 +32,7 @@
 #include "acceleration.h"
 #include "sensors.h"
 #include "adc.h"
+#include "dyn_notch_filter.h"
 
 typedef struct {
     uint32_t magic_number;
@@ -41,6 +44,7 @@ typedef struct pidProfile_s pidProfile_t;
 typedef struct compassConfig_s compassConfig_t;
 typedef struct accelerometerConfig_s accelerometerConfig_t;
 typedef struct adcConfig_s adcConfig_t;
+typedef struct dynNotchConfig_s dynNotchConfig_t;
 
 extern const version_info_t *p_verstion_info;
 extern const gyroConfig_t *p_gyro_pg;
@@ -48,3 +52,4 @@ extern const pidProfile_t *p_pid_pg;
 extern compassConfig_t *p_compass_pg;
 extern accelerometerConfig_t *p_acc_pg;
 extern adcConfig_t *p_adc_pg;
+extern dynNotchConfig_t *p_notch_pg;

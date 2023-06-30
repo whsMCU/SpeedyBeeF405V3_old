@@ -62,7 +62,7 @@
 // #include "flight/gps_rescue.h"
 
 #if defined(USE_DYN_NOTCH_FILTER)
-#include "flight/dyn_notch_filter.h"
+#include "dyn_notch_filter.h"
 #endif
 
 //#include "imu.h"
@@ -701,36 +701,36 @@ void runawayTakeoffTemporaryDisable(uint8_t disableFlag)
 
 // calculate the throttle stick percent - integer math is good enough here.
 // returns negative values for reversed thrust in 3D mode
-// int8_t calculateThrottlePercent(void)
-// {
-//     uint8_t ret = 0;
-//     int channelData = constrain(rcData[THROTTLE], PWM_RANGE_MIN, PWM_RANGE_MAX);
+int8_t calculateThrottlePercent(void)
+{
+    uint8_t ret = 0;
+    int channelData = constrain(rcData[THROTTLE], PWM_RANGE_MIN, PWM_RANGE_MAX);
 
-//     if (featureIsEnabled(FEATURE_3D)
-//         && !IS_RC_MODE_ACTIVE(BOX3D)
-//         && !flight3DConfig()->switched_mode3d) {
+    if (featureIsEnabled(FEATURE_3D)
+        && !IS_RC_MODE_ACTIVE(BOX3D)
+        && !flight3DConfig()->switched_mode3d) {
 
-//         if (channelData > (rxConfig()->midrc + flight3DConfig()->deadband3d_throttle)) {
-//             ret = ((channelData - rxConfig()->midrc - flight3DConfig()->deadband3d_throttle) * 100) / (PWM_RANGE_MAX - rxConfig()->midrc - flight3DConfig()->deadband3d_throttle);
-//         } else if (channelData < (rxConfig()->midrc - flight3DConfig()->deadband3d_throttle)) {
-//             ret = -((rxConfig()->midrc - flight3DConfig()->deadband3d_throttle - channelData) * 100) / (rxConfig()->midrc - flight3DConfig()->deadband3d_throttle - PWM_RANGE_MIN);
-//         }
-//     } else {
-//         ret = constrain(((channelData - rxConfig()->mincheck) * 100) / (PWM_RANGE_MAX - rxConfig()->mincheck), 0, 100);
-//         if (featureIsEnabled(FEATURE_3D)
-//             && IS_RC_MODE_ACTIVE(BOX3D)
-//             && flight3DConfig()->switched_mode3d) {
+        if (channelData > (rxConfig()->midrc + flight3DConfig()->deadband3d_throttle)) {
+            ret = ((channelData - rxConfig()->midrc - flight3DConfig()->deadband3d_throttle) * 100) / (PWM_RANGE_MAX - rxConfig()->midrc - flight3DConfig()->deadband3d_throttle);
+        } else if (channelData < (rxConfig()->midrc - flight3DConfig()->deadband3d_throttle)) {
+            ret = -((rxConfig()->midrc - flight3DConfig()->deadband3d_throttle - channelData) * 100) / (rxConfig()->midrc - flight3DConfig()->deadband3d_throttle - PWM_RANGE_MIN);
+        }
+    } else {
+        ret = constrain(((channelData - rxConfig()->mincheck) * 100) / (PWM_RANGE_MAX - rxConfig()->mincheck), 0, 100);
+        if (featureIsEnabled(FEATURE_3D)
+            && IS_RC_MODE_ACTIVE(BOX3D)
+            && flight3DConfig()->switched_mode3d) {
 
-//             ret = -ret;  // 3D on a switch is active
-//         }
-//     }
-//     return ret;
-// }
+            ret = -ret;  // 3D on a switch is active
+        }
+    }
+    return ret;
+}
 
-// uint8_t calculateThrottlePercentAbs(void)
-// {
-//     return ABS(calculateThrottlePercent());
-// }
+uint8_t calculateThrottlePercentAbs(void)
+{
+    return ABS(calculateThrottlePercent());
+}
 
 // static bool airmodeIsActivated;
 

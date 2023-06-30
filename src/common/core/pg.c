@@ -211,3 +211,13 @@ __attribute__((section(".pg_registry"))) adcConfig_t adc_pg =
 };
 
 adcConfig_t *p_adc_pg = (adcConfig_t *)(0x8000400+(sizeof(version_info_t)+sizeof(gyroConfig_t)+sizeof(pidProfile_t)+sizeof(compassConfig_t)+sizeof(accelerometerConfig_t)));
+
+__attribute__((section(".pg_registry"))) dynNotchConfig_t notch_pg =
+{
+    .dyn_notch_min_hz = 150,
+    .dyn_notch_max_hz = 600,
+    .dyn_notch_q = 300,
+    .dyn_notch_count = 3
+};
+
+dynNotchConfig_t *p_notch_pg = (dynNotchConfig_t *)(0x8000400+(sizeof(version_info_t)+sizeof(gyroConfig_t)+sizeof(pidProfile_t)+sizeof(compassConfig_t)+sizeof(accelerometerConfig_t)+sizeof(adcConfig_t)));

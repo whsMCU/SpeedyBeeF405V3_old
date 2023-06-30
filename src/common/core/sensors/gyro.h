@@ -25,7 +25,7 @@
 #include "utils.h"
 
 #ifdef USE_DYN_NOTCH_FILTER
-#include "flight/dyn_notch_filter.h"
+#include "dyn_notch_filter.h"
 #endif
 #include "sensors.h"
 #include "pid.h"
