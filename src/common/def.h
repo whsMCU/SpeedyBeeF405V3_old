@@ -56,7 +56,7 @@
 #define USE_DYN_LPF
 #define USE_D_MIN
 #define USE_LATE_TASK_STATISTICS
-#define USE_DYN_NOTCH_FILTER
+//#define USE_DYN_NOTCH_FILTER
 
 
 

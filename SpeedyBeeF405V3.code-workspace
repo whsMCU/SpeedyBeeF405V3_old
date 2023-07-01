@@ -39,7 +39,11 @@
 			"sd_diskio.h": "c",
 			"axis.h": "c",
 			"utils.h": "c",
-			"pg.h": "c"
+			"pg.h": "c",
+			"adc.h": "c",
+			"core.h": "c",
+			"pid_init.h": "c",
+			"pid.h": "c"
 		},
 	}
 }

@@ -27,6 +27,7 @@
 #ifdef USE_SBUS_CHANNELS
 
 #include "rx.h"
+#include "pg.h"
 
 #include "sbus_channels.h"
 
@@ -91,13 +92,11 @@ static float sbusChannelsReadRawRC(const rxRuntimeState_t *rxRuntimeState, uint8
     return (5 * (float)rxRuntimeState->channelData[chan] / 8) + 880;
 }
 
-uint16_t midrc = 1500;
-
 void sbusChannelsInit(rxRuntimeState_t *rxRuntimeState)
 {
     rxRuntimeState->rcReadRawFn = sbusChannelsReadRawRC;
     for (int b = 0; b < SBUS_MAX_CHANNEL; b++) {
-        rxRuntimeState->channelData[b] = (16 * midrc) / 10 - 1408;
+        rxRuntimeState->channelData[b] = (16 * p_rx_pg->midrc) / 10 - 1408;
     }
 }
 #endif

@@ -36,6 +36,7 @@
 #include "rx.h"
 #include "cli.h"
 #include "core.h"
+#include "pg.h"
 
 // taskUpdateRxMain() has occasional peaks in execution time so normal moving average duration estimation doesn't work
 // Decay the estimated max task duration by 1/(1 << RX_TASK_DECAY_SHIFT) on every invocation
@@ -68,11 +69,12 @@ static void ledUpdate(uint32_t currentTimeUs)
 static void debugPrint(uint32_t currentTimeUs)
 {
     //cliPrintf("BARO : %d cm, Load : %d, count : %d \n\r", baro.BaroAlt, getAverageSystemLoadPercent(), getCycleCounter());
-    cliPrintf("IMU R: %d, P: %d, Y: %d\n\r",    attitude.values.roll,
-                                                attitude.values.pitch,
-                                                attitude.values.yaw);
+    // cliPrintf("IMU R: %d, P: %d, Y: %d\n\r",    attitude.values.roll,
+    //                                             attitude.values.pitch,
+    //                                             attitude.values.yaw);
 
-    //cliPrintf("IMU R: %d, P: %d, Y: %d\n\r",    p_pid_pg->simplified_pi_gain, p_pid_pg->feedforward_boost, p_pid_pg->dyn_idle_max_increase);
+    p_adc_pg->vrefIntCalibration = 50;
+    cliPrintf("IMU R: %d, P: %d\n\r",    p_pid_pg->dyn_idle_p_gain, p_adc_pg->vrefIntCalibration);
 
     // cliPrintf("ACC R: %d, P: %d, Y: %d\n\r",    sensor.imuSensor1.imuDev.accADCRaw[X],
     //                                             sensor.imuSensor1.imuDev.accADCRaw[Y],

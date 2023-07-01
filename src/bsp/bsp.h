@@ -27,6 +27,10 @@ uint32_t getCycleCounter(void);
 
 void HAL_SYSTICK_Callback(void);
 
+int32_t clockCyclesToMicros(int32_t clockCycles);
+int32_t clockCyclesTo10thMicros(int32_t clockCycles);
+uint32_t clockMicrosToCycles(uint32_t micros);
+
 void delay(uint32_t ms);
 uint32_t millis(void);
 uint32_t micros(void);

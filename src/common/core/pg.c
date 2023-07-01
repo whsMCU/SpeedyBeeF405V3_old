@@ -221,3 +221,43 @@ __attribute__((section(".pg_registry"))) dynNotchConfig_t notch_pg =
 };
 
 dynNotchConfig_t *p_notch_pg = (dynNotchConfig_t *)(0x8000400+(sizeof(version_info_t)+sizeof(gyroConfig_t)+sizeof(pidProfile_t)+sizeof(compassConfig_t)+sizeof(accelerometerConfig_t)+sizeof(adcConfig_t)));
+
+__attribute__((section(".pg_registry"))) rxConfig_t rx_pg =
+{
+  .halfDuplex = 0,
+  .serialrx_provider = SERIALRX_PROVIDER,
+  .serialrx_inverted = 0,
+  //.spektrum_bind_pin_override_ioTag = IO_TAG(SPEKTRUM_BIND_PIN),
+  //.spektrum_bind_plug_ioTag = IO_TAG(BINDPLUG_PIN),
+  .spektrum_sat_bind = 0,
+  .spektrum_sat_bind_autoreset = 1,
+  .midrc = RX_MID_USEC,
+  .mincheck = 1050,
+  .maxcheck = 1900,
+  .rx_min_usec = RX_MIN_USEC,          // any of first 4 channels below this value will trigger rx loss detection
+  .rx_max_usec = RX_MAX_USEC,         // any of first 4 channels above this value will trigger rx loss detection
+  .rssi_src_frame_errors = false,
+  .rssi_channel = 0,
+  .rssi_scale = RSSI_SCALE_DEFAULT,
+  .rssi_offset = 0,
+  .rssi_invert = 0,
+  .rssi_src_frame_lpf_period = 30,
+  .fpvCamAngleDegrees = 0,
+  .airModeActivateThreshold = 25,
+  .max_aux_channel = MAX_AUX_CHANNEL_COUNT,
+  .rc_smoothing_mode = 1,
+  .rc_smoothing_setpoint_cutoff = 0,
+  .rc_smoothing_feedforward_cutoff = 0,
+  .rc_smoothing_throttle_cutoff = 0,
+  .rc_smoothing_debug_axis = ROLL,
+  .rc_smoothing_auto_factor_rpy = 30,
+  .rc_smoothing_auto_factor_throttle = 30,
+  .srxl2_unit_id = 1,
+  .srxl2_baud_fast = true,
+  .sbus_baud_fast = false,
+  .crsf_use_rx_snr = false,
+  .msp_override_channels_mask = 0,
+  .crsf_use_negotiated_baud = false,
+};
+
+rxConfig_t *p_rx_pg = (rxConfig_t *)(0x8000400+(sizeof(version_info_t)+sizeof(gyroConfig_t)+sizeof(pidProfile_t)+sizeof(compassConfig_t)+sizeof(accelerometerConfig_t)+sizeof(adcConfig_t)+sizeof(dynNotchConfig_t)));

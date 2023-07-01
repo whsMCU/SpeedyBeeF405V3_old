@@ -706,20 +706,20 @@ int8_t calculateThrottlePercent(void)
     uint8_t ret = 0;
     int channelData = constrain(rcData[THROTTLE], PWM_RANGE_MIN, PWM_RANGE_MAX);
 
-    if (featureIsEnabled(FEATURE_3D)
-        && !IS_RC_MODE_ACTIVE(BOX3D)
-        && !flight3DConfig()->switched_mode3d) {
+    if (false//featureIsEnabled(FEATURE_3D)
+        && false//!IS_RC_MODE_ACTIVE(BOX3D)
+        && false) {//!flight3DConfig()->switched_mode3d
 
-        if (channelData > (rxConfig()->midrc + flight3DConfig()->deadband3d_throttle)) {
-            ret = ((channelData - rxConfig()->midrc - flight3DConfig()->deadband3d_throttle) * 100) / (PWM_RANGE_MAX - rxConfig()->midrc - flight3DConfig()->deadband3d_throttle);
-        } else if (channelData < (rxConfig()->midrc - flight3DConfig()->deadband3d_throttle)) {
-            ret = -((rxConfig()->midrc - flight3DConfig()->deadband3d_throttle - channelData) * 100) / (rxConfig()->midrc - flight3DConfig()->deadband3d_throttle - PWM_RANGE_MIN);
+        if (channelData > (p_rx_pg->midrc + 0)) {//flight3DConfig()->deadband3d_throttle
+            ret = ((channelData - p_rx_pg->midrc - 0) * 100) / (PWM_RANGE_MAX - p_rx_pg->midrc - 0);
+        } else if (channelData < (p_rx_pg->midrc - 0)) {
+            ret = -((p_rx_pg->midrc - 0 - channelData) * 100) / (p_rx_pg->midrc - 0 - PWM_RANGE_MIN);
         }
     } else {
-        ret = constrain(((channelData - rxConfig()->mincheck) * 100) / (PWM_RANGE_MAX - rxConfig()->mincheck), 0, 100);
-        if (featureIsEnabled(FEATURE_3D)
-            && IS_RC_MODE_ACTIVE(BOX3D)
-            && flight3DConfig()->switched_mode3d) {
+        ret = constrain(((channelData - p_rx_pg->mincheck) * 100) / (PWM_RANGE_MAX - p_rx_pg->mincheck), 0, 100);
+        if (false//featureIsEnabled(FEATURE_3D)
+        && false//IS_RC_MODE_ACTIVE(BOX3D)
+        && false) {//flight3DConfig()->switched_mode3d
 
             ret = -ret;  // 3D on a switch is active
         }

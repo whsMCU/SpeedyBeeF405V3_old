@@ -36,6 +36,7 @@
 
 #include "rx/rx.h"
 #include "rx/crsf.h"
+#include "pg.h"
 
 //#include "telemetry/crsf.h"
 static inline int32_t cmpTimeUs(uint32_t a, uint32_t b) { return (int32_t)(a - b); }
@@ -218,7 +219,7 @@ static void handleCrsfLinkStatisticsFrame(const crsfLinkStatistics_t* statsPtr, 
     lastLinkStatisticsFrameUs = currentTimeUs;
     int16_t rssiDbm = -1 * (stats.active_antenna ? stats.uplink_RSSI_2 : stats.uplink_RSSI_1);
     if (rssiSource == RSSI_SOURCE_RX_PROTOCOL_CRSF) {
-        if (rxConfig()->crsf_use_rx_snr) {
+        if (p_rx_pg->crsf_use_rx_snr) {
             // -10dB of SNR mapped to 0 RSSI (fail safe is likely to happen at this measure)
             //   0dB of SNR mapped to 20 RSSI (default alarm)
             //  41dB of SNR mapped to 99 RSSI (SNR can climb to around 60, but showing that is not very meaningful)
@@ -273,7 +274,7 @@ static void handleCrsfLinkStatisticsTxFrame(const crsfLinkStatisticsTx_t* statsP
     }
 #ifdef USE_RX_RSSI_DBM
     int16_t rssiDbm = -1 * stats.uplink_RSSI;
-    if (rxConfig()->crsf_use_rx_snr) {
+    if (p_rx_pg->crsf_use_rx_snr) {
         rssiDbm = stats.uplink_SNR;
     }
     setRssiDbm(rssiDbm, RSSI_SOURCE_RX_PROTOCOL_CRSF);
@@ -300,7 +301,7 @@ static void crsfCheckRssi(uint32_t currentTimeUs) {
         if (rssiSource == RSSI_SOURCE_RX_PROTOCOL_CRSF) {
             setRssiDirect(0, RSSI_SOURCE_RX_PROTOCOL_CRSF);
 #ifdef USE_RX_RSSI_DBM
-            if (rxConfig()->crsf_use_rx_snr) {
+            if (p_rx_pg->crsf_use_rx_snr) {
                 setRssiDbmDirect(CRSF_SNR_MIN, RSSI_SOURCE_RX_PROTOCOL_CRSF);
             } else {
                 setRssiDbmDirect(CRSF_RSSI_MIN, RSSI_SOURCE_RX_PROTOCOL_CRSF);
@@ -611,7 +612,7 @@ bool crsfRxIsTelemetryBufEmpty(void)
 bool crsfRxInit(rxRuntimeState_t *rxRuntimeState)
 {
     for (int ii = 0; ii < CRSF_MAX_CHANNEL; ++ii) {
-        crsfChannelData[ii] = (16 * 1500) / 10 - 1408;
+        crsfChannelData[ii] = (16 * p_rx_pg->midrc) / 10 - 1408;
     }
 
     rxRuntimeState->channelCount = CRSF_MAX_CHANNEL;

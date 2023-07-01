@@ -55,6 +55,22 @@ uint32_t getCycleCounter(void)
     return DWT->CYCCNT;
 }
 
+int32_t clockCyclesToMicros(int32_t clockCycles)
+{
+    return clockCycles / usTicks;
+}
+
+// Note that this conversion is signed as this is used for periods rather than absolute timestamps
+int32_t clockCyclesTo10thMicros(int32_t clockCycles)
+{
+    return 10 * clockCycles / (int32_t)usTicks;
+}
+
+uint32_t clockMicrosToCycles(uint32_t micros)
+{
+    return micros * usTicks;
+}
+
 void delay(uint32_t ms)
 {
   HAL_Delay(ms);

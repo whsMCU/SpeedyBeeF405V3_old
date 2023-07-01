@@ -34,6 +34,7 @@
 #include "uart.h"
 #include "cli.h"
 #include "crsf.h"
+#include "pg.h"
 
 float rcCommand[4];           // interval [1000;2000] for THROTTLE and [-500;+500] for ROLL/PITCH/YAW
 static bool isRxDataNew = false;
@@ -1309,7 +1310,7 @@ void updateRcCommands(void)
     for (int axis = 0; axis < 3; axis++) {
         // non coupled PID reduction scaler used in PID controller 1 and PID controller 2.
 
-        float tmp = MIN(ABS(rcData[axis] - 1500), 500);
+        float tmp = MIN(ABS(rcData[axis] - p_rx_pg->midrc), 500);
         if (axis == ROLL || axis == PITCH) {
             if (tmp > 5) {
                 tmp -= 5;
@@ -1325,7 +1326,7 @@ void updateRcCommands(void)
             }
             rcCommand[axis] = tmp * -GET_DIRECTION(false);
         }
-        if (rcData[axis] < 1500) {
+        if (rcData[axis] < p_rx_pg->midrc) {
             rcCommand[axis] = -rcCommand[axis];
         }
     }
@@ -1336,8 +1337,8 @@ void updateRcCommands(void)
     //     tmp = (uint32_t)(tmp - PWM_RANGE_MIN);
     // } else
     {
-        tmp = constrain(rcData[THROTTLE], 1050, PWM_RANGE_MAX);
-        tmp = (uint32_t)(tmp - 1050) * PWM_RANGE_MIN / (PWM_RANGE_MAX - 1050);
+        tmp = constrain(rcData[THROTTLE], p_rx_pg->mincheck, PWM_RANGE_MAX);
+        tmp = (uint32_t)(tmp - p_rx_pg->mincheck) * PWM_RANGE_MIN / (PWM_RANGE_MAX - p_rx_pg->mincheck);
     }
 
     // if (getLowVoltageCutoff()->enabled) {
