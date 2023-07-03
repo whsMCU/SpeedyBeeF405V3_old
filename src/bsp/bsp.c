@@ -8,6 +8,7 @@
 
 #include "bsp.h"
 #include "uart.h"
+#include "rtc.h"
 
 
 
@@ -25,6 +26,53 @@ void HAL_SYSTICK_Callback(void)
 {
 	msTicks++;
 }
+
+#ifdef _USE_HW_RTC
+
+void systemReset(void)
+{
+    __disable_irq();
+    NVIC_SystemReset();
+}
+
+void systemResetToBootloader(bootloaderRequestType_e requestType)
+{
+    switch (requestType) {
+    case BOOTLOADER_REQUEST_ROM:
+    default:
+        rtcBackupRegWrite(PERSISTENT_OBJECT_RESET_REASON, RESET_BOOTLOADER_REQUEST_ROM);
+
+        break;
+    }
+
+    __disable_irq();
+    NVIC_SystemReset();
+}
+
+typedef void resetHandler_t(void);
+
+typedef struct isrVector_s {
+    __I uint32_t    stackEnd;
+    resetHandler_t *resetHandler;
+} isrVector_t;
+
+// Used in the startup files for F4
+void checkForBootLoaderRequest(void)
+{
+    uint32_t bootloaderRequest = rtcBackupRegRead(PERSISTENT_OBJECT_RESET_REASON);
+
+    if (bootloaderRequest != RESET_BOOTLOADER_REQUEST_ROM) {
+        return;
+    }
+    rtcBackupRegWrite(PERSISTENT_OBJECT_RESET_REASON, RESET_NONE);
+
+    extern isrVector_t system_isr_vector_table_base;
+
+    __set_MSP(system_isr_vector_table_base.stackEnd);
+    system_isr_vector_table_base.resetHandler();
+    while (1);
+}
+#endif
 
 void cycleCounterInit(void)
 {
@@ -120,8 +168,9 @@ void SystemClock_Config(void)
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_LSI|RCC_OSCILLATORTYPE_HSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
+  RCC_OscInitStruct.LSIState = RCC_LSI_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
   RCC_OscInitStruct.PLL.PLLM = 4;

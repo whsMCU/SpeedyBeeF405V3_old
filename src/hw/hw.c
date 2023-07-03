@@ -13,6 +13,9 @@ static void MX_DMA_Init(void);
 void hwInit(void)
 {
   bspInit();
+  #ifdef _USE_HW_RTC
+    rtcInit();
+  #endif
   gpioInit();
   flashInit();
   ledInit();

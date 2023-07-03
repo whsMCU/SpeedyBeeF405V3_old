@@ -21,6 +21,17 @@
 #define logPrintf(fmt, ...)
 #endif
 
+typedef enum {
+    BOOTLOADER_REQUEST_ROM,
+    BOOTLOADER_REQUEST_FLASH,
+} bootloaderRequestType_e;
+
+void systemReset(void);
+void systemResetToBootloader(bootloaderRequestType_e requestType);
+#ifdef _USE_HW_RTC
+void checkForBootLoaderRequest(void);
+#endif
+
 
 void bspInit(void);
 uint32_t getCycleCounter(void);

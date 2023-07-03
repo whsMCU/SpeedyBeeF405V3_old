@@ -10,7 +10,13 @@
 #include "uart.h"
 #include "scheduler.h"
 #include "tasks.h"
+#include "bsp.h"
 
+typedef enum {
+    REBOOT_TARGET_FIRMWARE,
+    REBOOT_TARGET_BOOTLOADER_ROM,
+    REBOOT_TARGET_BOOTLOADER_FLASH,
+} rebootTarget_e;
 
 
 #define CLI_KEY_BACK              0x08
@@ -107,6 +113,9 @@ static bool     cliArgsIsStr(uint8_t index, char *p_str);
 void cliShowList(cli_args_t *args);
 void cliMemoryDump(cli_args_t *args);
 void cliTaskList(cli_args_t *args);
+#ifdef _USE_HW_RTC
+void cliBootloader(cli_args_t *args);
+#endif
 
 
 bool cliInit(void)
@@ -131,6 +140,9 @@ bool cliInit(void)
   cliAdd("help", cliShowList);
   cliAdd("md"  , cliMemoryDump);
   cliAdd("task"  , cliTaskList);
+  #ifdef _USE_HW_RTC
+  cliAdd("bl"  , cliBootloader);
+  #endif
 
   return true;
 }
@@ -799,3 +811,74 @@ void cliTaskList(cli_args_t *args)
         schedulerResetCheckFunctionMaxExecutionTime();
     }
 }
+
+#ifdef _USE_HW_RTC
+static void cliRebootEx(rebootTarget_e rebootTarget)
+{
+    cliPrintf("\r\nRebooting");
+    //cliPrint("\r\nRebooting");
+    //cliWriterFlush();
+    //waitForSerialPortToFinishTransmitting(cliPort);
+    //motorShutdown();
+
+    switch (rebootTarget) {
+    case REBOOT_TARGET_BOOTLOADER_ROM:
+        systemResetToBootloader(BOOTLOADER_REQUEST_ROM);
+
+        break;
+#if defined(USE_FLASH_BOOT_LOADER)
+    case REBOOT_TARGET_BOOTLOADER_FLASH:
+        systemResetToBootloader(BOOTLOADER_REQUEST_FLASH);
+
+        break;
+#endif
+    case REBOOT_TARGET_FIRMWARE:
+    default:
+        systemReset();
+
+        break;
+    }
+}
+
+// Check if a string's length is zero
+static bool isEmpty(const char *string)
+{
+    return (string == NULL || *string == '\0') ? true : false;
+}
+
+void cliBootloader(cli_args_t *args)
+{
+    rebootTarget_e rebootTarget;
+    if (
+#if !defined(USE_FLASH_BOOT_LOADER)
+        //isEmpty(cmdline) ||
+#endif
+        args->isStr(3, "rom") == true)
+        //strncasecmp(cmdline, "rom", 3) == 0)
+        {
+        rebootTarget = REBOOT_TARGET_BOOTLOADER_ROM;
+
+        cliPrintf("restarting in ROM bootloader mode"); 
+        //cliPrintHashLine("restarting in ROM bootloader mode");
+#if defined(USE_FLASH_BOOT_LOADER)
+    } else if (isEmpty(cmdline) || strncasecmp(cmdline, "flash", 5) == 0) {
+        rebootTarget = REBOOT_TARGET_BOOTLOADER_FLASH;
+
+        cliPrintf("restarting in flash bootloader mode");
+        //cliPrintHashLine("restarting in flash bootloader mode");
+#endif
+    } else {
+        //cliPrintErrorLinef(cmdName, "Invalid option");
+
+        return;
+    }
+
+    cliRebootEx(rebootTarget);
+}
+
+void cliReboot(void)
+{
+    cliRebootEx(REBOOT_TARGET_FIRMWARE);
+}
+
+#endif
