@@ -43,7 +43,8 @@
 			"adc.h": "c",
 			"core.h": "c",
 			"pid_init.h": "c",
-			"pid.h": "c"
+			"pid.h": "c",
+			"sensors.h": "c"
 		},
 	}
 }

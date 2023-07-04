@@ -38,7 +38,8 @@ _Min_Stack_Size = 0x400;	/* required amount of stack */
 MEMORY
 {
   CCMRAM         (xrw)    : ORIGIN = 0x10000000,   LENGTH =    64K
-  RAM            (xrw)    : ORIGIN = 0x20000000,   LENGTH =   128K
+  RAM_CODE       (xrw)    : ORIGIN = 0x20000000,   LENGTH =    16K
+  RAM            (xrw)    : ORIGIN = 0x20004000,   LENGTH =   128K-16K
   VECTOR         (rx)     : ORIGIN = 0x08000000,   LENGTH =     1K
   PG             (xrw)    : ORIGIN = 0x08000400,   LENGTH =     1K
   FLASH          (rx)     : ORIGIN = 0x08000800,   LENGTH =  1022K
@@ -176,6 +177,18 @@ SECTIONS
     . = . + _Min_Stack_Size;
     . = ALIGN(8);
   } >RAM
+
+  /* load code used by the startup code to initialize the ram code */
+  _siram_code = LOADADDR(.ram_code);
+  .ram_code :
+  {
+    . = ALIGN(4);
+    _sram_code = .;   /* create a global symbol at ram_code start */
+    *(.ram_code)      /* .RAM_Code sections */
+    *(.ram_code*)     /* .RAM_Code* sections */
+    . = ALIGN(4);
+    _eram_code = .;   /* define a global symbol at ram_code end */
+  } >RAM_CODE AT> FLASH 
 
   /* Remove information from the compiler libraries */
   /DISCARD/ :
