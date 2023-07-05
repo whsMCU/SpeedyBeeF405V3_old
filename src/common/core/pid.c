@@ -70,16 +70,16 @@ const char pidNames[] =
     "LEVEL;"
     "MAG;";
 
-uint32_t targetPidLooptime;
-pidAxisData_t pidData[XYZ_AXIS_COUNT];
-pidRuntime_t pidRuntime;
+FAST_DATA_ZERO_INIT uint32_t targetPidLooptime;
+FAST_DATA_ZERO_INIT pidAxisData_t pidData[XYZ_AXIS_COUNT];
+FAST_DATA_ZERO_INIT pidRuntime_t pidRuntime;
 
 #if defined(USE_ABSOLUTE_CONTROL)
-float axisError[XYZ_AXIS_COUNT];
+float FAST_DATA_ZERO_INIT axisError[XYZ_AXIS_COUNT];
 #endif
 
 #if defined(USE_THROTTLE_BOOST)
-float throttleBoost;
+FAST_DATA_ZERO_INIT float throttleBoost;
 pt1Filter_t throttleLpf;
 #endif
 

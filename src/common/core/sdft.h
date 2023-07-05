@@ -25,6 +25,7 @@
 
 #include <stdint.h>
 #include <complex.h>
+#include "def.h"
 #undef I  // avoid collision of imaginary unit I with variable I in pid.h
 typedef float complex complex_t; // Better readability for type "float complex"
 

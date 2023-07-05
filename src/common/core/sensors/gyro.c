@@ -62,29 +62,29 @@
 #define USE_GYRO_SLEW_LIMITER
 #endif
 
-gyro_t gyro;
+FAST_DATA_ZERO_INIT gyro_t gyro;
 
 static inline int32_t cmpTimeUs(uint32_t a, uint32_t b) { return (int32_t)(a - b); }
 
-static bool overflowDetected;
+static FAST_DATA_ZERO_INIT bool overflowDetected;
 #ifdef USE_GYRO_OVERFLOW_CHECK
-static uint32_t overflowTimeUs;
+static FAST_DATA_ZERO_INIT uint32_t overflowTimeUs;
 #endif
 
 #ifdef USE_YAW_SPIN_RECOVERY
-static  bool yawSpinRecoveryEnabled;
-static  int yawSpinRecoveryThreshold;
-static  bool yawSpinDetected;
-static  uint32_t yawSpinTimeUs;
+static FAST_DATA_ZERO_INIT bool yawSpinRecoveryEnabled;
+static FAST_DATA_ZERO_INIT int yawSpinRecoveryThreshold;
+static FAST_DATA_ZERO_INIT bool yawSpinDetected;
+static FAST_DATA_ZERO_INIT uint32_t yawSpinTimeUs;
 #endif
 
-static  float accumulatedMeasurements[XYZ_AXIS_COUNT];
-static  float gyroPrevious[XYZ_AXIS_COUNT];
-static  int accumulatedMeasurementCount;
+static FAST_DATA_ZERO_INIT float accumulatedMeasurements[XYZ_AXIS_COUNT];
+static FAST_DATA_ZERO_INIT float gyroPrevious[XYZ_AXIS_COUNT];
+static FAST_DATA_ZERO_INIT int accumulatedMeasurementCount;
 
-static  int16_t gyroSensorTemperature;
+static FAST_DATA_ZERO_INIT int16_t gyroSensorTemperature;
 
-uint8_t activePidLoopDenom = 1;
+FAST_DATA uint8_t activePidLoopDenom = 1;
 
 static bool firstArmingCalibrationWasStarted = false;
 

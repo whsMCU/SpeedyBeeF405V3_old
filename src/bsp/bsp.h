@@ -47,6 +47,8 @@ uint32_t millis(void);
 uint32_t micros(void);
 void delayMicroseconds(uint32_t us);
 
+void initialiseMemorySections(void);
+
 void Error_Handler(void);
 
 

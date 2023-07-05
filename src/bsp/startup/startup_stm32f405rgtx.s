@@ -44,6 +44,10 @@ defined in linker script */
 .word  _sbss
 /* end address for the .bss section. defined in linker script */
 .word  _ebss
+/* start address for the .fastram_bss section. defined in linker script */
+.word  __fastram_bss_start__
+/* end address for the .fastram_bss section. defined in linker script */
+.word  __fastram_bss_end__
 /* stack used for SystemInit_ExtMemCtl; always internal RAM used */
 
 /**
@@ -79,6 +83,7 @@ LoopCopyDataInit:
   bcc  CopyDataInit
   ldr  r2, =_sbss
   b  LoopFillZerobss
+
 /* Zero fill the bss segment. */  
 FillZerobss:
   movs  r3, #0
@@ -88,6 +93,24 @@ LoopFillZerobss:
   ldr  r3, = _ebss
   cmp  r2, r3
   bcc  FillZerobss
+
+  ldr  r2, =__fastram_bss_start__
+  b  LoopFillZerofastram_bss
+/* Zero fill the fastram_bss segment. */  
+FillZerofastram_bss:
+  movs  r3, #0
+  str  r3, [r2], #4
+    
+LoopFillZerofastram_bss:
+  ldr  r3, = __fastram_bss_end__
+  cmp  r2, r3
+  bcc  FillZerofastram_bss
+
+/*FPU settings*/
+  ldr     r0, =0xE000ED88           /* Enable CP10,CP11 */
+  ldr     r1,[r0]
+  orr     r1,r1,#(0xF << 20)
+  str     r1,[r0]
 
 /* Call the clock system intitialization function.*/
   bl  SystemInit   

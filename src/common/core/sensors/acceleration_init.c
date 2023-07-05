@@ -43,7 +43,7 @@
 
 #define CALIBRATING_ACC_CYCLES              400
 
-accelerationRuntime_t accelerationRuntime;
+accelerationRuntime_t FAST_DATA_ZERO_INIT accelerationRuntime;
 
 void resetRollAndPitchTrims(rollAndPitchTrims_t *rollAndPitchTrims)
 {

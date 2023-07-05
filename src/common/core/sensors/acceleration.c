@@ -29,7 +29,7 @@
 
 #include "acceleration.h"
 
-acc_t acc;                       // acc access functions
+FAST_DATA_ZERO_INIT acc_t acc;                       // acc access functions
 
 static void applyAccelerationTrims(const flightDynamicsTrims_t *accelerationTrims)
 {

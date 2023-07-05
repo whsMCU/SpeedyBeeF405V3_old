@@ -27,6 +27,7 @@
 #include "tasks.h"
 #include "maths.h"
 #include "rx.h"
+#include "core.h"
 
 #include "scheduler.h"
 
@@ -49,9 +50,9 @@
 
 extern task_t tasks[];
 
-static task_t *currentTask = NULL;
-static bool ignoreCurrentTaskExecRate;
-static bool ignoreCurrentTaskExecTime;
+static FAST_DATA_ZERO_INIT task_t *currentTask = NULL;
+static FAST_DATA_ZERO_INIT bool ignoreCurrentTaskExecRate;
+static FAST_DATA_ZERO_INIT bool ignoreCurrentTaskExecTime;
 
 int32_t schedLoopStartCycles;
 static int32_t schedLoopStartMinCycles;
@@ -65,12 +66,12 @@ static int32_t taskGuardMaxCycles;
 static uint32_t taskGuardDeltaDownCycles;
 static uint32_t taskGuardDeltaUpCycles;
 
-uint16_t averageSystemLoadPercent = 0;
+FAST_DATA_ZERO_INIT uint16_t averageSystemLoadPercent = 0;
 
-static int taskQueuePos = 0;
-int taskQueueSize = 0;
+static FAST_DATA_ZERO_INIT int taskQueuePos = 0;
+FAST_DATA_ZERO_INIT int taskQueueSize = 0;
 
-static bool gyroEnabled;
+static FAST_DATA_ZERO_INIT bool gyroEnabled;
 
 static int32_t desiredPeriodCycles;
 static uint32_t lastTargetCycles;
@@ -94,7 +95,7 @@ static uint32_t lastFailsafeCheckMs = 0;
 
 // No need for a linked list for the queue, since items are only inserted at startup
 
-task_t* taskQueueArray[TASK_COUNT + 1]; // extra item for NULL pointer at end of queue
+task_t* FAST_DATA_ZERO_INIT taskQueueArray[TASK_COUNT + 1]; // extra item for NULL pointer at end of queue
 
 void queueClear(void)
 {

@@ -151,6 +151,17 @@ int __io_putchar(int ch)
   return 1;
 }
 
+void initialiseMemorySections(void)
+{
+#ifdef USE_FAST_DATA
+    /* Load FAST_DATA variable initializers into DTCM RAM */
+    extern uint8_t _sfastram_data;
+    extern uint8_t _efastram_data;
+    extern uint8_t _sfastram_idata;
+    memcpy(&_sfastram_data, &_sfastram_idata, (size_t) (&_efastram_data - &_sfastram_data));
+#endif
+}
+
 /**
   * @brief System Clock Configuration
   * @retval None

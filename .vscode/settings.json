@@ -27,6 +27,10 @@
         "maths.h": "c",
         "accgyro.h": "c",
         "i2c.h": "c",
-        "rtc.h": "c"
+        "rtc.h": "c",
+        "sdft.h": "c",
+        "acceleration.h": "c",
+        "pid_init.h": "c",
+        "pid.h": "c"
     }
 }
