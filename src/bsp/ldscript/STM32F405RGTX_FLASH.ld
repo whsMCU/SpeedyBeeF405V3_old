@@ -31,6 +31,10 @@ ENTRY(Reset_Handler)
 /* Highest address of the user mode stack */
 _estack = ORIGIN(RAM) + LENGTH(RAM);	/* end of "RAM" Ram type memory */
 
+/* Base address where the config is stored. */
+__config_start = ORIGIN(CONFIG);
+__config_end = ORIGIN(CONFIG) + LENGTH(CONFIG);
+
 _Min_Heap_Size = 0x200;	/* required amount of heap  */
 _Min_Stack_Size = 0x400;	/* required amount of stack */
 
@@ -38,32 +42,36 @@ _Min_Stack_Size = 0x400;	/* required amount of stack */
 MEMORY
 {
   CCMRAM         (xrw)    : ORIGIN = 0x10000000,   LENGTH =    64K
+  SYSTEM_MEMORY  (rx)     : ORIGIN = 0x1FFF0000,   LENGTH =    29K
   RAM            (xrw)    : ORIGIN = 0x20000000,   LENGTH =   128K
-  VECTOR         (rx)     : ORIGIN = 0x08000000,   LENGTH =     1K
-  PG             (rx)     : ORIGIN = 0x08000400,   LENGTH =     1K
-  FLASH          (rx)     : ORIGIN = 0x08000800,   LENGTH =  1022K
+  VECTOR         (rx)     : ORIGIN = 0x08000000,   LENGTH =    16K
+  CONFIG         (r)      : ORIGIN = 0x08004000,   LENGTH =    16K
+  FLASH          (rx)     : ORIGIN = 0x08008000,   LENGTH =   992K
 }
 
 /* Sections */
 SECTIONS
 {
+  _isr_vector_table_flash_base = LOADADDR(.isr_vector);
+  PROVIDE (isr_vector_table_flash_base = _isr_vector_table_flash_base);
   /* The startup code into "FLASH" Rom type memory */
   .isr_vector :
   {
     . = ALIGN(4);
+    PROVIDE (isr_vector_table_base = .);
     KEEP(*(.isr_vector)) /* Startup code */
     . = ALIGN(4);
-  } >VECTOR
+    PROVIDE (isr_vector_table_end = .);
+  } >RAM AT> FLASH
 
-  /* The startup code into "FLASH" Rom type memory */
-  .pg_registry :
+  /* System memory (read-only bootloader) interrupt vector */
+  .system_isr_vector (NOLOAD) :
   {
     . = ALIGN(4);
-    PROVIDE_HIDDEN (__pg_registry_start = .);
-    KEEP(*(.pg_registry)) /* Parameter Gruop code */
+    PROVIDE (system_isr_vector_table_base = .);
+    KEEP(*(.system_isr_vector)) /* Bootloader code */
     . = ALIGN(4);
-    PROVIDE_HIDDEN (__pg_registry_end = .);
-  } >PG
+  } >SYSTEM_MEMORY
 
   /* The program code and other data into "FLASH" Rom type memory */
   .text :
@@ -132,6 +140,23 @@ SECTIONS
     KEEP (*(.fini_array*))
     PROVIDE_HIDDEN (__fini_array_end = .);
     . = ALIGN(4);
+  } >FLASH
+
+  .pg_registry :
+  {
+    . = ALIGN(4);
+    PROVIDE_HIDDEN (__pg_registry_start = .);
+    KEEP(*(.pg_registry)) /* Parameter Gruop code */
+    KEEP (*(SORT(.pg_registry.*)))
+    . = ALIGN(4);
+    PROVIDE_HIDDEN (__pg_registry_end = .);
+  } >FLASH
+
+  .pg_resetdata :
+  {
+    PROVIDE_HIDDEN (__pg_resetdata_start = .);
+    KEEP (*(.pg_resetdata))
+    PROVIDE_HIDDEN (__pg_resetdata_end = .);
   } >FLASH
 
   /* Used by the startup to initialize data */
