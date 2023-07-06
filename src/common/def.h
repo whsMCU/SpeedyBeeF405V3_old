@@ -57,7 +57,7 @@
 #define USE_D_MIN
 #define USE_LATE_TASK_STATISTICS
 //#define USE_DYN_NOTCH_FILTER
-#define USE_FAST_DATA
+//#define USE_FAST_DATA
 
 #ifdef USE_FAST_DATA
 #define FAST_DATA_ZERO_INIT         __attribute__ ((section(".fastram_bss"), aligned(4)))
