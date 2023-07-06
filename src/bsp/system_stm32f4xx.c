@@ -46,6 +46,7 @@
 
 
 #include "stm32f4xx.h"
+#include "bsp.h"
 
 #if !defined  (HSE_VALUE) 
   #define HSE_VALUE    ((uint32_t)25000000) /*!< Default value of the External oscillator in Hz */
@@ -166,6 +167,7 @@ const uint8_t APBPrescTable[8]  = {0, 0, 0, 0, 1, 2, 3, 4};
   */
 void SystemInit(void)
 {
+  initialiseMemorySections();
   /* FPU settings ------------------------------------------------------------*/
   #if (__FPU_PRESENT == 1) && (__FPU_USED == 1)
     SCB->CPACR |= ((3UL << 10*2)|(3UL << 11*2));  /* set CP10 and CP11 Full Access */
@@ -174,6 +176,17 @@ void SystemInit(void)
 #if defined (DATA_IN_ExtSRAM) || defined (DATA_IN_ExtSDRAM)
   SystemInit_ExtMemCtl(); 
 #endif /* DATA_IN_ExtSRAM || DATA_IN_ExtSDRAM */
+
+  // Copy vector table from isr_vector_table_flash_base to isr_vector_table_base.
+  // If these two regions are the same, the copy will have no effect
+  // (Happens when linker script aliases VECTAB to FLASH).
+
+  extern uint8_t isr_vector_table_flash_base;
+  extern uint8_t isr_vector_table_base;
+  extern uint8_t isr_vector_table_end;
+
+  memcpy(&isr_vector_table_base, &isr_vector_table_flash_base, &isr_vector_table_end - &isr_vector_table_base);
+  SCB->VTOR = (uint32_t)&isr_vector_table_base;
 
   /* Configure the Vector Table location -------------------------------------*/
 #if defined(USER_VECT_TAB_ADDRESS)

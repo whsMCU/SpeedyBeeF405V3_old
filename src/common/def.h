@@ -56,7 +56,7 @@
 #define USE_DYN_LPF
 #define USE_D_MIN
 #define USE_LATE_TASK_STATISTICS
-#define USE_DYN_NOTCH_FILTER
+//#define USE_DYN_NOTCH_FILTER
 #define USE_FAST_DATA
 
 #ifdef USE_FAST_DATA
@@ -66,8 +66,6 @@
 #define FAST_DATA_ZERO_INIT
 #define FAST_DATA
 #endif // USE_FAST_DATA
-
-
 
 
 #endif /* SRC_COMMON_DEF_H_ */
